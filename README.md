@@ -6,12 +6,12 @@ This template refers to itself as `group-00-web`. In your project, use your grou
 
 ## Project Structure
 
-| File        | Purpose           | What you do?  |
-| ------------- | ------------- | ----- |
-| `server/` | Backend server code | All your server code |
-| [server/README.md](server/README.md) | Everything about the server | **READ ME** carefully! |
-| `client/` | Frontend client code | All your client code |
-| [client/README.md](client/README.md) | Everything about the client | **READ ME** carefully! |
+| File                                              | Purpose                     | What you do?                             |
+| ------------------------------------------------- | --------------------------- | ---------------------------------------- |
+| `server/`                                       | Backend server code         | All your server code                     |
+| [server/README.md](server/README.md)                 | Everything about the server | **READ ME** carefully!             |
+| `client/`                                       | Frontend client code        | All your client code                     |
+| [client/README.md](client/README.md)                 | Everything about the client | **READ ME** carefully!             |
 | [docs/LOCAL_DEPLOYMENT.md](docs/LOCAL_DEPLOYMENT.md) | Local production deployment | Deploy your app local in production mode |
 
 ## Requirements
@@ -24,6 +24,7 @@ You can also use alternative tools if you know how to configure them (e.g., Fire
     * `git config --global user.name "YOUR_USERNAME"` => check `git config --global user.name`
     * `git config --global user.email "email@example.com"` => check `git config --global user.email`
   * > **Windows users**: We recommend to use the [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) shell from your Git installation or the Bash shell from the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run all shell commands for this project.
+    >
 * [Chalmers GitLab](https://git.chalmers.se/) => Login with your **Chalmers CID** choosing "Sign in with" **Chalmers Login**. (contact [support@chalmers.se](mailto:support@chalmers.se) if you don't have one)
   * DIT342 course group: https://git.chalmers.se/courses/dit342
   * [Setup SSH key with Gitlab](https://docs.gitlab.com/ee/ssh/)
@@ -63,6 +64,7 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 ### Purpose
 
 #### Online Course Review System
+
 This system allows users to share and view reviews about online courses they have taken or are interested in taking. Users can add online courses from different course providers and rate them, optionally with leaving comments.
 
 Users are able to create different lists with courses they want to enroll in or courses they have already taken.
@@ -70,9 +72,9 @@ Users are able to create different lists with courses they want to enroll in or 
 ### Pages
 
 * Homepage: Displays username and fields of interests, with a recommendation list of online courses they might be interested in.
-* Course page: All the detailed information about one course, including rating and reviews. 
+* Course page: All the detailed information about one course, including rating and reviews.
 * Review page: A page where you create reviews for a course.
-* List of courses: A list of all courses where the user can search filter for different courses depending on preference. 
+* List of courses: A list of all courses where the user can search filter for different courses depending on preference.
 * Profile page: Here the user can change contact information such as e-mail, interests and study lists etc.
 
 ### Entity-Relationship (ER) Diagram
@@ -80,5 +82,3 @@ Users are able to create different lists with courses they want to enroll in or 
 ![ER Diagram](./images/OnlineCourseReviewer-ER.png)
 
 ## Teaser (MS3)
-
-![Teaser](./images/teaser.png)
