@@ -64,14 +64,24 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 2-5 sentences describing what the system does
 
+#### Online Course Review System
+This system allows users to share and view reviews about online courses they have taken or are interested in taking. Users can add online courses from different course providers and rate them, optionally with leaving comments.
+
+Users are able to create lists with courses they want to enroll in or courses they have already taken.
+
 ### Pages
 
 * Home: 1-3 sentences describing what the page displays and what a user can do
 * Shopping cart: ...
 
+Homepage:
+Courses:
+Review:
+List of corses:
+
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/OnlineCourseReviewer-ER.png)
 
 ## Teaser (MS3)
 
