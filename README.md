@@ -80,5 +80,3 @@ Users are able to create different lists with courses they want to enroll in or 
 ### Entity-Relationship (ER) Diagram
 
 ![ER Diagram](./images/OnlineCourseReviewer-ER.png)
-
-## Teaser (MS3)
