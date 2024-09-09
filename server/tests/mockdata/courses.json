@@ -1,0 +1,769 @@
+{
+    "courses": [
+        {
+            "_id": "66df72857e616d15ef627960",
+            "name": "History_5110",
+            "topic": [
+                "History"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum...",
+            "averageRating": 2.5,
+            "releaseYear": 2024,
+            "provider": "Skillshare",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df72db7e616d15ef627962",
+            "name": "Project Management_8098",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum...",
+            "averageRating": 2,
+            "releaseYear": 2022,
+            "provider": "Udemy",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df85c100309ae5947c6349",
+            "name": "History_1859",
+            "topic": [
+                "History"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3,
+            "releaseYear": 2020,
+            "provider": "edX",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df86f100309ae5947c634b",
+            "name": "Handicraft_2238",
+            "topic": [
+                "Handicraft"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.5,
+            "releaseYear": 2022,
+            "provider": "Udacity",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df86f600309ae5947c634d",
+            "name": "Art_5840",
+            "topic": [
+                "Art"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.3,
+            "releaseYear": 2023,
+            "provider": "Udacity",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df86f900309ae5947c634f",
+            "name": "Cybersecurity_1628",
+            "topic": [
+                "Cybersecurity"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.6,
+            "releaseYear": 2023,
+            "provider": "Learning Tree",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df86fb00309ae5947c6351",
+            "name": "Machine Learning_9237",
+            "topic": [
+                "Machine Learning"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.8,
+            "releaseYear": 2020,
+            "provider": "Skillshare",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df86fc00309ae5947c6353",
+            "name": "Cloud Computing_7372",
+            "topic": [
+                "Cloud Computing"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.7,
+            "releaseYear": 2024,
+            "provider": "Udemy",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df86fe00309ae5947c6355",
+            "name": "DevOps_9257",
+            "topic": [
+                "DevOps"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.4,
+            "releaseYear": 2023,
+            "provider": "Alison",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df870000309ae5947c6357",
+            "name": "Artificial Intelligence_7613",
+            "topic": [
+                "Artificial Intelligence"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.1,
+            "releaseYear": 2024,
+            "provider": "Udacity",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df870100309ae5947c6359",
+            "name": "Mobile Development_9062",
+            "topic": [
+                "Mobile Development"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.9,
+            "releaseYear": 2021,
+            "provider": "edX",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df870300309ae5947c635b",
+            "name": "Data Science_7086",
+            "topic": [
+                "Data Science"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.5,
+            "releaseYear": 2023,
+            "provider": "edX",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df870500309ae5947c635d",
+            "name": "History_3043",
+            "topic": [
+                "History"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.6,
+            "releaseYear": 2022,
+            "provider": "Coursera",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df870700309ae5947c635f",
+            "name": "Cybersecurity_3430",
+            "topic": [
+                "Cybersecurity"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.1,
+            "releaseYear": 2022,
+            "provider": "Udacity",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df870900309ae5947c6361",
+            "name": "Medicine_6644",
+            "topic": [
+                "Medicine"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.2,
+            "releaseYear": 2022,
+            "provider": "edX",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df870a00309ae5947c6363",
+            "name": "History_484",
+            "topic": [
+                "History"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.7,
+            "releaseYear": 2021,
+            "provider": "FutureLearn",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df870c00309ae5947c6365",
+            "name": "Art_8259",
+            "topic": [
+                "Art"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.6,
+            "releaseYear": 2022,
+            "provider": "Skillshare",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df872d00309ae5947c6367",
+            "name": "Roman Empire_1671",
+            "topic": [
+                "Roman Empire"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.2,
+            "releaseYear": 2023,
+            "provider": "Pluralsight",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df872f00309ae5947c6369",
+            "name": "Social Science_6012",
+            "topic": [
+                "Social Science"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.4,
+            "releaseYear": 2024,
+            "provider": "Learning Tree",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df873100309ae5947c636b",
+            "name": "Python_8245",
+            "topic": [
+                "Python"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.8,
+            "releaseYear": 2021,
+            "provider": "Coursera",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df873300309ae5947c636d",
+            "name": "Handicraft_3197",
+            "topic": [
+                "Handicraft"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.6,
+            "releaseYear": 2021,
+            "provider": "Udemy",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df873500309ae5947c636f",
+            "name": "Project Management_1894",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.5,
+            "releaseYear": 2021,
+            "provider": "Pluralsight",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df873700309ae5947c6371",
+            "name": "Project Management_8771",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.4,
+            "releaseYear": 2024,
+            "provider": "Learning Tree",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df873800309ae5947c6373",
+            "name": "Social Science_6882",
+            "topic": [
+                "Social Science"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.2,
+            "releaseYear": 2022,
+            "provider": "Udacity",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df873a00309ae5947c6375",
+            "name": "Machine Learning_5910",
+            "topic": [
+                "Machine Learning"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2,
+            "releaseYear": 2023,
+            "provider": "Pluralsight",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df873c00309ae5947c6377",
+            "name": "Python_2963",
+            "topic": [
+                "Python"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.9,
+            "releaseYear": 2024,
+            "provider": "Udacity",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df873e00309ae5947c6379",
+            "name": "Medicine_387",
+            "topic": [
+                "Medicine"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.6,
+            "releaseYear": 2021,
+            "provider": "Skillshare",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df874000309ae5947c637b",
+            "name": "DevOps_9103",
+            "topic": [
+                "DevOps"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.7,
+            "releaseYear": 2022,
+            "provider": "Learning Tree",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df874200309ae5947c637d",
+            "name": "Web Development_3630",
+            "topic": [
+                "Web Development"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.1,
+            "releaseYear": 2024,
+            "provider": "Udacity",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df874400309ae5947c637f",
+            "name": "Handicraft_9568",
+            "topic": [
+                "Handicraft"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.1,
+            "releaseYear": 2024,
+            "provider": "Udemy",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df874600309ae5947c6381",
+            "name": "Architecture_1338",
+            "topic": [
+                "Architecture"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4,
+            "releaseYear": 2023,
+            "provider": "Udemy",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df874700309ae5947c6383",
+            "name": "History_4933",
+            "topic": [
+                "History"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2,
+            "releaseYear": 2023,
+            "provider": "Skillshare",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df874900309ae5947c6385",
+            "name": "Architecture_1098",
+            "topic": [
+                "Architecture"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 5,
+            "releaseYear": 2021,
+            "provider": "Coursera",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df874b00309ae5947c6387",
+            "name": "Cloud Computing_5675",
+            "topic": [
+                "Cloud Computing"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2,
+            "releaseYear": 2023,
+            "provider": "Udemy",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df886cd673864314012976",
+            "name": "Artificial Intelligence_3242",
+            "topic": [
+                "Artificial Intelligence"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.3,
+            "releaseYear": 2021,
+            "provider": "Learning Tree",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df886fd673864314012978",
+            "name": "Art_7093",
+            "topic": [
+                "Art"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.1,
+            "releaseYear": 2022,
+            "provider": "FutureLearn",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8872d67386431401297a",
+            "name": "Python_8455",
+            "topic": [
+                "Python"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.6,
+            "releaseYear": 2022,
+            "provider": "FutureLearn",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8874d67386431401297c",
+            "name": "Medicine_6723",
+            "topic": [
+                "Medicine"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.1,
+            "releaseYear": 2020,
+            "provider": "edX",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8877d67386431401297e",
+            "name": "Project Management_5972",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Expert",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.8,
+            "releaseYear": 2021,
+            "provider": "FutureLearn",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8879d673864314012980",
+            "name": "Social Science_6445",
+            "topic": [
+                "Social Science"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.9,
+            "releaseYear": 2024,
+            "provider": "FutureLearn",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df887ad673864314012982",
+            "name": "Project Management_351",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 4.8,
+            "releaseYear": 2022,
+            "provider": "Coursera",
+            "certificate": "Yes",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df887cd673864314012984",
+            "name": "Handicraft_2987",
+            "topic": [
+                "Handicraft"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.4,
+            "releaseYear": 2023,
+            "provider": "Skillshare",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df887ed673864314012986",
+            "name": "Roman Empire_6425",
+            "topic": [
+                "Roman Empire"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.7,
+            "releaseYear": 2021,
+            "provider": "Alison",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8880d673864314012988",
+            "name": "Roman Empire_1425",
+            "topic": [
+                "Roman Empire"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.1,
+            "releaseYear": 2022,
+            "provider": "edX",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8882d67386431401298a",
+            "name": "Handicraft_9923",
+            "topic": [
+                "Handicraft"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.1,
+            "releaseYear": 2021,
+            "provider": "Pluralsight",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8883d67386431401298c",
+            "name": "Artificial Intelligence_7466",
+            "topic": [
+                "Artificial Intelligence"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.1,
+            "releaseYear": 2020,
+            "provider": "Udacity",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8885d67386431401298e",
+            "name": "Architecture_5966",
+            "topic": [
+                "Architecture"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.8,
+            "releaseYear": 2022,
+            "provider": "Coursera",
+            "certificate": "No",
+            "availability": "No",
+            "__v": 0
+        },
+        {
+            "_id": "66df8887d673864314012990",
+            "name": "Project Management_1428",
+            "topic": [
+                "Project Management"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.2,
+            "releaseYear": 2023,
+            "provider": "Pluralsight",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df8888d673864314012992",
+            "name": "Theology_1456",
+            "topic": [
+                "Theology"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 2.2,
+            "releaseYear": 2023,
+            "provider": "Alison",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df888ad673864314012994",
+            "name": "Theology_3641",
+            "topic": [
+                "Theology"
+            ],
+            "difficulty": "Advanced",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 3.5,
+            "releaseYear": 2023,
+            "provider": "Alison",
+            "certificate": "Yes",
+            "availability": "Yes",
+            "__v": 0
+        },
+        {
+            "_id": "66df888cd673864314012996",
+            "name": "Economy_9284",
+            "topic": [
+                "Economy"
+            ],
+            "difficulty": "Beginner",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.",
+            "averageRating": 1.9,
+            "releaseYear": 2024,
+            "provider": "Coursera",
+            "certificate": "No",
+            "availability": "Yes",
+            "__v": 0
+        }
+    ]
+}
