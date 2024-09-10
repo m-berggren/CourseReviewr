@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 
 const courseSchema = new Schema({
-    id: { type: String, default: uuidv4 },
+    courseID: { type: String, default: uuidv4, unique: true, index: true },
     name: String,
     topic: [String],
     difficulty: String,

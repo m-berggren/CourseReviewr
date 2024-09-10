@@ -1,83 +1,95 @@
-const express = require('express');
+const router = require('express').Router();
 const Course = require('../models/course');
 
-const router = express.Router();
 
-router.post('/', async function (request, response, next) {
+router.post('/', async (req, res, next) => {
     try {
-        const newCourse = new Course(request.body);
-        const savedCourse = await newCourse.save(); // Await save operation
-        response.json({'Course': savedCourse});
+        const newCourse = new Course(req.body);
+        const savedCourse = await newCourse.save();
+
+        res.json({'Course': savedCourse});
     } catch (error) {
         next(error);
     }
 });
 
-
-router.get('/', async (request, response, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const courses = await Course.find();
-        response.json({ courses });
+        res.json({ courses });
     } catch (error) {
         next(error);
     }
 });
 
-router.get('/:id', function (request, response, next) {
-    const { id } = request.params;
-    Course.findById(id, function (error, course) {
-        if (error) { return next(error); }
-        if (!course) {
-            return response.status(404).json({message: 'Course not found!'});
-        }
-        response.json(course);
-    });
-});
+router.get('/:courseID', async (req, res, next) => {
+    try {
+        const { courseID } = req.params;
+        const course = await Course.findOne({ courseID });
 
-// TODO - not yet ready
-/*
-router.put('/:id', async (request, response, next) => {
-    const { id } = request.params;
-    const updates = request.body;
+        if (!course) {
+            return res.status(404).json({ message: 'Course not found.' })
+        }
+
+        res.json(course);
+    } catch (error) {
+        next(error);
+    }
+})
+
+router.put('/:courseID', async (req, res, next) => {
+    const { courseID } = req.params;
+    const updates = req.body;
 
     try {
-        // Find course by ID and update with new data
-        const updatedCourse = await Course.findByIdAndUpdate(id, updates, {
-            new: true, // Return modified document instead of original
-            runValidators: true // Validates against existing schema
+        const updatedCourse = await Course.findOneAndUpdate({ courseID }, updates, {
+            new: true,
+            runValidators: true
         });
 
         if (!updatedCourse) {
-            return response.status(404).json({message: 'Course not found.'})
+            return res.status(404).json({ message: 'Course not found.' });
         }
+
+        res.json(updatedCourse);
     } catch (error) {
-        
+        next(error);
     }
+});
 
-    let Course = new Course(request.body);
-    Course.findById(id, function (error, Course) {
-        if (error) { return next(error); }
-        if (!Course) {
-            return response.status(404).json({message: 'Course not found.'})
+
+router.patch('/:courseID', async (req, res, next) => {
+    const { courseID } = req.params;
+    const updates = req.body;
+
+    try {
+        const updatedCourse = await Course.findOneAndUpdate({ courseID }, { $set: updates }, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!updatedCourse) {
+            return res.status(404).json({ message: 'Course not found.' });
         }
         
-    })
-});
-*/
-
-router.patch('/', function (request, response, next) {
-    /* TODO */
+        res.json(updatedCourse);
+    } catch (error) {
+        next(error);
+    }
 })
 
-router.delete('/:id', function (request, response, next) {
-    let { id } = request.params;
-    Course.findOneAndDelete({_id: id}, function (error, course) {
-        if (error) { return next(error); }
-        if (!course) {
-            return response.status(404).json({'message': 'Course not found.'});
+router.delete('/:courseID', async (req, res, next) => {
+    const { courseID } = reg.params;
+
+    try {
+        const deletedCourse = await Course.findOneAndDelete({ courseID });
+
+        if (!deletedCourse) {
+            return res.status(404).json({ message: 'Course not found.' });
         }
-        response.json(course);
-    });
-});
+    } catch (error) {
+        next(error);
+    }
+})
 
 module.exports = router;
