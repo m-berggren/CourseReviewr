@@ -46,7 +46,7 @@ router.get('/', async(req, res, next)=>{
 router.get('/:reviewID', async(req, res, next)=> {
     try {
         const {reviewID}=req.params;
-        const review = await Review.finOne({reviewID}).populate('user').populate('course');
+        const review = await Review.findOne({reviewID}).populate('user').populate('course');
         if (!review){
             return res.status(404).json({error: 'Review not found'})
         }
