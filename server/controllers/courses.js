@@ -4,10 +4,11 @@ const Course = require('../models/course');
 
 router.post('/', async (req, res, next) => {
     try {
-        const newCourse = new Course(req.body);
-        const savedCourse = await newCourse.save();
+        const course = new Course(req.body);
+        await course.save();
+        
+        res.json({ 'Course': course });
 
-        res.json({'Course': savedCourse});
     } catch (error) {
         next(error);
     }
@@ -16,7 +17,9 @@ router.post('/', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
     try {
         const courses = await Course.find();
+
         res.json({ courses });
+
     } catch (error) {
         next(error);
     }
@@ -32,16 +35,16 @@ router.get('/:courseID', async (req, res, next) => {
         }
 
         res.json(course);
+
     } catch (error) {
         next(error);
     }
 })
 
 router.put('/:courseID', async (req, res, next) => {
-    const { courseID } = req.params;
-    const updates = req.body;
-
     try {
+        const { courseID } = req.params;
+        const updates = req.body;
         const updatedCourse = await Course.findOneAndUpdate({ courseID }, updates, {
             new: true,
             runValidators: true
@@ -52,6 +55,7 @@ router.put('/:courseID', async (req, res, next) => {
         }
 
         res.json(updatedCourse);
+
     } catch (error) {
         next(error);
     }
@@ -59,10 +63,9 @@ router.put('/:courseID', async (req, res, next) => {
 
 
 router.patch('/:courseID', async (req, res, next) => {
-    const { courseID } = req.params;
-    const updates = req.body;
-
     try {
+        const { courseID } = req.params;
+        const updates = req.body;
         const updatedCourse = await Course.findOneAndUpdate({ courseID }, { $set: updates }, {
             new: true,
             runValidators: true
@@ -71,22 +74,25 @@ router.patch('/:courseID', async (req, res, next) => {
         if (!updatedCourse) {
             return res.status(404).json({ message: 'Course not found.' });
         }
-        
+
         res.json(updatedCourse);
+
     } catch (error) {
         next(error);
     }
 })
 
 router.delete('/:courseID', async (req, res, next) => {
-    const { courseID } = reg.params;
-
     try {
+        const { courseID } = req.params;
         const deletedCourse = await Course.findOneAndDelete({ courseID });
 
         if (!deletedCourse) {
             return res.status(404).json({ message: 'Course not found.' });
         }
+
+        res.json(deletedCourse);
+
     } catch (error) {
         next(error);
     }
