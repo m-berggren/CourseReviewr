@@ -84,7 +84,7 @@ router.patch('/:courseID', async (req, res, next) => {
 
 router.delete('/:courseID', async (req, res, next) => {
     try {
-        const { courseID } = reg.params;
+        const { courseID } = req.params;
         const deletedCourse = await Course.findOneAndDelete({ courseID });
 
         if (!deletedCourse) {

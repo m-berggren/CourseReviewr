@@ -67,7 +67,7 @@ router.patch('/:userId', async (req, res, next) => {
         const updates = req.body;
         const updatedUser = await User.findOneAndUpdate({ userId }, updates, {
             new: true,
-            runValidator: true
+            runValidators: true
         });
 
         if (!updatedUser) {
