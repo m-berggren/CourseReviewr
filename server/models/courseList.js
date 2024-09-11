@@ -5,7 +5,7 @@ const courseListSchema = new Schema({
     courseListID: {type: String, default: uuidv4, unique: true, index: true},
     name: {type: String, default: 'Untitled List'},
     creationDate: {type: Date, default: Date.now},
-    creator: {type: String, ref: 'User', required: true},
+    userID: {type: String, ref: 'User', required: true},
     description: String,
     courses: [{type: String, ref: 'Course', default: []}],
 })
