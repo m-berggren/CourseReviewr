@@ -7,7 +7,7 @@ const reviewSchema = new Schema({
     course: {type: String, ref: 'Course', required: true },
     rating: {type: Number, required: true, min : 1, max: 5},
     date: {type: Date, default: Date.now },
-    comment: {type: String},
+    comment: {type: String, default: ''},
     hasCompleted: {type: Boolean}
 });
 
