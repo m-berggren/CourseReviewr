@@ -1,11 +1,11 @@
-const {Schema, model} = require('mongoose');
-const {v4:uuidv4} = require('uuid');
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const validator = require('validator');
 
 const userSchema = new Schema({
     userID: { 
-        type: String,
-        default: uuidv4,
+        type: Number,
         unique: true,
         index: true
     },
@@ -29,6 +29,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    photo: {
+        type: String,
+        default: null
+    },
     interests: {
         type: [String],
         default: []
@@ -38,11 +42,9 @@ const userSchema = new Schema({
         ref: 'Course',
         default: []
     }],
-    courseList: [{ 
-        type: Number,
-        ref: "courseList",
-        default: [],
-    }]
 });
+
+// Implementation of incrementing courseID with mongoose-sequence
+userSchema.plugin(AutoIncrement, {inc_field: 'userID'});
 
 module.exports = model('User', userSchema);

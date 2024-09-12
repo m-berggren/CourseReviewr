@@ -25,10 +25,10 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userID', async (req, res, next) => {
     try {
-        const { userId } = req.params;
-        const user = await User.findOne({ userId });
+        const { userID } = req.params;
+        const user = await User.findOne({ userID });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' })
@@ -41,11 +41,11 @@ router.get('/:userId', async (req, res, next) => {
     }
 })
 
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userID', async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const { userID } = req.params;
         const updates = req.body;
-        const updatedUser = await User.findOneAndUpdate({ userId }, updates, {
+        const updatedUser = await User.findOneAndUpdate({ userID }, updates, {
             new: true,
             runValidators: true
         });
@@ -61,11 +61,11 @@ router.put('/:userId', async (req, res, next) => {
     }
 })
 
-router.patch('/:userId', async (req, res, next) => {
+router.patch('/:userID', async (req, res, next) => {
     try {
-        const { userId } = req.params;
+        const { userID } = req.params;
         const updates = req.body;
-        const updatedUser = await User.findOneAndUpdate({ userId }, updates, {
+        const updatedUser = await User.findOneAndUpdate({ userID }, updates, {
             new: true,
             runValidators: true
         });
@@ -81,10 +81,10 @@ router.patch('/:userId', async (req, res, next) => {
     }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/:userID', async (req, res, next) => {
     try {
-        const { userId } = req.params;
-        const deletedUser = await User.findOneAndDelete({ userId });
+        const { userID } = req.params;
+        const deletedUser = await User.findOneAndDelete({ userID });
 
         if (!deletedUser) {
             return res.status(404).json({ message: 'User not found.'});
@@ -96,3 +96,5 @@ router.delete('/:userId', async (req, res, next) => {
         next(error);
     }
 })
+
+module.exports = router;

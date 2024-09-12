@@ -45,10 +45,11 @@ router.put('/:courseID', async (req, res, next) => {
     try {
         const { courseID } = req.params;
         const updates = req.body;
-        const updatedCourse = await Course.findOneAndUpdate({ courseID }, updates, {
-            new: true,
-            runValidators: true
-        });
+        const updatedCourse = await Course.findOneAndUpdate(
+            { courseID },
+            updates,
+            { new: true, runValidators: true }
+        );
 
         if (!updatedCourse) {
             return res.status(404).json({ message: 'Course not found.' });
@@ -66,10 +67,11 @@ router.patch('/:courseID', async (req, res, next) => {
     try {
         const { courseID } = req.params;
         const updates = req.body;
-        const updatedCourse = await Course.findOneAndUpdate({ courseID }, { $set: updates }, {
-            new: true,
-            runValidators: true
-        });
+        const updatedCourse = await Course.findOneAndUpdate(
+            { courseID },
+            { $set: updates },
+            { new: true, runValidators: true }
+        );
 
         if (!updatedCourse) {
             return res.status(404).json({ message: 'Course not found.' });

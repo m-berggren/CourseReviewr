@@ -1,28 +1,30 @@
 
-const review = require('../models/review');
-const user = require('../models/user');
-const course = require('../models/course')
-const router = require('express').Router();
+const Review = require('../models/review');
+const User = require('../models/user');
+const Course = require('../models/course')
 
+// Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
+const router = require('express').Router({ mergeParams: true });
 
 
 router.post('/', async(req, res, next) => {
     try{
-        const {userID, courseID, rating, comment} = req.body;
+        const { userID, courseID } = req.params;
+        const { rating, comment, hasCompleted } = req.body;
 
-        //Check if the user has already reviewd the course
+        //Check if the user has already reviewed the course
         const existingReview = await Review.findOne({user: userID, course: courseID});
         if (existingReview){
-            return res.status(400).json({error:'User has already reviewd this course'});
+            return res.status(400).json({error:'User has already reviewed this course'});
         }
 
         //create and save the new review
         const newReview = new Review({
-            user:userID,
+            user: userID,
             course: courseID,
             rating,
             comment,
-            date,
+            date: new Date(),
             hasCompleted
          });
         const savedReview = await newReview.save();
@@ -33,7 +35,7 @@ router.post('/', async(req, res, next) => {
 });
 
 
-router.get('/', async(req, res, next)=>{
+router.get('/', async(req, res, next) => {
     try {
         const reviews = await Review.find().populate('user').populate('course');
         res.json({reviews})
@@ -43,7 +45,7 @@ router.get('/', async(req, res, next)=>{
 });
 
 
-router.get('/:reviewID', async(req, res, next)=> {
+router.get('/:reviewID', async(req, res, next) => {
     try {
         const {reviewID}=req.params;
         const review = await Review.findOne({reviewID}).populate('user').populate('course');
@@ -57,7 +59,8 @@ router.get('/:reviewID', async(req, res, next)=> {
     }
 });
 
-router.put('/:reviewID', async(req, res, next)=>{
+
+router.put('/:reviewID', async(req, res, next) => {
     try {
         const {reviewID }= req.params;
         const {user, course, rating, comment, hasCompleted}=req.body;
@@ -70,21 +73,22 @@ router.put('/:reviewID', async(req, res, next)=>{
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
+        res.json(updatedReview);
     } catch (error) {
         next(error)
     }
 });
 
-router.patch('/:reviewID', async(req,res,next)=>{
+// TODO: Appears to be overwriting
+router.patch('/:reviewID', async(req,res,next) => {
     try {
-        const {reviewID} =req.params;
+        const {reviewID} = req.params;
         const updates = req.body;
 
         const updatedReview = await Review.findOneAndUpdate(
             {reviewID},
             {$set: updates},
             {new: true, runValidators:true}
-        
         );
 
         if (!updatedReview){
@@ -96,7 +100,7 @@ router.patch('/:reviewID', async(req,res,next)=>{
     }
 });
 
-router.delete('/:reviewID', async(req,res,next)=>{
+router.delete('/:reviewID', async(req,res,next) => {
     try {
         const {reviewID} = req.params;
 
