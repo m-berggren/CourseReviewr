@@ -8,7 +8,7 @@ var history = require('connect-history-api-fallback');
 const userRoutes = require('./controllers/users');
 const courseRoutes = require('./controllers/courses');
 const reviewRoutes = require('./controllers/reviews');
-//const courseListRoutes = require('./controllers/course-lists');
+const courseListRoutes = require('./controllers/course-lists');
 
 
 // Variables
@@ -47,7 +47,7 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/courses/:courseID/reviews', reviewRoutes);
 app.use('/api/users/:userID/reviews', reviewRoutes);
 app.use('/api/users/:userID/courses/:courseID/reviews', reviewRoutes);
-//app.use('/api/users', courseListRoutes);
+app.use('/api/users/:userID/course-lists', courseListRoutes);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
