@@ -43,6 +43,9 @@ app.get('/api', function(req, res) {
 // Controller routes
 app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/courses/:courseID/reviews', reviewRoutes);
+app.use('/api/users/:userID/reviews', reviewRoutes);
 app.use('/api/users/:userID/courses/:courseID/reviews', reviewRoutes);
 //app.use('/api/users', courseListRoutes);
 

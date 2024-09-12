@@ -9,7 +9,9 @@ const router = require('express').Router({ mergeParams: true });
 
 router.post('/', async(req, res, next) => {
     try{
-        const { userID, courseID } = req.params;
+        // Extract, cast IDs to numbers and destructure the request body
+        let { userID, courseID } = req.params;
+        userID, courseID = Number(userID), Number(courseID);
         const { rating, comment, hasCompleted } = req.body;
 
         //Check if the user has already reviewed the course
@@ -37,22 +39,28 @@ router.post('/', async(req, res, next) => {
 
 router.get('/', async(req, res, next) => {
     try {
-        const reviews = await Review.find().populate('user').populate('course');
-        res.json({reviews})
+        // Find the course using the custom integer courseID
+        let { courseID } = req.params;
+        courseID = Number(courseID);
+ 
+        const reviews = await Review.find({ course: courseID });
+
+        res.json({ reviews });
+
     } catch (error) {
         next(error);
     }
 });
-
 
 router.get('/:reviewID', async(req, res, next) => {
     try {
         const {reviewID}=req.params;
         const review = await Review.findOne({reviewID}).populate('user').populate('course');
         if (!review){
-            return res.status(404).json({error: 'Review not found'})
+            return res.status(404).json({error: 'Review not found'});
         }
-        res.json({review})
+
+        res.json({review});
 
     } catch (error) {
         next(error);
