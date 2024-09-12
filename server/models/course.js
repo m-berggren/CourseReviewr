@@ -19,7 +19,7 @@ const courseSchema = new Schema({
     url:            { type: String, default: null }
 });
 
-// Implementation of incrementing courseID with mongoose-sequence
+// Implementation of incrementing ID with mongoose-sequence
 courseSchema.plugin(AutoIncrement, {inc_field: 'courseID'});
 
 module.exports = model('Course', courseSchema);
