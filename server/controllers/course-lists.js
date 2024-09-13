@@ -1,9 +1,20 @@
-const router = require('express').Router();
-const CourseList = require('../models/courseList');
+const router = require('express').Router({ mergeParams: true });
+const CourseList = require('../models/course-list');
 
 router.post('/', async (req, res, next) => {
     try {
-        const newCourseList = new CourseList(req.body);
+        // Find the user through custom userID
+        let { userID } = req.params;
+        userID = Number(userID);
+
+        const { name, description, courses } = req.body;
+        const newCourseList = new CourseList({
+            name,
+            creationDate: new Date(),
+            userID: userID,
+            description,
+            courses
+        });
         const savedCourseList = await newCourseList.save();
         res.json({'CourseList': savedCourseList});
     } catch (error) {
@@ -13,7 +24,11 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        const courseLists = await CourseList.find().populate('userID').populate('courses');
+        // Find the user through custom userID
+        let userID = req.params.userID;
+        userID = Number(userID);
+
+        const courseLists = await CourseList.find({ userID });
         res.json({ courseLists });
     } catch (error) {
         next(error);
@@ -22,8 +37,12 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:courseListID', async (req, res, next) => {
     try {
-        const {courseListID} = req.params;
-        const courseList = await CourseList.findOne({courseListID}).populate('userID').populate('courses');
+        // Find the user through custom userID
+        let userID = req.params.userID;
+        userID = Number(userID);
+
+        const { courseListID } = req.params;
+        const courseList = await CourseList.findOne({ courseListID });
         if (!courseList) {
             return res.status(404).json({message: 'CourseList not found.'})
         }
@@ -74,6 +93,7 @@ router.delete('/:courseListID', async (req, res, next) => {
         if (!deletedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
+        res.json(deletedCourseList);
     } catch (error) {
         next(error);
     }
