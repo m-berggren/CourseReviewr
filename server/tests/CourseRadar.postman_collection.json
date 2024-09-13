@@ -118,6 +118,59 @@
 					"response": []
 				},
 				{
+					"name": "Post Course #3to courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
 					"name": "Update Course data in courses",
 					"event": [
 						{
@@ -189,8 +242,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -199,7 +255,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": null\n}",
+							"raw": "{\n    \"photo\": \"/src/test3.png\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,14 +421,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/courses/{{course_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"courses",
-								"{{course_id}}"
+								"{{course_id3}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -416,7 +472,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"mrBagel#34\",\n    \"email\": \"mrbagel_34@gmail.com\",\n    \"password\": \"Sunshine34\",\n    \"interests\": [\"Fishing\", \"Programming\"]\n}",
+							"raw": "{\n    \"username\": \"mrBagel#34\",\n    \"email\": \"mrbagel_34@gmail.com\",\n    \"password\": \"Sunshine34\",\n    \"interests\": [\"Fishing\", \"Programming\"],\n    \"courseLists\": [1]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -470,6 +526,59 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"raymondQ2\",\n    \"email\": \"raymondqt@outlook.com\",\n    \"password\": \"raymondisthebest\",\n    \"photo\": null,\n    \"interests\": [\"History\", \"Mechanical Engineering\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Post User #3 to users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\",\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -700,14 +809,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}",
+							"raw": "{{host}}/api/users/{{user_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"users",
-								"{{user_id}}"
+								"{{user_id3}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -834,6 +943,63 @@
 					"response": []
 				},
 				{
+					"name": "Post Review #3 to reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": [3, 3, 1, 3],\n    \"comment\": \"Intersting and good course!\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id3}}/courses/{{course_id3}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id3}}",
+								"courses",
+								"{{course_id3}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
 					"name": "Update Review data in reviews",
 					"event": [
 						{
@@ -865,7 +1031,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rating\": [4, 3, 3, 2]\n}",
+							"raw": "{\n    \"rating\": [2, 1, 2, 2],\n    \"comment\": \"Simple but effective course!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -873,12 +1039,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews/{{review_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id}}",
 								"reviews",
 								"{{review_id}}"
 							]
@@ -908,7 +1078,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"difficulty\": \"Advanced\",\n    \"photo\": null\n}",
+							"raw": "{\n    \"rating\": [5, 4, 2, 2]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -916,21 +1086,25 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/0de8f79d-49b3-41bc-8f28-6d591d4273d0",
+							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
+								"{{user_id}}",
 								"courses",
-								"0de8f79d-49b3-41bc-8f28-6d591d4273d0"
+								"{{course_id}}",
+								"reviews",
+								"{{review_id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get all reviews",
+					"name": "Get all reviews of a Course",
 					"event": [
 						{
 							"listen": "test",
@@ -950,12 +1124,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/reviews",
+							"raw": "{{host}}/api/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"courses",
+								"{{course_id}}",
 								"reviews"
 							]
 						}
@@ -963,24 +1139,15 @@
 					"response": []
 				},
 				{
-					"name": "Get specific reviewID",
+					"name": "Get all reviews of a User",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
 									""
 								],
 								"type": "text/javascript",
@@ -988,35 +1155,23 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "host",
-								"value": "http://localhost:3000",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
+						"header": [],
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
+								"{{user_id}}",
 								"courses",
-								"{{course_id}}"
+								"{{course_id}}",
+								"reviews"
 							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+						}
 					},
 					"response": []
 				},
@@ -1050,14 +1205,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/",
+							"raw": "{{host}}/api/reviews/{{review_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"courses",
-								""
+								"reviews",
+								"{{review_id3}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -1070,7 +1225,7 @@
 			"name": "CourseLists",
 			"item": [
 				{
-					"name": "Post CourseList to courseLists",
+					"name": "Post CourseList #1 to courseLists",
 					"event": [
 						{
 							"listen": "test",
@@ -1101,7 +1256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"decription\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1109,12 +1264,124 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/course-lists",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
+								"{{user_id}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Post CourseList #2 to courseLists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-related\",\n    \"decription\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id2}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id2}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Post CourseList #3 to courseLists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"decription\": \"Computer science stuff\",\n    \"courses\": [1, 2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id2}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id2}}",
 								"course-lists"
 							]
 						},
@@ -1154,7 +1421,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"raw": "{\n    \"name\": \"CS-related courses\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1162,14 +1429,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"courses",
-								"{{course_id}}"
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id}}"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -1197,7 +1466,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"difficulty\": \"Advanced\",\n    \"photo\": null\n}",
+							"raw": "{\n    \"name\": \"CS-related stuff\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1205,21 +1474,23 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/0de8f79d-49b3-41bc-8f28-6d591d4273d0",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"courses",
-								"0de8f79d-49b3-41bc-8f28-6d591d4273d0"
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get all courseLists",
+					"name": "Get all courseLists of a User",
 					"event": [
 						{
 							"listen": "test",
@@ -1239,12 +1510,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/course-lists",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
+								"{{user_id}}",
 								"course-lists"
 							]
 						}
@@ -1295,14 +1568,16 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"courses",
-								"{{course_id}}"
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id}}"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -1339,14 +1614,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/",
+							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id2}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"courses",
-								""
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id2}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
