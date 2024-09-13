@@ -93,6 +93,7 @@ router.delete('/:courseListID', async (req, res, next) => {
         if (!deletedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
+        res.json(deletedCourseList);
     } catch (error) {
         next(error);
     }
