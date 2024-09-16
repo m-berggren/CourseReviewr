@@ -7,8 +7,16 @@ router.post('/', async (req, res, next) => {
         const course = new Course(req.body);
         await course.save();
         
-        res.json({ 'Course': course });
-
+        //implement HATEOAS, include hypermedia links in the response
+        res.json({
+             'Course': course,
+             '_links':{
+                'self':{ href: `/courses/${course.courseID}`},
+                'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
+                'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
+                'listAll': { href:`/courses}`, method: 'GET' }
+            } 
+        });
     } catch (error) {
         next(error);
     }
@@ -18,7 +26,13 @@ router.get('/', async (req, res, next) => {
     try {
         const courses = await Course.find();
 
-        res.json({ courses });
+        res.json({
+             courses,
+             '_links': {
+                'self': { href: '/courses/'},
+                'create': {href: '/courses', method: 'POST'},
+             }
+            });
 
     } catch (error) {
         next(error);
@@ -34,7 +48,15 @@ router.get('/:courseID', async (req, res, next) => {
             return res.status(404).json({ message: 'Course not found.' })
         }
 
-        res.json(course);
+        res.json({
+            course,
+            '_links': {
+                'self': { href: `/courses/${course.courseID}`},
+                'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
+                'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
+                'listAll': { href:`/courses}`, method: 'GET' }
+            }
+        });
 
     } catch (error) {
         next(error);
@@ -55,10 +77,17 @@ router.put('/:courseID', async (req, res, next) => {
             return res.status(404).json({ message: 'Course not found.' });
         }
 
-        res.json(updatedCourse);
+        res.json({
+            updatedCourse,
+            '_links': {
+                'self': { href: `/courses/${updatedCourse.courseID}`},
+                'delete': { href: `courses/${updatedCourse.courseID}`, method: 'DELETE'},
+                'listAll': { href: `/courses/`, method: 'GET'}
+            }
+        });
 
-    } catch (error) {
-        next(error);
+        } catch (error) {
+            next(error);
     }
 });
 
@@ -77,7 +106,14 @@ router.patch('/:courseID', async (req, res, next) => {
             return res.status(404).json({ message: 'Course not found.' });
         }
 
-        res.json(updatedCourse);
+        res.json({
+            updatedCourse,
+            '_links':{
+                'self': {href: `/courses/${updatedCourse.courseID}`},
+                'delete': {href:`/courses/${updatedCourse.courseID}`, method: 'DELETE'},
+                'listAll': {href: `/courses/`, method: 'GET'}
+            }
+        });
 
     } catch (error) {
         next(error);
@@ -93,7 +129,13 @@ router.delete('/:courseID', async (req, res, next) => {
             return res.status(404).json({ message: 'Course not found.' });
         }
 
-        res.json(deletedCourse);
+        res.json({
+            deletedCourse,
+            '_links':{
+                'self': { href: `/courses`},
+                'create': { href: `/courses`, method: 'POST'},
+            }
+        });
 
     } catch (error) {
         next(error);
