@@ -1,7 +1,10 @@
-import { connect, connection } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { connect, connection} = mongoose;
 
 // Variables
-var mongoURI = process.env.MONGODB_URI;
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/testdb';
+
 
 if (!mongoURI) {
     console.error('Missing MONGODB_URI for dropping test database.');
