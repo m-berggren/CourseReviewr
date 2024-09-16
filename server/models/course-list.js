@@ -9,7 +9,7 @@ const courseListSchema = new Schema({
     userID:         { type: Number, ref: 'User', required: true },
     description:    { type: String, default: null },
     courses:       [{ type: Number, ref: 'Course', default: [] }],
-})
+});
 
 // Implementation of incrementing ID with mongoose-sequence
 courseListSchema.plugin(AutoIncrement, {inc_field: 'courseListID'});

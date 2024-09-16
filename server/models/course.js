@@ -13,8 +13,8 @@ const courseSchema = new Schema({
     releaseYear:    { type: Number, required: true, trim: true },
     provider:       { type: String, required: true, trim: true },
     instructor:     { type: String, default: null },
-    certificate:    { type: String, enum: ["Yes", "No"], default: null },
-    accessType:     { type: String, enum: ["Free", "Paid", "Enrollment"], default: null },
+    certificate:    { type: String, enum: ['Yes', 'No'], default: null },
+    accessType:     { type: String, enum: ['Free', 'Paid', 'Enrollment'], default: null },
     photo:          { type: String, default: null },
     url:            { type: String, default: null }
 });

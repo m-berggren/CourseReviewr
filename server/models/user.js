@@ -7,7 +7,7 @@ const userSchema = new Schema({
     userID:             { type: Number, unique: true, index: true },
     username:           { type: String, required: true, unique: true, trim: true },
     email:              { type: String, required: true, unique: true, trim: true, validate: {
-                            validator: validator.isEmail, message: 'invalid email' } },
+        validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: true },
     photo:              { type: String, default: null },
     interests:          { type: [String], default: [] },

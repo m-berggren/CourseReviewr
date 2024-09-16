@@ -9,12 +9,12 @@ router.post('/', async (req, res, next) => {
         
         //implement HATEOAS, include hypermedia links in the response
         res.json({
-             'Course': course,
-             '_links':{
+            'Course': course,
+            '_links':{
                 'self':{ href: `/courses/${course.courseID}`},
                 'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
                 'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
-                'listAll': { href:`/courses}`, method: 'GET' }
+                'listAll': { href:'/courses}', method: 'GET' }
             } 
         });
     } catch (error) {
@@ -27,12 +27,12 @@ router.get('/', async (req, res, next) => {
         const courses = await Course.find();
 
         res.json({
-             courses,
-             '_links': {
+            courses,
+            '_links': {
                 'self': { href: '/courses/'},
                 'create': {href: '/courses', method: 'POST'},
-             }
-            });
+            }
+        });
 
     } catch (error) {
         next(error);
@@ -45,7 +45,7 @@ router.get('/:courseID', async (req, res, next) => {
         const course = await Course.findOne({ courseID });
 
         if (!course) {
-            return res.status(404).json({ message: 'Course not found.' })
+            return res.status(404).json({ message: 'Course not found.' });
         }
 
         res.json({
@@ -54,14 +54,14 @@ router.get('/:courseID', async (req, res, next) => {
                 'self': { href: `/courses/${course.courseID}`},
                 'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
                 'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
-                'listAll': { href:`/courses}`, method: 'GET' }
+                'listAll': { href:'/courses}', method: 'GET' }
             }
         });
 
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.put('/:courseID', async (req, res, next) => {
     try {
@@ -82,12 +82,12 @@ router.put('/:courseID', async (req, res, next) => {
             '_links': {
                 'self': { href: `/courses/${updatedCourse.courseID}`},
                 'delete': { href: `courses/${updatedCourse.courseID}`, method: 'DELETE'},
-                'listAll': { href: `/courses/`, method: 'GET'}
+                'listAll': { href: '/courses/', method: 'GET'}
             }
         });
 
-        } catch (error) {
-            next(error);
+    } catch (error) {
+        next(error);
     }
 });
 
@@ -111,14 +111,14 @@ router.patch('/:courseID', async (req, res, next) => {
             '_links':{
                 'self': {href: `/courses/${updatedCourse.courseID}`},
                 'delete': {href:`/courses/${updatedCourse.courseID}`, method: 'DELETE'},
-                'listAll': {href: `/courses/`, method: 'GET'}
+                'listAll': {href: '/courses/', method: 'GET'}
             }
         });
 
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.delete('/:courseID', async (req, res, next) => {
     try {
@@ -132,14 +132,14 @@ router.delete('/:courseID', async (req, res, next) => {
         res.json({
             deletedCourse,
             '_links':{
-                'self': { href: `/courses`},
-                'create': { href: `/courses`, method: 'POST'},
+                'self': { href: '/courses'},
+                'create': { href: '/courses', method: 'POST'},
             }
         });
 
     } catch (error) {
         next(error);
     }
-})
+});
 
 module.exports = router;
