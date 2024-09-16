@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
+
 const { Schema, model } = mongoose;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const courseListSchema = new Schema({
     courseListID:   { type: Number, unique: true, index: true },
@@ -14,4 +16,4 @@ const courseListSchema = new Schema({
 // Implementation of incrementing ID with mongoose-sequence
 courseListSchema.plugin(AutoIncrement, {inc_field: 'courseListID'});
 
-module.exports = model('CourseList', courseListSchema);
+export default model('CourseList', courseListSchema);

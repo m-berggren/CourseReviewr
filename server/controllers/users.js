@@ -1,6 +1,7 @@
-const router = require('express').Router();
-const User = require('../models/user');
+import express from 'express';
+import User from '../models/user.js';
 
+const router = express.Router();
 
 router.post('/', async (req, res, next) => {
     try {
@@ -97,4 +98,4 @@ router.delete('/:userID', async (req, res, next) => {
     }
 });
 
-module.exports = router;
+export default router;

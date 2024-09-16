@@ -1,5 +1,7 @@
-const router = require('express').Router({ mergeParams: true });
-const CourseList = require('../models/course-list');
+import express from 'express';
+import CourseList from '../models/course-list.js';
+
+const router = express.Router({ mergeParams: true });
 
 router.post('/', async (req, res, next) => {
     try {
@@ -37,10 +39,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:courseListID', async (req, res, next) => {
     try {
-        // Find the user through custom userID
-        let userID = req.params.userID;
-        userID = Number(userID);
-
         const { courseListID } = req.params;
         const courseList = await CourseList.findOne({ courseListID });
         if (!courseList) {
@@ -99,4 +97,4 @@ router.delete('/:courseListID', async (req, res, next) => {
     }
 });
 
-module.exports = router;
+export default router;

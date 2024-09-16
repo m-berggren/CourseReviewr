@@ -1,6 +1,7 @@
-const router = require('express').Router();
-const Course = require('../models/course');
+import express from 'express';
+import Course from '../models/course.js';
 
+const router = express.Router();
 
 router.post('/', async (req, res, next) => {
     try {
@@ -142,4 +143,4 @@ router.delete('/:courseID', async (req, res, next) => {
     }
 });
 
-module.exports = router;
+export default router;

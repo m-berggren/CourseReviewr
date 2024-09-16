@@ -1,11 +1,8 @@
-
-const Review = require('../models/review');
-const User = require('../models/user');
-const Course = require('../models/course');
+import Review from '../models/review.js';
+import express from 'express';
 
 // Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
-const router = require('express').Router({ mergeParams: true });
-
+const router = express.Router({ mergeParams: true });
 
 router.post('/', async(req, res, next) => {
     try{
@@ -122,4 +119,4 @@ router.delete('/:reviewID', async(req,res,next) => {
     }
 });
 
-module.exports = router;
+export default router;
