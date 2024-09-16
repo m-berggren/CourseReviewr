@@ -1,14 +1,22 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var morgan = require('morgan');
-var path = require('path');
-var cors = require('cors');
-var history = require('connect-history-api-fallback');
+import express, { urlencoded, json, static as eStatic } from 'express';
+import { connect } from 'mongoose';
+import morgan from 'morgan';
+import history from 'connect-history-api-fallback';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { normalize, join } from 'path';
+import cors from 'cors';
 
-const userRoutes = require('./controllers/users');
-const courseRoutes = require('./controllers/courses');
-const reviewRoutes = require('./controllers/reviews');
-const courseListRoutes = require('./controllers/course-lists');
+
+
+import userRoutes from './controllers/users.js';
+import courseRoutes from './controllers/courses.js';
+import reviewRoutes from './controllers/reviews.js';
+import courseListRoutes from './controllers/course-lists.js';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 // Variables
@@ -16,7 +24,7 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseRadar
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(mongoURI).catch(function(err) {
+connect(mongoURI).catch(function(err) {
     console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
     console.error(err.stack);
     process.exit(1);
@@ -27,8 +35,8 @@ mongoose.connect(mongoURI).catch(function(err) {
 // Create Express app
 var app = express();
 // Parse requests of content-type 'application/json'
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(urlencoded({ extended: true }));
+app.use(json());
 // HTTP request logger
 app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
@@ -58,9 +66,9 @@ app.use('/api/*', function (req, res) {
 // Support Vuejs HTML 5 history mode
 app.use(history());
 // Serve static assets
-var root = path.normalize(__dirname + '/..');
-var client = path.join(root, 'client', 'dist');
-app.use(express.static(client));
+var root = normalize(__dirname + '/..');
+var client = join(root, 'client', 'dist');
+app.use(eStatic(client));
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
@@ -86,4 +94,4 @@ app.listen(port, function(err) {
     console.log(`Frontend (production): http://localhost:${port}/`);
 });
 
-module.exports = app;
+export default app;

@@ -1,5 +1,7 @@
-const router = require('express').Router({ mergeParams: true });
-const CourseList = require('../models/course-list');
+import express from 'express';
+import CourseList from '../models/course-list.js';
+
+const router = express.Router({ mergeParams: true });
 
 router.post('/', async (req, res, next) => {
     try {
@@ -37,20 +39,16 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:courseListID', async (req, res, next) => {
     try {
-        // Find the user through custom userID
-        let userID = req.params.userID;
-        userID = Number(userID);
-
         const { courseListID } = req.params;
         const courseList = await CourseList.findOne({ courseListID });
         if (!courseList) {
-            return res.status(404).json({message: 'CourseList not found.'})
+            return res.status(404).json({message: 'CourseList not found.'});
         }
         res.json(courseList);
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.put('/:courseListID', async (req, res, next) => {
     try {
@@ -76,7 +74,7 @@ router.patch('/:courseListID', async (req, res, next) => {
         const updatedCourseList = await CourseList.findOneAndUpdate({courseListID}, {$set: updates}, {
             new: true,
             runValidators: true
-        })
+        });
         if (!updatedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
@@ -84,7 +82,7 @@ router.patch('/:courseListID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.delete('/:courseListID', async (req, res, next) => {
     try {
@@ -97,6 +95,6 @@ router.delete('/:courseListID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
-module.exports = router;
+export default router;

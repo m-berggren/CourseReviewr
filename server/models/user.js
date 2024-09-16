@@ -1,13 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
+import validator from 'validator';
+
 const { Schema, model } = mongoose;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
-const validator = require('validator');
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const userSchema = new Schema({
     userID:             { type: Number, unique: true, index: true },
     username:           { type: String, required: true, unique: true, trim: true },
     email:              { type: String, required: true, unique: true, trim: true, validate: {
-                            validator: validator.isEmail, message: 'invalid email' } },
+        validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: true },
     photo:              { type: String, default: null },
     interests:          { type: [String], default: [] },
@@ -18,4 +20,4 @@ const userSchema = new Schema({
 // Implementation of incrementing ID with mongoose-sequence
 userSchema.plugin(AutoIncrement, {inc_field: 'userID'});
 
-module.exports = model('User', userSchema);
+export default model('User', userSchema);

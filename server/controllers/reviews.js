@@ -1,11 +1,8 @@
-
-const Review = require('../models/review');
-const User = require('../models/user');
-const Course = require('../models/course')
+import Review from '../models/review.js';
+import express from 'express';
 
 // Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
-const router = require('express').Router({ mergeParams: true });
-
+const router = express.Router({ mergeParams: true });
 
 router.post('/', async(req, res, next) => {
     try{
@@ -28,9 +25,9 @@ router.post('/', async(req, res, next) => {
             comment,
             date: new Date(),
             hasCompleted
-         });
+        });
         const savedReview = await newReview.save();
-        res.json({'Review': savedReview})
+        res.json({'Review': savedReview});
     } catch (error) {
         next(error);
     }
@@ -83,7 +80,7 @@ router.put('/:reviewID', async(req, res, next) => {
         }
         res.json(updatedReview);
     } catch (error) {
-        next(error)
+        next(error);
     }
 });
 
@@ -104,7 +101,7 @@ router.patch('/:reviewID', async(req,res,next) => {
         }
         res.json(updatedReview);
     } catch (error) {
-        next(error)
+        next(error);
     }
 });
 
@@ -116,10 +113,10 @@ router.delete('/:reviewID', async(req,res,next) => {
         if (!deletedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json({message:'Review deleted successfully'})
+        res.json({message:'Review deleted successfully'});
     } catch (error) {
-        next(error)
+        next(error);
     }
 });
 
-module.exports = router;
+export default router;

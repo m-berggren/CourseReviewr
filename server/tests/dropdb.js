@@ -1,7 +1,10 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+const { connect, connection} = mongoose;
 
 // Variables
-var mongoURI = process.env.MONGODB_URI;
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/testdb';
+
 
 if (!mongoURI) {
     console.error('Missing MONGODB_URI for dropping test database.');
@@ -9,14 +12,14 @@ if (!mongoURI) {
 }
 
 // Drop database
-mongoose.connect(mongoURI).catch(function (err) {
+connect(mongoURI).catch(function (err) {
     if (err) {
         console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
         console.error(err.stack);
         process.exit(1);
     }
 });
-mongoose.connection.dropDatabase().then(function () {
+connection.dropDatabase().then(function () {
     console.log(`Dropped database: ${mongoURI}`);
     process.exit(0);
 });

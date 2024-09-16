@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
+
 const { Schema, model } = mongoose;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const reviewSchema = new Schema({
     reviewID:       { type: Number, unique: true, index: true},
@@ -17,4 +19,4 @@ reviewSchema.index({user:1, course:1},{unique:true});
 // Implementation of incrementing ID with mongoose-sequence
 reviewSchema.plugin(AutoIncrement, {inc_field: 'reviewID'});
 
-module.exports = model ('Review', reviewSchema);
+export default model ('Review', reviewSchema);

@@ -1,6 +1,7 @@
-const router = require('express').Router();
-const User = require('../models/user');
+import express from 'express';
+import User from '../models/user.js';
 
+const router = express.Router();
 
 router.post('/', async (req, res, next) => {
     try {
@@ -12,7 +13,7 @@ router.post('/', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.get('/', async (req, res, next) => {
     try {
@@ -23,7 +24,7 @@ router.get('/', async (req, res, next) => {
     } catch (error) {
         next (error);
     }
-})
+});
 
 router.get('/:userID', async (req, res, next) => {
     try {
@@ -31,7 +32,7 @@ router.get('/:userID', async (req, res, next) => {
         const user = await User.findOne({ userID });
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' })
+            return res.status(404).json({ message: 'User not found.' });
         }
 
         res.json(user);
@@ -39,7 +40,7 @@ router.get('/:userID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.put('/:userID', async (req, res, next) => {
     try {
@@ -59,7 +60,7 @@ router.put('/:userID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.patch('/:userID', async (req, res, next) => {
     try {
@@ -79,7 +80,7 @@ router.patch('/:userID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
 router.delete('/:userID', async (req, res, next) => {
     try {
@@ -95,6 +96,6 @@ router.delete('/:userID', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
 
-module.exports = router;
+export default router;
