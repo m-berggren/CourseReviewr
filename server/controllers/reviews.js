@@ -15,6 +15,7 @@ const handleError = (error, res) => {
     }
 };
 
+
 router.post('/', async(req, res, next) => {
     try{
         let { userID, courseID } = req.params;
@@ -27,6 +28,12 @@ router.post('/', async(req, res, next) => {
             return res.status(400).json({ error: 'UserID and/or courseID are required'});
         }
 
+        //Check if the user has already reviewed the course
+        const existingReview = await Review.findOne({user: userID, course: courseID});
+        if (existingReview) {
+            return res.status(400).json({ error: 'User has already reviewed this course' });
+        }
+        
         const newReview = new Review({
             user: userID,
             course: courseID,
@@ -50,12 +57,12 @@ router.post('/', async(req, res, next) => {
     }
 });
 
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const {userID, courseID} = req.params;
-        const {sortBy = 'date', order = 'desc'} = req.query;
+        const { userID, courseID } = req.params;
+        const { sortBy = 'date', order = 'desc' } = req.query;
         const filter = {};
- 
+
         // Add filtering conditions if query parametes are provided
         if (userID) filter.user = userID;
         if (courseID) filter.course = courseID;
@@ -71,22 +78,22 @@ router.get('/', async(req, res, next) => {
         // Add pagination 
         const limit = parseInt(req.query.limit, 10) || 10;
         const page = parseInt(req.query.page, 10) || 1;
-        if (limit<= 0 || page < 0) {
-            return res.status(400).json({error: 'limit and page must be positive integers'});
+        if (limit <= 0 || page < 0) {
+            return res.status(400).json({ error: 'limit and page must be positive integers' });
         }
-        
-        const reviews = await Review.find(filter).populate('user').populate('course').sort(sortOptions).limit(limit).skip((page-1)*limit);
+
+        const reviews = await Review.find(filter).populate('user').populate('course').sort(sortOptions).limit(limit).skip((page - 1) * limit);
         const totalReviews = await Review.countDocuments(filter);
-        const totalPages = Math.ceil(totalReviews/limit);
+        const totalPages = Math.ceil(totalReviews / limit);
 
         //calculate pagination data
         const hasPrevPage = page > 1;
         const hasNextPage = page < totalPages;
-        const prevPage = hasPrevPage ? page - 1: null;
-        const nextPage = hasNextPage ? page + 1: null;
+        const prevPage = hasPrevPage ? page - 1 : null;
+        const nextPage = hasNextPage ? page + 1 : null;
 
 
-        res.status(200).json({ 
+        res.status(200).json({
             totalReviews,
             totalPages,
             currentPage: page,
@@ -95,9 +102,9 @@ router.get('/', async(req, res, next) => {
             hasNextPage,
             prevPage,
             nextPage,
-            reviews, 
+            reviews,
             _links: {
-                self: {href: `/api/reviews?limit=${limit}&page=${page}`, method: 'GET'},
+                self: { href: `/api/reviews?limit=${limit}&page=${page}`, method: 'GET' },
                 next: hasNextPage
                     ? { href: `/api/reviews?limit=${limit}&page=${nextPage}`, method: 'GET' }
                     : null,
@@ -111,11 +118,11 @@ router.get('/', async(req, res, next) => {
     }
 });
 
-router.get('/:id', async(req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         const review = await Review.findById(id).populate('user').populate('course');
-        if (!review){
+        if (!review) {
             return res.status(404).json({ error: 'Review not found' });
         }
 
@@ -124,7 +131,8 @@ router.get('/:id', async(req, res, next) => {
             _links: {
                 self: { href: `/api/reviews/${id}`, method: 'GET' },
                 update: { href: `/api/reviews/${id}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${id}`, method: 'DELETE' },}
+                delete: { href: `/api/reviews/${id}`, method: 'DELETE' },
+            }
 
         });
 
@@ -133,7 +141,7 @@ router.get('/:id', async(req, res, next) => {
     }
 });
 
-router.put('/:id', async(req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -141,12 +149,12 @@ router.put('/:id', async(req, res, next) => {
         // using spread operator (...) to update values
         const updatedReview = await Review.findByIdAndUpdate(
             id,
-            {...updates },
+            { ...updates },
             { new: true, runValidators: true, overwrite: true }
         );
 
-        if (!updatedReview){
-            return res.status(404).json({ error:'Review not found' });
+        if (!updatedReview) {
+            return res.status(404).json({ error: 'Review not found' });
         }
         res.status(200).json({
             updatedReview,
@@ -161,7 +169,7 @@ router.put('/:id', async(req, res, next) => {
     }
 });
 
-router.patch('/:id', async(req,res,next) => {
+router.patch('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         console.log(req.params);
@@ -171,11 +179,11 @@ router.patch('/:id', async(req,res,next) => {
         const updatedReview = await Review.findByIdAndUpdate(
             id,
             { $set: updates },
-            { new: true, runValidators:true }
+            { new: true, runValidators: true }
         );
 
-        if (!updatedReview){
-            return res.status(404).json({error:'Review not found'});
+        if (!updatedReview) {
+            return res.status(404).json({ error: 'Review not found' });
         }
         res.status(200).json({
             updatedReview,
@@ -190,18 +198,18 @@ router.patch('/:id', async(req,res,next) => {
     }
 });
 
-router.delete('/:id', async(req,res,next) => {
+router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
 
         const deletedReview = await Review.findByIdAndDelete(id);
-        if (!deletedReview){
-            return res.status(404).json({ error:'Review not found' });
+        if (!deletedReview) {
+            return res.status(404).json({ error: 'Review not found' });
         }
         res.status(200).json({
-            message:'Review deleted successfully',
-            _links:{
-                allReviews: { href: '/api/reviews', method: 'GET'},
+            message: 'Review deleted successfully',
+            _links: {
+                allReviews: { href: '/api/reviews', method: 'GET' },
             }
         });
     } catch (error) {
