@@ -3,15 +3,20 @@ import CourseList from '../models/course-list.js';
 
 const router = express.Router({ mergeParams: true });
 
+const handleError = (error, res) => {
+    if (error.code === 11000) {
+        return res.status(409).json({ message: 'CourseList already exists.' });
+    } else if (error.name === 'ValidationError') {
+        const messages = Object.values(error.errors).map(err => err.message);
+        return res.status(400).json({ message: messages });
+    }
+};
+
 router.post('/', async (req, res, next) => {
     try {
         // Find the user through custom userID
         let { userID } = req.params;
         userID = Number(userID);
-
-        if (!userID) {
-            return res.status(400).json({ message: 'UserID is required.' });
-        }
 
         const { name, description, courses } = req.body;
         const newCourseList = new CourseList({
@@ -24,12 +29,7 @@ router.post('/', async (req, res, next) => {
         const savedCourseList = await newCourseList.save();
         res.status(201).json({'CourseList': savedCourseList});
     } catch (error) {
-        if (error.name === 'ValidationError') {
-            const messages = Object.values(error.errors).map(err => err.message);
-            return res.status(400).json({ message: messages});
-        } else {
-            next(error);
-        }
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -38,10 +38,6 @@ router.get('/', async (req, res, next) => {
         // Find the user through custom userID
         let { userID } = req.params;
         userID = Number(userID);
-
-        if (!userID) {
-            return res.status(400).json({ message: 'UserID is required.' });
-        }
 
         const courseLists = await CourseList.find({ userID });
         res.status(200).json({ courseLists });
@@ -76,12 +72,7 @@ router.put('/:courseListID', async (req, res, next) => {
         }
         res.status(200).json(updatedCourseList);
     } catch (error) {
-        if (error.name === 'ValidationError') {
-            const messages = Object.values(error.errors).map(err => err.message);
-            return res.status(400).json({ message: messages});
-        } else {
-            next(error);
-        }
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -98,12 +89,7 @@ router.patch('/:courseListID', async (req, res, next) => {
         }
         res.status(200).json(updatedCourseList);
     } catch (error) {
-        if (error.name === 'ValidationError') {
-            const messages = Object.values(error.errors).map(err => err.message);
-            return res.status(400).json({ message: messages});
-        } else {
-            next(error);
-        }
+        return handleError(error, res) || next(error);
     }
 });
 
