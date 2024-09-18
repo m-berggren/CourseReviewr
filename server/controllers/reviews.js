@@ -42,11 +42,11 @@ router.post('/', async(req, res, next) => {
         });
         const savedReview = await newReview.save();
         res.status(201).json({
-            'Review': savedReview,
+            Review: savedReview,
             _links: {
-                self: { href: `/api/reviews/${savedReview._id}`, method: 'GET' },
-                update: { href: `/api/reviews/${savedReview._id}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${savedReview._id}`, method: 'DELETE' },
+                self: { href: `/api/reviews/${savedReview.reviewID}`, method: 'GET' },
+                update: { href: `/api/reviews/${savedReview.reviewID}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${savedReview.reviewID}`, method: 'DELETE' },
                 allReviewsForCourse: { href: `/api/reviews?courseID=${courseID}`, method: 'GET' },
                 allReviewsForUser: { href: `/api/reviews?userID=${userID}`, method: 'GET' }
             }
@@ -56,10 +56,10 @@ router.post('/', async(req, res, next) => {
     }
 });
 
-
 router.get('/', async(req, res, next) => {
     try {
-        const {userID, courseID, sortBy = 'date', order = 'desc'} = req.query;
+        const {userID, courseID} = req;
+        const {sortBy = 'date', order = 'desc'} = req.query;
         const filter = {};
  
         // Add filtering conditions if query parametes are provided
@@ -67,16 +67,30 @@ router.get('/', async(req, res, next) => {
         if (courseID) filter.course = courseID;
 
         // Define sorting fields
-        const validSortFields = ['data', 'rating'];
+        const validSortFields = ['date', 'rating'];
         const sortField = validSortFields.includes(sortBy) ? sortBy : 'date';
 
         // Define the sort object
         const sortOptions = {};
         sortOptions[sortField] = order === 'asc' ? 1 : -1;
 
-        const reviews = await Review.find(filter);
-        res.json({ reviews });
+        // Add pagination 
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const page = parseInt(req.query.page, 10) || 1;
+        if (limit<= 0 || page < 0) {
+            return res.status(400).json({error: 'limit and page must be positive integers'});
+        }
+        
+        const reviews = await Review.find(filter).sort(sortOptions).limit(limit).skip((page-1)*limit);
+        const totalReviews = await Review.countDocuments(filter);
+        const totalPages = Math.ceil(totalReviews/limit);
 
+        res.json({ 
+            totalReviews,
+            totalPages,
+            currentPage: page,
+            reviews, 
+        });
     } catch (error) {
         next(error);
     }
@@ -90,7 +104,14 @@ router.get('/:reviewID', async(req, res, next) => {
             return res.status(404).json({error: 'Review not found'});
         }
 
-        res.json({review});
+        res.json({
+            review,
+            _links: {
+                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
+                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },}
+
+        });
 
     } catch (error) {
         next(error);
@@ -111,7 +132,14 @@ router.put('/:reviewID', async(req, res, next) => {
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json(updatedReview);
+        res.json({
+            review: updatedReview,
+            _links: {
+                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
+                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },
+            },
+        });
     } catch (error) {
         next(error);
     }
@@ -132,7 +160,14 @@ router.patch('/:reviewID', async(req,res,next) => {
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json(updatedReview);
+        res.json({
+            review: updatedReview,
+            _links: {
+                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
+                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },
+            },
+        });
     } catch (error) {
         next(error);
     }
@@ -147,7 +182,10 @@ router.delete('/:reviewID', async(req,res,next) => {
             return res.status(404).json({error:'Review not found'});
         }
         res.json({
-            message:'Review deleted successfully'
+            message:'Review deleted successfully',
+            _links:{
+                allReviews: { href: '/api/reviews', method: 'GET'},
+            }
         });
     } catch (error) {
         next(error);
