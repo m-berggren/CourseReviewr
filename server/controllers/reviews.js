@@ -45,9 +45,9 @@ router.post('/', async(req, res, next) => {
         res.status(201).json({
             savedReview,
             _links: {
-                self: { href: `/api/reviews/${savedReview._id}`, method: 'GET' },
-                update: { href: `/api/reviews/${savedReview._id}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${savedReview._id}`, method: 'DELETE' },
+                self: { href: `/api/reviews/${savedReview.reviewID}`, method: 'GET' },
+                update: { href: `/api/reviews/${savedReview.reviewID}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${savedReview.reviewID}`, method: 'DELETE' },
                 allReviewsForCourse: { href: `/api/reviews?courseID=${courseID}`, method: 'GET' },
                 allReviewsForUser: { href: `/api/reviews?userID=${userID}`, method: 'GET' }
             }
