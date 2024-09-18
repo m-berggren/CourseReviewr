@@ -41,7 +41,16 @@ router.post('/', async(req, res, next) => {
             hasCompleted
         });
         const savedReview = await newReview.save();
-        res.json({'Review': savedReview});
+        res.status(201).json({
+            'Review': savedReview,
+            _links: {
+                self: { href: `/api/reviews/${savedReview._id}`, method: 'GET' },
+                update: { href: `/api/reviews/${savedReview._id}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${savedReview._id}`, method: 'DELETE' },
+                allReviewsForCourse: { href: `/api/reviews?courseID=${courseID}`, method: 'GET' },
+                allReviewsForUser: { href: `/api/reviews?userID=${userID}`, method: 'GET' }
+            }
+        });
     } catch (error) {
         next(error);
     }
@@ -50,16 +59,22 @@ router.post('/', async(req, res, next) => {
 
 router.get('/', async(req, res, next) => {
     try {
-        // Req with values are stored through middleware extractIDs
-        let { userID, courseID } = req;
+        const {userID, courseID, sortBy = 'date', order = 'desc'} = req.query;
+        const filter = {};
+ 
+        // Add filtering conditions if query parametes are provided
+        if (userID) filter.user = userID;
+        if (courseID) filter.course = courseID;
 
-        // Populates query with userID and courseID if there is values
-        let query = {};
-        if (userID) query.user = userID;
-        if (courseID) query.course = courseID; // 
+        // Define sorting fields
+        const validSortFields = ['data', 'rating'];
+        const sortField = validSortFields.includes(sortBy) ? sortBy : 'date';
 
-        const reviews = await Review.find(query);
+        // Define the sort object
+        const sortOptions = {};
+        sortOptions[sortField] = order === 'asc' ? 1 : -1;
 
+        const reviews = await Review.find(filter);
         res.json({ reviews });
 
     } catch (error) {
@@ -131,7 +146,9 @@ router.delete('/:reviewID', async(req,res,next) => {
         if (!deletedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json({message:'Review deleted successfully'});
+        res.json({
+            message:'Review deleted successfully'
+        });
     } catch (error) {
         next(error);
     }
