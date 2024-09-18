@@ -85,11 +85,32 @@ router.get('/', async(req, res, next) => {
         const totalReviews = await Review.countDocuments(filter);
         const totalPages = Math.ceil(totalReviews/limit);
 
+        //calculate pagination data
+        const hasPrevPage = page > 1;
+        const hasNextPage = page < totalPages;
+        const prevPage = hasPrevPage ? page - 1: null;
+        const nextPage = hasNextPage ? page + 1: null;
+
+
         res.json({ 
             totalReviews,
             totalPages,
             currentPage: page,
+            limit: limit,
+            hasPrevPage,
+            hasNextPage,
+            prevPage,
+            nextPage,
             reviews, 
+            _links: {
+                self: {href: `/api/reviews?limit=${limit}&page=${page}`, method: 'GET'},
+                next: hasNextPage
+                    ? { href: `/api/reviews?limit=${limit}&page=${nextPage}`, method: 'GET' }
+                    : null,
+                prev: hasPrevPage
+                    ? { href: `/api/reviews?limit=${limit}&page=${prevPage}`, method: 'GET' }
+                    : null,
+            }
         });
     } catch (error) {
         next(error);
