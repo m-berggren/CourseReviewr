@@ -1575,7 +1575,7 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"const reviewData = jsonData[\"Review\"]; // Review is needed",
 									"pm.environment.set(\"review_id\", reviewData.reviewID);",
 									"",
 									"// Set a review that does not exist",
@@ -1670,7 +1670,7 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"const reviewData = jsonData[\"Review\"]; // Review is needed",
 									"pm.environment.set(\"review_id2\", reviewData.reviewID);",
 									"",
 									"// Test assertions for HTTP status code",
@@ -1762,7 +1762,7 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"const reviewData = jsonData[\"Review\"]; // Review is needed",
 									"pm.environment.set(\"review_id3\", reviewData.reviewID);",
 									"",
 									"// Test assertions for HTTP status code",
@@ -2004,7 +2004,7 @@
 							"script": {
 								"exec": [
 									"// Declare request- and response data",
-									"const jsonData = pm.response.json();",
+									"const jsonData = pm.response.json()['review'];",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"",
 									"pm.test(\"Successful PATCH request - status 200\", () => {",
@@ -2141,7 +2141,7 @@
 							"script": {
 								"exec": [
 									"// Declare request- and response data",
-									"const jsonData = pm.response.json();",
+									"const jsonData = pm.response.json()['review'];",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"",
 									"pm.test(\"Successful PUT request - status 200\", () => {",
@@ -2416,6 +2416,60 @@
 								"courses",
 								"{{course_id}}",
 								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - GET review from user and course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json()[\"review\"]; // reviews is needed",
+									"console.log(jsonData);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const review_id = Number(pm.environment.get('review_id'));",
+									"const user_id = Number(pm.environment.get('user_id'));",
+									"",
+									"pm.test(`Check all properties for reviewID: ${review_id}`, () => {",
+									"    pm.expect(jsonData.reviewID).to.be.a('number').and.not.eql(0);",
+									"    pm.expect(jsonData).to.have.property(\"user\").and.eql(user_id);",
+									"    pm.expect(jsonData).to.have.property(\"course\");",
+									"    pm.expect(jsonData).to.have.property(\"rating\");",
+									"    pm.expect(jsonData).to.have.property(\"date\");",
+									"    pm.expect(jsonData).to.have.property(\"comment\");",
+									"    pm.expect(jsonData).to.have.property(\"hasCompleted\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id}}",
+								"reviews",
+								"{{review_id}}"
 							]
 						}
 					},
