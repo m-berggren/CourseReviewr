@@ -267,6 +267,90 @@
 					"response": []
 				},
 				{
+					"name": "400 - POST Course Validation error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"Course\"]; // Course is needed",
+									"pm.environment.set(\"course_id3\", jsonData.courseID);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topic\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
 					"name": "200 - PATCH Course data in courses",
 					"event": [
 						{
@@ -1046,6 +1130,60 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\",\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - POST User Validation error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 400 - validation error\", () => {",
+									"\tpm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1944,6 +2082,60 @@
 				},
 				{
 					"name": "400 - POST Review w/o Course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 400 - courseID missing\", () => {",
+									"    pm.response.to.have.status(400);",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": [3, 3, 1, 3],\n    \"comment\": \"Intersting and good course!\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{user_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "409 - POST Review already made for user in course Copy",
 					"event": [
 						{
 							"listen": "test",

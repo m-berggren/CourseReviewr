@@ -31,13 +31,7 @@ router.post('/', async(req, res, next) => {
 
         // Cannot create a review without specifying userID and courseID
         if (!userID || !courseID) {
-            return res.status(400).json({ error: 'Both userID and courseID are required'});
-        }
-
-        //Check if the user has already reviewed the course
-        const existingReview = await Review.findOne({user: userID, course: courseID});
-        if (existingReview){
-            return res.status(400).json({error:'User has already reviewed this course'});
+            return res.status(400).json({ error: 'UserID and/or courseID are required'});
         }
 
         //create and save the new review
@@ -148,7 +142,6 @@ router.get('/:reviewID', async(req, res, next) => {
     }
 });
 
-
 router.put('/:reviewID', async(req, res, next) => {
     try {
         const reviewID = Number(req.params.reviewID);
@@ -175,7 +168,6 @@ router.put('/:reviewID', async(req, res, next) => {
     }
 });
 
-// TODO: Appears to be overwriting
 router.patch('/:reviewID', async(req,res,next) => {
     try {
         const reviewID = Number(req.params.reviewID);
