@@ -54,8 +54,8 @@ router.get('/', async(req, res, next) => {
 
 router.get('/:reviewID', async(req, res, next) => {
     try {
-        const { reviewID } = req.params;
-        const review = await Review.findOne({ reviewID }).populate('user').populate('course');
+        const reviewID = Number(req.params.reviewID);
+        const review = await Review.findOne({ reviewID });
         if (!review){
             return res.status(404).json({error: 'Review not found'});
         }
@@ -70,7 +70,7 @@ router.get('/:reviewID', async(req, res, next) => {
 
 router.put('/:reviewID', async(req, res, next) => {
     try {
-        const {reviewID }= req.params;
+        const reviewID = Number(req.params.reviewID);
         const {user, course, rating, comment, hasCompleted}=req.body;
 
         const updatedReview = await Review.findOneAndUpdate(
@@ -90,7 +90,7 @@ router.put('/:reviewID', async(req, res, next) => {
 // TODO: Appears to be overwriting
 router.patch('/:reviewID', async(req,res,next) => {
     try {
-        const {reviewID} = req.params;
+        const reviewID = Number(req.params.reviewID);
         const updates = req.body;
 
         const updatedReview = await Review.findOneAndUpdate(
