@@ -27,7 +27,7 @@ router.post('/', async(req, res, next) => {
     try{
         // Extract, cast IDs to numbers and destructure the request body
         let { userID, courseID } = req;
-        const { rating, comment, hasCompleted } = req.body;
+        const review = req.body;
 
         // Cannot create a review without specifying userID and courseID
         if (!userID || !courseID) {
@@ -38,11 +38,10 @@ router.post('/', async(req, res, next) => {
         const newReview = new Review({
             user: userID,
             course: courseID,
-            rating,
-            comment,
             date: new Date(),
-            hasCompleted
+            ...review
         });
+
         const savedReview = await newReview.save();
         res.status(201).json({
             Review: savedReview,
