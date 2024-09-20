@@ -80,3 +80,13 @@ Users are able to create different lists with courses they want to enroll in or 
 ### Entity-Relationship (ER) Diagram
 
 ![ER Diagram](./images/OnlineCourseReviewer-ER.png)
+
+## Advanced feature ideas
+**Study group integration:**
+Allowing users to form study groups around a course. Could be chat rooms or file sharing.
+
+**Notifications & reminders:**
+Notify users when new courses are added in their areas of interest, or when a course in their study list is on sale or offering discount.
+
+**Payment option for a course through the site:**
+Payment option to purchase a course through our review site.
