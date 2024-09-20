@@ -3,6 +3,15 @@ import CourseList from '../models/course-list.js';
 
 const router = express.Router({ mergeParams: true });
 
+const handleError = (error, res) => {
+    if (error.code === 11000) {
+        return res.status(409).json({ message: 'CourseList already exists.' });
+    } else if (error.name === 'ValidationError') {
+        const messages = Object.values(error.errors).map(err => err.message);
+        return res.status(400).json({ message: messages });
+    }
+};
+
 router.post('/', async (req, res, next) => {
     try {
         // Find the user through custom userID
@@ -18,20 +27,20 @@ router.post('/', async (req, res, next) => {
             courses
         });
         const savedCourseList = await newCourseList.save();
-        res.json({'CourseList': savedCourseList});
+        res.status(201).json({'CourseList': savedCourseList});
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
 router.get('/', async (req, res, next) => {
     try {
         // Find the user through custom userID
-        let userID = req.params.userID;
+        let { userID } = req.params;
         userID = Number(userID);
 
         const courseLists = await CourseList.find({ userID });
-        res.json({ courseLists });
+        res.status(200).json({ courseLists });
     } catch (error) {
         next(error);
     }
@@ -44,7 +53,7 @@ router.get('/:courseListID', async (req, res, next) => {
         if (!courseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
-        res.json(courseList);
+        res.status(200).json(courseList);
     } catch (error) {
         next(error);
     }
@@ -61,9 +70,9 @@ router.put('/:courseListID', async (req, res, next) => {
         if (!updatedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
-        res.json(updatedCourseList);
+        res.status(200).json(updatedCourseList);
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -78,9 +87,9 @@ router.patch('/:courseListID', async (req, res, next) => {
         if (!updatedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
-        res.json(updatedCourseList);
+        res.status(200).json(updatedCourseList);
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -91,10 +100,15 @@ router.delete('/:courseListID', async (req, res, next) => {
         if (!deletedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
-        res.json(deletedCourseList);
+        res.status(200).json(deletedCourseList);
     } catch (error) {
         next(error);
     }
+});
+
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    return res.status(500).json({ message: 'Internal Server Error.' });
 });
 
 export default router;

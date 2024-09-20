@@ -7,10 +7,10 @@ const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const userSchema = new Schema({
     userID:             { type: Number, unique: true, index: true },
-    username:           { type: String, required: true, unique: true, trim: true },
-    email:              { type: String, required: true, unique: true, trim: true, validate: {
+    username:           { type: String, required: [true, 'Username is required'], unique: true, trim: true },
+    email:              { type: String, required: [true, 'Email is required'], unique: true, trim: true, validate: {
         validator: validator.isEmail, message: 'invalid email' } },
-    password:           { type: String, required: true },
+    password:           { type: String, required: [true, 'Password is required'] },
     photo:              { type: String, default: null },
     interests:          { type: [String], default: [] },
     recommendationList: [{ type: Number, ref: 'Course', default: [] }],

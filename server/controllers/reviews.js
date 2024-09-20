@@ -14,6 +14,15 @@ const extractIds = (req, res, next) => {
   
 router.use(extractIds);
 
+const handleError = (error, res) => {
+    if (error.code === 11000) {
+        return res.status(409).json({ message: 'Review already exists.' });
+    } else if (error.name === 'ValidationError') {
+        const messages = Object.values(error.errors).map(err => err.message);
+        return res.status(400).json({ message: messages });
+    }
+};
+
 router.post('/', async(req, res, next) => {
     try{
         // Extract, cast IDs to numbers and destructure the request body
@@ -22,13 +31,7 @@ router.post('/', async(req, res, next) => {
 
         // Cannot create a review without specifying userID and courseID
         if (!userID || !courseID) {
-            return res.status(400).json({ error: 'Both userID and courseID are required'});
-        }
-
-        //Check if the user has already reviewed the course
-        const existingReview = await Review.findOne({user: userID, course: courseID});
-        if (existingReview){
-            return res.status(400).json({error:'User has already reviewed this course'});
+            return res.status(400).json({ error: 'UserID and/or courseID are required'});
         }
 
         //create and save the new review
@@ -52,7 +55,7 @@ router.post('/', async(req, res, next) => {
             }
         });
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -92,7 +95,7 @@ router.get('/', async(req, res, next) => {
         const nextPage = hasNextPage ? page + 1: null;
 
 
-        res.json({ 
+        res.status(200).json({ 
             totalReviews,
             totalPages,
             currentPage: page,
@@ -119,13 +122,13 @@ router.get('/', async(req, res, next) => {
 
 router.get('/:reviewID', async(req, res, next) => {
     try {
-        const { reviewID } = req;
-        const review = await Review.findOne({ reviewID }).populate('user').populate('course');
+        const reviewID = Number(req.params.reviewID);
+        const review = await Review.findOne({ reviewID });
         if (!review){
             return res.status(404).json({error: 'Review not found'});
         }
 
-        res.json({
+        res.status(200).json({
             review,
             _links: {
                 self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
@@ -139,10 +142,9 @@ router.get('/:reviewID', async(req, res, next) => {
     }
 });
 
-
 router.put('/:reviewID', async(req, res, next) => {
     try {
-        const {reviewID }= req.params;
+        const reviewID = Number(req.params.reviewID);
         const {user, course, rating, comment, hasCompleted}=req.body;
 
         const updatedReview = await Review.findOneAndUpdate(
@@ -153,7 +155,7 @@ router.put('/:reviewID', async(req, res, next) => {
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json({
+        res.status(200).json({
             review: updatedReview,
             _links: {
                 self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
@@ -162,14 +164,13 @@ router.put('/:reviewID', async(req, res, next) => {
             },
         });
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-// TODO: Appears to be overwriting
 router.patch('/:reviewID', async(req,res,next) => {
     try {
-        const {reviewID} = req.params;
+        const reviewID = Number(req.params.reviewID);
         const updates = req.body;
 
         const updatedReview = await Review.findOneAndUpdate(
@@ -181,7 +182,7 @@ router.patch('/:reviewID', async(req,res,next) => {
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json({
+        res.status(200).json({
             review: updatedReview,
             _links: {
                 self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
@@ -190,7 +191,7 @@ router.patch('/:reviewID', async(req,res,next) => {
             },
         });
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
@@ -202,7 +203,7 @@ router.delete('/:reviewID', async(req,res,next) => {
         if (!deletedReview){
             return res.status(404).json({error:'Review not found'});
         }
-        res.json({
+        res.status(200).json({
             message:'Review deleted successfully',
             _links:{
                 allReviews: { href: '/api/reviews', method: 'GET'},
@@ -211,6 +212,11 @@ router.delete('/:reviewID', async(req,res,next) => {
     } catch (error) {
         next(error);
     }
+});
+
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    return res.status(500).json({ message: 'Internal Server Error.' });
 });
 
 export default router;
