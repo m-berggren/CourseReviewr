@@ -63,10 +63,12 @@ router.put('/:courseListID', async (req, res, next) => {
     try {
         const {courseListID} = req.params;
         const updates = req.body;
-        const updatedCourseList = await CourseList.findOneAndUpdate({courseListID}, updates, {
-            new: true,
-            runValidators: true
-        });
+        const updatedCourseList = await CourseList.findOneAndUpdate(
+            {courseListID},
+            {...updates},
+            { new: true, runValidators: true, overwrite: true }
+        );
+
         if (!updatedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }

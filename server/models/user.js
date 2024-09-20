@@ -12,7 +12,7 @@ const userSchema = new Schema({
         validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: [true, 'Password is required'] },
     photo:              { type: String, default: null },
-    interests:          { type: [String], default: [] },
+    interests:          [{ type: String, default: [] }],
     recommendationList: [{ type: Number, ref: 'Course', default: [] }],
     courseLists:        [{type: Number, ref: 'CourseList', default: []}]
 });

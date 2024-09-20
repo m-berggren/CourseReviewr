@@ -53,12 +53,15 @@ router.get('/:userID', async (req, res, next) => {
 
 router.put('/:userID', async (req, res, next) => {
     try {
-        const { userID } = req.params;
+        const userID = Number(req.params.userID);
         const updates = req.body;
-        const updatedUser = await User.findOneAndUpdate({ userID }, updates, {
-            new: true,
-            runValidators: true
-        });
+
+        // using spread operator (...) to update values
+        const updatedUser = await User.findOneAndUpdate(
+            { userID },
+            {...updates},
+            { new: true, runValidators: true, overwrite: true }
+        );
 
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found.' });
