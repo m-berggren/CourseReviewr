@@ -7,7 +7,7 @@ const AutoIncrement = AutoIncrementFactory(mongoose);
 const courseSchema = new Schema({
     courseID:       { type: Number, unique: true, index: true },
     name:           { type: String, required: [true, 'Course name is required'], trim: true },
-    topic:          { type: [String], required: [true, 'Topic(s) must be specified'], trim: true },
+    topic:          [{ type: String, required: [true, 'Topic(s) must be specified'], trim: true }],
     difficulty:     { type: String, required: [true, 'Difficulty level is required'] },
     description:    { type: String, default: null },
     averageRating:  { type: Number, default: null },

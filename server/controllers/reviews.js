@@ -145,13 +145,15 @@ router.get('/:reviewID', async(req, res, next) => {
 router.put('/:reviewID', async(req, res, next) => {
     try {
         const reviewID = Number(req.params.reviewID);
-        const {user, course, rating, comment, hasCompleted}=req.body;
+        const updates = req.body;
 
+        // using spread operator (...) to update values
         const updatedReview = await Review.findOneAndUpdate(
-            {reviewID},
-            {user,course,rating,comment,hasCompleted},
-            {new:true, runValidators:true, overwrite:true}
+            { reviewID },
+            {...updates},
+            { new: true, runValidators: true, overwrite: true }
         );
+
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }

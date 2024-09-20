@@ -79,8 +79,8 @@ router.put('/:courseID', async (req, res, next) => {
         const updates = req.body;
         const updatedCourse = await Course.findOneAndUpdate(
             { courseID },
-            updates,
-            { new: true, runValidators: true }
+            { ...updates },
+            { new: true, runValidators: true, overwrite: true }
         );
 
         if (!updatedCourse) {
