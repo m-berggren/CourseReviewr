@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "219dd65f-6e22-4adf-b4cf-f3f951f23895",
-		"name": "server",
+		"_postman_id": "c40f6581-22a4-4961-b3e6-7dafeed0a984",
+		"name": "server_sequence_ids",
 		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38366801",
-		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38088221-219dd65f-6e22-4adf-b4cf-f3f951f23895?action=share&source=collection_link&creator=38366801"
+		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-c40f6581-22a4-4961-b3e6-7dafeed0a984?action=share&source=collection_link&creator=38366801"
 	},
 	"item": [
 		{
@@ -65,7 +65,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"const api_version = \"v1\"",
+									"pm.environment.set(\"api_version\", api_version)"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -535,7 +536,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test3.png\"\n}",
+							"raw": "{\n\t\"name\": \"C Programming for Everybody\",\n  \"topic\": [\"C\", \"C-programming\", \"C-lang\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n\t\"photo\": \"src/photo2.png\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1368,6 +1369,22 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const username = \"mrBagel#34\"",
+									"const email = \"mrbagel_34@gmail.com\"",
+									"const password = \"Sunshine34\"",
+									"",
+									"pm.environment.set(\"username\", username)",
+									"pm.environment.set(\"email\", email)",
+									"pm.environment.set(\"password\", password)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
 					"request": {
@@ -1375,7 +1392,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": null\n}",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2360,6 +2377,17 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const currentDate = Date.now().toLocaleString;",
+									"pm.environment.set(\"currentDate\", currentDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
 					"request": {
@@ -2367,7 +2395,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rating\": [5, 4, 2, 2]\n}",
+							"raw": "{\n    \"user\": {{user_id}},\n    \"course\": {{course_id}},\n    \"rating\": [5, 2, 2, 2],\n    \"date\": {{currentDate}},\n    \"comment\": \"Update: Lorem ipsum...\",\n    \"hasCompleted\": false\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3207,7 +3235,6 @@
 									"// Loop through and compare request data to response data",
 									"pm.test(\"Response matches input data\", () => {",
 									"\tObject.keys(requestData).forEach(key => {",
-									"        console.log(requestData[key], jsonData[key]);",
 									"\t\tpm.test(`Field matches for: ${key}`, () => {",
 									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
 									"\t\t});",
@@ -3224,7 +3251,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-related stuff\"\n}",
+							"raw": "{\n    \"name\": \"CS-related-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
