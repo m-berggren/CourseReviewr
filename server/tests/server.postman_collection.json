@@ -86,12 +86,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses",
+							"raw": "{{host}}/api/{{api_version}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses"
 							]
 						},
@@ -170,12 +171,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses",
+							"raw": "{{host}}/api/{{api_version}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses"
 							]
 						},
@@ -254,12 +256,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses",
+							"raw": "{{host}}/api/{{api_version}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses"
 							]
 						},
@@ -338,12 +341,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses",
+							"raw": "{{host}}/api/{{api_version}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses"
 							]
 						},
@@ -414,12 +418,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id}}"
 							]
@@ -467,12 +472,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{not_existing_course_id}}"
 							]
@@ -544,12 +550,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id}}"
 							]
@@ -596,12 +603,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{not_existing_course_id}}"
 							]
@@ -675,12 +683,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/courses",
+							"raw": "{{host}}/api/{{api_version}}/courses",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses"
 							],
 							"query": [
@@ -752,12 +761,13 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id}}"
 							]
@@ -803,12 +813,13 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{not_existing_course_id}}"
 							]
@@ -846,12 +857,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id3}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id3}}"
 							]
@@ -889,12 +901,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{not_existing_course_id}}"
 							]
@@ -978,12 +991,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users",
+							"raw": "{{host}}/api/{{api_version}}/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users"
 							]
 						},
@@ -1058,12 +1072,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users",
+							"raw": "{{host}}/api/{{api_version}}/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users"
 							]
 						},
@@ -1138,12 +1153,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users",
+							"raw": "{{host}}/api/{{api_version}}/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users"
 							]
 						},
@@ -1192,12 +1208,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users",
+							"raw": "{{host}}/api/{{api_version}}/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users"
 							]
 						},
@@ -1267,12 +1284,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}"
 							]
@@ -1320,12 +1338,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{not_existing_user_id}}"
 							]
@@ -1400,12 +1419,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}"
 							]
@@ -1442,12 +1462,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{not_existing_user_id}}"
 							]
@@ -1491,12 +1512,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/users",
+							"raw": "{{host}}/api/{{api_version}}/users",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users"
 							]
 						}
@@ -1555,12 +1577,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}"
 							]
@@ -1607,12 +1630,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{not_existing_user_id}}"
 							]
@@ -1650,12 +1674,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id3}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id3}}"
 							]
@@ -1693,12 +1718,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{not_existing_user_id}}"
 							]
@@ -1779,12 +1805,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -1860,12 +1887,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id2}}/courses/{{course_id2}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id2}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id2}}",
 								"courses",
@@ -1941,12 +1969,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id3}}/courses/{{course_id3}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}/courses/{{course_id3}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id3}}",
 								"courses",
@@ -1997,12 +2026,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews",
+							"raw": "{{host}}/api/{{api_version}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"reviews"
 							]
 						},
@@ -2049,12 +2079,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id}}",
 								"reviews"
@@ -2103,12 +2134,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"reviews"
@@ -2157,12 +2189,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"reviews"
@@ -2226,12 +2259,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2283,12 +2317,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2354,12 +2389,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2400,12 +2436,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2452,12 +2489,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews",
+							"raw": "{{host}}/api/{{api_version}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"reviews"
 							]
 						}
@@ -2512,12 +2550,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/courses/{{course_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"courses",
 								"{{course_id}}",
 								"reviews"
@@ -2562,12 +2601,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2614,12 +2654,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"courses",
@@ -2663,12 +2704,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"reviews",
 								"{{not_existing_review_id}}"
 							]
@@ -2705,12 +2747,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews/{{review_id3}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{review_id3}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"reviews",
 								"{{review_id3}}"
 							]
@@ -2748,12 +2791,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_review_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"reviews",
 								"{{not_existing_review_id}}"
 							]
@@ -2835,12 +2879,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists"
@@ -2915,12 +2960,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id2}}/course-lists",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id2}}",
 								"course-lists"
@@ -2995,12 +3041,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id2}}/course-lists",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id2}}",
 								"course-lists"
@@ -3073,12 +3120,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3128,12 +3176,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3195,12 +3244,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3239,12 +3289,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3290,12 +3341,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists"
@@ -3362,12 +3414,13 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3422,12 +3475,13 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3467,12 +3521,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{course_list_id2}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id2}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
@@ -3512,12 +3567,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"{{api_version}}",
 								"users",
 								"{{user_id}}",
 								"course-lists",
