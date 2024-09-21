@@ -1,5 +1,7 @@
 import express from 'express';
 import User from '../models/user.js';
+import { authenticateJWT, requireAdmin } from './auth.js';
+
 
 const router = express.Router();
 
@@ -26,7 +28,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     try {
         const users = await User.find();
 
@@ -53,7 +55,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id',async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;

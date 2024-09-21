@@ -1,5 +1,6 @@
 import Review from '../models/review.js';
 import express from 'express';
+import { authenticateJWT } from './auth.js';
 
 // Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
 const router = express.Router({ mergeParams: true });
@@ -16,7 +17,8 @@ const handleError = (error, res) => {
 };
 
 
-router.post('/', async(req, res, next) => {
+
+router.post('/', authenticateJWT, async(req, res, next) => {
     try{
         let { userID, courseID } = req.params;
         const review = req.body;

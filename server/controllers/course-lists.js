@@ -1,6 +1,7 @@
 import express from 'express';
 import CourseList from '../models/course-list.js';
 import User from '../models/user.js';
+import authenticateJWT from './auth.js';
 
 const router = express.Router({ mergeParams: true });
 
@@ -15,7 +16,7 @@ const handleError = (error, res) => {
     }
 };
 
-router.post('/', async (req, res, next) => {
+router.post('/', authenticateJWT, async (req, res, next) => {
     try {
         // Find the user through custom userID
         const userID = req.params.userID;
