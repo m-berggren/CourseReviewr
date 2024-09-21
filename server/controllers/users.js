@@ -9,6 +9,8 @@ const handleError = (error, res) => {
     } else if (error.name === 'ValidationError') {
         const messages = Object.values(error.errors).map(err => err.message);
         return res.status(400).json({ message: messages });
+    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
+        return res.status(400).json({ message: 'Invalid ID format.' });
     }
 };
 
@@ -17,7 +19,7 @@ router.post('/', async (req, res, next) => {
         const user = new User(req.body);
         await user.save();
 
-        res.status(201).json({ 'User': user });
+        res.status(201).json(user);
 
     } catch (error) {
         return handleError(error, res) || next(error);
@@ -28,17 +30,17 @@ router.get('/', async (req, res, next) => {
     try {
         const users = await User.find();
 
-        res.status(200).json({ users });
+        res.status(200).json(users);
 
     } catch (error) {
-        next (error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.get('/:userID', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
-        const { userID } = req.params;
-        const user = await User.findOne({ userID });
+        const id = req.params.id;
+        const user = await User.findById(id).populate('courseLists').populate('recommendationList');
 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
@@ -47,18 +49,18 @@ router.get('/:userID', async (req, res, next) => {
         res.status(200).json(user);
 
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.put('/:userID', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     try {
-        const userID = Number(req.params.userID);
+        const id = req.params.id;
         const updates = req.body;
 
         // using spread operator (...) to update values
-        const updatedUser = await User.findOneAndUpdate(
-            { userID },
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
             {...updates},
             { new: true, runValidators: true, overwrite: true }
         );
@@ -74,14 +76,13 @@ router.put('/:userID', async (req, res, next) => {
     }
 });
 
-router.patch('/:userID', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
     try {
-        const { userID } = req.params;
+        const id = req.params.id;
         const updates = req.body;
-        const updatedUser = await User.findOneAndUpdate({ userID }, updates, {
-            new: true,
-            runValidators: true
-        });
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            updates, { new: true, runValidators: true });
 
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found.'});
@@ -94,10 +95,10 @@ router.patch('/:userID', async (req, res, next) => {
     }
 });
 
-router.delete('/:userID', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
     try {
-        const { userID } = req.params;
-        const deletedUser = await User.findOneAndDelete({ userID });
+        const id = req.params.id;
+        const deletedUser = await User.findByIdAndDelete(id);
 
         if (!deletedUser) {
             return res.status(404).json({ message: 'User not found.'});
@@ -106,11 +107,11 @@ router.delete('/:userID', async (req, res, next) => {
         res.status(200).json(deletedUser);
 
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.use((err, req, res, next) => {
+router.use((err, req, res) => {
     console.error(err.stack);
     return res.status(500).json({ message: 'Internal Server Error.' });
 });
