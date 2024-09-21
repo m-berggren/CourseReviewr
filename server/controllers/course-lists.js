@@ -1,5 +1,6 @@
 import express from 'express';
 import CourseList from '../models/course-list.js';
+import User from '../models/user.js';
 
 const router = express.Router({ mergeParams: true });
 
@@ -9,63 +10,68 @@ const handleError = (error, res) => {
     } else if (error.name === 'ValidationError') {
         const messages = Object.values(error.errors).map(err => err.message);
         return res.status(400).json({ message: messages });
+    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
+        return res.status(400).json({ message: 'Invalid ID format.' });
     }
 };
 
 router.post('/', async (req, res, next) => {
     try {
         // Find the user through custom userID
-        let { userID } = req.params;
-        userID = Number(userID);
-
+        const userID = req.params.userID;
         const { name, description, courses } = req.body;
         const newCourseList = new CourseList({
             name,
             creationDate: new Date(),
-            userID: userID,
+            user: userID,
             description,
             courses
         });
         const savedCourseList = await newCourseList.save();
-        res.status(201).json({'CourseList': savedCourseList});
+
+        // Update the user's courseLists array
+        await User.findByIdAndUpdate(
+            userID,
+            { $push: { courseLists: savedCourseList._id } },
+            { new: true }
+        );
+
+        res.status(201).json(savedCourseList);
     } catch (error) {
-        return handleError(error, res) || next(error);
+        next(error);
     }
 });
 
 router.get('/', async (req, res, next) => {
     try {
-        // Find the user through custom userID
-        let { userID } = req.params;
-        userID = Number(userID);
-
-        const courseLists = await CourseList.find({ userID });
-        res.status(200).json({ courseLists });
+        const user = req.params.userID;
+        const courseLists = await CourseList.find({ user }).populate('courses');
+        res.status(200).json(courseLists);
     } catch (error) {
-        next(error);
+        handleError(error, res) || next(error);
     }
 });
 
-router.get('/:courseListID', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
-        const { courseListID } = req.params;
-        const courseList = await CourseList.findOne({ courseListID });
+        const id = req.params.id;
+        const courseList = await CourseList.findById(id).populate('user').populate('courses');
         if (!courseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
         res.status(200).json(courseList);
     } catch (error) {
-        next(error);
+        handleError(error, res) || next(error);
     }
 });
 
-router.put('/:courseListID', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     try {
-        const {courseListID} = req.params;
+        const id = req.params.id;
         const updates = req.body;
-        const updatedCourseList = await CourseList.findOneAndUpdate(
-            {courseListID},
-            {...updates},
+        const updatedCourseList = await CourseList.findByIdAndUpdate(
+            id,
+            { ...updates },
             { new: true, runValidators: true, overwrite: true }
         );
 
@@ -78,14 +84,14 @@ router.put('/:courseListID', async (req, res, next) => {
     }
 });
 
-router.patch('/:courseListID', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
     try {
-        const {courseListID} = req.params;
+        const id = req.params.id;
         const updates = req.body;
-        const updatedCourseList = await CourseList.findOneAndUpdate({courseListID}, {$set: updates}, {
-            new: true,
-            runValidators: true
-        });
+        const updatedCourseList = await CourseList.findByIdAndUpdate(
+            id,
+            { $set: updates },
+            { new: true, runValidators: true });
         if (!updatedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
@@ -95,20 +101,20 @@ router.patch('/:courseListID', async (req, res, next) => {
     }
 });
 
-router.delete('/:courseListID', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
     try {
-        const {courseListID} = req.params;
-        const deletedCourseList = await CourseList.findOneAndDelete({courseListID});
+        const id = req.params.id;
+        const deletedCourseList = await CourseList.findByIdAndDelete(id);
         if (!deletedCourseList) {
             return res.status(404).json({message: 'CourseList not found.'});
         }
         res.status(200).json(deletedCourseList);
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.use((err, req, res, next) => {
+router.use((err, req, res) => {
     console.error(err.stack);
     return res.status(500).json({ message: 'Internal Server Error.' });
 });
