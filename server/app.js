@@ -52,13 +52,13 @@ app.get('/api', function(req, res) {
 const api = '/api/v1';
 
 // Controller routes
-app.use(`${api}/users`, userRoutes);
-app.use(`${api}/courses`, courseRoutes);
-app.use(`${api}/reviews`, reviewRoutes);
 app.use(`${api}/courses/:courseID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/courses/:courseID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/course-lists`, courseListRoutes);
+app.use(`${api}/users`, userRoutes);
+app.use(`${api}/courses`, courseRoutes);
+app.use(`${api}/reviews`, reviewRoutes);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
