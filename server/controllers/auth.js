@@ -70,7 +70,7 @@ export const authenticateJWT = (req, res, next) => {
 
 router.post('/register', async (req, res, next)=> {
     try {
-        const {username, password: inputPassword} = req.body;
+        const {username, password: inputPassword, role} = req.body;
 
         const existingUser = await User.findOne({username});
         if (existingUser) {
@@ -82,7 +82,8 @@ router.post('/register', async (req, res, next)=> {
 
         const newUser = new User({
             username,
-            password
+            password,
+            role
         });
         await newUser.save();
         return res.status(201).json({message: ' User registerd successfully'});
@@ -91,6 +92,10 @@ router.post('/register', async (req, res, next)=> {
     }
 });
 
-
+export const requireAdmin = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({message: 'Access denied: Admins only'});
+    }next();
+};
 
 export default router;
