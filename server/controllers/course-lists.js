@@ -1,7 +1,11 @@
 import express from 'express';
 import CourseList from '../models/course-list.js';
+<<<<<<< HEAD
 import User from '../models/user.js';
 import authenticateJWT from './auth.js';
+=======
+import { authenticateJWT } from './auth.js';
+>>>>>>> 0e2e066 (#17 Add authentication to course-lists.js)
 
 const router = express.Router({ mergeParams: true });
 
@@ -66,7 +70,11 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+<<<<<<< HEAD
 router.put('/:id', async (req, res, next) => {
+=======
+router.put('/:courseListID', authenticateJWT, async (req, res, next) => {
+>>>>>>> 0e2e066 (#17 Add authentication to course-lists.js)
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -85,7 +93,11 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
+<<<<<<< HEAD
 router.patch('/:id', async (req, res, next) => {
+=======
+router.patch('/:courseListID', authenticateJWT, async (req, res, next) => {
+>>>>>>> 0e2e066 (#17 Add authentication to course-lists.js)
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -102,7 +114,11 @@ router.patch('/:id', async (req, res, next) => {
     }
 });
 
+<<<<<<< HEAD
 router.delete('/:id', async (req, res, next) => {
+=======
+router.delete('/:courseListID', authenticateJWT, async (req, res, next) => {
+>>>>>>> 0e2e066 (#17 Add authentication to course-lists.js)
     try {
         const id = req.params.id;
         const deletedCourseList = await CourseList.findByIdAndDelete(id);
@@ -115,7 +131,12 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
+<<<<<<< HEAD
 router.use((err, req, res) => {
+=======
+
+router.use((err, req, res, next) => {
+>>>>>>> 0e2e066 (#17 Add authentication to course-lists.js)
     console.error(err.stack);
     return res.status(500).json({ message: 'Internal Server Error.' });
 });
