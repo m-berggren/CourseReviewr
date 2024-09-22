@@ -79,13 +79,10 @@ app.get('/api', function(req, res) {
 const api = '/api/v1';
 
 // Controller routes
-<<<<<<< HEAD
-=======
 app.use(`${api}/auth`, authRoutes);
 app.use(`${api}/users`, userRoutes);
 app.use(`${api}/courses`, courseRoutes);
 app.use(`${api}/reviews`, reviewRoutes);
->>>>>>> 8783b53 (#17 Add default admin to the system)
 app.use(`${api}/courses/:courseID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/courses/:courseID/reviews`, reviewRoutes);

@@ -1,6 +1,6 @@
 import express from 'express';
 import Course from '../models/course.js';
-import { authenticateJWT, requireAdmin } from './auth.js';
+import { authenticateJWT } from './auth.js';
 
 const router = express.Router();
 
@@ -76,11 +76,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-<<<<<<< HEAD
 router.put('/:id', async (req, res, next) => {
-=======
-router.put('/:courseID', authenticateJWT, async (req, res, next) => {
->>>>>>> e654ac1 (#17 Update endpoints based on user authentication and role)
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -109,11 +105,7 @@ router.put('/:courseID', authenticateJWT, async (req, res, next) => {
 });
 
 
-<<<<<<< HEAD
 router.patch('/:id', async (req, res, next) => {
-=======
-router.patch('/:courseID', authenticateJWT, async (req, res, next) => {
->>>>>>> e654ac1 (#17 Update endpoints based on user authentication and role)
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -141,11 +133,7 @@ router.patch('/:courseID', authenticateJWT, async (req, res, next) => {
     }
 });
 
-<<<<<<< HEAD
 router.delete('/:id', async (req, res, next) => {
-=======
-router.delete('/:courseID', authenticateJWT , requireAdmin, async (req, res, next) => {
->>>>>>> e654ac1 (#17 Update endpoints based on user authentication and role)
     try {
         const id = req.params.id;
         const deletedCourse = await Course.findByIdAndDelete(id);
