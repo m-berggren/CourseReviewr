@@ -70,7 +70,7 @@ export const authenticateJWT = (req, res, next) => {
 
 router.post('/register', async (req, res, next)=> {
     try {
-        const {username, password: inputPassword, role} = req.body;
+        const {username, password: inputPassword} = req.body;
 
         const existingUser = await User.findOne({username});
         if (existingUser) {
@@ -83,7 +83,7 @@ router.post('/register', async (req, res, next)=> {
         const newUser = new User({
             username,
             password,
-            role
+            role:'user'
         });
         await newUser.save();
         return res.status(201).json({message: ' User registerd successfully'});
