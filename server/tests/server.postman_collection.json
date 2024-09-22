@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "c40f6581-22a4-4961-b3e6-7dafeed0a984",
-		"name": "server_sequence_ids",
+		"_postman_id": "88824d54-7f26-4b1b-9e05-3e4e83530458",
+		"name": "server_mongodb_ids",
 		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38366801",
-		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-c40f6581-22a4-4961-b3e6-7dafeed0a984?action=share&source=collection_link&creator=38366801"
+		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-88824d54-7f26-4b1b-9e05-3e4e83530458?action=share&source=collection_link&creator=38366801"
 	},
 	"item": [
 		{
@@ -20,11 +20,11 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"Course\"]; // Course is needed",
-									"pm.environment.set(\"course_id\", jsonData.courseID);",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id\", jsonData._id);",
 									"",
 									"// Set course that does not exist",
-									"pm.environment.set(\"not_existing_course_id\", 100_000);",
+									"pm.environment.set(\"not_existing_course_id\", \"abcdefghijklmn\");",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -33,7 +33,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"topic\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
@@ -109,8 +108,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"Course\"]; // Course is needed",
-									"pm.environment.set(\"course_id2\", jsonData.courseID);",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id2\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -119,7 +118,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"topic\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
@@ -194,8 +192,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"Course\"]; // Course is needed",
-									"pm.environment.set(\"course_id3\", jsonData.courseID);",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id3\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -204,92 +202,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topic\");",
-									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
-									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
-									"\tpm.expect(jsonData).to.have.property(\"provider\");",
-									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
-									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
-									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"url\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"courses"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "400 - POST Course Validation error",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"Course\"]; // Course is needed",
-									"pm.environment.set(\"course_id3\", jsonData.courseID);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"topic\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
@@ -363,8 +275,8 @@
 							"script": {
 								"exec": [
 									"// Declare request- and response data",
-									"const jsonData = pm.response.json()[\"updatedCourse\"]; // updatedCourse is needed",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()['updatedCourse']; // updatedCourse is needed",
 									"",
 									"pm.test(\"Successful PATCH request - status 200\", () => {",
 									"    pm.response.to.have.status(200);",
@@ -372,7 +284,6 @@
 									"",
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('number').and.not.eql(0);",
 									"\tpm.expect(jsonData.name).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.topic).to.be.a('array').and.is.not.empty;",
 									"\tpm.expect(jsonData.difficulty).to.be.a('string').and.is.not.empty;",
@@ -434,14 +345,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PATCH Course that does not exist",
+					"name": "400 - PATCH Course that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 404 - course not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PATCH request status 400 - Cast error and not objectID \", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -472,7 +383,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -480,7 +391,7 @@
 								"api",
 								"{{api_version}}",
 								"courses",
-								"{{not_existing_course_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -504,7 +415,6 @@
 									"",
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('number').and.not.eql(0);",
 									"\tpm.expect(jsonData.name).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.topic).to.be.a('array').and.is.not.empty;",
 									"\tpm.expect(jsonData.difficulty).to.be.a('string').and.is.not.empty;",
@@ -565,14 +475,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PUT Course that does not exist",
+					"name": "400 - PUT Course that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 404 - course not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PUT request status 400 - Invalid format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -603,7 +513,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -611,7 +521,7 @@
 								"api",
 								"{{api_version}}",
 								"courses",
-								"{{not_existing_course_id}}"
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -632,9 +542,7 @@
 									"});",
 									"",
 									"jsonData.forEach((course) => {",
-									"\tpm.test(`Check courseID: ${course.courseID}`, () => {",
-									"\t\tpm.expect(course.courseID).to.be.a('number').and.not.eql(0);",
-									"\t\tpm.expect(course).to.have.property(\"name\");",
+									"\tpm.test(`Check courseID: ${course._id}`, () => {",
 									"\t\tpm.expect(course).to.have.property(\"name\");",
 									"\t\tpm.expect(course).to.have.property(\"topic\");",
 									"\t\tpm.expect(course).to.have.property(\"difficulty\");",
@@ -719,8 +627,7 @@
 									"});",
 									"",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseID).to.be.a('Number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"topic\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
@@ -777,14 +684,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - GET Course that doest not exist",
+					"name": "400 - GET Course that doest not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 404 - course not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"GET request status 400 - Invalid format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -813,7 +720,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -821,7 +728,7 @@
 								"api",
 								"{{api_version}}",
 								"courses",
-								"{{not_existing_course_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -873,14 +780,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - DELETE Course that does not exist",
+					"name": "400 - DELETE Course that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 404 - course not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"DELETE request status 400 - Invalid format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -901,7 +808,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_course_id}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -909,7 +816,7 @@
 								"api",
 								"{{api_version}}",
 								"courses",
-								"{{not_existing_course_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -930,11 +837,11 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"User\"]; // User is needed",
-									"pm.environment.set(\"user_id\", jsonData.userID);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"user_id\", jsonData._id);",
 									"",
 									"// Set env variable for user that does not exist",
-									"pm.environment.set(\"not_existing_user_id\", 100_000);",
+									"pm.environment.set(\"not_existing_id\", \"abcdefghijklmn\");",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -943,7 +850,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"username\");",
 									"\tpm.expect(jsonData).to.have.property(\"email\");",
 									"\tpm.expect(jsonData).to.have.property(\"password\");",
@@ -983,7 +889,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"mrBagel#34\",\n    \"email\": \"mrbagel_34@gmail.com\",\n    \"password\": \"Sunshine34\",\n    \"interests\": [\"Fishing\", \"Programming\"],\n    \"courseLists\": [1]\n}",
+							"raw": "{\n    \"username\": \"mrBagel#34\",\n    \"email\": \"mrbagel_34@gmail.com\",\n    \"password\": \"Sunshine34\",\n    \"interests\": [\"Fishing\", \"Programming\"],\n    \"recommendationList\": [\"{{course_id}}\", \"{{course_id2}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1014,8 +920,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"User\"]; // User is needed",
-									"pm.environment.set(\"user_id2\", jsonData.userID);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"user_id2\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -1024,7 +930,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"username\");",
 									"\tpm.expect(jsonData).to.have.property(\"email\");",
 									"\tpm.expect(jsonData).to.have.property(\"password\");",
@@ -1064,7 +969,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"raymondQ2\",\n    \"email\": \"raymondqt@outlook.com\",\n    \"password\": \"raymondisthebest\",\n    \"photo\": null,\n    \"interests\": [\"History\", \"Mechanical Engineering\"]\n}",
+							"raw": "{\n    \"username\": \"raymondQ2\",\n    \"email\": \"raymondqt@outlook.com\",\n    \"password\": \"raymondisthebest\",\n    \"photo\": null,\n    \"interests\": [\"History\", \"Mechanical Engineering\"],\n    \"recommendationList\": [\"{{course_id2}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1095,8 +1000,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"User\"]; // User is needed",
-									"pm.environment.set(\"user_id3\", jsonData.userID);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"user_id3\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -1105,7 +1010,6 @@
 									"",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('Number').and.not.eql(0);",
 									"\tpm.expect(jsonData).to.have.property(\"username\");",
 									"\tpm.expect(jsonData).to.have.property(\"email\");",
 									"\tpm.expect(jsonData).to.have.property(\"password\");",
@@ -1145,7 +1049,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\",\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"]\n}",
+							"raw": "{\n    \"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\",\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"],\n    \"recommendationList\": [\"{{course_id}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1239,7 +1143,6 @@
 									"",
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('number').and.not.eql(0);",
 									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
@@ -1248,7 +1151,6 @@
 									"// Loop through and compare request data to response data",
 									"pm.test(\"Response matches input data\", () => {",
 									"\tObject.keys(requestData).forEach(key => {",
-									"        console.log(requestData[key], jsonData[key]);",
 									"\t\tpm.test(`Field matches for: ${key}`, () => {",
 									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
 									"\t\t});",
@@ -1300,14 +1202,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PATCH User that does not exist",
+					"name": "400 - PATCH User that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 404 - user does not exist\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1338,7 +1240,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1346,7 +1248,7 @@
 								"api",
 								"{{api_version}}",
 								"users",
-								"{{not_existing_user_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -1370,7 +1272,6 @@
 									"",
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('number').and.not.eql(0);",
 									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
@@ -1434,14 +1335,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PUT User that does not exist",
+					"name": "400 - PUT User that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 404 - user not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1462,7 +1363,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1470,7 +1371,7 @@
 								"api",
 								"{{api_version}}",
 								"users",
-								"{{not_existing_user_id}}"
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -1484,15 +1385,14 @@
 							"script": {
 								"exec": [
 									"// Declare response data",
-									"const jsonData = pm.response.json()[\"users\"]; // users is needed",
+									"const jsonData = pm.response.json();",
 									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"jsonData.forEach((user) => {",
-									"\tpm.test(`Check userID: ${user.userID}`, () => {",
-									"\t\tpm.expect(user.userID).to.be.a('number').and.not.eql(0);",
+									"\tpm.test(`Check userID: ${user._id}`, () => {",
 									"\t\tpm.expect(user).to.have.property(\"username\");",
 									"\t\tpm.expect(user).to.have.property(\"email\");",
 									"\t\tpm.expect(user).to.have.property(\"password\");",
@@ -1540,8 +1440,7 @@
 									"});",
 									"",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.userID).to.be.a('Number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"username\");",
 									"\tpm.expect(jsonData).to.have.property(\"email\");",
 									"\tpm.expect(jsonData).to.have.property(\"password\");",
@@ -1593,15 +1492,15 @@
 					"response": []
 				},
 				{
-					"name": "404 - GET User that does not exist",
+					"name": "400 - GET User that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
 									"",
-									"pm.test(\"Status code is 404 - user does not exist\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"Status code is 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1630,7 +1529,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1638,7 +1537,7 @@
 								"api",
 								"{{api_version}}",
 								"users",
-								"{{not_existing_user_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -1652,7 +1551,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful DELETE request - status 200\", function () {",
+									"pm.test(\"Successful DELETE request - status 200\", () => {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -1690,14 +1589,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - DELETE User that does not exist",
+					"name": "400 - DELETE User that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 404 - user does not exist\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1718,7 +1617,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_user_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -1726,7 +1625,7 @@
 								"api",
 								"{{api_version}}",
 								"users",
-								"{{not_existing_user_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -1756,11 +1655,8 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"Review\"]; // Review is needed",
-									"pm.environment.set(\"review_id\", reviewData.reviewID);",
-									"",
-									"// Set a review that does not exist",
-									"pm.environment.set(\"not_existing_review_id\", 100_000);",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id\", reviewData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -1841,8 +1737,8 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"Review\"]; // Review is needed",
-									"pm.environment.set(\"review_id2\", reviewData.reviewID);",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id2\", reviewData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -1923,8 +1819,8 @@
 									"\treturn",
 									"}",
 									"",
-									"const reviewData = jsonData[\"Review\"]; // Review is needed",
-									"pm.environment.set(\"review_id3\", reviewData.reviewID);",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id3\", reviewData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -2151,61 +2047,6 @@
 					"response": []
 				},
 				{
-					"name": "409 - POST Review already made for user in course Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code 400 - courseID missing\", () => {",
-									"    pm.response.to.have.status(400);",
-									"})"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"rating\": [3, 3, 1, 3],\n    \"comment\": \"Intersting and good course!\",\n    \"hasCompleted\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/reviews",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"reviews"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
 					"name": "200 - PATCH Review data in reviews",
 					"event": [
 						{
@@ -2213,7 +2054,8 @@
 							"script": {
 								"exec": [
 									"// Declare request- and response data",
-									"const jsonData = pm.response.json()['review'];",
+									"const jsonData = pm.response.json()['updatedReview'];",
+									"console.log(jsonData)",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"",
 									"pm.test(\"Successful PATCH request - status 200\", () => {",
@@ -2279,14 +2121,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PATCH Review that does not exist",
+					"name": "400 - PATCH Review that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 404 - review not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2317,7 +2159,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -2329,7 +2171,7 @@
 								"courses",
 								"{{course_id}}",
 								"reviews",
-								"{{not_existing_review_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -2344,7 +2186,7 @@
 							"script": {
 								"exec": [
 									"// Declare request- and response data",
-									"const jsonData = pm.response.json()['review'];",
+									"const jsonData = pm.response.json()['updatedReview'];",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"",
 									"pm.test(\"Successful PUT request - status 200\", () => {",
@@ -2368,8 +2210,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"const currentDate = Date.now().toLocaleString;",
-									"pm.environment.set(\"currentDate\", currentDate);"
+									"const currentDate = new Date().toISOString();",
+									"pm.environment.set(\"currentDate\", currentDate);",
+									"",
+									"console.log(currentDate);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2381,7 +2225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": {{user_id}},\n    \"course\": {{course_id}},\n    \"date\": {{currentDate}},\n    \"comment\": \"Update: Lorem ipsum...\",\n    \"hasCompleted\": false\n}",
+							"raw": "{\n    \"user\": \"{{user_id}}\",\n    \"course\": \"{{course_id}}\",\n    \"date\": \"{{currentDate}}\",\n    \"comment\": \"Update: Lorem ipsum...\",\n    \"hasCompleted\": false\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2408,14 +2252,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PUT Review that does not exist",
+					"name": "400 - PUT Review that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 404 - review not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2428,7 +2272,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"user\": {{user_id}},\n\t\"course\": {{course_id}},\n\t\"date\": {{currentDate}},\n\t\"comment\": \"Update: Lorem ipsum...\",\n\t\"hasCompleted\": false\n}",
+							"raw": "{\n    \"user\": \"{{user_id}}\",\n    \"course\": \"{{course_id}}\",\n    \"date\": \"{{currentDate}}\",\n\t\"comment\": \"Update: Lorem ipsum...\",\n\t\"hasCompleted\": false\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2436,7 +2280,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -2448,7 +2292,7 @@
 								"courses",
 								"{{course_id}}",
 								"reviews",
-								"{{not_existing_review_id}}"
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -2516,13 +2360,12 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const course_id = Number(pm.environment.get('course_id'));",
+									"const course_id = pm.environment.get('course_id');",
 									"",
 									"jsonData.forEach((review) => {",
-									"\tpm.test(`Check all properties for reviewID: ${review.reviewID} and connected to courseID: ${course_id}`, () => {",
-									"\t\tpm.expect(review.reviewID).to.be.a('number').and.not.eql(0);",
+									"\tpm.test(`Check all properties for reviewID: ${review._id} and connected to courseID: ${course_id}`, () => {",
 									"\t\tpm.expect(review).to.have.property(\"user\");",
-									"\t\tpm.expect(review).to.have.property(\"course\").and.eql(course_id);",
+									"\t\tpm.expect(review).to.have.property(\"course\");",
 									"\t\tpm.expect(review).to.have.property(\"date\");",
 									"\t\tpm.expect(review).to.have.property(\"comment\");",
 									"\t\tpm.expect(review).to.have.property(\"hasCompleted\");",
@@ -2579,12 +2422,11 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const user_id = Number(pm.environment.get('user_id'));",
+									"const user_id = pm.environment.get('user_id');",
 									"",
 									"jsonData.forEach((review) => {",
-									"\tpm.test(`Check all properties for reviewID: ${review.reviewID} and connected to courseID: ${user_id}`, () => {",
-									"\t\tpm.expect(review.reviewID).to.be.a('number').and.not.eql(0);",
-									"\t\tpm.expect(review).to.have.property(\"user\").and.eql(user_id);",
+									"\tpm.test(`Check all properties for reviewID: ${review._id} and connected to courseID: ${user_id}`, () => {",
+									"\t\tpm.expect(review).to.have.property(\"user\");",
 									"\t\tpm.expect(review).to.have.property(\"course\");",
 									"\t\tpm.expect(review).to.have.property(\"date\");",
 									"\t\tpm.expect(review).to.have.property(\"comment\");",
@@ -2633,12 +2475,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const review_id = Number(pm.environment.get('review_id'));",
-									"const user_id = Number(pm.environment.get('user_id'));",
-									"",
-									"pm.test(`Check all properties for reviewID: ${review_id}`, () => {",
-									"    pm.expect(jsonData.reviewID).to.be.a('number').and.not.eql(0);",
-									"    pm.expect(jsonData).to.have.property(\"user\").and.eql(user_id);",
+									"pm.test(`Check all properties for reviewID: ${jsonData._id}`, () => {",
+									"    pm.expect(jsonData).to.have.property(\"user\");",
 									"    pm.expect(jsonData).to.have.property(\"course\");",
 									"    pm.expect(jsonData).to.have.property(\"date\");",
 									"    pm.expect(jsonData).to.have.property(\"comment\");",
@@ -2673,14 +2511,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - GET Review that does not exist",
+					"name": "400 - GET Review that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 404 - review not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"GET request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2704,7 +2542,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -2712,7 +2550,7 @@
 								"api",
 								"{{api_version}}",
 								"reviews",
-								"{{not_existing_review_id}}"
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -2763,14 +2601,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - DELETE Review that does not exist",
+					"name": "400 - DELETE Review that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 404 - review not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2791,7 +2629,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_review_id}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -2799,7 +2637,7 @@
 								"api",
 								"{{api_version}}",
 								"reviews",
-								"{{not_existing_review_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -2820,11 +2658,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"CourseList\"]; // User is needed",
-									"pm.environment.set(\"course_list_id\", jsonData.courseListID);",
-									"",
-									"// Set not existing courseListID",
-									"pm.environment.set(\"not_existing_course_list_id\", 100_000);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -2832,11 +2667,10 @@
 									"});",
 									"",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.courseListID).to.be.a('number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"userID\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"courses\");",
 									"});",
@@ -2871,7 +2705,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\":  [\"{{course_id}}\", \"{{course_id2}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2904,8 +2738,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"CourseList\"]; // User is needed",
-									"pm.environment.set(\"course_list_id2\", jsonData.courseListID);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id2\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -2913,11 +2747,10 @@
 									"});",
 									"",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.courseListID).to.be.a('number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"userID\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"courses\");",
 									"});",
@@ -2952,7 +2785,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-related\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
+							"raw": "{\n    \"name\": \"CS-related\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [\"{{course_id}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2985,8 +2818,8 @@
 								"exec": [
 									"// Declare request- and response data, set environment variable",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"CourseList\"]; // User is needed",
-									"pm.environment.set(\"course_list_id3\", jsonData.courseListID);",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id3\", jsonData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -2994,11 +2827,10 @@
 									"});",
 									"",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData.courseListID).to.be.a('number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"userID\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"courses\");",
 									"});",
@@ -3033,7 +2865,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science stuff\",\n    \"courses\": [1, 2]\n}",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science stuff\",\n    \"courses\": [\"{{course_id2}}\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3076,7 +2908,6 @@
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
 									"\tpm.expect(jsonData.name).to.be.a('string');",
 									"\tpm.expect(jsonData.creationDate).to.be.a('string').and.is.not.empty; // date as string",
-									"\tpm.expect(jsonData.userID).to.be.a('number').and.is.not.eql(0);",
 									"\tpm.expect(jsonData.description).to.be.a('string');",
 									"\tpm.expect(jsonData.courses).to.be.a('array').and.is.not.empty;",
 									"});",
@@ -3084,7 +2915,6 @@
 									"// Loop through and compare request data to response data",
 									"pm.test(\"Response matches input data\", () => {",
 									"\tObject.keys(requestData).forEach(key => {",
-									"        console.log(requestData[key], jsonData[key]);",
 									"\t\tpm.test(`Field matches for: ${key}`, () => {",
 									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
 									"\t\t});",
@@ -3138,14 +2968,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PATCH CourseList that doest not exist",
+					"name": "400 - PATCH CourseList that doest not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 404 - courseList not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3176,7 +3006,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -3186,7 +3016,7 @@
 								"users",
 								"{{user_id}}",
 								"course-lists",
-								"{{not_existing_course_list_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -3212,9 +3042,8 @@
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
 									"\tpm.expect(jsonData.name).to.be.a('string');",
 									"\tpm.expect(jsonData.creationDate).to.be.a('string').and.is.not.empty; // date as string",
-									"\tpm.expect(jsonData.userID).to.be.a('number').and.is.not.eql(0);",
 									"\tpm.expect(jsonData.description).to.be.a('string');",
-									"\tpm.expect(jsonData.courses).to.be.a('array').and.is.not.empty;",
+									"\tpm.expect(jsonData.courses).to.be.a('array');",
 									"});",
 									"",
 									"// Loop through and compare request data to response data",
@@ -3236,7 +3065,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-related-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [1, 2]\n}",
+							"raw": "{\n    \"name\": \"CS-related-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3261,14 +3090,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - PUT CourseList that doest not exist",
+					"name": "400 - PUT CourseList that doest not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 404 - courseList not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3289,7 +3118,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -3299,7 +3128,7 @@
 								"users",
 								"{{user_id}}",
 								"course-lists",
-								"{{not_existing_course_list_id}}"
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -3313,20 +3142,19 @@
 							"script": {
 								"exec": [
 									"// Declare response data",
-									"const jsonData = pm.response.json()['courseLists'];",
+									"const jsonData = pm.response.json();",
 									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const user_id = Number(pm.environment.get('user_id'));",
+									"const user_id = pm.environment.get('user_id');",
 									"",
 									"jsonData.forEach((courseList) => {",
-									"\tpm.test(`Check all properties for courseListID: ${courseList.courseListID} and connected to userID: ${user_id}`, () => {",
-									"\t\tpm.expect(courseList.courseListID).to.be.a('number').and.not.eql(0);",
+									"\tpm.test(`Check all properties for courseListID: ${courseList._id} and connected to userID: ${user_id}`, () => {",
 									"\t\tpm.expect(courseList).to.have.property(\"name\");",
 									"\t\tpm.expect(courseList).to.have.property(\"creationDate\");",
-									"\t\tpm.expect(courseList).to.have.property(\"userID\").and.eql(user_id);",
+									"\t\tpm.expect(courseList).to.have.property(\"user\").and.eql(user_id);",
 									"\t\tpm.expect(courseList).to.have.property(\"description\");",
 									"\t\tpm.expect(courseList).to.have.property(\"courses\");",
 									"\t});",
@@ -3337,9 +3165,21 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
 							"host": [
@@ -3372,11 +3212,10 @@
 									"});",
 									"console.log(jsonData);",
 									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData.courseListID).to.be.a('number').and.not.eql(0);",
+									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
 									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"userID\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"courses\");",
 									"});"
@@ -3438,8 +3277,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 404 - courseList not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"GET request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3475,7 +3314,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -3485,7 +3324,7 @@
 								"users",
 								"{{user_id}}",
 								"course-lists",
-								"{{not_existing_course_list_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -3539,14 +3378,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - DELETE CourseList that does not exist",
+					"name": "400 - DELETE CourseList that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 404 - courseList not found\", () => {",
-									"    pm.response.to.have.status(404);",
+									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3567,7 +3406,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
@@ -3577,7 +3416,7 @@
 								"users",
 								"{{user_id}}",
 								"course-lists",
-								"{{not_existing_course_list_id}}"
+								"{{not_existing_id}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."

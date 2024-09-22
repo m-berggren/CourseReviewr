@@ -4,37 +4,29 @@ import express from 'express';
 // Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
 const router = express.Router({ mergeParams: true });
 
-// Middleware to extract and validate IDs
-const extractIds = (req, res, next) => {
-    req.userID = req.params.userID ? Number(req.params.userID) : undefined;
-    req.courseID = req.params.courseID ? Number(req.params.courseID) : undefined;
-    req.reviewID = req.params.reviewID ? Number(req.params.reviewID) : undefined;
-    next();
-};
-  
-router.use(extractIds);
-
 const handleError = (error, res) => {
     if (error.code === 11000) {
         return res.status(409).json({ message: 'Review already exists.' });
     } else if (error.name === 'ValidationError') {
         const messages = Object.values(error.errors).map(err => err.message);
         return res.status(400).json({ message: messages });
+    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
+        return res.status(400).json({ message: 'Invalid ID format.' });
     }
 };
 
 router.post('/', async(req, res, next) => {
     try{
-        // Extract, cast IDs to numbers and destructure the request body
-        let { userID, courseID } = req;
+        let { userID, courseID } = req.params;
         const review = req.body;
 
-        // Cannot create a review without specifying userID and courseID
+        
+
+        // Cannot create a review without specifying userID and courseID in the parameters
         if (!userID || !courseID) {
             return res.status(400).json({ error: 'UserID and/or courseID are required'});
         }
 
-        //create and save the new review
         const newReview = new Review({
             user: userID,
             course: courseID,
@@ -44,23 +36,23 @@ router.post('/', async(req, res, next) => {
 
         const savedReview = await newReview.save();
         res.status(201).json({
-            Review: savedReview,
+            savedReview,
             _links: {
-                self: { href: `/api/reviews/${savedReview.reviewID}`, method: 'GET' },
-                update: { href: `/api/reviews/${savedReview.reviewID}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${savedReview.reviewID}`, method: 'DELETE' },
+                self: { href: `/api/reviews/${savedReview._id}`, method: 'GET' },
+                update: { href: `/api/reviews/${savedReview._id}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${savedReview._id}`, method: 'DELETE' },
                 allReviewsForCourse: { href: `/api/reviews?courseID=${courseID}`, method: 'GET' },
                 allReviewsForUser: { href: `/api/reviews?userID=${userID}`, method: 'GET' }
             }
         });
     } catch (error) {
-        return handleError(error, res) || next(error);
+        return next(error);
     }
 });
 
 router.get('/', async(req, res, next) => {
     try {
-        const {userID, courseID} = req;
+        const {userID, courseID} = req.params;
         const {sortBy = 'date', order = 'desc'} = req.query;
         const filter = {};
  
@@ -83,7 +75,7 @@ router.get('/', async(req, res, next) => {
             return res.status(400).json({error: 'limit and page must be positive integers'});
         }
         
-        const reviews = await Review.find(filter).sort(sortOptions).limit(limit).skip((page-1)*limit);
+        const reviews = await Review.find(filter).populate('user').populate('course').sort(sortOptions).limit(limit).skip((page-1)*limit);
         const totalReviews = await Review.countDocuments(filter);
         const totalPages = Math.ceil(totalReviews/limit);
 
@@ -119,49 +111,49 @@ router.get('/', async(req, res, next) => {
     }
 });
 
-router.get('/:reviewID', async(req, res, next) => {
+router.get('/:id', async(req, res, next) => {
     try {
-        const reviewID = Number(req.params.reviewID);
-        const review = await Review.findOne({ reviewID });
+        const id = req.params.id;
+        const review = await Review.findById(id).populate('user').populate('course');
         if (!review){
-            return res.status(404).json({error: 'Review not found'});
+            return res.status(404).json({ error: 'Review not found' });
         }
 
         res.status(200).json({
             review,
             _links: {
-                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
-                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },}
+                self: { href: `/api/reviews/${id}`, method: 'GET' },
+                update: { href: `/api/reviews/${id}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${id}`, method: 'DELETE' },}
 
         });
 
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.put('/:reviewID', async(req, res, next) => {
+router.put('/:id', async(req, res, next) => {
     try {
-        const reviewID = Number(req.params.reviewID);
+        const id = req.params.id;
         const updates = req.body;
 
         // using spread operator (...) to update values
-        const updatedReview = await Review.findOneAndUpdate(
-            { reviewID },
-            {...updates},
+        const updatedReview = await Review.findByIdAndUpdate(
+            id,
+            {...updates },
             { new: true, runValidators: true, overwrite: true }
         );
 
         if (!updatedReview){
-            return res.status(404).json({error:'Review not found'});
+            return res.status(404).json({ error:'Review not found' });
         }
         res.status(200).json({
-            review: updatedReview,
+            updatedReview,
             _links: {
-                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
-                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },
+                self: { href: `/api/reviews/${id}`, method: 'GET' },
+                update: { href: `/api/reviews/${id}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${id}`, method: 'DELETE' },
             },
         });
     } catch (error) {
@@ -169,26 +161,28 @@ router.put('/:reviewID', async(req, res, next) => {
     }
 });
 
-router.patch('/:reviewID', async(req,res,next) => {
+router.patch('/:id', async(req,res,next) => {
     try {
-        const reviewID = Number(req.params.reviewID);
+        const id = req.params.id;
+        console.log(req.params);
         const updates = req.body;
+        console.log(req.body);
 
-        const updatedReview = await Review.findOneAndUpdate(
-            {reviewID},
-            {$set: updates},
-            {new: true, runValidators:true}
+        const updatedReview = await Review.findByIdAndUpdate(
+            id,
+            { $set: updates },
+            { new: true, runValidators:true }
         );
 
         if (!updatedReview){
             return res.status(404).json({error:'Review not found'});
         }
         res.status(200).json({
-            review: updatedReview,
+            updatedReview,
             _links: {
-                self: { href: `/api/reviews/${reviewID}`, method: 'GET' },
-                update: { href: `/api/reviews/${reviewID}`, method: 'PUT' },
-                delete: { href: `/api/reviews/${reviewID}`, method: 'DELETE' },
+                self: { href: `/api/reviews/${id}`, method: 'GET' },
+                update: { href: `/api/reviews/${id}`, method: 'PUT' },
+                delete: { href: `/api/reviews/${id}`, method: 'DELETE' },
             },
         });
     } catch (error) {
@@ -196,13 +190,13 @@ router.patch('/:reviewID', async(req,res,next) => {
     }
 });
 
-router.delete('/:reviewID', async(req,res,next) => {
+router.delete('/:id', async(req,res,next) => {
     try {
-        const {reviewID} = req.params;
+        const id = req.params.id;
 
-        const deletedReview = await Review.findOneAndDelete({reviewID});
+        const deletedReview = await Review.findByIdAndDelete(id);
         if (!deletedReview){
-            return res.status(404).json({error:'Review not found'});
+            return res.status(404).json({ error:'Review not found' });
         }
         res.status(200).json({
             message:'Review deleted successfully',
@@ -211,11 +205,11 @@ router.delete('/:reviewID', async(req,res,next) => {
             }
         });
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.use((err, req, res, next) => {
+router.use((err, req, res) => {
     console.error(err.stack);
     return res.status(500).json({ message: 'Internal Server Error.' });
 });

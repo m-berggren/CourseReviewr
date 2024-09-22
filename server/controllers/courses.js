@@ -9,6 +9,8 @@ const handleError = (error, res) => {
     } else if (error.name === 'ValidationError') {
         const messages = Object.values(error.errors).map(err => err.message);
         return res.status(400).json({ message: messages });
+    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
+        return res.status(400).json({ message: 'Invalid ID format.' });
     }
 };
 
@@ -19,11 +21,11 @@ router.post('/', async (req, res, next) => {
         
         //implement HATEOAS, include hypermedia links in the response
         res.status(201).json({
-            'Course': course,
+            course,
             '_links':{
-                'self':{ href: `/courses/${course.courseID}`},
-                'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
-                'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
+                'self':{ href: `/courses/${course._id}`},
+                'update': { href:`/courses/${course._id}`, method: 'PUT' },
+                'delete': { href:`/courses/${course._id}`, method: 'DELETE' },
                 'listAll': { href:'/courses', method: 'GET' }
             } 
         });
@@ -49,10 +51,10 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:courseID', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
-        const { courseID } = req.params;
-        const course = await Course.findOne({ courseID });
+        const id = req.params.id;
+        const course = await Course.findById(id);
 
         if (!course) {
             return res.status(404).json({ message: 'Course not found.' });
@@ -61,24 +63,24 @@ router.get('/:courseID', async (req, res, next) => {
         res.status(200).json({
             course,
             '_links': {
-                'self': { href: `/courses/${course.courseID}`},
-                'update': { href:`/courses/${course.courseID}`, method: 'PUT' },
-                'delete': { href:`/courses/${course.courseID}`, method: 'DELETE' },
+                'self': { href: `/courses/${course._id}`},
+                'update': { href:`/courses/${course._id}`, method: 'PUT' },
+                'delete': { href:`/courses/${course._id}`, method: 'DELETE' },
                 'listAll': { href:'/courses', method: 'GET' }
             }
         });
 
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.put('/:courseID', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     try {
-        const { courseID } = req.params;
+        const id = req.params.id;
         const updates = req.body;
-        const updatedCourse = await Course.findOneAndUpdate(
-            { courseID },
+        const updatedCourse = await Course.findByIdAndUpdate(
+            id,
             { ...updates },
             { new: true, runValidators: true, overwrite: true }
         );
@@ -90,8 +92,8 @@ router.put('/:courseID', async (req, res, next) => {
         res.status(200).json({
             updatedCourse,
             '_links': {
-                'self': { href: `/courses/${updatedCourse.courseID}`},
-                'delete': { href: `courses/${updatedCourse.courseID}`, method: 'DELETE'},
+                'self': { href: `/courses/${id}`},
+                'delete': { href: `courses/${id}`, method: 'DELETE'},
                 'listAll': { href: '/courses/', method: 'GET'}
             }
         });
@@ -102,12 +104,12 @@ router.put('/:courseID', async (req, res, next) => {
 });
 
 
-router.patch('/:courseID', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
     try {
-        const { courseID } = req.params;
+        const id = req.params.id;
         const updates = req.body;
-        const updatedCourse = await Course.findOneAndUpdate(
-            { courseID },
+        const updatedCourse = await Course.findByIdAndUpdate(
+            id,
             { $set: updates },
             { new: true, runValidators: true }
         );
@@ -119,8 +121,8 @@ router.patch('/:courseID', async (req, res, next) => {
         res.status(200).json({
             updatedCourse,
             '_links':{
-                'self': {href: `/courses/${updatedCourse.courseID}`},
-                'delete': {href:`/courses/${updatedCourse.courseID}`, method: 'DELETE'},
+                'self': {href: `/courses/${id}`},
+                'delete': {href:`/courses/${id}`, method: 'DELETE'},
                 'listAll': {href: '/courses/', method: 'GET'}
             }
         });
@@ -130,10 +132,10 @@ router.patch('/:courseID', async (req, res, next) => {
     }
 });
 
-router.delete('/:courseID', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
     try {
-        const { courseID } = req.params;
-        const deletedCourse = await Course.findOneAndDelete({ courseID });
+        const id = req.params.id;
+        const deletedCourse = await Course.findByIdAndDelete(id);
 
         if (!deletedCourse) {
             return res.status(404).json({ message: 'Course not found.' });
@@ -148,11 +150,11 @@ router.delete('/:courseID', async (req, res, next) => {
         });
 
     } catch (error) {
-        next(error);
+        return handleError(error, res) || next(error);
     }
 });
 
-router.use((err, req, res, next) => {
+router.use((err, req, res) => {
     console.error(err.stack);
     return res.status(500).json({ message: 'Internal Server Error.' });
 });
