@@ -62,6 +62,9 @@ connect(mongoURI).catch(function(err) {
 
 // Create Express app
 var app = express();
+
+//HTTP method overwriting
+app.use(methodOverride('_method')); 
 // Parse requests of content-type 'application/json'
 app.use(urlencoded({ extended: true }));
 app.use(json());
@@ -71,8 +74,6 @@ app.use(morgan('dev'));
 app.options('*', cors());
 app.use(cors());
 
-//HTTP method overwriting
-app.use(methodOverride('_method')); 
 
 // Import routes
 app.get('/api', function(req, res) {
