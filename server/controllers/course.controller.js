@@ -124,10 +124,10 @@ const deleteAllCourses = async (req, res, next) => {
         const courses = await Course.deleteMany();
 
         if (courses.deletedCount === 0) {
-            res.status(404).json({ message: 'No courses found to delete.'});
+            return res.status(404).json({ message: 'No courses found to delete.'});
         }
 
-        res.status(200).json({ message: `${courses.deletedCount} courses deleted successfully.` });
+        return res.status(200).json({ message: `${courses.deletedCount} courses deleted successfully.` });
     } catch (error) {
         next(error);
     }

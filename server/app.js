@@ -8,6 +8,7 @@ import { normalize, join } from 'path';
 import cors from 'cors';
 import { configurePassport } from './middleware/passport.middleware.js';
 import { createDefaultAdmin } from './utils/setup.js';
+import methodOverride from 'method-override';
 
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
@@ -36,6 +37,9 @@ connect(mongoURI).catch(function(err) {
 
 // Create Express app
 var app = express();
+
+//HTTP method overwriting
+app.use(methodOverride('_method')); 
 // Parse requests of content-type 'application/json'
 app.use(urlencoded({ extended: true }));
 app.use(json());
