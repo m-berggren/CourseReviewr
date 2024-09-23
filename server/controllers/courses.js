@@ -1,6 +1,6 @@
 import express from 'express';
 import Course from '../models/course.js';
-import { authenticateJWT } from './auth.js';
+import { authenticateJWT, requireAdmin } from './auth.js';
 
 const router = express.Router();
 
@@ -76,7 +76,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticateJWT, async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -105,7 +105,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', authenticateJWT, async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -133,7 +133,21 @@ router.patch('/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+    try {
+        const courses = await Course.deleteMany();
+
+        if (courses.deletedCount === 0) {
+            res.status(404).json({ message: 'No courses found to delete.'});
+        }
+
+        res.status(200).json({ message: `${courses.deletedCount} courses deleted successfully.` });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     try {
         const id = req.params.id;
         const deletedCourse = await Course.findByIdAndDelete(id);
