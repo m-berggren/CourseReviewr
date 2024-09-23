@@ -9,10 +9,1312 @@
 	},
 	"item": [
 		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "201 - Create new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for user creation and store user_id",
+									"pm.test(\"Create new user in the system\", () => {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"    const userID = pm.response.json().userID;",
+									"    if (userID) {",
+									"        pm.environment.set(\"user_id\", userID); // Update user_id in environment variable",
+									"        pm.expect(userID).to.be.a('string').that.is.not.empty; // Validate user_id",
+									"    } else {",
+									"        pm.expect.fail(\"user ID not found in response\"); // Fail if user_id is missing",
+									"    }",
+									"});",
+									"",
+									"pm.environment.set(\"not_existing_id\", \"66f10daef1ff7aba93c2e8f1\");",
+									"pm.environment.set(\"not_valid_id_format\", \"abcdefghijklmn\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"api_version\", \"v1\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"email\": \"mrbagel_34@gmail.com\",\n\t\"password\": \"Sunshine34\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create second user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for user creation and store user_id",
+									"pm.test(\"Create new user in the system\", () => {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"    const userID = pm.response.json().userID;",
+									"    if (userID) {",
+									"        pm.environment.set(\"user_id2\", userID); // Update user_id in environment variable",
+									"        pm.expect(userID).to.be.a('string').that.is.not.empty; // Validate user_id",
+									"    } else {",
+									"        pm.expect.fail(\"user ID not found in response\"); // Fail if user_id is missing",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"raymondQ2\",\n    \"email\": \"raymondqt@outlook.com\",\n    \"password\": \"raymondisthebest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create third user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for user creation and store user_id",
+									"pm.test(\"Create new user in the system\", () => {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"    const userID = pm.response.json().userID;",
+									"    if (userID) {",
+									"        pm.environment.set(\"user_id3\", userID); // Update user_id in environment variable",
+									"        pm.expect(userID).to.be.a('string').that.is.not.empty; // Validate user_id",
+									"    } else {",
+									"        pm.expect.fail(\"user ID not found in response\"); // Fail if user_id is missing",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "409 - Create conflicting user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test user creationg to assert conflicting user",
+									"pm.test(\"Create conflicting user\", () => {",
+									"\tpm.response.to.have.status(409);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"email\": \"mrbagel_34@gmail.com\",\n\t\"password\": \"Sunshine34\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "401 - Login with invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 401 - Invalid password\", () => {",
+									"\tpm.response.to.have.status(401);",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"password\": \"12345dfdsf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Login user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store new token and assert login and token format",
+									"pm.test(\"User successfully logged in with updated token\", () => {",
+									"\tpm.response.to.have.status(200)",
+									"\tconst jsonData = pm.response.json();",
+									"\t\tif  (jsonData.token) {",
+									"    \tpm.environment.set(\"jwt_token\", jsonData.token);",
+									"\t\t\tpm.expect(jsonData.token).to.be.a('string').that.is.not.empty; // Validate the token",
+									"\t\t} else {",
+									"\t\t\tpm.expect.fail(\"Token not found in response\"); // Fail if token is missing",
+									"\t\t}",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"password\": \"Sunshine34\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Login admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store new token and assert login and token format",
+									"pm.test(\"User successfully logged in with updated token\", () => {",
+									"\tpm.response.to.have.status(200)",
+									"\tconst jsonData = pm.response.json();",
+									"\t\tif  (jsonData.token) {",
+									"    \tpm.environment.set(\"admin_jwt_token\", jsonData.token);",
+									"\t\t\tpm.expect(jsonData.token).to.be.a('string').that.is.not.empty; // Validate the token",
+									"\t\t} else {",
+									"\t\t\tpm.expect.fail(\"Token not found in response\"); // Fail if token is missing",
+									"\t\t}",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Edit user data on user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data",
+									"const jsonData = pm.response.json();",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"",
+									"pm.test(\"Successful PATCH request - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Check other fields that should never have null values",
+									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
+									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "403 - User attempts to edit another user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PATCH request status 403 - not allowed to edit another user\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin edits another user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data",
+									"const jsonData = pm.response.json();",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"",
+									"pm.test(\"Successful PATCH request - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Check other fields that should never have null values",
+									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
+									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Edit user data on user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data",
+									"const jsonData = pm.response.json();",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"",
+									"pm.test(\"Successful PUT request - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Check other fields that should never have null values",
+									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
+									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const username = \"mrBagel#34\"",
+									"const email = \"mrbagel_34@gmail.com\"",
+									"const password = \"Sunshine34\"",
+									"",
+									"pm.environment.set(\"username\", username)",
+									"pm.environment.set(\"email\", email)",
+									"pm.environment.set(\"password\", password)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "403 - User attempts to edit another user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PUT request status 403 - not allowed access to another user\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const username = \"mrBagel#34\"",
+									"const email = \"mrbagel_34@gmail.com\"",
+									"const password = \"Sunshine34\"",
+									"",
+									"pm.environment.set(\"username\", username)",
+									"pm.environment.set(\"email\", email)",
+									"pm.environment.set(\"password\", password)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin edits another user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data",
+									"const jsonData = pm.response.json();",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"",
+									"pm.test(\"Successful PUT request - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Check other fields that should never have null values",
+									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
+									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
+									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const username = \"mrBagel#34\"",
+									"const email = \"mrbagel_34@gmail.com\"",
+									"const password = \"Sunshine34\"",
+									"",
+									"pm.environment.set(\"username\", username)",
+									"pm.environment.set(\"email\", email)",
+									"pm.environment.set(\"password\", password)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "403 - User attempts to show all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 - need admin access to see all users\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin shows all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData.forEach((user) => {",
+									"\tpm.test(`Check userID: ${user._id}`, () => {",
+									"\t\tpm.expect(user).to.have.property(\"username\");",
+									"\t\tpm.expect(user).to.have.property(\"email\");",
+									"\t\tpm.expect(user).to.have.property(\"password\");",
+									"\t\tpm.expect(user).to.have.property(\"photo\");",
+									"\t\tpm.expect(user).to.have.property(\"interests\");",
+									"\t\tpm.expect(user).to.have.property(\"recommendationList\");",
+									"\t\tpm.expect(user).to.have.property(\"courseLists\");",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Show specific User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"username\");",
+									"\tpm.expect(jsonData).to.have.property(\"email\");",
+									"\tpm.expect(jsonData).to.have.property(\"password\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"interests\");",
+									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
+									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Show user that does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 404 - user does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{not_existing_id}}"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "403 - User attempts to delete a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User has no access to deletion of another user - status 403\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id3}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin deletes user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let user_id3 = pm.environment.get(\"user_id3\");",
+									"",
+									"pm.test(`Successfully deleted user ${user_id3} - status 200`, () => {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id3}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Admin deletes user that no longer exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User not found - status 404\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{not_existing_id}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Admin deletes with invalid id format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DELETE status 400 - invalid ID format\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{not_valid_id_format}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{not_valid_id_format}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Courses",
 			"item": [
 				{
-					"name": "201 - POST Course in courses",
+					"name": "201 - Create new course",
 					"event": [
 						{
 							"listen": "test",
@@ -22,9 +1324,6 @@
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
 									"pm.environment.set(\"course_id\", jsonData._id);",
-									"",
-									"// Set course that does not exist",
-									"pm.environment.set(\"not_existing_course_id\", \"abcdefghijklmn\");",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -73,6 +1372,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -100,7 +1409,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST Course #2 in courses",
+					"name": "201 - Create second course",
 					"event": [
 						{
 							"listen": "test",
@@ -157,6 +1466,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -184,7 +1503,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST course #3 in courses",
+					"name": "201 - Create third course",
 					"event": [
 						{
 							"listen": "test",
@@ -241,6 +1560,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -268,7 +1597,61 @@
 					"response": []
 				},
 				{
-					"name": "200 - PATCH Course data in courses",
+					"name": "401 - Attempt creating course without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 401 - need valid token (logged in user)\", () => {",
+									"\tpm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Edit course data on course",
 					"event": [
 						{
 							"listen": "test",
@@ -317,6 +1700,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -345,14 +1738,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - PATCH Course that does not exist",
+					"name": "404 - Edit course data on non-existing course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 400 - Cast error and not objectID \", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PUT request status 404 - course does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -371,6 +1764,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -399,7 +1802,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - PUT Course data in courses",
+					"name": "200 - Edit course data on course",
 					"event": [
 						{
 							"listen": "test",
@@ -448,6 +1851,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -475,14 +1888,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - PUT Course that does not exist",
+					"name": "404 - Edit course data on non-existing course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 400 - Invalid format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PUT request status 404 - course does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -501,6 +1914,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -528,7 +1951,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET all courses",
+					"name": "200 - Show all courses",
 					"event": [
 						{
 							"listen": "test",
@@ -613,7 +2036,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET specific Course",
+					"name": "200 - Show specific course",
 					"event": [
 						{
 							"listen": "test",
@@ -684,14 +2107,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - GET Course that doest not exist",
+					"name": "404 - Show course that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 400 - Invalid format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"GET request status 404 - course does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -736,14 +2159,14 @@
 					"response": []
 				},
 				{
-					"name": "200 - DELETE Course from courses",
+					"name": "403 - User attempts to delete course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 403\", () => {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -752,6 +2175,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -780,14 +2213,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - DELETE Course that does not exist",
+					"name": "200 - Admin deletes course",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 400 - Invalid format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -796,6 +2229,70 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id3}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses",
+								"{{course_id3}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Admin deletes course that no longer exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DELETE request status 404 - course does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -822,526 +2319,15 @@
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "201 - POST User #1 to users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"user_id\", jsonData._id);",
-									"",
-									"// Set env variable for user that does not exist",
-									"pm.environment.set(\"not_existing_id\", \"abcdefghijklmn\");",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"username\");",
-									"\tpm.expect(jsonData).to.have.property(\"email\");",
-									"\tpm.expect(jsonData).to.have.property(\"password\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"interests\");",
-									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
-									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"mrBagel#34\",\n    \"email\": \"mrbagel_34@gmail.com\",\n    \"password\": \"Sunshine34\",\n    \"interests\": [\"Fishing\", \"Programming\"],\n    \"recommendationList\": [\"{{course_id}}\", \"{{course_id2}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
 				},
 				{
-					"name": "201 - POST User #2 to users",
+					"name": "400 - Admin deletes with invalid id format",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"user_id2\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"username\");",
-									"\tpm.expect(jsonData).to.have.property(\"email\");",
-									"\tpm.expect(jsonData).to.have.property(\"password\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"interests\");",
-									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
-									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"raymondQ2\",\n    \"email\": \"raymondqt@outlook.com\",\n    \"password\": \"raymondisthebest\",\n    \"photo\": null,\n    \"interests\": [\"History\", \"Mechanical Engineering\"],\n    \"recommendationList\": [\"{{course_id2}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - POST User #3 to users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"user_id3\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and id is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"username\");",
-									"\tpm.expect(jsonData).to.have.property(\"email\");",
-									"\tpm.expect(jsonData).to.have.property(\"password\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"interests\");",
-									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
-									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"theodoraSmythe\",\n    \"email\": \"theosmythe@outlook.com\",\n    \"password\": \"aaron2104\",\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"],\n    \"recommendationList\": [\"{{course_id}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "400 - POST User Validation error",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 400 - validation error\", () => {",
-									"\tpm.response.to.have.status(400);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"photo\": null,\n    \"interests\": [\"Dancing\", \"Theology\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "200 - PATCH User data in users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data",
-									"const jsonData = pm.response.json();",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"",
-									"pm.test(\"Successful PATCH request - status 200\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"// Check other fields that should never have null values",
-									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}"
-							]
-						},
-						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "400 - PATCH User that does not exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{not_existing_id}}"
-							]
-						},
-						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "200 - PUT User data in users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data",
-									"const jsonData = pm.response.json();",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"",
-									"pm.test(\"Successful PUT request - status 200\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"// Check other fields that should never have null values",
-									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
-									"\tpm.expect(jsonData.username).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.email).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.password).to.be.a('string').and.is.not.empty;",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const username = \"mrBagel#34\"",
-									"const email = \"mrbagel_34@gmail.com\"",
-									"const password = \"Sunshine34\"",
-									"",
-									"pm.environment.set(\"username\", username)",
-									"pm.environment.set(\"email\", email)",
-									"pm.environment.set(\"password\", password)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "400 - PUT User that does not exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
+									"pm.test(\"DELETE request status 400 - Invalid format\", () => {",
 									"    pm.response.to.have.status(400);",
 									"});"
 								],
@@ -1351,216 +2337,16 @@
 						}
 					],
 					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"photo\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
 								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{not_existing_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "200 - GET all users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare response data",
-									"const jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"jsonData.forEach((user) => {",
-									"\tpm.test(`Check userID: ${user._id}`, () => {",
-									"\t\tpm.expect(user).to.have.property(\"username\");",
-									"\t\tpm.expect(user).to.have.property(\"email\");",
-									"\t\tpm.expect(user).to.have.property(\"password\");",
-									"\t\tpm.expect(user).to.have.property(\"photo\");",
-									"\t\tpm.expect(user).to.have.property(\"interests\");",
-									"\t\tpm.expect(user).to.have.property(\"recommendationList\");",
-									"\t\tpm.expect(user).to.have.property(\"courseLists\");",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "200 - GET specific User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare response data",
-									"const jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"username\");",
-									"\tpm.expect(jsonData).to.have.property(\"email\");",
-									"\tpm.expect(jsonData).to.have.property(\"password\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"interests\");",
-									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
-									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}"
 							]
 						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "400 - GET User that does not exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"",
-									"pm.test(\"Status code is 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{not_existing_id}}"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "200 - DELETE User from users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful DELETE request - status 200\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -1573,59 +2359,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}",
+							"raw": "{{host}}/api/{{api_version}}/courses/{{not_valid_id_format}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"{{api_version}}",
-								"users",
-								"{{user_id3}}"
-							]
-						},
-						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "400 - DELETE User that does not exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{not_existing_id}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{not_existing_id}}"
+								"courses",
+								"{{not_valid_id_format}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -1638,7 +2380,7 @@
 			"name": "Reviews",
 			"item": [
 				{
-					"name": "201 - POST Review #1 to reviews",
+					"name": "201 - Create new review",
 					"event": [
 						{
 							"listen": "test",
@@ -1689,6 +2431,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1720,7 +2472,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST Review #2 to reviews",
+					"name": "201 - Create second review",
 					"event": [
 						{
 							"listen": "test",
@@ -1771,6 +2523,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1802,7 +2564,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST Review #3 to reviews",
+					"name": "201 - Create third review",
 					"event": [
 						{
 							"listen": "test",
@@ -1853,6 +2615,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1884,7 +2656,62 @@
 					"response": []
 				},
 				{
-					"name": "400 - POST Review w/o User & Course",
+					"name": "401 - Attempt creating review without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 401 - token required (not logged in)\", () => {",
+									"\tpm.response.to.have.status(401);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Intersting and good course!\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Create review w/o user_id & course_id",
 					"event": [
 						{
 							"listen": "test",
@@ -1910,6 +2737,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1937,7 +2774,7 @@
 					"response": []
 				},
 				{
-					"name": "400 - POST Review w/o User",
+					"name": "400 - Create review w/o user_id",
 					"event": [
 						{
 							"listen": "test",
@@ -1963,6 +2800,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1992,7 +2839,7 @@
 					"response": []
 				},
 				{
-					"name": "400 - POST Review w/o Course",
+					"name": "400 - Create review w/o course_id",
 					"event": [
 						{
 							"listen": "test",
@@ -2018,6 +2865,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -2047,7 +2904,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - PATCH Review data in reviews",
+					"name": "200 - Edit review data on review",
 					"event": [
 						{
 							"listen": "test",
@@ -2089,6 +2946,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -2121,14 +2988,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - PATCH Review that does not exist",
+					"name": "403 - User attempts to edit another user's review",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PATCH request status 403\", () => {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2147,6 +3014,84 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"Simple but effective course!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id}}",
+								"reviews",
+								"{{review_id2}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Edit review data on non-existing review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PATCH request status 404 - review not found\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -2179,7 +3124,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - PUT Review data in reviews",
+					"name": "200 - Edit review data on review",
 					"event": [
 						{
 							"listen": "test",
@@ -2221,6 +3166,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -2252,14 +3207,84 @@
 					"response": []
 				},
 				{
-					"name": "400 - PUT Review that does not exist",
+					"name": "403 - User attempts to edit another user's review",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PUT request status 403\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const currentDate = new Date().toISOString();",
+									"pm.environment.set(\"currentDate\", currentDate);",
+									"",
+									"console.log(currentDate);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"{{user_id}}\",\n    \"course\": \"{{course_id}}\",\n    \"date\": \"{{currentDate}}\",\n    \"comment\": \"Update: Lorem ipsum...\",\n    \"hasCompleted\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id}}",
+								"reviews",
+								"{{review_id2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Edit review data on non-existing review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PUT request status 404 - review not found\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2268,6 +3293,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -2299,7 +3334,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET all reviews",
+					"name": "200 - Show all reviews",
 					"event": [
 						{
 							"listen": "test",
@@ -2347,7 +3382,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET all reviews of a Course",
+					"name": "200 - Show all reviews of a course",
 					"event": [
 						{
 							"listen": "test",
@@ -2409,7 +3444,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET all reviews of a User",
+					"name": "200 - Show all reviews of a user",
 					"event": [
 						{
 							"listen": "test",
@@ -2461,7 +3496,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET review from user and course",
+					"name": "200 - Show review from user and course",
 					"event": [
 						{
 							"listen": "test",
@@ -2488,9 +3523,21 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews/{{review_id}}",
 							"host": [
@@ -2511,14 +3558,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - GET Review that does not exist",
+					"name": "400 - Attempt to show review that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"GET request status 404 - review not found\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2557,14 +3604,14 @@
 					"response": []
 				},
 				{
-					"name": "200 - DELETE Review from reviews",
+					"name": "400 - User attempts to delete review",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful DELETE request - status 200\", () => {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"DELETE request status 403 - need admin rights\", () => {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2573,6 +3620,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -2601,14 +3658,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - DELETE Review that does not exist",
+					"name": "200 - Admin deletes review",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"DELETE request status 200\", () => {",
+									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2617,6 +3674,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -2629,7 +3696,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/reviews/{{not_existing_id}}",
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{review_id3}}",
 							"host": [
 								"{{host}}"
 							],
@@ -2637,7 +3704,167 @@
 								"api",
 								"{{api_version}}",
 								"reviews",
-								"{{not_existing_id}}"
+								"{{review_id3}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Admin deletes same review again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DELETE request status 404 - review does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/reviews/{{review_id3}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reviews",
+								"{{review_id3}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - User attempts to delete all reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DELETE request status 403 - need admin rights\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reviews"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin deletes all reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"All users deleted - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"reviews"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -2650,7 +3877,7 @@
 			"name": "CourseLists",
 			"item": [
 				{
-					"name": "201 - POST CourseList #1 to courseLists",
+					"name": "201 - Create new courseList",
 					"event": [
 						{
 							"listen": "test",
@@ -2701,6 +3928,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -2730,7 +3967,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST CourseList #2 to courseLists",
+					"name": "201 - Create second courseList",
 					"event": [
 						{
 							"listen": "test",
@@ -2781,6 +4018,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -2810,7 +4057,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - POST CourseList #3 to courseLists",
+					"name": "201 - Create third courseList",
 					"event": [
 						{
 							"listen": "test",
@@ -2861,6 +4108,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -2890,7 +4147,63 @@
 					"response": []
 				},
 				{
-					"name": "200 - PATCH CourseList data in courseLists",
+					"name": "401 - Attempt to create courseList without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 401 - token required (login needed)\", () => {",
+									"\tpm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science stuff\",\n    \"courses\": [\"{{course_id2}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Edit information on courseList",
 					"event": [
 						{
 							"listen": "test",
@@ -2938,6 +4251,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -2968,14 +4291,14 @@
 					"response": []
 				},
 				{
-					"name": "400 - PATCH CourseList that doest not exist",
+					"name": "403 - User attempts to edit another user's courseList",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PATCH request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PATCH request status 403\", () => {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -2994,6 +4317,82 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-related courses\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id2}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Edit information on non-existing courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PATCH request status 404 - courseList does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -3024,7 +4423,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - PUT CourseList data in courseLists",
+					"name": "200 - Edit information on courseList",
 					"event": [
 						{
 							"listen": "test",
@@ -3061,6 +4460,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -3090,14 +4499,80 @@
 					"response": []
 				},
 				{
-					"name": "400 - PUT CourseList that doest not exist",
+					"name": "403 - User attempts to edit another user's courseList Copy",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"PUT request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"PUT request status 403\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-related courses\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id2}}"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "400 - Edit data on a non-existing courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"PUT request status 404 - courseList does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3106,6 +4581,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -3135,7 +4620,64 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET all courseLists of a User",
+					"name": "403 - User attempts to show all courseLists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin shows all courseLists",
 					"event": [
 						{
 							"listen": "test",
@@ -3169,6 +4711,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3197,7 +4749,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - GET specific  CourseList",
+					"name": "200 - User get specific courseList (they own)",
 					"event": [
 						{
 							"listen": "test",
@@ -3210,7 +4762,6 @@
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"console.log(jsonData);",
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
@@ -3239,6 +4790,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -3271,14 +4832,14 @@
 					"response": []
 				},
 				{
-					"name": "404 - GET CourseList that does not exist",
+					"name": "403 - User attempts to get another user's courseList",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"Status code is 403 - not allowed to get courseList from another user\", () => {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3300,6 +4861,87 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "http://localhost:3000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id2}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id2}}"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Show courseList that does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"GET request status 404 - courseList does not exist\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -3332,7 +4974,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - DELETE CourseList from courseLists",
+					"name": "200 - User deletes courseList from self",
 					"event": [
 						{
 							"listen": "test",
@@ -3348,6 +4990,72 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists",
+								"{{course_list_id}}"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "403 - User attempts to delete another user's courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DELETE request status 403 - cannot delete another user's courseList\", () => {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -3376,16 +5084,21 @@
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Deletes in end",
+			"item": [
 				{
-					"name": "400 - DELETE CourseList that does not exist",
+					"name": "200 - Admin deletes all users but admin",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"DELETE request status 400 - Invalid ID format\", () => {",
-									"    pm.response.to.have.status(400);",
+									"pm.test(\"All users deleted - status 200\", () => {",
+									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -3394,6 +5107,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -3406,7 +5129,166 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{not_existing_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin deletes all courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Admin deletes all courses again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 404 - no courses found to delete\", () => {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Admin deletes all courseLists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DEL Status 200 - All courseLists deleted and also from all user's arrays\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
@@ -3415,8 +5297,7 @@
 								"{{api_version}}",
 								"users",
 								"{{user_id}}",
-								"course-lists",
-								"{{not_existing_id}}"
+								"course-lists"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."

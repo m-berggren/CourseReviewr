@@ -11,7 +11,8 @@ const userSchema = new Schema({
     photo:              { type: String, default: null },
     interests:          [{ type: String, default: [] }],
     recommendationList: [{ type: Schema.Types.ObjectId, ref: 'Course', default: [] }],
-    courseLists:        [{ type: Schema.Types.ObjectId, ref: 'CourseList', default: [] }]
+    courseLists:        [{ type: Schema.Types.ObjectId, ref: 'CourseList', default: [] }],
+    role:               {type : String, enum: ['user', 'admin'], default: 'user'}
 });
 
 export default model('User', userSchema);
