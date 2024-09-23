@@ -6,14 +6,14 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { normalize, join } from 'path';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import User from './models/user.js';
+import { configurePassport } from './middleware/passport.middleware.js';
+import { createDefaultAdmin } from './utils/setup.js';
 
-import userRoutes from './controllers/users.js';
-import courseRoutes from './controllers/courses.js';
-import reviewRoutes from './controllers/reviews.js';
-import courseListRoutes from './controllers/course-lists.js';
-import authRoutes from './controllers/auth.js';
+import userRoutes from './routes/user.routes.js';
+import courseRoutes from './routes/course.routes.js';
+import reviewRoutes from './routes/review.routes.js';
+import courseListRoutes from './routes/course-list.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -24,29 +24,6 @@ const __dirname = dirname(__filename);
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseRadarDB';
 var port = process.env.PORT || 3000;
 
-// Create default admin if no users exist
-const createDefaultAdmin = async () => {
-    try {
-        const adminExists = await User.findOne({role: 'admin'});
-        if (!adminExists) {
-            const adminPassword = 'admin123';
-            const hashedPassword = await bcrypt.hash(adminPassword, 10);
-            const adminUser = new User({
-                username: 'admin',
-                email: 'admin@courseradar.com',
-                password: hashedPassword,
-                role: 'admin'
-            });
-            await adminUser.save();
-            console.log('Default admin user created', adminPassword);
-        } else {
-            console.log ('Admin user already exists, skipping default admin creation');
-        }
-    }catch(error){
-        console.error('Error checking or creating admin user:', error);
-    }
-};
-
 // Connect to MongoDB
 connect(mongoURI).catch(function(err) {
     console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
@@ -54,10 +31,8 @@ connect(mongoURI).catch(function(err) {
     process.exit(1);
 }).then(function() {
     console.log(`Connected to MongoDB with URI: ${mongoURI}`); // mistake when forward porting
-    createDefaultAdmin();
+    createDefaultAdmin(); // If admin does not already exist, creates it
 });
-
-
 
 // Create Express app
 var app = express();
@@ -69,6 +44,9 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
+// Configur Passport
+configurePassport();
 
 // Import routes
 app.get('/api', function(req, res) {
