@@ -13,7 +13,7 @@ import userRoutes from './controllers/users.js';
 import courseRoutes from './controllers/courses.js';
 import reviewRoutes from './controllers/reviews.js';
 import courseListRoutes from './controllers/course-lists.js';
-import authRoutes from './auth.js';
+import authRoutes from './controllers/auth.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -78,18 +78,16 @@ app.get('/api', function(req, res) {
 //API versioning
 const api = '/api/v1';
 
-// Controller routes
+// Controller routes - important to have the longer urls first
 app.use(`${api}/auth`, authRoutes);
-app.use(`${api}/users`, userRoutes);
-app.use(`${api}/courses`, courseRoutes);
-app.use(`${api}/reviews`, reviewRoutes);
 app.use(`${api}/courses/:courseID/reviews`, reviewRoutes);
-app.use(`${api}/users/:userID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/courses/:courseID/reviews`, reviewRoutes);
+app.use(`${api}/users/:userID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/course-lists`, courseListRoutes);
 app.use(`${api}/users`, userRoutes);
 app.use(`${api}/courses`, courseRoutes);
 app.use(`${api}/reviews`, reviewRoutes);
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
