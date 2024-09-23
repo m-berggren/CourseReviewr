@@ -38,16 +38,16 @@ router.post('/login', (req, res, next) => {
         if (err){
             return next(err);
         }
-        if (!user) {
+        if (!user) {       
             return res.status(401).json({message: info.message || 'Invalid credentials'});
         }
         const token = jwt.sign(
-            {id: user.id, username: user.username},
+            {id: user._id, username: user.username, role: user.role},
             jwtSecret,
-            {expiresIn: ' 8h'}
+            {expiresIn: '8h'}
         );
         return res.status(200).json({message: 'Login successful', token});
-    } ) (req. res. next);
+    } ) (req, res, next);
 });
 
 //JWT middleware to protect routes
@@ -70,7 +70,7 @@ export const authenticateJWT = (req, res, next) => {
 
 router.post('/register', async (req, res, next)=> {
     try {
-        const {username, password: inputPassword} = req.body;
+        const { username, password: inputPassword, email } = req.body;
 
         const existingUser = await User.findOne({username});
         if (existingUser) {
@@ -83,10 +83,11 @@ router.post('/register', async (req, res, next)=> {
         const newUser = new User({
             username,
             password,
+            email,
             role:'user'
         });
         await newUser.save();
-        return res.status(201).json({message: ' User registerd successfully'});
+        return res.status(201).json({ userID: newUser._id, message: 'User registerd successfully' });
     } catch(error) {
         next(error);
     }
@@ -95,7 +96,8 @@ router.post('/register', async (req, res, next)=> {
 export const requireAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({message: 'Access denied: Admins only'});
-    }next();
+    }
+    next();
 };
 
 export default router;
