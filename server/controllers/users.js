@@ -16,7 +16,7 @@ const handleError = (error, res) => {
     }
 };
 
-router.post('/', async (req, res, next) => {
+router.post('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     try {
         const user = new User(req.body);
         await user.save();
@@ -39,7 +39,7 @@ router.get('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', authenticateJWT, async (req, res, next) => {
     try {
         const id = req.params.id;
         const user = await User.findById(id).populate('courseLists').populate('recommendationList');
@@ -55,14 +55,21 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.put('/:id',async (req, res, next) => {
+router.put('/:id', authenticateJWT, async (req, res, next) => {
     try {
-        const id = req.params.id;
+        const userIdFromToken = req.user.id;
+        const userIdToUpdate = req.params.id;
         const updates = req.body;
+
+        const isAdmin = req.user.role === 'admin';
+
+        if (!isAdmin && userIdFromToken != userIdToUpdate) {
+            return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
+        }
 
         // using spread operator (...) to update values
         const updatedUser = await User.findByIdAndUpdate(
-            id,
+            userIdToUpdate,
             {...updates},
             { new: true, runValidators: true, overwrite: true }
         );
@@ -78,12 +85,21 @@ router.put('/:id',async (req, res, next) => {
     }
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', authenticateJWT, async (req, res, next) => {
     try {
-        const id = req.params.id;
+        const userIdFromToken = req.user.id;
+        const userIdToUpdate = req.params.id;
         const updates = req.body;
+
+        const isAdmin = req.user.role === 'admin';
+
+        if (!isAdmin && userIdFromToken != userIdToUpdate) {
+            return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
+        }
+
+
         const updatedUser = await User.findByIdAndUpdate(
-            id,
+            userIdToUpdate,
             updates, { new: true, runValidators: true });
 
         if (!updatedUser) {
@@ -97,7 +113,22 @@ router.patch('/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+    try {
+        const users = await User.deleteMany({ username : { $ne: 'admin' } });
+
+        if (users.deletedCount === 0) {
+            return res.status(404).json({ message: 'No users found to delete.' });
+        }
+
+        res.status(200).json({ message: `${users.deletedCount} users deleted successfully.` });
+
+    } catch (error) {
+        return handleError(error, res) || next(error);
+    }
+});
+
+router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     try {
         const id = req.params.id;
         const deletedUser = await User.findByIdAndDelete(id);

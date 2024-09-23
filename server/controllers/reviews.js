@@ -1,6 +1,6 @@
 import Review from '../models/review.js';
 import express from 'express';
-import { authenticateJWT } from './auth.js';
+import { authenticateJWT, requireAdmin } from './auth.js';
 
 // Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
 const router = express.Router({ mergeParams: true });
@@ -8,7 +8,7 @@ const router = express.Router({ mergeParams: true });
 const handleError = (error, res) => {
     if (error.code === 11000) {
         return res.status(409).json({ message: 'Review already exists.' });
-    } else if (error.name === 'ValidationError') {
+    }  if (error.name === 'ValidationError') {
         const messages = Object.values(error.errors).map(err => err.message);
         return res.status(400).json({ message: messages });
     } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
@@ -23,6 +23,7 @@ router.post('/', authenticateJWT, async(req, res, next) => {
         let { userID, courseID } = req.params;
         const review = req.body;
 
+        console.log(userID, courseID);
         
 
         // Cannot create a review without specifying userID and courseID in the parameters
@@ -84,7 +85,12 @@ router.get('/', async (req, res, next) => {
             return res.status(400).json({ error: 'limit and page must be positive integers' });
         }
 
-        const reviews = await Review.find(filter).populate('user').populate('course').sort(sortOptions).limit(limit).skip((page - 1) * limit);
+        const reviews = await Review.find(filter)
+            .populate('user')
+            .populate('course')
+            .sort(sortOptions)
+            .limit(limit)
+            .skip((page - 1) * limit);
         const totalReviews = await Review.countDocuments(filter);
         const totalPages = Math.ceil(totalReviews / limit);
 
@@ -143,10 +149,23 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticateJWT, async (req, res, next) => {
     try {
+        const userIdFromToken = req.user.id;
         const id = req.params.id;
         const updates = req.body;
+
+        const isAdmin = req.user.role === 'admin';
+
+        // Admin can update any review; otherwise, the user can only update their own
+        const reviewToUpdate = await Review.findById(id);
+        if (!reviewToUpdate) {
+            return res.status(404).json({ message: 'Review not found.' });
+        }
+
+        if (!isAdmin && reviewToUpdate.user.toString() !== userIdFromToken) {
+            return res.status(403).json({ message: 'Forbidden: You can only update your own review.' });
+        }
 
         // using spread operator (...) to update values
         const updatedReview = await Review.findByIdAndUpdate(
@@ -171,12 +190,23 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', authenticateJWT, async (req, res, next) => {
     try {
+        const userIdFromToken = req.user.id;
         const id = req.params.id;
-        console.log(req.params);
         const updates = req.body;
-        console.log(req.body);
+
+        const isAdmin = req.user.role === 'admin';
+
+        // Admin can update any review; otherwise, the user can only update their own
+        const reviewToUpdate = await Review.findById(id);
+        if (!reviewToUpdate) {
+            return res.status(404).json({ message: 'Review not found.' });
+        }
+
+        if (!isAdmin && reviewToUpdate.user.toString() !== userIdFromToken) {
+            return res.status(403).json({ message: 'Forbidden: You can only update your own review.' });
+        }
 
         const updatedReview = await Review.findByIdAndUpdate(
             id,
@@ -200,7 +230,21 @@ router.patch('/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+    try {
+        const reviews = Review.deleteMany();
+
+        if ((await reviews).deletedCount === 0) {
+            res.status(404).json({ message: 'No reviews found to delete.' });
+        }
+
+        res.status(200).json({ message: `${reviews.deletedCount} reviews deleted successfully.` });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     try {
         const id = req.params.id;
 
