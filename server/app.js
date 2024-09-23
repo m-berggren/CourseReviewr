@@ -8,6 +8,7 @@ import { normalize, join } from 'path';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import User from './models/user.js';
+import methodOverride from 'method-override';
 
 import userRoutes from './controllers/users.js';
 import courseRoutes from './controllers/courses.js';
@@ -61,6 +62,9 @@ connect(mongoURI).catch(function(err) {
 
 // Create Express app
 var app = express();
+
+//HTTP method overwriting
+app.use(methodOverride('_method')); 
 // Parse requests of content-type 'application/json'
 app.use(urlencoded({ extended: true }));
 app.use(json());
@@ -69,6 +73,7 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
 
 // Import routes
 app.get('/api', function(req, res) {
