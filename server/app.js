@@ -8,6 +8,7 @@ import { normalize, join } from 'path';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import User from './models/user.js';
+import methodOverride from 'method-override';
 
 import userRoutes from './controllers/users.js';
 import courseRoutes from './controllers/courses.js';
@@ -69,6 +70,9 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
+//HTTP method overwriting
+app.use(methodOverride('_method')); 
 
 // Import routes
 app.get('/api', function(req, res) {
