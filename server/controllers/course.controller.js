@@ -1,21 +1,7 @@
-import express from 'express';
-import Course from '../models/course.js';
-import { authenticateJWT, requireAdmin } from './auth.js';
+import Course from '../models/course.model.js';
+import { handleError } from '../utils/error.util.js';
 
-const router = express.Router();
-
-const handleError = (error, res) => {
-    if (error.code === 11000) {
-        return res.status(409).json({ message: 'Course already exists.' });
-    } else if (error.name === 'ValidationError') {
-        const messages = Object.values(error.errors).map(err => err.message);
-        return res.status(400).json({ message: messages });
-    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
-        return res.status(400).json({ message: 'Invalid ID format.' });
-    }
-};
-
-router.post('/', authenticateJWT, async (req, res, next) => {
+const createCourse = async (req, res, next) => {
     try {
         const course = new Course(req.body);
         await course.save();
@@ -33,9 +19,9 @@ router.post('/', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.get('/', async (req, res, next) => {
+const getAllCourses = async (req, res, next) => {
     try {
         const courses = await Course.find();
 
@@ -50,9 +36,9 @@ router.get('/', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
+};
 
-router.get('/:id', async (req, res, next) => {
+const getCourse = async (req, res, next) => {
     try {
         const id = req.params.id;
         const course = await Course.findById(id);
@@ -74,9 +60,9 @@ router.get('/:id', async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.put('/:id', authenticateJWT, async (req, res, next) => {
+const updateCourse = async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -102,10 +88,10 @@ router.put('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
 
-router.patch('/:id', authenticateJWT, async (req, res, next) => {
+const patchCourse = async (req, res, next) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -131,9 +117,9 @@ router.patch('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteAllCourses = async (req, res, next) => {
     try {
         const courses = await Course.deleteMany();
 
@@ -145,9 +131,9 @@ router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
+};
 
-router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteCourse = async (req, res, next) => {
     try {
         const id = req.params.id;
         const deletedCourse = await Course.findByIdAndDelete(id);
@@ -167,11 +153,16 @@ router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.use((err, req, res) => {
-    console.error(err.stack);
-    return res.status(500).json({ message: 'Internal Server Error.' });
-});
+const controller = {
+    createCourse,
+    getAllCourses,
+    getCourse,
+    updateCourse,
+    patchCourse,
+    deleteAllCourses,
+    deleteCourse
+};
 
-export default router;
+export default controller;

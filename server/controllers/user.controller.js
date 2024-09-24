@@ -1,22 +1,7 @@
-import express from 'express';
-import User from '../models/user.js';
-import { authenticateJWT, requireAdmin } from './auth.js';
+import User from '../models/user.model.js';
+import { handleError } from '../utils/error.util.js';
 
-
-const router = express.Router();
-
-const handleError = (error, res) => {
-    if (error.code === 11000) {
-        return res.status(409).json({ message: 'User already exists.' });
-    } else if (error.name === 'ValidationError') {
-        const messages = Object.values(error.errors).map(err => err.message);
-        return res.status(400).json({ message: messages });
-    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
-        return res.status(400).json({ message: 'Invalid ID format.' });
-    }
-};
-
-router.post('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+const createUser = async (req, res, next) => {
     try {
         const user = new User(req.body);
         await user.save();
@@ -26,9 +11,9 @@ router.post('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.get('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+const getAllUsers = async (req, res, next) => {
     try {
         const users = await User.find();
 
@@ -37,9 +22,9 @@ router.get('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.get('/:id', authenticateJWT, async (req, res, next) => {
+const getUser = async (req, res, next) => {
     try {
         const id = req.params.id;
         const user = await User.findById(id).populate('courseLists').populate('recommendationList');
@@ -53,9 +38,9 @@ router.get('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.put('/:id', authenticateJWT, async (req, res, next) => {
+const updateUser = async (req, res, next) => {
     try {
         const userIdFromToken = req.user.id;
         const userIdToUpdate = req.params.id;
@@ -83,9 +68,9 @@ router.put('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.patch('/:id', authenticateJWT, async (req, res, next) => {
+const patchUser = async (req, res, next) => {
     try {
         const userIdFromToken = req.user.id;
         const userIdToUpdate = req.params.id;
@@ -96,7 +81,6 @@ router.patch('/:id', authenticateJWT, async (req, res, next) => {
         if (!isAdmin && userIdFromToken != userIdToUpdate) {
             return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
         }
-
 
         const updatedUser = await User.findByIdAndUpdate(
             userIdToUpdate,
@@ -111,9 +95,9 @@ router.patch('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteAllUsers = async (req, res, next) => {
     try {
         const users = await User.deleteMany({ username : { $ne: 'admin' } });
 
@@ -126,9 +110,9 @@ router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
     try {
         const id = req.params.id;
         const deletedUser = await User.findByIdAndDelete(id);
@@ -142,11 +126,16 @@ router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.use((err, req, res) => {
-    console.error(err.stack);
-    return res.status(500).json({ message: 'Internal Server Error.' });
-});
+const controller = {
+    createUser,
+    getAllUsers,
+    getUser,
+    updateUser,
+    patchUser,
+    deleteAllUsers,
+    deleteUser
+};
 
-export default router;
+export default controller;

@@ -1,24 +1,7 @@
-import Review from '../models/review.js';
-import express from 'express';
-import { authenticateJWT, requireAdmin } from './auth.js';
+import Review from '../models/review.model.js';
+import { handleError } from '../utils/error.util.js';
 
-// Need to include mergeParams: true to mount the reviewRoutes in app.js to where they fit in the API structure
-const router = express.Router({ mergeParams: true });
-
-const handleError = (error, res) => {
-    if (error.code === 11000) {
-        return res.status(409).json({ message: 'Review already exists.' });
-    }  if (error.name === 'ValidationError') {
-        const messages = Object.values(error.errors).map(err => err.message);
-        return res.status(400).json({ message: messages });
-    } else if (error.name === 'CastError' && error.kind === 'ObjectId') {
-        return res.status(400).json({ message: 'Invalid ID format.' });
-    }
-};
-
-
-
-router.post('/', authenticateJWT, async(req, res, next) => {
+const createReview = async(req, res, next) => {
     try{
         let { userID, courseID } = req.params;
         const review = req.body;
@@ -58,9 +41,9 @@ router.post('/', authenticateJWT, async(req, res, next) => {
     } catch (error) {
         return next(error);
     }
-});
+};
 
-router.get('/', async (req, res, next) => {
+const getAllReviews = async (req, res, next) => {
     try {
         const { userID, courseID } = req.params;
         const { sortBy = 'date', order = 'desc' } = req.query;
@@ -124,9 +107,9 @@ router.get('/', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
+};
 
-router.get('/:id', async (req, res, next) => {
+const getReview = async (req, res, next) => {
     try {
         const id = req.params.id;
         const review = await Review.findById(id).populate('user').populate('course');
@@ -147,9 +130,9 @@ router.get('/:id', async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.put('/:id', authenticateJWT, async (req, res, next) => {
+const updateReview = async (req, res, next) => {
     try {
         const userIdFromToken = req.user.id;
         const id = req.params.id;
@@ -188,9 +171,9 @@ router.put('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.patch('/:id', authenticateJWT, async (req, res, next) => {
+const patchReview = async (req, res, next) => {
     try {
         const userIdFromToken = req.user.id;
         const id = req.params.id;
@@ -228,9 +211,9 @@ router.patch('/:id', authenticateJWT, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteAllReviews = async (req, res, next) => {
     try {
         const reviews = Review.deleteMany();
 
@@ -242,9 +225,9 @@ router.delete('/', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
+};
 
-router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
+const deleteReview = async (req, res, next) => {
     try {
         const id = req.params.id;
 
@@ -261,11 +244,16 @@ router.delete('/:id', authenticateJWT, requireAdmin, async (req, res, next) => {
     } catch (error) {
         return handleError(error, res) || next(error);
     }
-});
+};
 
-router.use((err, req, res) => {
-    console.error(err.stack);
-    return res.status(500).json({ message: 'Internal Server Error.' });
-});
+const controller = {
+    createReview,
+    getAllReviews,
+    getReview,
+    updateReview,
+    patchReview,
+    deleteAllReviews,
+    deleteReview
+};
 
-export default router;
+export default controller;
