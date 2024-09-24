@@ -1,5 +1,5 @@
-import Review from '../models/review.js';
-import { handleError } from '../middleware/error.middleware.js';
+import Review from '../models/review.model.js';
+import { handleError } from '../utils/error.util.js';
 
 const createReview = async(req, res, next) => {
     try{

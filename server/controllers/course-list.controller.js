@@ -1,6 +1,6 @@
-import CourseList from '../models/course-list.js';
-import User from '../models/user.js';
-import { handleError } from '../middleware/error.middleware.js';
+import CourseList from '../models/course-list.model.js';
+import User from '../models/user.model.js';
+import { handleError } from '../utils/error.util.js';
 
 const createCourseList = async (req, res, next) => {
     try {

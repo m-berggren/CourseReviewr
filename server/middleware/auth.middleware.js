@@ -29,11 +29,3 @@ export const requireAdmin = (req, res, next) => {
     }
     next();
 };
-
-export const generateToken = (user) => {
-    return jwt.sign(
-        {id: user._id, username: user.username, role: user.role},
-        jwtSecret,
-        {expiresIn: '8h'}
-    );
-};

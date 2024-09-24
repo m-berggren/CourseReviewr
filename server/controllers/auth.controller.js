@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
-import User from '../models/user.js';
-import { generateToken } from '../middleware/auth.middleware.js';
+import User from '../models/user.model.js';
+import { generateToken } from '../utils/token.util.js';
+import { hashPassword } from '../utils/password.util.js';
 
 
 //JWT generation after login successfully
@@ -18,8 +18,7 @@ const register = async (req, res, next)=> {
             return res.status(409).json({message: 'User already exists'});
         }
 
-        const saltRounds = 10;
-        const password = await bcrypt.hash(inputPassword, saltRounds);
+        const password = await hashPassword(inputPassword);
 
         const newUser = new User({
             username,

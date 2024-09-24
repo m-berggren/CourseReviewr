@@ -1,5 +1,5 @@
-import User from '../models/user.js';
-import { handleError } from '../middleware/error.middleware.js';
+import User from '../models/user.model.js';
+import { handleError } from '../utils/error.util.js';
 
 const createUser = async (req, res, next) => {
     try {

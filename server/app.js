@@ -7,7 +7,7 @@ import { dirname } from 'path';
 import { normalize, join } from 'path';
 import cors from 'cors';
 import { configurePassport } from './middleware/passport.middleware.js';
-import { createDefaultAdmin } from './utils/setup.js';
+import { createDefaultAdmin } from './utils/setup.util.js';
 import methodOverride from 'method-override';
 
 import userRoutes from './routes/user.routes.js';

@@ -1,6 +1,6 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import User from '../models/user.js';
+import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
 
 // Use passport local strategy to find username and compare hashed password using bcrypt

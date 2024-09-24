@@ -1,4 +1,4 @@
-import User from '../models/user.js';
+import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
 
 // Create default admin if it does not exist

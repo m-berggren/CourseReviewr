@@ -1,5 +1,5 @@
-import Course from '../models/course.js';
-import { handleError } from '../middleware/error.middleware.js';
+import Course from '../models/course.model.js';
+import { handleError } from '../utils/error.util.js';
 
 const createCourse = async (req, res, next) => {
     try {
