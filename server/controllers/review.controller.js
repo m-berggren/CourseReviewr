@@ -5,10 +5,7 @@ const createReview = async(req, res, next) => {
     try{
         let { userID, courseID } = req.params;
         const review = req.body;
-
-        console.log(userID, courseID);
         
-
         // Cannot create a review without specifying userID and courseID in the parameters
         if (!userID || !courseID) {
             return res.status(400).json({ error: 'UserID and/or courseID are required'});
