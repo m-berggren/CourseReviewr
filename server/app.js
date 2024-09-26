@@ -22,7 +22,7 @@ const __dirname = dirname(__filename);
 
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseRadarDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseReviewrDB';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
