@@ -24,7 +24,7 @@
           <b-col md="4">
             <div class="tags-container p-3 my-2">
               <b-badge v-for="topic in topics" :key="topic.id" variant="dark" class="tag-badge mx-1">
-                {{ tag.name }}
+                {{ topic.name }}
               </b-badge>
             </div>
           </b-col>
@@ -79,7 +79,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const tags = ref([
+    const topics = ref([
       { id: 1, name: 'JavaScript' },
       { id: 2, name: 'Python' },
       { id: 3, name: 'Machine Learning' },
@@ -126,7 +126,7 @@ export default {
     ])
 
     return {
-      tags,
+      topics,
       courses,
       reviews
     }
