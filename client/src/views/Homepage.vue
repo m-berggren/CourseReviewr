@@ -22,8 +22,8 @@
         <b-row class="top-row mb-4">
           <b-col></b-col>
           <b-col md="4">
-            <div class="tags-container p-3 my-2">
-              <b-badge v-for="topic in topics" :key="topic.id" variant="dark" class="tag-badge mx-1">
+            <div class="tags-container p-3 mt-2 mb-4">
+              <b-badge v-for="topic in topics" :key="topic._id" variant="dark" class="tag-badge mx-1">
                 {{ topic.name }}
               </b-badge>
             </div>
@@ -41,12 +41,8 @@
          </b-row>
 
         <b-row>
-          <b-col md="3" v-for="course in courses" :key="course.id">
-            <b-card :title="course.name" :img-src="course.photo" class="my-3 ">
-              <b-card-text>
-                {{ course.description }}
-              </b-card-text>
-            </b-card>
+          <b-col md="3" v-for="course in courses" :key="course._id">
+            <course-item v-bind:course="course"></course-item>
           </b-col>
         </b-row>
 
@@ -60,14 +56,13 @@
          </b-row>
 
         <b-row>
-          <b-col md="3" v-for="review in reviews" :key="review.id">
+          <b-col md="3" v-for="review in reviews" :key="review._id">
             <b-card class="my-3">
               <b-card-text>
-                {{ review.text }}
+                {{ review.comment }}
               </b-card-text>
             </b-card>
           </b-col>
-
         </b-row>
       </b-container>
   </div>
@@ -75,60 +70,55 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import CourseItem from '../components/CourseItem.vue'
+import { Api } from '@/Api'
 
 export default {
-  setup() {
-    const topics = ref([
-      { id: 1, name: 'JavaScript' },
-      { id: 2, name: 'Python' },
-      { id: 3, name: 'Machine Learning' },
-      { id: 4, name: 'Web Development' },
-      { id: 5, name: 'Data Science' },
-      { id: 5, name: 'Knitting' },
-      { id: 5, name: 'Theology' },
-      { id: 5, name: 'Psychology' },
-      { id: 5, name: 'History' },
-      { id: 5, name: 'Pottery' },
-      { id: 5, name: 'Archeology' },
-      { id: 5, name: 'Public Speaking' },
-      { id: 5, name: 'Accounting' }
-    ])
+  name: 'topics-courses-and-reviews',
+  components: {
+    'course-item': CourseItem
+  },
+  mounted() {
+    Api.get('/topics')
+      .then(response => {
+        this.topics = response.data.topics
+      })
+      .catch(error => {
+        this.topics = []
+        console.log(error)
+        // Additional error checking
+      })
 
-    const courses = ref([
-      { id: 1, name: 'Course 1', photo: 'https://picsum.photos/id/237/300/200', description: 'Description of course 1' },
-      { id: 2, name: 'Course 2', photo: 'https://picsum.photos/id/238/300/200', description: 'Description of course 2' },
-      { id: 3, name: 'Course 3', photo: 'https://picsum.photos/id/239/300/200', description: 'Description of course 3' },
-      { id: 4, name: 'Course 4', photo: 'https://picsum.photos/id/240/300/200', description: 'Description of course 4' },
-      { id: 5, name: 'Course 5', photo: 'https://picsum.photos/id/241/300/200', description: 'Description of course 5' },
-      { id: 6, name: 'Course 6', photo: 'https://picsum.photos/id/242/300/200', description: 'Description of course 6' },
-      { id: 7, name: 'Course 7', photo: 'https://picsum.photos/id/243/300/200', description: 'Description of course 7' },
-      { id: 8, name: 'Course 8', photo: 'https://picsum.photos/id/244/300/200', description: 'Description of course 8' },
-      { id: 9, name: 'Course 9', photo: 'https://picsum.photos/id/253/300/200', description: 'Description of course 9' },
-      { id: 10, name: 'Course 10', photo: 'https://picsum.photos/id/250/300/200', description: 'Description of course 10' },
-      { id: 11, name: 'Course 11', photo: 'https://picsum.photos/id/251/300/200', description: 'Description of course 11' },
-      { id: 12, name: 'Course 12', photo: 'https://picsum.photos/id/248/300/200', description: 'Description of course 12' }
-    ])
+    Api.get('/courses')
+      .then(response => {
+        this.courses = response.data.courses
+      })
+      .catch(error => {
+        this.courses = []
+        console.log(error)
+        // Additional error checking
+      })
 
-    const reviews = ref([
-      { id: 1, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 2, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 4, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 5, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 6, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 7, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 8, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 9, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 10, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 11, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { id: 12, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }
-    ])
+    Api.get('/reviews')
+      .then(response => {
+        this.reviews = response.data.reviews
+      })
+      .catch(error => {
+        this.reviews = []
+        console.log(error)
+        // Additional error checking
+      })
+  },
 
+  methods: {
+
+  },
+  data() {
     return {
-      topics,
-      courses,
-      reviews
+      courses: [],
+      topics: [],
+      reviews: [],
+      value: 2
     }
   }
 }
