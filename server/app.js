@@ -15,6 +15,7 @@ import courseRoutes from './routes/course.routes.js';
 import reviewRoutes from './routes/review.routes.js';
 import courseListRoutes from './routes/course-list.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import topicRoutes from './routes/topic.routes.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -69,6 +70,7 @@ app.use(`${api}/users/:userID/course-lists`, courseListRoutes);
 app.use(`${api}/users`, userRoutes);
 app.use(`${api}/courses`, courseRoutes);
 app.use(`${api}/reviews`, reviewRoutes);
+app.use(`${api}/topics`, topicRoutes);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
