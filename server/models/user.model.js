@@ -9,7 +9,7 @@ const userSchema = new Schema({
         validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: [true, 'Password is required'] },
     photo:              { type: String, default: null },
-    interests:          [{ type: String, default: [] }],
+    interests:          [{ type: Schema.Types.ObjectId, ref: 'Topic', default: [] }],
     recommendationList: [{ type: Schema.Types.ObjectId, ref: 'Course', default: [] }],
     courseLists:        [{ type: Schema.Types.ObjectId, ref: 'CourseList', default: [] }],
     role:               {type : String, enum: ['user', 'admin'], default: 'user'}
