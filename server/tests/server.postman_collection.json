@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38131222",
-		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-88824d54-7f26-4b1b-9e05-3e4e83530458?action=share&source=collection_link&creator=38131222"
+		"_exporter_id": "38366801",
+		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-88824d54-7f26-4b1b-9e05-3e4e83530458?action=share&source=collection_link&creator=38366801"
 	},
 	"item": [
 		{
@@ -1300,6 +1300,176 @@
 			]
 		},
 		{
+			"name": "Topics",
+			"item": [
+				{
+					"name": "201 - User creates first topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_1\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Python\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates second topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_2\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"C-Lang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates third topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_3\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"mEchanical engineering\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Courses",
 			"item": [
 				{
@@ -1322,7 +1492,7 @@
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topic\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
@@ -1374,7 +1544,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topic\": [\"C\", \"C-programming\", \"C-lang\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
+							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1416,7 +1586,7 @@
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topic\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
@@ -1468,7 +1638,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Python Complete Course For Beginners\",\n  \"topic\": [\"Python\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Introduction course to the world of Python.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2023,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"Dennis M. Ritchie\",\n  \"certificate\": \"Yes\",\n  \"accessType\": \"Enrollment\",\n  \"url\": \"www.udemy.com\"\n}",
+							"raw": "{\n  \"name\": \"Python Complete Course For Beginners\",\n  \"topics\": [\"{{topic_1}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Introduction course to the world of Python.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2023,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"Dennis M. Ritchie\",\n  \"certificate\": \"Yes\",\n  \"accessType\": \"Enrollment\",\n  \"url\": \"www.udemy.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1510,7 +1680,7 @@
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topic\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
@@ -1562,7 +1732,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topics\": [\"{{topic_3}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1616,7 +1786,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topic\": [\"Mechanical Engineering\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topics\": [],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1656,7 +1826,7 @@
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
 									"\tpm.expect(jsonData.name).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.topic).to.be.a('array').and.is.not.empty;",
+									"\tpm.expect(jsonData.topics).to.be.a('array').and.is.not.empty;",
 									"\tpm.expect(jsonData.difficulty).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.releaseYear).to.be.a('number').and.is.not.eql(0);",
 									"\tpm.expect(jsonData.provider).to.be.a('string').and.is.not.empty;",
@@ -1702,7 +1872,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"raw": "{\n    \"photo\": \"https://picsum.photos/id/250/300/200\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1766,7 +1936,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": \"/src/test2.png\"\n}",
+							"raw": "{\n    \"photo\": \"https://picsum.photos/id/250/300/200\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1807,7 +1977,7 @@
 									"// Check other fields that should never have null values",
 									"pm.test(\"PATCH request kept other field(s) intact\", () => {",
 									"\tpm.expect(jsonData.name).to.be.a('string').and.is.not.empty;",
-									"\tpm.expect(jsonData.topic).to.be.a('array').and.is.not.empty;",
+									"\tpm.expect(jsonData.topics).to.be.a('array').and.is.not.empty;",
 									"\tpm.expect(jsonData.difficulty).to.be.a('string').and.is.not.empty;",
 									"\tpm.expect(jsonData.releaseYear).to.be.a('number').and.is.not.eql(0);",
 									"\tpm.expect(jsonData.provider).to.be.a('string').and.is.not.empty;",
@@ -1853,7 +2023,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"C Programming for Everybody\",\n  \"topic\": [\"C\", \"C-programming\", \"C-lang\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n\t\"photo\": \"src/photo2.png\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
+							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n\t\"photo\": \"https://picsum.photos/id/250/300/200\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1955,7 +2125,7 @@
 									"jsonData.forEach((course) => {",
 									"\tpm.test(`Check courseID: ${course._id}`, () => {",
 									"\t\tpm.expect(course).to.have.property(\"name\");",
-									"\t\tpm.expect(course).to.have.property(\"topic\");",
+									"\t\tpm.expect(course).to.have.property(\"topics\");",
 									"\t\tpm.expect(course).to.have.property(\"difficulty\");",
 									"\t\tpm.expect(course).to.have.property(\"description\");",
 									"\t\tpm.expect(course).to.have.property(\"averageRating\");",
@@ -2040,7 +2210,7 @@
 									"// Document has all necessary properties",
 									"pm.test(\"Response contains all necessary properties\", () => {",
 									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topic\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
 									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
@@ -2617,7 +2787,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Intersting and good course!\",\n    \"hasCompleted\": true\n}",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2625,7 +2795,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id3}}/courses/{{course_id3}}/reviews",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id3}}/reviews",
 							"host": [
 								"{{host}}"
 							],
@@ -2633,7 +2803,7 @@
 								"api",
 								"{{api_version}}",
 								"users",
-								"{{user_id3}}",
+								"{{user_id}}",
 								"courses",
 								"{{course_id3}}",
 								"reviews"
