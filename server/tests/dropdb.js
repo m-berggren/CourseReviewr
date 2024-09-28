@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { connect, connection} = mongoose;
 
 // Variables
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseRadarDB';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/courseReviewrDB';
 
 
 if (!mongoURI) {
