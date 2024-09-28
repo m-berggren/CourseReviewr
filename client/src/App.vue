@@ -24,18 +24,39 @@
 
         <!-- Pushes the next navbar items to the right -->
         <b-navbar-nav class="ml-auto">
-          <router-link to="/login" class="nav-link-button">
-            <b-button pill variant="outline-secondary" class="login-button">Login</b-button>
+          <router-link v-if="!isSignedIn" to="/signin" class="nav-link-button">
+            <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
+          </router-link>
+          <router-link v-else to="/profile" class="nav-link-button">
+            <b-button pill variant="outline-secondary" class="signin-button">My Page</b-button>
           </router-link>
         </b-navbar-nav>
-
       </b-navbar>
 
       <!-- Render the content of the current page view -->
-      <router-view/>
+      <router-view @signin="handleSignin"/>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isSignedIn: false
+    }
+  },
+  created() {
+    this.isSignedIn = localStorage.getItem('userToken')
+  },
+  methods: {
+    handleSignin() {
+      // Update the signin state when the user signs in
+      this.isSignedIn = true
+    }
+  }
+}
+</script>
 
 <style>
 /* Styling affects all sub-pages */
@@ -70,7 +91,7 @@
 }
 
 /* Button styling */
-.login-button {
+.signin-button {
   border: 2px solid #D9D9D9 !important;
   color: #D9D9D9 !important;
   padding: 0.5vh 2vw;
@@ -78,8 +99,8 @@
   border-radius: 2vw;
 }
 
-/* Hover effect for the login button */
-.login-button:hover {
+/* Hover effect for signin button */
+.signin-button:hover {
   background-color: #6B91B8 !important;
   color: #383024;
   border-color: #D9D9D9 !important;

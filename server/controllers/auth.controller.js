@@ -3,19 +3,27 @@ import { generateToken } from '../utils/token.util.js';
 import { hashPassword } from '../utils/password.util.js';
 
 
-//JWT generation after login successfully
-const login =  (req, res) => {
+//JWT generation after signin successfully
+const signin =  (req, res) => {
     const token = generateToken(req.user);
-    return res.status(200).json({message: 'Login successful', token});
+    return res.status(200).json({message: 'Sign in successful', token});
 };
 
 const register = async (req, res, next)=> {
     try {
         const { username, password: inputPassword, email } = req.body;
 
-        const existingUser = await User.findOne({username});
+        // Check if username or email already exists
+        const existingUser = await User.findOne({ 
+            $or: [{ username }, { email }] 
+        });
+
         if (existingUser) {
-            return res.status(409).json({message: 'User already exists'});
+            return res.status(409).json({ 
+                message: existingUser.username === username 
+                    ? 'Username already exists' 
+                    : 'Email already exists' 
+            });
         }
 
         const password = await hashPassword(inputPassword);
@@ -35,7 +43,7 @@ const register = async (req, res, next)=> {
 
 const authController = {
     register,
-    login
+    signin
 };
 
 export default authController;
