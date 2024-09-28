@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { Token } from './Token'
+
 export default {
   data() {
     return {
@@ -47,12 +49,19 @@ export default {
     }
   },
   created() {
-    this.isSignedIn = localStorage.getItem('userToken')
+    // Check the sign-in status when the component is created
+    this.isSignedIn = Token.isSignedIn()
   },
   methods: {
     handleSignin() {
-      // Update the signin state when the user signs in
-      this.isSignedIn = true
+      // Update the sign-in state based on the token when user signs in
+      this.isSignedIn = Token.isSignedIn()
+    }
+  },
+  watch: {
+    // Add a watcher to reactively track token changes when route changes
+    '$route'() {
+      this.isSignedIn = Token.isSignedIn()
     }
   }
 }

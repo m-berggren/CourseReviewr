@@ -29,6 +29,7 @@
 
 <script>
 import { Api } from '@/Api'
+import { Token } from '@/Token'
 
 export default {
   data() {
@@ -51,7 +52,7 @@ export default {
         if (!token) {
           throw new Error('Invalid signin credentials')
         }
-        localStorage.setItem('token', token)
+        Token.set(token)
         // update the UI to reflect the signin state
         this.$emit('signin')
         // redirect to the home page
