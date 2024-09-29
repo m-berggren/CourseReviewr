@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { roundToNearestHalf } from '../utils/mathUtil.js';
 
 const { Schema, model } = mongoose;
 
@@ -16,7 +17,7 @@ const reviewSchema = new Schema({
 
 // Virtual field for calculating average rating
 reviewSchema.virtual('averageRating').get(function () {
-    return ((this.engagementLevel + this.practicalValue + this.instructorQuality + this.difficultyLevel)/4);
+    return (roundToNearestHalf((this.engagementLevel + this.practicalValue + this.instructorQuality + this.difficultyLevel)/4));
 });
 
 // Check so review does not already exist by this user for this course
