@@ -2,17 +2,17 @@
 	"info": {
 		"_postman_id": "88824d54-7f26-4b1b-9e05-3e4e83530458",
 		"name": "server",
-		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" width=\"2162\" height=\"1530\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38366801",
-		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-88824d54-7f26-4b1b-9e05-3e4e83530458?action=share&source=collection_link&creator=38366801"
+		"_exporter_id": "38088221",
+		"_collection_link": "https://www.postman.com/group-15/workspace/group-15/collection/38366801-88824d54-7f26-4b1b-9e05-3e4e83530458?action=share&source=collection_link&creator=38088221"
 	},
 	"item": [
 		{
-			"name": "Users",
+			"name": "All creations",
 			"item": [
 				{
-					"name": "201 - Create new user",
+					"name": "201 - Create 1st user",
 					"event": [
 						{
 							"listen": "test",
@@ -77,7 +77,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - Create second user",
+					"name": "201 - Create 2nd user",
 					"event": [
 						{
 							"listen": "test",
@@ -129,7 +129,7 @@
 					"response": []
 				},
 				{
-					"name": "201 - Create third user",
+					"name": "201 - Create 3rd user",
 					"event": [
 						{
 							"listen": "test",
@@ -181,15 +181,23 @@
 					"response": []
 				},
 				{
-					"name": "409 - Create conflicting user",
+					"name": "201 - Create 4th user",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Test user creationg to assert conflicting user",
-									"pm.test(\"Create conflicting user\", () => {",
-									"\tpm.response.to.have.status(409);",
+									"// Test for user creation and store user_id",
+									"pm.test(\"Create new user in the system\", () => {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"    const userID = pm.response.json().userID;",
+									"    if (userID) {",
+									"        pm.environment.set(\"user_id4\", userID); // Update user_id in environment variable",
+									"        pm.expect(userID).to.be.a('string').that.is.not.empty; // Validate user_id",
+									"    } else {",
+									"        pm.expect.fail(\"user ID not found in response\"); // Fail if user_id is missing",
+									"    }",
 									"});"
 								],
 								"type": "text/javascript",
@@ -202,7 +210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"email\": \"mrbagel_34@gmail.com\",\n\t\"password\": \"Sunshine34\"\n}",
+							"raw": "{\n\t\"username\": \"smithers\",\n    \"email\": \"mikesmith@gmail.com\",\n    \"password\": \"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -225,15 +233,24 @@
 					"response": []
 				},
 				{
-					"name": "401 - Signin with invalid password",
+					"name": "201 - Create 5th user",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code 401 - Invalid password\", () => {",
-									"\tpm.response.to.have.status(401);",
-									"})"
+									"// Test for user creation and store user_id",
+									"pm.test(\"Create new user in the system\", () => {",
+									"    pm.response.to.have.status(201);",
+									"",
+									"    const userID = pm.response.json().userID;",
+									"    if (userID) {",
+									"        pm.environment.set(\"user_id5\", userID); // Update user_id in environment variable",
+									"        pm.expect(userID).to.be.a('string').that.is.not.empty; // Validate user_id",
+									"    } else {",
+									"        pm.expect.fail(\"user ID not found in response\"); // Fail if user_id is missing",
+									"    }",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -245,7 +262,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"password\": \"12345dfdsf\"\n}",
+							"raw": "{\n\t\"username\": \"corrigan_2\",\n    \"email\": \"theo_corrigan@outlook.com\",\n    \"password\": \"password1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +270,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/auth/signin",
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
 							"host": [
 								"{{host}}"
 							],
@@ -261,20 +278,20 @@
 								"api",
 								"{{api_version}}",
 								"auth",
-								"signin"
+								"register"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "200 - Signin user",
+					"name": "200 - Sign in user",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Store new token and assert signin and token format",
+									"// Store new token and assert login and token format",
 									"pm.test(\"User successfully logged in with updated token\", () => {",
 									"\tpm.response.to.have.status(200)",
 									"\tconst jsonData = pm.response.json();",
@@ -319,13 +336,13 @@
 					"response": []
 				},
 				{
-					"name": "200 - Signin admin",
+					"name": "200 - Sign in admin",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Store new token and assert signin and token format",
+									"// Store new token and assert login and token format",
 									"pm.test(\"User successfully logged in with updated token\", () => {",
 									"\tpm.response.to.have.status(200)",
 									"\tconst jsonData = pm.response.json();",
@@ -348,6 +365,2404 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/signin",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 1st topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_1\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Python\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 2nd topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_2\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"C-Language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 3rd topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_3\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"mEchanical engineering\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 4th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_4\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Programming\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 5th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_5\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"VUE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 6th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_6\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Node JS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 7th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_7\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"History\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 8th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_8\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Psychology\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 9th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_9\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"JavaScript\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - User creates 10th topic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
+									"})",
+									"",
+									"const topicID = pm.response.json()._id;",
+									"pm.environment.set(\"topic_10\", topicID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Photography\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/topics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 1st course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/250/300/200\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 2nd course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id2\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Python Complete Course For Beginners\",\n  \"topics\": [\"{{topic_1}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Introduction course to the world of Python.\",\n  \"releaseYear\": 2023,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"Dennis M. Ritchie\",\n  \"certificate\": \"Yes\",\n  \"accessType\": \"Enrollment\",\n  \"photo\": \"https://picsum.photos/id/247/300/200\",\n  \"url\": \"www.udemy.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 3rd course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id3\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topics\": [\"{{topic_3}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/1/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 4th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id4\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Advanced Photograpy\",\n  \"topics\": [\"{{topic_10}}\"],\n  \"difficulty\": \"Advanced\",\n  \"description\": \"Knowledge in photograpy needed.\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"Jeff Hall\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/25/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 5th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id5\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_4}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/255/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 6th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id6\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_5}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Coursera\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/256/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 7th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id7\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_7}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/257/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 8th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id8\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_7}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Coursera\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/258/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 9th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id9\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_8}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/259/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 10th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id10\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_9}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Courera\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/260/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 11th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id11\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_10}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/261/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create 12th course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
+									"pm.environment.set(\"course_id12\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"topics\");",
+									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
+									"\tpm.expect(jsonData).to.have.property(\"provider\");",
+									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
+									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
+									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
+									"\tpm.expect(jsonData).to.have.property(\"photo\");",
+									"\tpm.expect(jsonData).to.have.property(\"url\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_7}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/265/300/200\",\n  \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create new review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 4,\n    \"practicalValue\": 4,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Simple but effective course!\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create second review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id2\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 3,\n    \"practicalValue\": 2,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 3,\n    \"comment\": \"Simple but effective course!\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id2}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"courses",
+								"{{course_id2}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create third review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id3\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id3}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"courses",
+								"{{course_id3}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create fourth review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id3\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id3}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"courses",
+								"{{course_id3}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create new courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"courses\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\":  [\"{{course_id}}\", \"{{course_id2}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create second courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id2\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"courses\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-related\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [\"{{course_id}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create third courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id3\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"courses\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science stuff\",\n    \"courses\": [\"{{course_id2}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "409 - Create conflicting user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test user creationg to assert conflicting user",
+									"pm.test(\"Create conflicting user\", () => {",
+									"\tpm.response.to.have.status(409);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"email\": \"mrbagel_34@gmail.com\",\n\t\"password\": \"Sunshine34\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "401 - Sign in with invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 401 - Invalid password\", () => {",
+									"\tpm.response.to.have.status(401);",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"mrBagel34\",\n\t\"password\": \"12345dfdsf\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1303,24 +3718,24 @@
 			"name": "Topics",
 			"item": [
 				{
-					"name": "201 - User creates first topic",
+					"name": "200 - Get all topics",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
-									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
-									"})",
-									"",
-									"const topicID = pm.response.json()._id;",
-									"pm.environment.set(\"topic_1\", topicID);"
+									"pm.test(\"Response status 200 - Topics received\", () => {",
+									"  pm.response.to.have.status(200);",
+									"})"
 								],
 								"type": "text/javascript",
 								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1332,11 +3747,11 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Python\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1358,24 +3773,24 @@
 					"response": []
 				},
 				{
-					"name": "201 - User creates second topic",
+					"name": "404 - Get topic that does not exist",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
-									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
-									"})",
-									"",
-									"const topicID = pm.response.json()._id;",
-									"pm.environment.set(\"topic_2\", topicID);"
+									"pm.test(\"Response status 404 - Topic does not exist\", () => {",
+									"  pm.response.to.have.status(404);",
+									"})"
 								],
 								"type": "text/javascript",
 								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1387,11 +3802,11 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"C-Lang\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1399,32 +3814,30 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/topics",
+							"raw": "{{host}}/api/{{api_version}}/topics/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"{{api_version}}",
-								"topics"
+								"topics",
+								"{{not_existing_id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "201 - User creates third topic",
+					"name": "404 - Get topic that does not exist Copy",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response status 201 or 200 - Topic created or updated\", () => {",
-									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
-									"})",
-									"",
-									"const topicID = pm.response.json()._id;",
-									"pm.environment.set(\"topic_3\", topicID);"
+									"pm.test(\"Response status 404 - Topic does not exist\", () => {",
+									"  pm.response.to.have.status(404);",
+									"})"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1442,11 +3855,11 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"mEchanical engineering\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1454,14 +3867,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/topics",
+							"raw": "{{host}}/api/{{api_version}}/topics/{{not_existing_id}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"{{api_version}}",
-								"topics"
+								"topics",
+								"{{not_existing_id}}"
 							]
 						}
 					},
@@ -1472,288 +3886,6 @@
 		{
 			"name": "Courses",
 			"item": [
-				{
-					"name": "201 - Create new course",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
-									"pm.environment.set(\"course_id\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topics\");",
-									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
-									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
-									"\tpm.expect(jsonData).to.have.property(\"provider\");",
-									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
-									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
-									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"url\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"courses"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create second course",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
-									"pm.environment.set(\"course_id2\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topics\");",
-									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
-									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
-									"\tpm.expect(jsonData).to.have.property(\"provider\");",
-									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
-									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
-									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"url\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"Python Complete Course For Beginners\",\n  \"topics\": [\"{{topic_1}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Introduction course to the world of Python.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2023,\n  \"provider\": \"Udemy\",\n  \"instructor\": \"Dennis M. Ritchie\",\n  \"certificate\": \"Yes\",\n  \"accessType\": \"Enrollment\",\n  \"url\": \"www.udemy.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"courses"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create third course",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json()[\"course\"]; // Course is needed",
-									"pm.environment.set(\"course_id3\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties and courseID is not 0\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"topics\");",
-									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
-									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
-									"\tpm.expect(jsonData).to.have.property(\"provider\");",
-									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
-									"\tpm.expect(jsonData).to.have.property(\"certificate\");",
-									"\tpm.expect(jsonData).to.have.property(\"accessType\");",
-									"\tpm.expect(jsonData).to.have.property(\"photo\");",
-									"\tpm.expect(jsonData).to.have.property(\"url\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"Mechanical Engineering for dummies\",\n  \"topics\": [\"{{topic_3}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"No prior knowledge in mechanical engineering needed.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"PluralSight\",\n  \"instructor\": \"Jacob Strong\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"url\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/courses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"courses"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
 				{
 					"name": "401 - Attempt creating course without token",
 					"event": [
@@ -2023,7 +4155,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"averageRating\": null,\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n\t\"photo\": \"https://picsum.photos/id/250/300/200\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
+							"raw": "{\n  \"name\": \"C Programming for Everybody\",\n  \"topics\": [\"{{topic_2}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Course dedicated to understanding computer architecture and low-level programming by studying the 'classic' version of the C Programming language from the 1978 booking by Brian W. Kernighan.\",\n  \"releaseYear\": 2022,\n  \"provider\": \"FreeCodeCamp\",\n  \"instructor\": \"Dr. Charles R. Severance\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n\t\"photo\": \"https://picsum.photos/id/250/300/200\",\n  \"url\": \"https://www.freecodecamp.org/news/complete-c-programming-course-from-dr-chuck/\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2213,7 +4345,6 @@
 									"\tpm.expect(jsonData).to.have.property(\"topics\");",
 									"\tpm.expect(jsonData).to.have.property(\"difficulty\");",
 									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"averageRating\");",
 									"\tpm.expect(jsonData).to.have.property(\"releaseYear\");",
 									"\tpm.expect(jsonData).to.have.property(\"provider\");",
 									"\tpm.expect(jsonData).to.have.property(\"instructor\");",
@@ -2537,282 +4668,6 @@
 		{
 			"name": "Reviews",
 			"item": [
-				{
-					"name": "201 - Create new review",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json();",
-									"",
-									"if (jsonData.error) {",
-									"\tpm.test(\"Status code 400\", () => {",
-									"\t\tpm.response.to.have.status(400);",
-									"\t})",
-									"\treturn",
-									"}",
-									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
-									"pm.environment.set(\"review_id\", reviewData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"engagementLevel\": 4,\n    \"practicalValue\": 4,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Simple but effective course!\",\n    \"hasCompleted\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id}}/reviews",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"courses",
-								"{{course_id}}",
-								"reviews"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create second review",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json();",
-									"",
-									"if (jsonData.error) {",
-									"\tpm.test(\"Status code 400\", () => {",
-									"\t\tpm.response.to.have.status(400);",
-									"\t})",
-									"\treturn",
-									"}",
-									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
-									"pm.environment.set(\"review_id2\", reviewData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"engagementLevel\": 3,\n    \"practicalValue\": 2,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 3,\n    \"comment\": \"Simple but effective course!\",\n    \"hasCompleted\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id2}}/reviews",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id2}}",
-								"courses",
-								"{{course_id2}}",
-								"reviews"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create third review",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json();",
-									"",
-									"if (jsonData.error) {",
-									"\tpm.test(\"Status code 400\", () => {",
-									"\t\tpm.response.to.have.status(400);",
-									"\t})",
-									"\treturn",
-									"}",
-									"",
-									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
-									"pm.environment.set(\"review_id3\", reviewData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/courses/{{course_id3}}/reviews",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"courses",
-								"{{course_id3}}",
-								"reviews"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
 				{
 					"name": "401 - Attempt creating review without token",
 					"event": [
@@ -3314,9 +5169,7 @@
 							"script": {
 								"exec": [
 									"const currentDate = new Date().toISOString();",
-									"pm.environment.set(\"currentDate\", currentDate);",
-									"",
-									"console.log(currentDate);"
+									"pm.environment.set(\"currentDate\", currentDate);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -3662,7 +5515,6 @@
 								"exec": [
 									"// Declare response data",
 									"const jsonData = pm.response.json()[\"review\"]; // reviews is needed",
-									"console.log(jsonData);",
 									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -4035,276 +5887,6 @@
 			"name": "CourseLists",
 			"item": [
 				{
-					"name": "201 - Create new courseList",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"course_list_id\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"user\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"courses\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science related topics\",\n    \"courses\":  [\"{{course_id}}\", \"{{course_id2}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"course-lists"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create second courseList",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"course_list_id2\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"user\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"courses\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-related\",\n    \"description\": \"Computer science related topics\",\n    \"courses\": [\"{{course_id}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id2}}",
-								"course-lists"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "201 - Create third courseList",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare request- and response data, set environment variable",
-									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
-									"const jsonData = pm.response.json(); // User is needed",
-									"pm.environment.set(\"course_list_id3\", jsonData._id);",
-									"",
-									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 201 - created\", () => {",
-									"\tpm.response.to.have.status(201);",
-									"});",
-									"",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"user\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"courses\");",
-									"});",
-									"",
-									"// Loop through and compare request data to response data",
-									"pm.test(\"Response matches all input data\", () => {",
-									"\tObject.keys(requestData).forEach(key => {",
-									"\t\tpm.test(`Field matches for: ${key}`, () => {",
-									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
-									"\t\t});",
-									"\t});",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"CS-stuff\",\n    \"description\": \"Computer science stuff\",\n    \"courses\": [\"{{course_id2}}\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/course-lists",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id2}}",
-								"course-lists"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
 					"name": "401 - Attempt to create courseList without token",
 					"event": [
 						{
@@ -4312,7 +5894,7 @@
 							"script": {
 								"exec": [
 									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 401 - token required (signin needed)\", () => {",
+									"pm.test(\"Status code 401 - token required (login needed)\", () => {",
 									"\tpm.response.to.have.status(401);",
 									"});"
 								],

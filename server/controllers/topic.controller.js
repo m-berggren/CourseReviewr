@@ -42,7 +42,7 @@ const getAllTopics = async (req, res, next) => {
 const getTopic = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const topic = await topic.findById(id);
+        const topic = await Topic.findById(id);
 
         if (!topic) {
             return res.status(404).json({ message: 'topic not found.' });
@@ -78,7 +78,7 @@ const deleteTopic = async (req, res, next) => {
             return res.status(404).json({ message: 'topic not found.' });
         }
 
-        res.status(200).json({ deletedtopic });
+        res.status(200).json(deletedtopic);
 
     } catch (error) {
         return handleError(error, res) || next(error);

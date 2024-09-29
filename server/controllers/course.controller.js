@@ -1,5 +1,6 @@
 import Course from '../models/course.model.js';
 import { handleError } from '../utils/error.util.js';
+import { getCourseWithAverageRatingAndCount } from '../utils/courseUtil.js';
 
 const createCourse = async (req, res, next) => {
     try {
@@ -23,10 +24,15 @@ const createCourse = async (req, res, next) => {
 
 const getAllCourses = async (req, res, next) => {
     try {
-        const courses = await Course.find();
+        const courses = await Course.find().populate('topics');
+        console.log(courses[0].topics);
+        const coursesWithAverageRating = await Promise.all(courses.map(async (course) => {
+            const courseWithRating = await getCourseWithAverageRatingAndCount(course._id);  // Reuse the function to calculate average rating
+            return courseWithRating;                                                        // Return the course with dynamic averageRating
+        }));
 
         res.status(200).json({
-            courses,
+            courses:coursesWithAverageRating,
             '_links': {
                 'self': { href: '/courses/'},
                 'create': {href: '/courses', method: 'POST'},

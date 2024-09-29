@@ -9,7 +9,8 @@
           :rating="course.averageRating"
           :read-only="true"
           :star-size="30"
-          :show-rating="false">
+          :show-rating="false"
+          :increment="0.5">
         </star-rating>
       </div>
       </b-card>

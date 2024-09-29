@@ -35,7 +35,7 @@
          <b-row class="">
           <b-col></b-col>
           <b-col>
-            <h2 class="">Courses</h2>
+            <h2 class="">Recommended courses</h2>
           </b-col>
           <b-col></b-col>
          </b-row>
@@ -50,7 +50,7 @@
          <b-row class="">
           <b-col></b-col>
           <b-col>
-            <h2 class="mt-1">Reviews</h2>
+            <h2 class="mt-1">Latest reviews</h2>
           </b-col>
           <b-col></b-col>
          </b-row>
@@ -117,8 +117,7 @@ export default {
     return {
       courses: [],
       topics: [],
-      reviews: [],
-      value: 2
+      reviews: []
     }
   }
 }
