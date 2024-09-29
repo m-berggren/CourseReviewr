@@ -6,7 +6,6 @@ const createCourseList = async (req, res, next) => {
     try {
         // Find the user through custom userID
         const userID = req.params.userID;
-        console.log(req.params);
         const { name, description, courses } = req.body;
         const newCourseList = new CourseList({
             name,
