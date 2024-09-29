@@ -225,7 +225,7 @@
 					"response": []
 				},
 				{
-					"name": "401 - Login with invalid password",
+					"name": "401 - Signin with invalid password",
 					"event": [
 						{
 							"listen": "test",
@@ -253,7 +253,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"raw": "{{host}}/api/{{api_version}}/auth/signin",
 							"host": [
 								"{{host}}"
 							],
@@ -261,20 +261,20 @@
 								"api",
 								"{{api_version}}",
 								"auth",
-								"login"
+								"signin"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "200 - Login user",
+					"name": "200 - Signin user",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Store new token and assert login and token format",
+									"// Store new token and assert signin and token format",
 									"pm.test(\"User successfully logged in with updated token\", () => {",
 									"\tpm.response.to.have.status(200)",
 									"\tconst jsonData = pm.response.json();",
@@ -304,7 +304,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"raw": "{{host}}/api/{{api_version}}/auth/signin",
 							"host": [
 								"{{host}}"
 							],
@@ -312,20 +312,20 @@
 								"api",
 								"{{api_version}}",
 								"auth",
-								"login"
+								"signin"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "200 - Login admin",
+					"name": "200 - Signin admin",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Store new token and assert login and token format",
+									"// Store new token and assert signin and token format",
 									"pm.test(\"User successfully logged in with updated token\", () => {",
 									"\tpm.response.to.have.status(200)",
 									"\tconst jsonData = pm.response.json();",
@@ -355,7 +355,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/auth/login",
+							"raw": "{{host}}/api/{{api_version}}/auth/signin",
 							"host": [
 								"{{host}}"
 							],
@@ -363,7 +363,7 @@
 								"api",
 								"{{api_version}}",
 								"auth",
-								"login"
+								"signin"
 							]
 						}
 					},
@@ -4312,7 +4312,7 @@
 							"script": {
 								"exec": [
 									"// Test assertions for HTTP status code",
-									"pm.test(\"Status code 401 - token required (login needed)\", () => {",
+									"pm.test(\"Status code 401 - token required (signin needed)\", () => {",
 									"\tpm.response.to.have.status(401);",
 									"});"
 								],
