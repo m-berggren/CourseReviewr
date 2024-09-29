@@ -29,7 +29,7 @@
 
 <script>
 import { Api } from '@/Api'
-import { Token } from '@/Token'
+import { token } from '@/token'
 
 export default {
   data() {
@@ -48,11 +48,11 @@ export default {
         })
 
         // store the token in local storage
-        const token = response.data.token
-        if (!token) {
+        const responseToken = response.data.token
+        if (!responseToken) {
           throw new Error('Invalid signin credentials')
         }
-        Token.set(token)
+        token.set(responseToken)
         // update the UI to reflect the signin state
         this.$emit('signin')
         // redirect to the home page
@@ -67,6 +67,11 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (min-width: 768px) {
+    .w-50 {
+        max-width: 400px;
+    }
+}
 .w-50 {
     max-width: 400px;
 }

@@ -25,4 +25,4 @@ class TokenHelper {
   }
 }
 
-export const Token = new TokenHelper()
+export const token = new TokenHelper()
