@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <b-navbar toggleable="lg" type="dark" variant="dark">
+      <b-navbar toggleable="sm" type="dark" variant="dark">
 
         <!-- Brand with link to homepage -->
         <b-navbar-brand href="#">
@@ -11,9 +11,13 @@
         </b-navbar-brand>
 
         <!-- Toggler for collapse -->
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse">
+          <!-- Customize the toggler with an icon and text -->
+          <b-icon icon="list" class="navbar-toggler-icon"></b-icon>
+            <span class="ml-2" style="color: #D9D9D9; font-size: 1rem;">Menu</span>
+        </b-navbar-toggle>
 
-          <!-- Collapsible content -->
+        <!-- Collapsible content -->
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <router-link to="/courses" class="nav-link">Courses</router-link>
@@ -22,8 +26,8 @@
           </b-navbar-nav>
         </b-collapse>
 
-        <!-- Pushes the next navbar items to the right -->
-        <b-navbar-nav class="ml-auto">
+          <!-- Pushes the next navbar items to the right -->
+          <b-navbar-nav class="ml-auto">
           <router-link v-if="!isSignedIn" to="/signin" class="nav-link-button">
             <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
           </router-link>
@@ -40,7 +44,7 @@
 </template>
 
 <script>
-import { Token } from './Token'
+import { token } from '@/token'
 
 export default {
   data() {
@@ -50,18 +54,18 @@ export default {
   },
   created() {
     // Check the sign-in status when the component is created
-    this.isSignedIn = Token.isSignedIn()
+    this.isSignedIn = token.isSignedIn()
   },
   methods: {
     handleSignin() {
       // Update the sign-in state based on the token when user signs in
-      this.isSignedIn = Token.isSignedIn()
+      this.isSignedIn = token.isSignedIn()
     }
   },
   watch: {
     // Add a watcher to reactively track token changes when route changes
     '$route'() {
-      this.isSignedIn = Token.isSignedIn()
+      this.isSignedIn = token.isSignedIn()
     }
   }
 }
@@ -84,6 +88,9 @@ export default {
   height: 5vh;
   max-width: 100vw;
 }
+.navbar-toggler-icon {
+  margin-right: 0.5rem;
+}
 
 /* Styling for navigation links */
 .nav-link {
@@ -93,6 +100,12 @@ export default {
   transition: color 0.3s;
 }
 
+@media (max-width: 576px) {
+            .b-collapse {
+              width: 50%;
+              margin: 0 auto;
+            }
+          }
 /* Hover effect for navigation links */
 .nav-link:hover {
   color: #6B91B8 !important;
