@@ -1,26 +1,27 @@
 <template>
 <b-container class="d-flex justify-content-center">
-    <b-card class="w-50 mt-5">
+    <b-card class="w-100 w-md-50 mt-5">
         <b-card-header class="text-canter">
             <h3>Register</h3>
         </b-card-header>
+
         <b-card-body>
             <b-form @submit.prevent="onSubmit">
                 <b-form-group label="Username" label-for="username-input">
                     <b-form-input id="username-input" v-model="username" type="username"
-                        required></b-form-input>
+                        required class="mb-3"></b-form-input>
                 </b-form-group>
                 <b-form-group label="Email" label-for="email-input">
                     <b-form-input id="email-input" v-model="email" type="email"
-                        required></b-form-input>
+                        required class="mb-3"></b-form-input>
                 </b-form-group>
                 <b-form-group label="Password" label-for="password-input">
                     <b-form-input id="password-input" v-model="password" type="password"
-                        required></b-form-input>
+                        required class="mb-3"></b-form-input>
                 </b-form-group>
                 <b-form-group label="Confirm Password" label-for="confirm-password-input">
                     <b-form-input id="confirm-password-input" v-model="confirmPassword" type="password"
-                        required></b-form-input>
+                        required class="mb-3"></b-form-input>
                 </b-form-group>
                 <br><b-button type="submit" style="background-color: #6B91B8;" block>
                     Register
@@ -72,3 +73,16 @@ export default {
   }
 }
 </script>
+
+<style lang="css" scoped>
+@media screen{
+    .w-md-50 {
+        max-width: 450px;
+        margin-top: 5%;
+        max-height: 700px;
+        margin-bottom: 5%;
+        margin-inline: 5%;
+        width: 100%;
+    }
+}
+</style>

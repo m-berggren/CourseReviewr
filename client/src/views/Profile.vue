@@ -1,65 +1,72 @@
 <template>
-    <b-container class="d-flex justify-content-center">
-      <b-card class="w-50 mt-5">
-        <b-card-header class="text-center">
-          <h3>Profile</h3>
-        </b-card-header>
-        <b-card-body>
-          <!-- Profile Picture and Username -->
-          <div class="d-flex justify-content-start align-items-center mb-3">
-            <img :src="user.photo" alt="Profile Picture" class="profile-picture" />
-            <h4 class="ml-3">{{ user.username }}</h4>
-          </div>
+  <b-container class="d-flex justify-content-center align-items-center min-vh-100">
+        <b-card class="w-100 w-md-50 mt-5">
+          <b-card-header class="text-center">
+            <h3>Profile</h3>
+          </b-card-header>
+          <b-card-body>
+            <!-- Profile Picture and Username -->
+            <div class="d-flex justify-content-start align-items-center mb-3">
+              <img :src="user.photo" alt="Profile Picture" class="profile-picture" />
+              <h4 class="ml-3">{{ user.username }}</h4>
+                <div class="mb-4"></div>
+            </div>
 
-          <!-- Edit Email Form -->
-          <b-form @submit.prevent="updateEmail">
-            <b-form-group label="Email Address" label-for="email-input">
-              <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary" block>Update Email</b-button>
-          </b-form>
+            <!-- Edit Email Form -->
+            <b-form @submit.prevent="updateEmail">
+              <b-form-group label="Email Address" label-for="email-input">
+                <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
+                <div class="mb-3"></div>
+              </b-form-group>
+              <b-button type="submit" variant="primary" block>Update Email</b-button>
+            </b-form>
 
-          <hr>
+            <hr>
 
-          <!-- Edit Password Form -->
-          <b-form @submit.prevent="updatePassword">
-            <b-form-group label="New Password" label-for="password-input">
-              <b-form-input id="password-input" v-model="password" type="password" required></b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary" block>Update Password</b-button>
-          </b-form>
+            <!-- Edit Password Form -->
+            <b-form @submit.prevent="updatePassword">
+              <b-form-group label="New Password" label-for="password-input">
+                <b-form-input id="password-input" v-model="password" type="password" required></b-form-input>
+                  <div class="mb-3"></div>
+              </b-form-group>
+              <b-button type="submit" variant="primary" block>Update Password</b-button>
+            </b-form>
 
-          <hr>
+            <hr>
 
-          <!-- Upload Photo Form -->
-          <b-form @submit.prevent="uploadPhoto">
-            <b-form-group label="Profile Picture" label-for="photo-input">
-              <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
-            </b-form-group>
-            <b-button type="submit" variant="primary" block>Upload Photo</b-button>
-          </b-form>
+            <!-- Upload Photo Form -->
+            <b-form @submit.prevent="uploadPhoto">
+              <b-form-group label="Profile Picture" label-for="photo-input">
+                <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
+                  <div class="mb-3"></div>
+              </b-form-group>
+              <b-button type="submit" variant="primary" block>Upload Photo</b-button>
+            </b-form>
 
-          <hr>
+            <hr>
 
-          <!-- Add Interests Form -->
-          <b-form @submit.prevent="addInterests">
-            <b-form-group label="Interests (comma-separated)" label-for="interests-input">
-              <b-form-input id="interests-input" v-model="interests" type="text" required></b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary" block>Add Interests</b-button>
-          </b-form>
+            <!-- Add Interests Form -->
+            <b-form @submit.prevent="addInterests">
+              <b-form-group label="Interests (comma-separated)" label-for="interests-input">
+                <b-form-input id="interests-input" v-model="interests" type="text" required></b-form-input>
+                  <div class="mb-3"></div>
+              </b-form-group>
+              <b-button type="submit" variant="primary" block>Add Interests</b-button>
+                <div class="mb-3"></div>
+            </b-form>
 
-        <!-- Logout Button -->
-        <b-button variant="danger" block @click="logout">Logout</b-button>
+          <!-- Signout Button -->
+          <div class="mb-6"></div>
+          <b-button variant="danger" block @click="signout">Sign Out</b-button>
 
-        </b-card-body>
-      </b-card>
-    </b-container>
-  </template>
+          </b-card-body>
+        </b-card>
+  </b-container>
+</template>
 
 <script>
 import { Api } from '@/Api'
-import { Token } from '@/Token'
+import { token } from '@/token'
 export default {
   data() {
     return {
@@ -133,24 +140,31 @@ export default {
         alert('Failed to add interests: ' + error.message)
       }
     },
-    // Logout method
-    logout() {
+    // Signout method
+    signout() {
       // Remove the JWT token
       this.$router.push('/signin') // Redirect to login page
-      Token.unset()
+      token.unset()
     }
   }
 }
 </script>
 
-  <style scoped>
-  .profile-picture {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .w-50 {
-    max-width: 600px;
-  }
+<style scoped>
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+@media screen{
+    .w-md-50 {
+        max-width: 450px;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-inline: 5%;
+        width: 100%;
+    }
+}
+
   </style>

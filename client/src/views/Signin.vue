@@ -1,6 +1,6 @@
 <template>
     <b-container class="d-flex justify-content-center">
-        <b-card class="w-50 mt-5">
+        <b-card class="w-100 w-md-50 mt-5">
             <b-card-header class="text-center">
                 <h3>Sign In</h3>
             </b-card-header>
@@ -8,12 +8,12 @@
                 <b-form @submit.prevent="onSubmit">
                     <b-form-group label="Username" label-for="username-input">
                         <b-form-input id="username-input" v-model="username" type="username"
-                            required></b-form-input>
+                            required class="mb-3"></b-form-input>
                     </b-form-group>
 
                     <b-form-group label="Password" label-for="password-input">
                         <b-form-input id="password-input" v-model="password" type="password"
-                            required></b-form-input>
+                            required class="mb-3"></b-form-input>
                     </b-form-group>
                     <br><b-button type="submit" style="background-color: #6B91B8;" block>
                       Sign in
@@ -67,12 +67,14 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (min-width: 768px) {
-    .w-50 {
-        max-width: 400px;
+@media screen{
+    .w-md-50 {
+        max-width: 450px;
+        margin-top: 5%;
+        max-height: 700px;
+        margin-bottom: 5%;
+        margin-inline: 5%;
+        width: 100%;
     }
-}
-.w-50 {
-    max-width: 400px;
 }
 </style>
