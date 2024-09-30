@@ -191,6 +191,7 @@ const controller = {
     createCourse,
     getAllCourses,
     getCourse,
+    getAggregatedRatings,
     updateCourse,
     patchCourse,
     deleteAllCourses,
