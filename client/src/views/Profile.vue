@@ -2,20 +2,23 @@
   <b-container class="d-flex justify-content-center align-items-center min-vh-100">
         <b-card class="w-100 w-md-50 mt-5">
           <b-card-header class="text-center">
-            <h3>Profile</h3>
+            <h3>My Profile</h3>
           </b-card-header>
           <b-card-body>
             <!-- Profile Picture and Username -->
             <div class="d-flex justify-content-start align-items-center mb-3">
               <img :src="user.photo" alt="Profile Picture" class="profile-picture" />
-              <h4 class="ml-3">{{ user.username }}</h4>
-                <div class="mb-4"></div>
+                <div class="ml-3">
+                  <h4>{{ user.username }}</h4>
+                    <!-- Display 'Admin' if user role is admin -->
+                    <span v-if="user.role === 'admin'" class="text-danger">(Admin)</span>
+                </div>
+              <div class="mb-4"></div>
             </div>
-
             <!-- Edit Email Form -->
             <b-form @submit.prevent="updateEmail">
               <b-form-group label="Email Address" label-for="email-input">
-                <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
+                <b-form-input id="email-input" v-model="email" type="email" :value="user.email" required></b-form-input>
                 <div class="mb-3"></div>
               </b-form-group>
               <b-button type="submit" variant="primary" block>Update Email</b-button>
@@ -26,8 +29,20 @@
             <!-- Edit Password Form -->
             <b-form @submit.prevent="updatePassword">
               <b-form-group label="New Password" label-for="password-input">
-                <b-form-input id="password-input" v-model="password" type="password" required></b-form-input>
-                  <div class="mb-3"></div>
+                <b-input-group>
+                  <b-form-input
+                    id="password-input"
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    required
+                  ></b-form-input>
+                  <b-input-group-append>
+                    <b-button @click="togglePasswordVisibility" variant="outline-secondary">
+                      <b-icon :icon="showPassword ? 'eye-slash' : 'eye'"></b-icon>
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
+                <div class="mb-3"></div>
               </b-form-group>
               <b-button type="submit" variant="primary" block>Update Password</b-button>
             </b-form>
@@ -46,18 +61,33 @@
             <hr>
 
             <!-- Add Interests Form -->
+            <b-form-group label = "Your Interests">
+              <!--Display current interests as removable tahgs   -->
+              <b-form-tags
+                v-model="userInterests"
+                @remove="removeInterest"
+                place-holder="No interests added yet"
+                tag-variant="primary"
+                class="mb-2"
+              ></b-form-tags >
+            </b-form-group>
+              <hr>
+
             <b-form @submit.prevent="addInterests">
-              <b-form-group label="Interests (comma-separated)" label-for="interests-input">
-                <b-form-input id="interests-input" v-model="interests" type="text" required></b-form-input>
-                  <div class="mb-3"></div>
+              <b-form-group label="Add New Interests">
+                <b-form-select
+                v-model = "selectedInterest"
+                :options="availableTopics">
+                class="mt-2"
+                placeholder="Select an interest"
+                ></b-form-select>
               </b-form-group>
               <b-button type="submit" variant="primary" block>Add Interests</b-button>
-                <div class="mb-3"></div>
             </b-form>
 
-          <!-- Signout Button -->
-          <div class="mb-6"></div>
-          <b-button variant="danger" block @click="signout">Sign Out</b-button>
+            <!-- Signout Button -->
+            <div class="mb-6"></div>
+            <b-button variant="danger" block @click="signout">Sign Out</b-button>
 
           </b-card-body>
         </b-card>
@@ -71,19 +101,23 @@ export default {
   data() {
     return {
       user: {
-        username: '',
+        username: token.getUsername(),
+        role: token.getRole,
         photo: ''
       },
       email: '',
       password: '',
-      interests: ''
+      interests: [],
+      selectedInterest: '',
+      availableInterests: ['Coding', 'Design', 'Marketing', 'Photography'],
+      showPassword: false
     }
   },
   async created() {
     // Fetch user data when the component is created
     try {
-      const response = await Api.get('/users/profile') // Adjust this endpoint based on your backend
-      this.user = response.data
+      const response = await Api.get(`/users/${token.getUserId()}`) // Adjust this endpoint based on your backend
+      this.user = { ...this.user, ...response.data }
       this.email = this.user.email
     } catch (error) {
       console.error('Failed to load user data', error)
@@ -92,7 +126,7 @@ export default {
   methods: {
     async updateEmail() {
       try {
-        const response = await Api.patch(`/users/${this.user._id}/email`, { email: this.email })
+        await Api.patch(`/users/${token.getUserId()}`, { email: this.email })
         alert('Email updated successfully')
       } catch (error) {
         console.error('Failed to update email', error)
@@ -101,7 +135,7 @@ export default {
     },
     async updatePassword() {
       try {
-        await Api.patch(`/users/${this.user._id}/password`, { password: this.password })
+        await Api.patch(`/users/${token.getUserId()}`, { password: this.password })
         alert('Password updated successfully')
       } catch (error) {
         console.error('Failed to update password', error)
@@ -117,7 +151,7 @@ export default {
         const formData = new FormData()
         formData.append('photo', this.uploadedPhoto)
 
-        const response = await Api.patch(`/users/${this.user._id}/photo`, formData, {
+        const response = await Api.patch(`/users/${this.user._id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
