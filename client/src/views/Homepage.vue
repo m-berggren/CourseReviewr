@@ -4,7 +4,7 @@
 
         <!-- Row for welcome text, search bar and tags -->
         <b-row class="top-row justify-content-center text-center">
-          <b-col md="8" lg="6">
+          <b-col md="4" lg="4">
             <h1 class="mt-2">Welcome!</h1>
             <p>Find your perfect course or add your own course with review.</p>
             <b-input-group>
@@ -18,7 +18,7 @@
 
         <!-- Row for tags inside a container -->
         <b-row class="top-row mb-4 justify-content-center text-center">
-          <b-col md="6">
+          <b-col md="4">
             <div class="tags-container p-3 mt-2 mb-4">
               <b-badge v-for="topic in topics" :key="topic._id" variant="dark" class="tag-badge mx-1">
                 {{ topic.name }}
