@@ -13,6 +13,9 @@ const reviewSchema = new Schema({
     comment:                { type: String, default: '' },
     hasCompleted:           { type: Boolean },
     date:                   { type: Date, default: Date.now }
+}, {
+    toJSON: { virtuals: true },  // Enable virtuals in JSON output
+    toObject: { virtuals: true }  // Enable virtuals when converting to objects
 });
 
 // Virtual field for calculating average rating
