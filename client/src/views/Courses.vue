@@ -27,7 +27,7 @@
         </b-col>
         <b-col md="1" class="my-4">
           <router-link to="/courses/create" class="course-button">
-            <b-button v-if="isSignedIn" pill variant="dark" class="create-course-button">Create course</b-button>
+            <b-button v-if="isSignedIn" pill variant="dark" class="create-course-button">Create course & review</b-button>
           </router-link>
         </b-col>
 
@@ -46,6 +46,7 @@
 <script setup>
 import { Api } from '@/Api'
 import { ref, onMounted, computed } from 'vue'
+import { token } from '../token.js'
 
 // Define fields for the table (sortable columns)
 const sortFields = [
@@ -65,6 +66,8 @@ const selectedTopic = ref('')
 const providers = ref([])
 const topics = ref([])
 
+const isSignedIn = token.isSignedIn()
+
 // Dropdown texts
 const providerDropdownText = ref('Providers')
 const topicDropdownText = ref('Topics')
@@ -73,6 +76,13 @@ const fetchTopics = async () => {
   try {
     const response = await Api.get('/topics')
     const data = response.data.topics
+
+    // Sort A-Z in the hashmap
+    data.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+      return 0
+    })
 
     topics.value = data
   } catch (error) {
@@ -96,8 +106,8 @@ const fetchCourses = async () => {
       topics: course.topics
     }))
 
-    // Populate unique providers from the courses
-    providers.value = [...new Set(courses.map(course => course.provider))]
+    // Populate list of sorted, unique providers from the courses
+    providers.value = [...new Set(courses.map(course => course.provider))].sort()
   } catch (error) {
     console.error('Error fetching courses:', error)
   }
