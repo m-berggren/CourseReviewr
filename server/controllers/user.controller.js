@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 import { handleError } from '../utils/error.util.js';
+import { hashPassword } from '../utils/password.util.js';
 
 const createUser = async (req, res, next) => {
     try {
@@ -59,6 +60,10 @@ const updateUser = async (req, res, next) => {
             { new: true, runValidators: true, overwrite: true }
         );
 
+        if(updates.password) {
+            updates.password = await hashPassword(updates.password);
+        }
+
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found.' });
         }
@@ -80,6 +85,10 @@ const patchUser = async (req, res, next) => {
 
         if (!isAdmin && userIdFromToken != userIdToUpdate) {
             return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
+        }
+
+        if(updates.password) {
+            updates.password = await hashPassword(updates.password);
         }
 
         const updatedUser = await User.findByIdAndUpdate(
