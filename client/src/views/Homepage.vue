@@ -7,12 +7,19 @@
           <b-col md="4" lg="4">
             <h1 class="mt-2">Welcome!</h1>
             <p>Find your perfect course or add your own course with review.</p>
-            <b-input-group>
-              <b-form-input placeholder="Search course"></b-form-input>
-              <b-input-group-append>
-                <b-button variant="primary">Search</b-button>
-              </b-input-group-append>
-            </b-input-group>
+
+            <div class="search-container">
+              <!-- Typeahead input with Bootstrap width control -->
+              <vue3-simple-typeahead
+                v-model="selectCourse"
+                :items="courseNames"
+                :minInputLength="1"
+                placeholder="Search for a course..."
+                input-class="form-control simple-typeahead-input"
+              ></vue3-simple-typeahead>
+                <b-button variant="primary" class="search-button">Search</b-button>
+            </div>
+
           </b-col>
         </b-row>
 
@@ -57,60 +64,68 @@
 
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
 import CourseItem from '../components/CourseItem.vue'
 import ReviewItem from '../components/ReviewItem.vue'
 import { Api } from '@/Api'
 
-export default {
-  name: 'topics-courses-and-reviews',
-  components: {
-    'course-item': CourseItem,
-    'review-item': ReviewItem
-  },
-  mounted() {
-    Api.get('/topics')
-      .then(response => {
-        this.topics = response.data.topics
-      })
-      .catch(error => {
-        this.topics = []
-        console.log(error)
-        // Additional error checking
-      })
+// Reactive cariables
+const courses = ref([])
+const courseNames = ref([])
+const topics = ref([])
+const reviews = ref([])
+const searchQuery = ref('')
 
-    Api.get('/courses')
-      .then(response => {
-        this.courses = response.data.courses
-      })
-      .catch(error => {
-        this.courses = []
-        console.log(error)
-        // Additional error checking
-      })
+// Fetch data on mount
+onMounted(() => {
+  fetchTopics()
+  fetchCourses()
+  fetchReviews()
+})
 
-    Api.get('/reviews')
-      .then(response => {
-        this.reviews = response.data.reviews
-      })
-      .catch(error => {
-        this.reviews = []
-        console.log(error)
-        // Additional error checking
-      })
-  },
+/* Methods */
 
-  methods: {
-
-  },
-  data() {
-    return {
-      courses: [],
-      topics: [],
-      reviews: []
-    }
+// Fetch topics
+const fetchTopics = async () => {
+  try {
+    const response = await Api.get('/topics')
+    topics.value = response.data.topics
+  } catch (error) {
+    topics.value = []
+    console.error(error)
   }
 }
+
+// Fetch courses
+const fetchCourses = async () => {
+  try {
+    const response = await Api.get('/courses')
+    courses.value = response.data.courses
+    courseNames.value = response.data.courses.map(course => { return course.name })
+  } catch (error) {
+    courses.value = []
+    console.error(error)
+  }
+}
+
+// Fetch reviews
+const fetchReviews = async () => {
+  try {
+    const response = await Api.get('/reviews')
+    reviews.value = response.data.reviews
+  } catch (error) {
+    reviews.value = []
+    console.error(error)
+  }
+}
+
+// Select course from the typeahead dropdown
+const selectCourse = (selectedCourse) => {
+  console.log('Selected course:', selectedCourse)
+  searchQuery.value = selectedCourse
+}
+
 </script>
 
 <style>
@@ -123,5 +138,33 @@ export default {
 }
 .tag-badge {
   background-color: darkslategray !important;
+}
+.search-container {
+  display: flex;
+  align-items: stretch;
+}
+.simple-typeahead-input {
+  flex-grow: 1;
+  width: 100%;
+  height: 40px;
+  border-radius: 7px 0 0 7px !important;
+  border-right: none !important;
+  border-color: cornflowerblue;
+}
+.search-button {
+  height: 40px;
+  border-radius: 0 7px 7px 0 !important;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+  .simple-typeahead-input,
+  .search-button {
+    width: 100%;
+    border-radius: 7px !important;
+    margin-bottom: 10px;
+  }
 }
 </style>

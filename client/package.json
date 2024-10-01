@@ -17,7 +17,8 @@
     "unplugin-vue-components": "^0.27.4",
     "vue": "^3.4.38",
     "vue-router": "^4.4.3",
-    "vue-star-rating": "^2.1.0"
+    "vue-star-rating": "^2.1.0",
+    "vue3-simple-typeahead": "^1.0.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",
