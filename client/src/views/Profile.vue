@@ -18,34 +18,65 @@
             <!-- Edit Email Form -->
             <b-form @submit.prevent="updateEmail">
               <b-form-group label="Email Address" label-for="email-input">
-                <b-form-input id="email-input" v-model="email" type="email" :value="user.email" required></b-form-input>
+                <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
                 <div class="mb-3"></div>
               </b-form-group>
               <b-button type="submit" variant="primary" block>Update Email</b-button>
             </b-form>
 
             <hr>
+  <!-- Password Update Section -->
+<div>
+  <!-- Show the 'Update Password' button initially -->
+  <b-button v-if="!showPasswordFields" @click="showPasswordFields = true" variant="primary" block>Update Password</b-button>
 
-            <!-- Edit Password Form -->
-            <b-form @submit.prevent="updatePassword">
-              <b-form-group label="New Password" label-for="password-input">
-                <b-input-group>
-                  <b-form-input
-                    id="password-input"
-                    v-model="password"
-                    :type="showPassword ? 'text' : 'password'"
-                    required
-                  ></b-form-input>
-                  <b-input-group-append>
-                    <b-button @click="togglePasswordVisibility" variant="outline-secondary">
-                      <b-icon :icon="showPassword ? 'eye-slash' : 'eye'"></b-icon>
-                    </b-button>
-                  </b-input-group-append>
-                </b-input-group>
-                <div class="mb-3"></div>
-              </b-form-group>
-              <b-button type="submit" variant="primary" block>Update Password</b-button>
-            </b-form>
+  <!-- Show these fields only when 'Update Password' button is clicked -->
+  <div v-if="showPasswordFields">
+    <b-form @submit.prevent="updatePassword">
+      <!-- New Password Input -->
+      <b-form-group label="New Password" label-for="new-password-input">
+        <b-input-group>
+          <b-form-input
+            id="new-password-input"
+            v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Enter new password"
+            required
+          ></b-form-input>
+          <b-input-group-append>
+            <b-button @click="togglePasswordVisibility" variant="outline-secondary">
+              <b-icon :icon="showPassword ? 'eye-slash' : 'eye'"></b-icon>
+            </b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </b-form-group>
+
+      <!-- Confirm Password Input -->
+      <b-form-group label="Confirm Password" label-for="confirm-password-input">
+        <b-input-group>
+          <b-form-input
+            id="confirm-password-input"
+            v-model="confirmPassword"
+            :type="showConfirmPassword ? 'text' : 'password'"
+            placeholder="Confirm new password"
+            required
+          ></b-form-input>
+          <b-input-group-append>
+            <b-button @click="toggleConfirmPasswordVisibility" variant="outline-secondary">
+              <b-icon :icon="showConfirmPassword ? 'eye-slash' : 'eye'" class="text-dark"></b-icon>
+            </b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </b-form-group>
+
+      <!-- Submit Button -->
+      <b-button type="submit" variant="primary" block>Submit New Password</b-button>
+
+      <!-- Cancel Button to hide the password fields -->
+      <b-button @click="cancelPasswordUpdate" variant="secondary" block class="mt-2">Cancel</b-button>
+    </b-form>
+  </div>
+</div>
 
             <hr>
 
@@ -106,11 +137,14 @@ export default {
         photo: ''
       },
       email: '',
+      showPasswordFields: false, // Controls visibility of password fields
       password: '',
+      confirmPassword: '',
+      showPassword: false, // Controls visibility for new password input
+      showConfirmPassword: false, // Controls visibility for confirm password input
       interests: [],
       selectedInterest: '',
-      availableInterests: ['Coding', 'Design', 'Marketing', 'Photography'],
-      showPassword: false
+      availableInterests: ['Coding', 'Design', 'Marketing', 'Photography']
     }
   },
   async created() {
@@ -124,6 +158,17 @@ export default {
     }
   },
   methods: {
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword
+    },
+    toggleConfirmPasswordVisibility() {
+      this.showConfirmPassword = !this.showConfirmPassword
+    },
+    cancelPasswordUpdate() {
+      this.showPasswordFields = false
+      this.password = ''
+      this.confirmPassword = ''
+    },
     async updateEmail() {
       try {
         await Api.patch(`/users/${token.getUserId()}`, { email: this.email })
@@ -134,9 +179,19 @@ export default {
       }
     },
     async updatePassword() {
+      // Check if the passwords match
+      if (this.password !== this.confirmPassword) {
+        alert('Passwords do not match!')
+        return
+      }
+
       try {
         await Api.patch(`/users/${token.getUserId()}`, { password: this.password })
         alert('Password updated successfully')
+        // Reset fields and hide password form after successful update
+        this.password = ''
+        this.confirmPassword = ''
+        this.showPasswordFields = false
       } catch (error) {
         console.error('Failed to update password', error)
         alert('Failed to update password: ' + error.message)
