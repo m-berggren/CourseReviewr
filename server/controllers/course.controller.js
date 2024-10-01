@@ -25,7 +25,6 @@ const createCourse = async (req, res, next) => {
 const getAllCourses = async (req, res, next) => {
     try {
         const courses = await Course.find().populate('topics');
-        console.log(courses[0].topics);
         const coursesWithAverageRating = await Promise.all(courses.map(async (course) => {
             const courseWithRating = await getCourseWithAverageRatingAndCount(course._id);  // Reuse the function to calculate average rating
             return courseWithRating;                                                        // Return the course with dynamic averageRating
