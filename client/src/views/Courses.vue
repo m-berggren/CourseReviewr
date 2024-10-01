@@ -8,7 +8,7 @@
           <b-form-input v-model="searchInput" placeholder="Search Course" class="mx-3"></b-form-input >
         </b-col>
         <b-col md="2" class="my-4">
-          <b-dropdown :text="providerDropdownText" class="">
+          <b-dropdown :text="providerDropdownText" class="" variant="dark">
             <b-dropdown-item v-for="provider in providers" :key="provider" @click="selectProvider(provider)">
               {{ provider }}
             </b-dropdown-item>
@@ -17,7 +17,7 @@
           </b-dropdown>
         </b-col>
         <b-col md="2" class="my-4">
-          <b-dropdown :text="topicDropdownText" class="">
+          <b-dropdown :text="topicDropdownText" class="" variant="dark">
             <b-dropdown-item v-for="topic in topics" :key="topic._id" @click="selectTopic(topic)">
               {{ topic.name }}
             </b-dropdown-item>
@@ -25,9 +25,9 @@
             <b-dropdown-item @click="clearTopic">Clear Topic</b-dropdown-item>
           </b-dropdown>
         </b-col>
-        <b-col md="1" class="my-4">
+        <b-col md="2" class="my-4">
           <router-link to="/courses/create" class="course-button">
-            <b-button v-if="isSignedIn" pill variant="dark" class="create-course-button">Create course & review</b-button>
+            <b-button v-if="isSignedIn" variant="dark" class="create-course-button">Create course & review</b-button>
           </router-link>
         </b-col>
 
@@ -105,9 +105,10 @@ const fetchCourses = async () => {
       releaseYear: course.releaseYear,
       topics: course.topics
     }))
-
-    // Populate list of sorted, unique providers from the courses
-    providers.value = [...new Set(courses.map(course => course.provider))].sort()
+    
+    // Populate list of sorted, unique providers from the courses, disregarding uppercase letters
+    providers.value = [...new Set(courses.map(course => course.provider))]
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
   } catch (error) {
     console.error('Error fetching courses:', error)
   }
