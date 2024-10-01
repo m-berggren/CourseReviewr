@@ -71,15 +71,20 @@ const deleteAllTopics = async (req, res, next) => {
 
 const deleteTopic = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const deletedtopic = await Topic.findByIdAndDelete(id);
+        const topic = await Topic.findById(req.params.id);
 
-        if (!deletedtopic) {
-            return res.status(404).json({ message: 'topic not found.' });
+        if (!topic) {
+            return res.status(404).json({ message: 'Topic not found.' });
         }
 
-        res.status(200).json(deletedtopic);
+        if (topic.counter > 1) {
+            topic.counter--;
+            await topic.save();
+            return res.status(200).json({ message: `Topic ${topic.name} exists, counter decreased`, topic });
+        }
 
+        const deletedTopic = await Topic.findByIdAndDelete(req.params.id);
+        return res.status(200).json(deletedTopic);
     } catch (error) {
         return handleError(error, res) || next(error);
     }
