@@ -15,6 +15,16 @@
                         <b-form-input id="password-input" v-model="password" type="password"
                             required class="mb-3"></b-form-input>
                     </b-form-group>
+                            <!-- BootstrapVue alert component to display message -->
+                    <b-alert
+                      v-model="showMessage"
+                      :variant="messageVariant"
+                      dismissible
+                      fade
+                      class="mt-3"
+                      >
+                      {{ message }}
+                    </b-alert>
                     <br><b-button type="submit" style="background-color: #6B91B8;" block>
                       Sign in
                     </b-button>
@@ -35,7 +45,10 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      message: '',
+      showMessage: false,
+      messageVariant: 'info'
     }
   },
   methods: {
@@ -46,20 +59,24 @@ export default {
           username: this.username,
           password: this.password
         })
+        this.message = response.data.message
 
         // store the token in local storage
         const responseToken = response.data.token
         if (!responseToken) {
-          throw new Error('Invalid signin credentials')
+          this.message = 'Invalid signin credentials'
+          this.messageVariant = 'danger'
+          this.showMessage = true
+          return
         }
         token.set(responseToken)
-        // update the UI to reflect the signin state
         this.$emit('signin')
         // redirect to the home page
         this.$router.push('/')
       } catch (error) {
-        console.error('Signin failed', error)
-        alert('Signin failed: ' + error.message)
+        this.message = 'Signin failed: ' + (error.response?.data?.message || error.message)
+        this.messageVariant = 'danger'
+        this.showMessage = true
       }
     }
   }
