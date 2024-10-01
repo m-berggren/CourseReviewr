@@ -2,8 +2,15 @@ import { jwtDecode } from 'jwt-decode'
 
 class TokenHelper {
   constructor() {
-    this.token = localStorage.getItem('token')
-    this.decodedToken = jwtDecode(this.token)
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      this.token = token
+      this.decodedToken = jwtDecode(token)
+    } else {
+      this.token = null
+      this.decodedToken = null
+    }
   }
 
   set(token) {
