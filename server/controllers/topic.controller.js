@@ -21,7 +21,7 @@ const createTopic = async (req, res, next) => {
         const newTopic = new Topic({ name });
         await newTopic.save();
         
-        res.status(201).json(newTopic);
+        res.status(201).json({ topic: newTopic });
 
     } catch (error) {
         return handleError(error, res) || next(error);
