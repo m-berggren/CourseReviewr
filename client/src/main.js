@@ -2,6 +2,7 @@
 
 import { createApp } from 'vue'
 import { createBootstrap } from 'bootstrap-vue-next'
+import { BootstrapIconsPlugin } from 'bootstrap-icons-vue'
 import App from './App.vue'
 import router from './router'
 import StarRating from 'vue-star-rating'
@@ -14,4 +15,5 @@ const app = createApp(App)
 app.component('star-rating', StarRating)
 app.use(createBootstrap())
 app.use(router)
+app.use(BootstrapIconsPlugin)
 app.mount('#app')
