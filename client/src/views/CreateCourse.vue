@@ -10,13 +10,17 @@
         <b-form @submit="onSubmit" @reset="onReset">
 
           <!-- Course name -->
-          <b-form-group label-cols="2" label="Course name:" label-for="input-1" class="label-font mt-1">
+          <b-form-group label-cols="2" label="Course name:*" label-for="input-1" class="label-font mt-1">
             <b-form-input
             id="input-1"
             v-model="form.name"
             placeholder="Enter course name"
-            required
+            :state="getFieldState(nameState)"
             ></b-form-input>
+            <b-form-invalid-feedback :state="getFieldState(nameState)">
+              Please type in a course name longer than 3 letters.
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(nameState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Description -->
@@ -31,40 +35,43 @@
           </b-form-group>
 
           <!-- Topics -->
-          <b-form-group label-cols="2" label="Topics:" label-for="input-3" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Topics:*" label-for="input-3" class="label-font mt-3">
             <b-form-tags
               input-id="topics-list"
               v-model="form.topics"
-              :state="form.topics.length > 0"
+              :state="getFieldState(topicsState)"
               remove-on-delete
               separator=","
-              @input="handleTopicInput"
             ></b-form-tags>
             <!-- Custom validation feedback -->
-            <b-form-invalid-feedback v-if="!topicsValid">Please type in topic(s) suitable for this course.</b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="getFieldState(topicsState)">Please type in topic(s) suitable for this course.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(topicsState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Difficulty -->
-          <b-form-group label-cols="2" label="Difficulty:" label-for="input-4" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Difficulty:*" label-for="input-4" class="label-font mt-3">
             <b-form-select
               v-model="form.difficulty"
               :options="difficultyOptions"
               size="sm"
-              :state="Boolean(form.difficulty)"
-              @input="handleDifficultyInput"
+              :state="getFieldState(difficultyState)"
             ></b-form-select>
             <!-- Custom validation feedback -->
-            <b-form-invalid-feedback v-if="!difficultyValid">Please choose a difficulty.</b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="getFieldState(difficultyState)">Please choose a difficulty.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(difficultyState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Provider -->
-          <b-form-group label-cols="2" label="Provider:" label-for="input-5" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Provider:*" label-for="input-5" class="label-font mt-3">
             <b-form-input
             id="input-5"
             v-model="form.provider"
             placeholder="Enter provider"
-            required
+            :state="getFieldState(providerState)"
             ></b-form-input>
+            <!-- Custom validation feedback -->
+            <b-form-invalid-feedback :state="getFieldState(providerState)">Please type in a provider longer than 1 letter.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(providerState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Description -->
@@ -86,29 +93,29 @@
           </b-form-group>
 
           <!-- Photo -->
-          <b-form-group label-cols="2" label="Photo:" label-for="input-8" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Photo:*" label-for="input-8" class="label-font mt-3">
             <b-form-file
               v-model="form.photo"
-              :state="Boolean(form.photo)"
+              :state="getFieldState(photoState)"
               placeholder="Choose a file or drop it here..."
               drop-placeholder="Drop file here..."
-              @input="handleFileInput"
             ></b-form-file>
             <!-- Custom validation feedback -->
-            <b-form-invalid-feedback v-if="!photoValid">Please select a photo file.</b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="getFieldState(photoState)">Please select a photo file.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(photoState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Access Type -->
-          <b-form-group label-cols="2" label="Access type:" label-for="input-8" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Access type:*" label-for="input-8" class="label-font mt-3">
             <b-form-select
               v-model="form.accessType"
               :options="accessOptions"
               size="sm"
-              :state="form.accessType !== null"
-              @input="handleAccessInput"
+              :state="getFieldState(accessState)"
             ></b-form-select>
             <!-- Custom validation feedback -->
-            <b-form-invalid-feedback v-if="!accessValid">Please choose an access type.</b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="getFieldState(accessState)">Please choose an access type.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(accessState)"></b-form-valid-feedback>
           </b-form-group>
 
           <!-- Release Year -->
@@ -121,28 +128,28 @@
           </b-form-group>
 
           <!-- Certificate -->
-          <b-form-group label-cols="2" label="Certificate:" label-for="input-10" class="label-font mt-3">
+          <b-form-group label-cols="2" label="Certificate:*" label-for="input-10" class="label-font mt-3">
             <b-form-select
               v-model="form.certificate"
               :options="certificateOptions"
               size="sm"
-              :state="form.certificate !== null"
-              @input="handleCertificateInput"
+              :state="getFieldState(certificateState)"
             ></b-form-select>
             <!-- Custom validation feedback -->
-            <b-form-invalid-feedback v-if="!certificateValid">Please choose a type of certificate.</b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="getFieldState(certificateState)">Please choose a type of certificate.</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="getFieldState(certificateState)"></b-form-valid-feedback>
           </b-form-group>
 
           <b-form-group class="my-1">
             <b-row>
               <b-col md-2>
-                <b-button v-if="!isSubmitted" type="submit" variant="primary" class="left">Submit</b-button>
+                <b-button v-if="!formCreated" type="submit" variant="primary" class="left">Submit</b-button>
                 <router-link v-else to="/course/review/create">
                   <b-button variant="success">Next: Create Review</b-button>
                 </router-link>
               </b-col>
               <b-col class="text-right">
-                <b-button v-if="!isSubmitted" type="reset" variant="danger" class="ml-auto">Reset</b-button>
+                <b-button v-if="!formCreated" type="reset" variant="danger" class="ml-auto">Reset</b-button>
               </b-col>
             </b-row>
           </b-form-group>
@@ -168,67 +175,53 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { Api } from '@/Api'
 import { token } from '../token.js'
 
 /* Constants */
 
 // Tracking submission state
-const isSubmitted = ref(false)
+const formCreated = ref(false)
 const successMessage = ref('')
 
 // Token
 const bearerToken = token.getOrThrow()
 
-// Reactive variable to track if a photo is selected
+// Reactive variables to track changes of state
+const nameValid = ref(true)
+const providerValid = ref(true)
 const photoValid = ref(true)
 const topicsValid = ref(true)
 const difficultyValid = ref(true)
 const accessValid = ref(true)
 const certificateValid = ref(true)
-const formTouched = ref(false) // Track if the form has been touched to enable validation feedback
+const formSubmitted = ref(false) // Track if the form has been touched to enable validation feedback
 
 /* Methods */
 
-// Handle topic input and validation
-const handleTopicInput = () => {
-  topicsValid.value = form.topics.length > 0
+const getFieldState = (fieldState) => {
+  if (!formSubmitted.value) {
+    return fieldState ? true : null
+  }
+  return !!fieldState
 }
 
-// Handle file input and validation
-const handleFileInput = (event) => {
-  photoValid.value = form.photo !== null // Check if a file has been selected
-}
-
-// Handle difficulty input and validation
-const handleDifficultyInput = () => {
-  difficultyValid.value = form.difficulty !== null // Check if a file has been selected
-}
-
-// Handle accessType input and validation
-const handleAccessInput = () => {
-  accessValid.value = form.accessType !== null // Check if a file has been selected
-}
-
-// Handle certificate input and validation
-const handleCertificateInput = () => {
-  certificateValid.value = form.certificate !== null // Check if a file has been selected
-}
+// Computed properties for validation states
+const nameState = computed(() => form.name.length > 3)
+const topicsState = computed(() => form.topics.length > 0)
+const providerState = computed(() => form.provider.length > 1)
+const photoState = computed(() => form.photo !== null)
+const difficultyState = computed(() => form.difficulty !== null)
+const accessState = computed(() => form.accessType !== null)
+const certificateState = computed(() => form.certificate !== null)
 
 // Form submission to update the reactive value of topicsValid
 const onSubmit = async (event) => {
   event.preventDefault() // Force page to not update after submission
 
   // Mark the form as touched to enable validation feedback
-  formTouched.value = true
-
-  // Validate if a photo and topics are valid (boolean)
-  topicsValid.value = form.topics.length > 0
-  photoValid.value = form.photo !== null
-  difficultyValid.value = form.difficulty !== null
-  accessValid.value = form.accessType !== null
-  certificateValid.value = form.certificate !== null
+  formSubmitted.value = true
 
   // Check if form is valid
   const isFormValid = topicsValid.value && form.difficulty !== null && photoValid.value && difficultyValid.value && accessValid.value && certificateValid.value
@@ -252,7 +245,7 @@ const onSubmit = async (event) => {
 
     // Step3: Create course and show message
     await createCourse()
-    isSubmitted.value = true
+    formCreated.value = true
     successMessage.value = 'Course created successfully!'
     onReset()
   } catch (error) {
@@ -321,12 +314,14 @@ const onReset = () => {
   form.releaseYear = null
   form.certificate = null
 
+  nameValid.value = ref(true)
+  providerValid.value = ref(true)
   topicsValid.value = ref(true)
   photoValid.value = ref(true)
   difficultyValid.value = ref(true)
   accessValid.value = ref(true)
   certificateValid.value = ref(true)
-  formTouched.value = ref(false) // Reset the touched state so validation messages are hidden
+  formSubmitted.value = false // Reset the touched state so validation messages are hidden
 }
 
 /* Data structures */
@@ -363,6 +358,10 @@ const form = reactive({
   accessType: null,
   releaseYear: null,
   certificate: null
+})
+
+onMounted(() => {
+  onReset()
 })
 
 </script>
