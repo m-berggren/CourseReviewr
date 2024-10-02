@@ -1,42 +1,81 @@
 <template>
   <b-container class="d-flex justify-content-center align-items-center min-vh-100">
-    <b-card class="w-100 w-md-50 mt-5">
-      <b-card-header class="text-center">
-        <h3>My Profile</h3>
-      </b-card-header>
+    <b-card class="w-100 w-md-50 mt-5 p-4 max-width-550">
       <b-card-body>
-        <!-- Profile Picture and Username -->
-        <div v-if="user">
-          <div class="d-flex justify-content-start align-items-center mb-3 gap-8">
-            <img :src="photo" alt="Profile Picture" class="profile-picture" />
+        <!-- Profile Picture, Upload, and Username -->
+        <div class="d-flex flex-column align-items-center">
+          <div class="profile-container d-flex justify-content-start align-items-center">
+            <!-- Profile Picture -->
+            <div class="position-relative">
+              <img :src="photo" alt="Profile Picture" class="profile-picture mb-2" />
+              <div class="d-flex justify-content-center w-100">
+                <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
+                  <small>Change Photo</small>
+                </b-button>
+              </div>
+            </div>
+
+            <!-- Username on the right of photo -->
             <div class="ml-3">
               <h4>{{ user.username }}</h4>
-              <!-- Display 'Admin' if user role is admin -->
               <span v-if="user.role === 'admin'" class="text-danger">(Admin)</span>
             </div>
-            <div class="mb-4"></div>
           </div>
+
+          <!-- Upload Photo Form - Shown when Upload is clicked -->
+          <b-form @submit.prevent="uploadPhoto" v-if="showUpload" class="mt-2">
+            <b-form-group label="Upload Profile Picture" label-for="photo-input">
+              <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
+            </b-form-group>
+            <b-button type="submit" variant="primary" block>Upload Photo</b-button>
+          </b-form>
         </div>
-        <!-- Edit Email Form -->
+
+        <hr />
+
+        <!-- Email Update -->
         <b-form @submit.prevent="updateEmail">
           <b-form-group label="Email Address" label-for="email-input">
             <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
-            <div class="mb-3"></div>
           </b-form-group>
           <b-button type="submit" variant="primary" block>Update Email</b-button>
         </b-form>
 
-        <hr>
+        <hr />
+
+        <!-- Interests Section -->
+        <div>
+          <b-form-group label="Your Interests">
+            <div class="interest-bubbles">
+              <span v-for="interest in interests" :key="interest.id" class="interest-bubble">
+                {{ interest.name }}
+                <b-button size="sm" variant="link" @click="removeInterest(interest.id)">
+                  <b-icon icon="x"></b-icon>
+                </b-button>
+              </span>
+            </div>
+          </b-form-group>
+
+          <!-- Add Interest -->
+          <b-form @submit.prevent="addInterest">
+            <b-form-group label="Add New Interest">
+              <b-form-select v-model="selectedInterestId" :options="availableInterests" class="mt-2"
+                placeholder="Select an interest" :value-field="'id'" :text-field="'name'"></b-form-select>
+            </b-form-group>
+            <b-button type="submit" variant="primary" block>Add Interest</b-button>
+          </b-form>
+        </div>
+
+        <hr />
+
         <!-- Password Update Section -->
         <div>
-          <!-- Show the 'Update Password' button initially -->
-          <b-button v-if="!showPasswordFields" @click="showPasswordFields = true" variant="primary" block>Update
-            Password</b-button>
+          <b-button v-if="!showPasswordFields" @click="showPasswordFields = true" variant="primary" block>
+            Update Password
+          </b-button>
 
-          <!-- Show these fields only when 'Update Password' button is clicked -->
           <div v-if="showPasswordFields">
             <b-form @submit.prevent="updatePassword">
-              <!-- New Password Input -->
               <b-form-group label="New Password" label-for="new-password-input">
                 <b-input-group>
                   <b-form-input id="new-password-input" v-model="password" :type="showPassword ? 'text' : 'password'"
@@ -49,12 +88,11 @@
                 </b-input-group>
               </b-form-group>
 
-              <!-- Confirm Password Input -->
               <b-form-group label="Confirm Password" label-for="confirm-password-input">
                 <b-input-group>
                   <b-form-input id="confirm-password-input" v-model="confirmPassword"
-                    :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm new password"
-                    required></b-form-input>
+                    :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm new password" required>
+                  </b-form-input>
                   <b-input-group-append>
                     <b-button @click="toggleConfirmPasswordVisibility" variant="outline-secondary">
                       <b-icon :icon="showConfirmPassword ? 'eye-slash' : 'eye'"></b-icon>
@@ -63,54 +101,15 @@
                 </b-input-group>
               </b-form-group>
 
-              <!-- Submit Button -->
               <b-button type="submit" variant="primary" block>Submit New Password</b-button>
-
-              <!-- Cancel Button to hide the password fields -->
               <b-button @click="cancelPasswordUpdate" variant="secondary" block class="mt-2">Cancel</b-button>
             </b-form>
           </div>
         </div>
 
-        <hr>
-
-        <!-- Upload Photo Form -->
-        <b-form @submit.prevent="uploadPhoto">
-          <b-form-group label="Profile Picture" label-for="photo-input">
-            <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
-            <div class="mb-3"></div>
-          </b-form-group>
-          <b-button type="submit" variant="primary" block>Upload Photo</b-button>
-        </b-form>
-
-        <hr>
-
-        <!-- Display User Interests -->
-        <b-form-group label="Your Interests">
-          <ul>
-            <li v-for="interest in interests" :key="interest.id">
-              {{ interest.name }}
-              <!-- Button to remove interest -->
-              <b-button size="sm" variant="danger" @click="removeInterest(interest.id)">
-                X
-              </b-button>
-            </li>
-          </ul>
-        </b-form-group>
-
-        <!-- Add New Interests Form -->
-        <b-form @submit.prevent="addInterest">
-          <b-form-group label="Add New Interest">
-            <b-form-select v-model="selectedInterestId" :options="availableInterests" class="mt-2"
-              placeholder="Select an interest" :value-field="'id'" :text-field="'name'"></b-form-select>
-          </b-form-group>
-          <b-button type="submit" variant="primary" block>Add Interest</b-button>
-        </b-form>
-
         <hr />
 
         <!-- Signout Button -->
-        <div class="mb-6"></div>
         <b-button variant="danger" block @click="signout">Sign Out</b-button>
 
       </b-card-body>
@@ -121,17 +120,20 @@
 <script>
 import { Api } from '@/Api'
 import { token } from '@/token'
+
 export default {
   data() {
     return {
       user: {},
       email: '',
       password: '',
-      photo: '',
       confirmPassword: '',
+      photo: '',
+      uploadedPhoto: null,
       showPasswordFields: false,
       showPassword: false,
       showConfirmPassword: false,
+      showUpload: false,
       interests: [],
       selectedInterest: '',
       availableInterests: [],
@@ -139,12 +141,12 @@ export default {
     }
   },
   async created() {
-    // Fetch user data when the component is created
     try {
       const response = await Api.get(`/users/${token.getUserId()}`)
       this.user = { ...response.data }
       this.email = this.user.email
       this.photo = this.user.photo
+
       if (Array.isArray(this.user.interests)) {
         this.interests = this.user.interests.map(interest => ({
           id: interest._id,
@@ -155,15 +157,11 @@ export default {
       }
 
       const topicsResponse = await Api.get('/topics')
-      // Check if topicsResponse.data is an array
       if (Array.isArray(topicsResponse.data.topics)) {
         this.availableInterests = topicsResponse.data.topics.map(topic => ({
           id: topic._id,
           name: topic.name
         }))
-      } else {
-        console.error('Expected an array of topics, but received:', topicsResponse.data)
-        alert('Failed to load topics: Unexpected response format')
       }
     } catch (error) {
       console.error('Failed to load user data or topics:', error)
@@ -191,7 +189,6 @@ export default {
       }
     },
     async updatePassword() {
-      // Check if the passwords match
       if (this.password !== this.confirmPassword) {
         alert('Passwords do not match!')
         return
@@ -200,10 +197,7 @@ export default {
       try {
         await Api.patch(`/users/${token.getUserId()}`, { password: this.password })
         alert('Password updated successfully')
-        // Reset fields and hide password form after successful update
-        this.password = ''
-        this.confirmPassword = ''
-        this.showPasswordFields = false
+        this.cancelPasswordUpdate()
       } catch (error) {
         console.error('Failed to update password', error)
         alert('Failed to update password: ' + error.message)
@@ -224,6 +218,7 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         })
+
         const response = await Api.get(`/users/${token.getUserId()}`)
         this.user = { ...response.data }
         this.photo = this.user.photo
@@ -245,16 +240,11 @@ export default {
       }
 
       try {
-        // Update the backend
         await Api.patch(`/users/${token.getUserId()}`, {
           interests: [...this.interests.map(i => i.id), this.selectedInterestId]
         })
-        // Find the selected interest in availableInterests
-        const newInterest = this.availableInterests.find(
-          interest => interest.id === this.selectedInterestId
-        )
 
-        // Update the frontend state
+        const newInterest = this.availableInterests.find(interest => interest.id === this.selectedInterestId)
         this.interests.push(newInterest)
         this.selectedInterestId = null
         alert('Interest added successfully')
@@ -265,12 +255,10 @@ export default {
     },
     async removeInterest(interestId) {
       try {
-        // Update the backend
         await Api.patch(`/users/${token.getUserId()}`, {
           removeInterestId: interestId
         })
 
-        // Update the frontend state
         this.interests = this.interests.filter(interest => interest.id !== interestId)
         alert('Interest removed successfully')
       } catch (error) {
@@ -278,10 +266,8 @@ export default {
         alert('Failed to remove interest: ' + error.message)
       }
     },
-    // Signout method
     signout() {
-      // Remove the JWT token
-      this.$router.push('/signin') // Redirect to login page
+      this.$router.push('/signin')
       token.unset()
     }
   }
@@ -289,20 +275,38 @@ export default {
 </script>
 
 <style scoped>
+/* General Styles */
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 500px;
+}
+
 .profile-picture {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-@media screen {
-  .w-md-50 {
-    max-width: 450px;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-inline: 5%;
-    width: 100%;
-  }
+.interest-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.interest-bubble {
+  background-color: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+}
+
+.max-width-550 {
+  max-width: 550px;
 }
 </style>
