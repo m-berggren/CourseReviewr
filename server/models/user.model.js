@@ -8,7 +8,7 @@ const userSchema = new Schema({
     email:              { type: String, required: [true, 'Email is required'], unique: true, trim: true, validate: {
         validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: [true, 'Password is required'] },
-    photo:              { type: String, default: null },
+    photo:              { data: Buffer, contentType: String },
     interests:          { type: [Schema.Types.ObjectId], ref: 'Topic', default: [], 
         set: v => Array.from(new Set(v.map(interest => interest.toString()))) },
     recommendationList: [{ type: Schema.Types.ObjectId, ref: 'Course', default: [] }],

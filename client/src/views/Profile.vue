@@ -7,8 +7,8 @@
       <b-card-body>
         <!-- Profile Picture and Username -->
         <div v-if="user">
-          <div class="d-flex justify-content-start align-items-center mb-3">
-            <img :src="user.photo" alt="Profile Picture" class="profile-picture" />
+          <div class="d-flex justify-content-start align-items-center mb-3 gap-8">
+            <img :src="photo" alt="Profile Picture" class="profile-picture" />
             <div class="ml-3">
               <h4>{{ user.username }}</h4>
               <!-- Display 'Admin' if user role is admin -->
@@ -127,6 +127,7 @@ export default {
       user: {},
       email: '',
       password: '',
+      photo: '',
       confirmPassword: '',
       showPasswordFields: false,
       showPassword: false,
@@ -134,8 +135,7 @@ export default {
       interests: [],
       selectedInterest: '',
       availableInterests: [],
-      selectedInterestId: '',
-      uploadedPhoto: null
+      selectedInterestId: ''
     }
   },
   async created() {
@@ -144,7 +144,7 @@ export default {
       const response = await Api.get(`/users/${token.getUserId()}`)
       this.user = { ...response.data }
       this.email = this.user.email
-      // Check if interests is an array
+      this.photo = this.user.photo
       if (Array.isArray(this.user.interests)) {
         this.interests = this.user.interests.map(interest => ({
           id: interest._id,
@@ -218,12 +218,15 @@ export default {
         const formData = new FormData()
         formData.append('photo', this.uploadedPhoto)
 
-        const response = await Api.patch(`/users/${token.getUserId}`, formData, {
+        await Api.patch(`/users/${token.getUserId()}`, formData, {
           headers: {
+            Authorization: `Bearer ${token.getToken()}`,
             'Content-Type': 'multipart/form-data'
           }
         })
-        this.user.photo = response.data.photo
+        const response = await Api.get(`/users/${token.getUserId()}`)
+        this.user = { ...response.data }
+        this.photo = this.user.photo
         alert('Photo uploaded successfully')
       } catch (error) {
         console.error('Failed to upload photo', error)
