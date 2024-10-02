@@ -9,7 +9,8 @@ const userSchema = new Schema({
         validator: validator.isEmail, message: 'invalid email' } },
     password:           { type: String, required: [true, 'Password is required'] },
     photo:              { type: String, default: null },
-    interests:          [{ type: Schema.Types.ObjectId, ref: 'Topic', default: [] }],
+    interests:          { type: [Schema.Types.ObjectId], ref: 'Topic', default: [], 
+        set: v => Array.from(new Set(v.map(interest => interest.toString()))) },
     recommendationList: [{ type: Schema.Types.ObjectId, ref: 'Course', default: [] }],
     courseLists:        [{ type: Schema.Types.ObjectId, ref: 'CourseList', default: [] }],
     role:               {type : String, enum: ['user', 'admin'], default: 'user'}

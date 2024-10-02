@@ -28,7 +28,10 @@ const getAllUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const user = await User.findById(id).populate('courseLists').populate('recommendationList');
+        const user = await User.findById(id)
+            .populate('courseLists')
+            .populate('recommendationList')
+            .populate('interests');
 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
@@ -87,19 +90,33 @@ const patchUser = async (req, res, next) => {
             return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
         }
 
+
         if(updates.password) {
             updates.password = await hashPassword(updates.password);
         }
 
+        if (updates.removeInterestId){
+            const updatedUser = await User.findByIdAndUpdate(
+                userIdToUpdate,
+                { $pull: { interests: updates.removeInterestId } },
+                { new: true, runValidators: true }
+            ).populate('interests');
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'User not found.' });
+            }
+
+            return res.status(200).json(updatedUser);
+        }
+
+
         const updatedUser = await User.findByIdAndUpdate(
             userIdToUpdate,
             updates, { new: true, runValidators: true });
+        res.status(200).json(updatedUser);
 
         if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found.'});
+            return res.status(404).json({ message: 'User not found.' });
         }
-
-        res.status(200).json(updatedUser);
 
     } catch (error) {
         return handleError(error, res) || next(error);
@@ -108,7 +125,7 @@ const patchUser = async (req, res, next) => {
 
 const deleteAllUsers = async (req, res, next) => {
     try {
-        const users = await User.deleteMany({ username : { $ne: 'admin' } });
+        const users = await User.deleteMany({ username: { $ne: 'admin' } });
 
         if (users.deletedCount === 0) {
             return res.status(404).json({ message: 'No users found to delete.' });
@@ -127,7 +144,7 @@ const deleteUser = async (req, res, next) => {
         const deletedUser = await User.findByIdAndDelete(id);
 
         if (!deletedUser) {
-            return res.status(404).json({ message: 'User not found.'});
+            return res.status(404).json({ message: 'User not found.' });
         }
 
         res.status(200).json(deletedUser);
