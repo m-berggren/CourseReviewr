@@ -1,48 +1,39 @@
 <template>
-<b-container class="d-flex justify-content-center">
+  <b-container class="d-flex justify-content-center">
     <b-card class="w-100 w-md-50 mt-5">
-        <b-card-header class="text-canter">
-            <h3>Register</h3>
-        </b-card-header>
+      <b-card-header class="text-canter">
+        <h3>Register</h3>
+      </b-card-header>
 
-        <b-card-body>
-            <b-form @submit.prevent="onSubmit">
-                <b-form-group label="Username" label-for="username-input">
-                    <b-form-input id="username-input" v-model="username" type="username"
-                        required class="mb-3"></b-form-input>
-                </b-form-group>
-                <b-form-group label="Email" label-for="email-input">
-                    <b-form-input id="email-input" v-model="email" type="email"
-                        required class="mb-3"></b-form-input>
-                </b-form-group>
-                <b-form-group label="Password" label-for="password-input">
-                    <b-form-input id="password-input" v-model="password" type="password"
-                        required class="mb-3"></b-form-input>
-                </b-form-group>
-                <b-form-group label="Confirm Password" label-for="confirm-password-input">
-                    <b-form-input id="confirm-password-input" v-model="confirmPassword" type="password"
-                        required class="mb-3"></b-form-input>
-                </b-form-group>
-                        <!-- BootstrapVue alert component to display message -->
-                <b-alert
-                  v-model="showMessage"
-                  :variant="messageVariant"
-                  dismissible
-                  fade
-                  class="mt-3 w-75 mx-auto"
-                >
-                  {{ message }}
-                </b-alert>
-                <br><b-button type="submit" style="background-color: #6B91B8;" block>
-                    Register
-                </b-button>
-            </b-form>
-            <p class="mt-3 text-center">
-                <br><br><br>&nbsp;Already have an account? <b-link @click="$router.push('/signin')">Sign in here</b-link>
-            </p>
-        </b-card-body>
+      <b-card-body>
+        <b-form @submit.prevent="onSubmit">
+          <b-form-group label="Username" label-for="username-input">
+            <b-form-input id="username-input" v-model="username" type="username" required class="mb-3"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email" label-for="email-input">
+            <b-form-input id="email-input" v-model="email" type="email" required class="mb-3"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Password" label-for="password-input">
+            <b-form-input id="password-input" v-model="password" type="password" required class="mb-3"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Confirm Password" label-for="confirm-password-input">
+            <b-form-input id="confirm-password-input" v-model="confirmPassword" type="password" required
+              class="mb-3"></b-form-input>
+          </b-form-group>
+          <!-- BootstrapVue alert component to display message -->
+          <b-alert v-model="showMessage" :variant="messageVariant" dismissible fade class="mt-3 w-75 mx-auto">
+            {{ message }}
+          </b-alert>
+          <br><b-button type="submit" style="background-color: #6B91B8;" block>
+            Register
+          </b-button>
+        </b-form>
+        <p class="mt-3 text-center">
+          <br><br><br>&nbsp;Already have an account? <b-link @click="$router.push('/signin')">Sign in here</b-link>
+        </p>
+      </b-card-body>
     </b-card>
-</b-container>
+  </b-container>
 </template>
 
 <script>
@@ -101,13 +92,13 @@ export default {
 
 </script>
 <style lang="css" scoped>
-@media screen{
-    .w-md-50 {
-        max-width: 450px;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-inline: 5%;
-        width: 100%;
-    }
+@media screen {
+  .w-md-50 {
+    max-width: 450px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-inline: 5%;
+    width: 100%;
+  }
 }
 </style>
