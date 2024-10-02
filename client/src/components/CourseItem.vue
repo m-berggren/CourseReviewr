@@ -1,20 +1,22 @@
 <template>
   <div>
-    <b-card :title="course.name" :img-src="course.photo" class="course-card my-3">
-      <!-- Description -->
-      <b-card-text class="course-description">
-        {{ course.description }}
-      </b-card-text>
-      <!-- Rating at consistent distance from description -->
-      <div class="rating-container">
-        <star-rating
-          :rating="course.averageRating"
-          :read-only="true"
-          :star-size="30"
-          :show-rating="false"
-          />
-      </div>
-    </b-card>
+    <router-link :to="{ name: 'course-page', params: { id:course._id } }" class="course-link">
+      <b-card :title="course.name" :img-src="course.photo" class="course-card my-3">
+        <!-- Description -->
+        <b-card-text class="course-description">
+          {{ course.description }}
+        </b-card-text>
+        <!-- Rating at consistent distance from description -->
+        <div class="rating-container">
+          <star-rating
+            :rating="course.averageRating"
+            :read-only="true"
+            :star-size="30"
+            :show-rating="false"
+            />
+        </div>
+      </b-card>
+    </router-link>
   </div>
 </template>
 
@@ -25,6 +27,12 @@ defineProps({
 </script>
 
 <style scoped>
+
+.course-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Max size for the card */
 .course-card {
   height: 475px;

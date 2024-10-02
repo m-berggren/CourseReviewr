@@ -11,13 +11,15 @@
             <div class="search-container">
               <!-- Typeahead input with Bootstrap width control -->
               <vue3-simple-typeahead
-                v-model="selectCourse"
-                :items="courseNames"
+                v-model="searchQuery"
+                :items="courses"
                 :minInputLength="1"
                 placeholder="Search for a course..."
                 input-class="form-control simple-typeahead-input"
+                @selectItem="selectCourse"
+                :itemProjection="(item) => item.name"
               ></vue3-simple-typeahead>
-                <b-button variant="primary" class="search-button">Search</b-button>
+                <b-button variant="dark" class="search-button" @click="handleSearch" :disabled="!selectedCourse">Search</b-button>
             </div>
 
           </b-col>
@@ -27,7 +29,7 @@
         <b-row class="top-row mb-4 justify-content-center text-center">
           <b-col md="4">
             <div class="tags-container p-3 mt-2 mb-4">
-              <b-badge v-for="topic in topics" :key="topic._id" variant="dark" class="tag-badge mx-1">
+              <b-badge v-for="topic in topics" :key="topic._id" variant="dark" class="tag-badge mx-1" @click="handleTopicClick(topic)">
                 {{ topic.name }}
               </b-badge>
             </div>
@@ -69,13 +71,17 @@ import { ref, onMounted } from 'vue'
 import CourseItem from '../components/CourseItem.vue'
 import ReviewItem from '../components/ReviewItem.vue'
 import { Api } from '@/Api'
+import { useRouter } from 'vue-router'
+
+// Setup the router
+const router = useRouter()
 
 // Reactive cariables
 const courses = ref([])
-const courseNames = ref([])
 const topics = ref([])
 const reviews = ref([])
 const searchQuery = ref('')
+const selectedCourse = ref(null)
 
 // Fetch data on mount
 onMounted(() => {
@@ -102,7 +108,6 @@ const fetchCourses = async () => {
   try {
     const response = await Api.get('/courses')
     courses.value = response.data.courses
-    courseNames.value = response.data.courses.map(course => { return course.name })
   } catch (error) {
     courses.value = []
     console.error(error)
@@ -121,11 +126,22 @@ const fetchReviews = async () => {
 }
 
 // Select course from the typeahead dropdown
-const selectCourse = (selectedCourse) => {
-  console.log('Selected course:', selectedCourse)
-  searchQuery.value = selectedCourse
+const selectCourse = (course) => {
+  selectedCourse.value = course
+  searchQuery.value = course.name
+  console.log('Selected course:', course)
 }
 
+// Handle search button click
+const handleSearch = () => {
+  if (selectedCourse.value) {
+    router.push(`/courses/${selectedCourse.value._id}`)
+  }
+}
+
+const handleTopicClick = (topic) => {
+  console.log(`Clicked on topic: ${topic.name} with ID: ${topic._id}`)
+}
 </script>
 
 <style>
@@ -133,16 +149,27 @@ const selectCourse = (selectedCourse) => {
   background-color: lightgrey;
   border-radius: 1vw;
 }
+
 .top-row {
   background-color: cornflowerblue;
 }
+
 .tag-badge {
   background-color: darkslategray !important;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.tag-badge:hover {
+  background-color: #007bff !important; /* Change background on hover */
+  transform: scale(1.03); /* Slightly enlarge the badge */
+}
+
 .search-container {
   display: flex;
   align-items: stretch;
 }
+
 .simple-typeahead-input {
   flex-grow: 1;
   width: 100%;
@@ -151,7 +178,13 @@ const selectCourse = (selectedCourse) => {
   border-right: none !important;
   border-color: cornflowerblue;
 }
+
 .search-button {
+  height: 40px;
+  border-radius: 0 7px 7px 0 !important;
+}
+
+.search-button:hover {
   height: 40px;
   border-radius: 0 7px 7px 0 !important;
 }
