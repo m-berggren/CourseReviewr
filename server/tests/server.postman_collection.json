@@ -397,7 +397,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_1\", topicID);"
 								],
 								"type": "text/javascript",
@@ -452,7 +452,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_2\", topicID);"
 								],
 								"type": "text/javascript",
@@ -507,7 +507,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_3\", topicID);"
 								],
 								"type": "text/javascript",
@@ -562,7 +562,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_4\", topicID);"
 								],
 								"type": "text/javascript",
@@ -617,7 +617,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_5\", topicID);"
 								],
 								"type": "text/javascript",
@@ -672,7 +672,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_6\", topicID);"
 								],
 								"type": "text/javascript",
@@ -727,7 +727,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_7\", topicID);"
 								],
 								"type": "text/javascript",
@@ -782,7 +782,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_8\", topicID);"
 								],
 								"type": "text/javascript",
@@ -837,7 +837,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_9\", topicID);"
 								],
 								"type": "text/javascript",
@@ -892,7 +892,7 @@
 									"  pm.expect(pm.response.code).to.be.oneOf([201, 200])",
 									"})",
 									"",
-									"const topicID = pm.response.json()._id;",
+									"const topicID = pm.response.json().topic._id;",
 									"pm.environment.set(\"topic_10\", topicID);"
 								],
 								"type": "text/javascript",

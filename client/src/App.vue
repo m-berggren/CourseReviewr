@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <b-navbar toggleable="sm" type="dark" variant="dark">
 
         <!-- Brand with link to homepage -->
         <b-navbar-brand href="#">
@@ -48,6 +47,7 @@
 
 <script>
 import { token } from '@/token'
+import Navbar from './components/NavigationBar.vue'
 
 export default {
   data() {
@@ -60,6 +60,9 @@ export default {
     // Check the sign-in status when the component is created
     this.isSignedIn = token.isSignedIn()
     this.username = token.getUsername()
+  },
+  components: {
+    Navbar
   },
   methods: {
     handleSignin() {
