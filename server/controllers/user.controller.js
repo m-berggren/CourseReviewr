@@ -133,9 +133,9 @@ const patchUser = async (req, res, next) => {
         // If the user has an updated photo, include the base64 encoded version in the response
         const userResponse = {
             ...updatedUser._doc,
-            photo: updatedUser.photo
-                ? `data:${updatedUser.photo.contentType};base64,${updatedUser.photo.data.toString('base64')}`
-                : null
+            //photo: updatedUser.photo
+            //? `data:${updatedUser.photo.contentType};base64,${updatedUser.photo.data.toString('base64')}`
+            //: null
         };
         res.status(200).json(userResponse);
 
