@@ -3,17 +3,19 @@
     <b-container class="w-100 w-md-50 mt-5 p-4 max-width-550 border border-light-subtle">
 
       <!-- Profile Picture, Upload, and Username -->
-      <div class="d-flex justify-content-start align-items-center gap-3">
+      <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
         <!-- Profile Picture -->
-        <img :src="photo" alt="Profile Picture" class="profile-picture mb-2" />
-
-        <!-- Username on the right of photo -->
-        <div class="ml-3">
-          <h4>{{ user.username }}</h4>
-          <span v-if="user.role === 'admin'" class="text-danger">(Admin)</span>
+        <div class="d-flex flex-column">
+          <img :src="photo" alt="Profile Picture" class="profile-picture mb-2" />
           <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
             <small>Change Photo</small>
           </b-button>
+        </div>
+
+        <!-- Username on the right of photo -->
+        <div class="ml-3">
+          <h4 class="usernamedisplay">{{ user.username }}</h4>
+          <span v-if="user.role === 'admin'" class="text-danger">(Admin)</span>
         </div>
       </div>
 
@@ -168,9 +170,7 @@ export default {
       }
     } catch (error) {
       console.error('Failed to load user data or topics:', error)
-      this.message = 'Failed to load user data or topics: ' + error.message
-      this.messageVariant = 'danger'
-      this.showMessage = true
+      this.showAlert('Failed to load user data or topics: ' + error.message, 'danger')
     }
   },
   methods: {
@@ -327,5 +327,13 @@ export default {
 .label-font {
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.usernamedisplay {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 300px;
+  display: inline-block;
 }
 </style>

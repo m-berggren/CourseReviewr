@@ -10,7 +10,8 @@
       </b-navbar-brand>
 
       <!-- Toggler for collapsing nav-collapse -->
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse" class="fs-6 d-flex align-items-center gap-1"><b-icon-list></b-icon-list>
+        Menu</b-navbar-toggle>
 
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav>
@@ -28,7 +29,9 @@
           <router-link v-else to="/profile" class="nav-link-button">
             <b-button pill variant="outline-secondary" class="signin-button">
               <b-icon-person />
-              {{ username }}
+              <span class="truncate-text">
+                {{ username }}
+              </span>
             </b-button>
           </router-link>
         </b-navbar-nav>
@@ -98,5 +101,15 @@ defineProps({
   background-color: #6B91B8 !important;
   color: #383024;
   border-color: #D9D9D9 !important;
+}
+
+/* Truncate username with ellipsis */
+.truncate-text {
+  display: inline-block;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
 }
 </style>

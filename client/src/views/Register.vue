@@ -53,6 +53,12 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.username.length > 20) {
+        this.message = 'Username cannot be longer than 20 characters'
+        this.messageVariant = 'danger'
+        this.showMessage = true
+        return
+      }
       if (this.password !== this.confirmPassword) {
         this.message = 'Passwords do not match'
         this.messageVariant = 'danger'
@@ -65,6 +71,7 @@ export default {
           email: this.email,
           password: this.password
         }
+
         const response = await Api.post('/auth/register', userData)
         this.message = response.data.message
         if (response.status === 201) {
