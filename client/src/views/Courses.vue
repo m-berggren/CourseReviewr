@@ -37,7 +37,14 @@
     <!-- Table with sortable headers -->
     <b-row class="mt-1 justify-content-center">
       <b-col md="10">
-        <b-table :sort-by="[{key: 'reviewCount', order: 'desc',}]" :items="filteredItems" :fields="sortFields"/>
+        <BTable :sort-by="[{key: 'reviewCount', order: 'desc',}]" :items="filteredItems" :fields="sortFields">
+          <template #cell(name)="data">
+            <!-- Link to course details page using router-link -->
+            <router-link :to="`/courses/${data.item.id}`" class="course-link">
+              {{ data.item.name }}
+            </router-link>
+          </template>
+        </BTable>
       </b-col>
     </b-row>
   </div>
@@ -97,6 +104,7 @@ const fetchCourses = async () => {
     const courses = response.data.courses
 
     sortItems.value = courses.map(course => ({
+      id: course._id,
       name: course.name,
       provider: course.provider,
       difficulty: course.difficulty,
@@ -160,8 +168,19 @@ onMounted(() => {
 
 </script>
 
-<style>
+<style scoped>
 .custom-background{
   background-color: cornflowerblue;
 }
+.course-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.course-link:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
 </style>
