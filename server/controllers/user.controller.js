@@ -114,12 +114,12 @@ const patchUser = async (req, res, next) => {
         }
 
         // If a photo is uploaded, add it to the update object
-        if (req.file) {
+        /*if (req.file) {
             updates.photo = {
                 data: req.file.buffer,         // Store the image as a Buffer
                 contentType: req.file.mimetype // Store the MIME type (e.g., image/jpeg)
             };
-        }
+        }*/
 
 
         const updatedUser = await User.findByIdAndUpdate(
