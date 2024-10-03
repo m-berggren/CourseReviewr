@@ -1,43 +1,47 @@
 <template>
-    <div>
-        <b-navbar toggleable="sm" type="dark" variant="dark">
+  <div>
+    <b-navbar toggleable="sm" type="dark" variant="dark">
 
-        <!-- Brand with link to homepage -->
-        <b-navbar-brand href="#">
+      <!-- Brand with link to homepage -->
+      <b-navbar-brand href="#">
         <router-link to="/" class="navbar-logo-link">
-            <img src="@/assets/logo/courseReviewr-48pt-i.webp" class="navbar-logo">
+          <img src="@/assets/logo/courseReviewr-48pt-i.webp" class="navbar-logo">
         </router-link>
-        </b-navbar-brand>
+      </b-navbar-brand>
 
-        <!-- Toggler for collapsing nav-collapse -->
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <!-- Toggler for collapsing nav-collapse -->
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-        <!-- Collapsible content -->
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-              <router-link to="/courses" class="nav-link">Courses</router-link>
-              <router-link to="/reviews" class="nav-link">Reviews</router-link>
-              <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
-          </b-navbar-nav>
+      <!-- Collapsible content -->
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <router-link to="/courses" class="nav-link">Courses</router-link>
+          <router-link to="/reviews" class="nav-link">Reviews</router-link>
+          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
+        </b-navbar-nav>
 
-          <!-- Signin / Profile button to the right with ml-auto -->
-          <b-navbar-nav class="ml-auto">
-            <router-link v-if="!isSignedIn" to="/signin" class="nav-link-button">
-                <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
-            </router-link>
-            <router-link v-else to="/profile" class="nav-link-button">
-                <b-button pill variant="outline-secondary" class="signin-button">My Page</b-button>
-            </router-link>
-          </b-navbar-nav>
-        </b-collapse>
+        <!-- Signin / Profile button to the right with ml-auto -->
+        <b-navbar-nav class="ml-auto">
+          <router-link v-if="!isSignedIn" to="/signin" class="nav-link-button">
+            <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
+          </router-link>
+          <router-link v-else to="/profile" class="nav-link-button">
+            <b-button pill variant="outline-secondary" class="signin-button">
+              <b-icon-person />
+              {{ username }}
+            </b-button>
+          </router-link>
+        </b-navbar-nav>
+      </b-collapse>
 
-        </b-navbar>
-    </div>
+    </b-navbar>
+  </div>
 </template>
 
 <script setup>
 defineProps({
-  isSignedIn: Boolean
+  isSignedIn: Boolean,
+  username: String
 })
 </script>
 
@@ -46,10 +50,12 @@ defineProps({
 .ml-auto {
   margin-left: auto !important;
 }
+
 .navbar-toggler {
   background-color: #6B91B8 !important;
   box-shadow: none !important;
 }
+
 .navbar-toggler:hover {
   background-color: #D9D9D9 !important;
 }
@@ -71,6 +77,7 @@ defineProps({
   text-decoration: none;
   transition: color 0.3s;
 }
+
 /* Hover effect for navigation links */
 .nav-link:hover {
   color: #6B91B8 !important;
