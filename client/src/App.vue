@@ -32,7 +32,10 @@
             <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
           </router-link>
           <router-link v-else to="/profile" class="nav-link-button">
-            <b-button pill variant="outline-secondary" class="signin-button">My Page</b-button>
+            <b-button pill variant="outline-secondary" class="signin-button">
+              <b-icon-person />
+              {{ username }}
+            </b-button>
           </router-link>
         </b-navbar-nav>
       </b-navbar>
@@ -49,12 +52,14 @@ import { token } from '@/token'
 export default {
   data() {
     return {
-      isSignedIn: false
+      isSignedIn: false,
+      username: ''
     }
   },
   created() {
     // Check the sign-in status when the component is created
     this.isSignedIn = token.isSignedIn()
+    this.username = token.getUsername()
   },
   methods: {
     handleSignin() {
