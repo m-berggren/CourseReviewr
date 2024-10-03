@@ -10,12 +10,13 @@
       </b-navbar-brand>
 
       <!-- Toggler for collapsing nav-collapse -->
-      <b-navbar-toggle target="nav-collapse" class="fs-6 d-flex align-items-center gap-1"><b-icon-list></b-icon-list>
+      <b-navbar-toggle target="nav-collapse"
+        class="d-sm-none fs-6 d-flex align-items-center gap-1"><b-icon-list></b-icon-list>
         Menu</b-navbar-toggle>
 
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="d-none d-sm-flex ">
           <router-link to="/courses" class="nav-link">Courses</router-link>
           <router-link to="/reviews" class="nav-link">Reviews</router-link>
           <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
