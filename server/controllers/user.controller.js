@@ -94,12 +94,7 @@ const patchUser = async (req, res, next) => {
             return res.status(403).json({ message: 'Forbidden: You can only update your own profile.' });
         }
 
-        if (updates.email) {
-            const emailExists = await User.findOne({ email: updates.email });
-            if (emailExists) {
-                return res.status(400).json({ message: 'Email already exists.' });
-            }
-        }
+
 
         if (updates.password) {
             updates.password = await hashPassword(updates.password);

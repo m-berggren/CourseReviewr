@@ -178,7 +178,7 @@ export default {
       this.message = message
       this.messageVariant = variant
       this.showMessage = true
-      // Auto-hide the alert after the timeout
+      // Auto-hide the alert after the timeout if its not a danger alert
       if (timeout && this.messageVariant !== 'danger') {
         setTimeout(() => {
           this.showMessage = false
@@ -202,7 +202,11 @@ export default {
         this.showAlert('Email updated successfully', 'success')
       } catch (error) {
         console.error('Failed to update email', error)
-        alert('Failed to update email: ' + error.message)
+        if (error.response && error.response.status === 409) {
+          this.showAlert('Email already in use', 'danger')
+        } else {
+          this.showAlert('Failed to update email: ' + error.message, 'danger')
+        }
       }
     },
     async updatePassword() {
