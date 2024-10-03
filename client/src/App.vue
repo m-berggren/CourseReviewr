@@ -13,7 +13,7 @@
         <!-- Toggler for collapse -->
         <b-navbar-toggle target="nav-collapse">
           <!-- Customize the toggler with an icon and text -->
-          <b-icon icon="list" class="navbar-toggler-icon"></b-icon>
+          <b-icon-list class="navbar-toggler-icon" style="color: white;" />
           <span class="ml-2" style="color: #D9D9D9; font-size: 1rem;">Menu</span>
         </b-navbar-toggle>
 
