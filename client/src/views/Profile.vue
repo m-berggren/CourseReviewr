@@ -174,6 +174,17 @@ export default {
     }
   },
   methods: {
+    showAlert(message, variant = 'info', timeout = 5000) {
+      this.message = message
+      this.messageVariant = variant
+      this.showMessage = true
+      // Auto-hide the alert after the timeout
+      if (timeout && this.messageVariant !== 'danger') {
+        setTimeout(() => {
+          this.showMessage = false
+        }, timeout)
+      }
+    },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
     },
@@ -188,9 +199,7 @@ export default {
     async updateEmail() {
       try {
         await Api.patch(`/users/${token.getUserId()}`, { email: this.email })
-        this.message = 'Email updated successfully'
-        this.messageVariant = 'success'
-        this.showMessage = true
+        this.showAlert('Email updated successfully', 'success')
       } catch (error) {
         console.error('Failed to update email', error)
         alert('Failed to update email: ' + error.message)
@@ -198,19 +207,16 @@ export default {
     },
     async updatePassword() {
       if (this.password !== this.confirmPassword) {
-        this.message = 'Passwords do not match'
-        this.messageVariant = 'danger'
-        this.showMessage = true
+        this.showAlert('Passwords do not match', 'danger')
         return
       }
 
       try {
         await Api.patch(`/users/${token.getUserId()}`, { password: this.password })
-        alert('Password updated successfully')
+        this.showAlert('Password updated successfully', 'success')
         this.cancelPasswordUpdate()
       } catch (error) {
-        console.error('Failed to update password', error)
-        alert('Failed to update password: ' + error.message)
+        this.showAlert('Failed to update password: ' + error.message, 'danger')
       }
     },
     handlePhotoUpload(event) {
@@ -233,20 +239,20 @@ export default {
         this.user = { ...response.data }
         this.photo = this.user.photo
         this.showUpload = false
-        alert('Photo uploaded successfully')
+        this.showAlert('Photo uploaded successfully', 'success')
       } catch (error) {
         console.error('Failed to upload photo', error)
-        alert('Failed to upload photo: ' + error.message)
+        this.showAlert('Failed to upload photo: ' + error.message, 'danger')
       }
     },
     async addInterest() {
       if (!this.selectedInterestId) {
-        alert('Please select an interest')
+        this.showAlert('Please select an interest', 'danger')
         return
       }
 
       if (this.interests.some(interest => interest.id === this.selectedInterestId)) {
-        alert('Interest already added')
+        this.showAlert('Interest already added', 'danger')
         return
       }
 
@@ -258,10 +264,10 @@ export default {
         const newInterest = this.availableInterests.find(interest => interest.id === this.selectedInterestId)
         this.interests.push(newInterest)
         this.selectedInterestId = null
-        alert('Interest added successfully')
+        this.showAlert('Interest added successfully', 'success')
       } catch (error) {
         console.error('Failed to add interest:', error)
-        alert('Failed to add interest: ' + error.message)
+        this.showAlert('Failed to add interest: ' + error.message, 'danger')
       }
     },
     async removeInterest(interestId) {
@@ -271,10 +277,10 @@ export default {
         })
 
         this.interests = this.interests.filter(interest => interest.id !== interestId)
-        alert('Interest removed successfully')
+        this.showAlert('Interest removed successfully', 'success')
       } catch (error) {
         console.error('Failed to remove interest:', error)
-        alert('Failed to remove interest: ' + error.message)
+        this.showAlert('Failed to remove interest: ' + error.message, 'danger')
       }
     },
     signout() {
