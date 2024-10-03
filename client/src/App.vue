@@ -14,7 +14,7 @@
         <b-navbar-toggle target="nav-collapse">
           <!-- Customize the toggler with an icon and text -->
           <b-icon icon="list" class="navbar-toggler-icon"></b-icon>
-            <span class="ml-2" style="color: #D9D9D9; font-size: 1rem;">Menu</span>
+          <span class="ml-2" style="color: #D9D9D9; font-size: 1rem;">Menu</span>
         </b-navbar-toggle>
 
         <!-- Collapsible content -->
@@ -26,8 +26,8 @@
           </b-navbar-nav>
         </b-collapse>
 
-          <!-- Pushes the next navbar items to the right -->
-          <b-navbar-nav class="ml-auto">
+        <!-- Pushes the next navbar items to the right -->
+        <b-navbar-nav class="ml-auto">
           <router-link v-if="!isSignedIn" to="/signin" class="nav-link-button">
             <b-button pill variant="outline-secondary" class="signin-button">Sign In</b-button>
           </router-link>
@@ -38,7 +38,7 @@
       </b-navbar>
 
       <!-- Render the content of the current page view -->
-      <router-view @signin="handleSignin"/>
+      <router-view @signin="handleSignin" />
     </div>
   </div>
 </template>
@@ -77,17 +77,18 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 
 /* Logo link and styling */
 .navbar-logo-link {
   display: inline-block;
 }
+
 .navbar-logo {
   height: 5vh;
   max-width: 100vw;
 }
+
 .navbar-toggler-icon {
   margin-right: 0.5rem;
 }
@@ -101,11 +102,12 @@ export default {
 }
 
 @media (max-width: 576px) {
-            .b-collapse {
-              width: 50%;
-              margin: 0 auto;
-            }
-          }
+  .b-collapse {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
 /* Hover effect for navigation links */
 .nav-link:hover {
   color: #6B91B8 !important;

@@ -38,7 +38,6 @@ const getUser = async (req, res, next) => {
         // If the user has a photo, convert it to base64
         let photo;
         if (user.photo && user.photo.data) {
-            console.log('get user user.ophoto', user.photo);
             photo = `data:${user.photo.contentType};base64,${user.photo.data.toString('base64')}`;
         } else {
             photo = null;
