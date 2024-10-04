@@ -10,6 +10,8 @@ router.get('/', controller.getAllCourses);
 
 router.get('/:id', controller.getCourse);
 
+router.get('/:id/ratings', controller.getAggregatedRatings);
+
 router.put('/:id', authenticateJWT, controller.updateCourse);
 
 router.patch('/:id', authenticateJWT, controller.patchCourse);
