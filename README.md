@@ -82,11 +82,8 @@ Users are able to create different lists with courses they want to enroll in or 
 ![ER Diagram](./images/OnlineCourseReviewer-ER.png)
 
 ## Advanced feature ideas
+**Upload photos to Amazon Web Services**
+Plan is to use AWS S3 to upload and store photos to a bucket, then receive an URL for each photo. Then use these URLs and the key of a IAM user to get the photo information through API calls. That would mean one GET request per photo shown on homepage (approximate 8-12 photos), or possibly creating a bulk request (not sure of the implementation yet).
+
 **Study group integration:**
 Allowing users to form study groups around a course. Could be chat rooms or file sharing.
-
-**Notifications & reminders:**
-Notify users when new courses are added in their areas of interest, or when a course in their study list is on sale or offering discount.
-
-**Payment option for a course through the site:**
-Payment option to purchase a course through our review site.
