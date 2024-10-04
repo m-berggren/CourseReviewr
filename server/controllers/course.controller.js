@@ -1,6 +1,7 @@
 import Course from '../models/course.model.js';
 import { handleError } from '../utils/error.util.js';
 import { getCourseWithAverageRatingAndCount } from '../utils/courseUtil.js';
+import Review from '../models/review.model.js';
 
 const createCourse = async (req, res, next) => {
     try {
@@ -71,33 +72,33 @@ const getAggregatedRatings = async (req, res, next) => {
     const { courseID } = req.params;
   
     try {
-      const aggregatedRatings = await Review.aggregate([
-        { $match: { course: courseID } },
-        {
-            $group: {
-                _id: '$course',
-                averageEngagementLevel: { $avg: '$engagementLevel' },
-                averagePracticalValue: { $avg: '$practicalValue' },
-                averageInstructorQuality: { $avg: '$instructorQuality' },
-                averageDifficultyLevel: { $avg: '$difficultyLevel' }
+        const aggregatedRatings = await Review.aggregate([
+            { $match: { course: courseID } },
+            {
+                $group: {
+                    _id: '$course',
+                    averageEngagementLevel: { $avg: '$engagementLevel' },
+                    averagePracticalValue: { $avg: '$practicalValue' },
+                    averageInstructorQuality: { $avg: '$instructorQuality' },
+                    averageDifficultyLevel: { $avg: '$difficultyLevel' }
+                }
             }
+        ]);
+  
+        if (aggregatedRatings.length === 0) {
+            return res.json({
+                averageEngagementLevel: 0,
+                averagePracticalValue: 0,
+                averageInstructorQuality: 0,
+                averageDifficultyLevel: 0
+            });
         }
-      ]);
   
-      if (aggregatedRatings.length === 0) {
-        return res.json({
-          averageEngagementLevel: 0,
-          averagePracticalValue: 0,
-          averageInstructorQuality: 0,
-          averageDifficultyLevel: 0
-        });
-      }
-  
-      res.status(200).json(aggregatedRatings[0]);
+        res.status(200).json(aggregatedRatings[0]);
     } catch (error) {
-      return handleError(error, res) || next(error);
+        return handleError(error, res) || next(error);
     }
-  };
+};
 
 const updateCourse = async (req, res, next) => {
     try {
