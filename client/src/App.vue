@@ -3,10 +3,10 @@
     <div id="nav">
 
       <!-- Navigation bar: passing isSignedIn as property -->
-      <navbar :isSignedIn="isSignedIn"></navbar>
+      <navbar :isSignedIn="isSignedIn" :username="username"></navbar>
 
       <!-- Render the content of the current page view -->
-      <router-view @signin="handleSignin"/>
+      <router-view @signin="handleSignin" />
     </div>
   </div>
 </template>
@@ -18,12 +18,14 @@ import Navbar from './components/NavigationBar.vue'
 export default {
   data() {
     return {
-      isSignedIn: false
+      isSignedIn: false,
+      username: ''
     }
   },
   created() {
     // Check the sign-in status when the component is created
     this.isSignedIn = token.isSignedIn()
+    this.username = token.getUsername()
   },
   components: {
     Navbar
@@ -32,12 +34,14 @@ export default {
     handleSignin() {
       // Update the sign-in state based on the token when user signs in
       this.isSignedIn = token.isSignedIn()
+      this.username = token.getUsername()
     }
   },
   watch: {
     // Add a watcher to reactively track token changes when route changes
     '$route'() {
       this.isSignedIn = token.isSignedIn()
+      this.username = token.getUsername()
     }
   }
 }

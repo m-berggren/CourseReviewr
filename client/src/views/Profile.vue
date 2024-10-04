@@ -1,111 +1,226 @@
 <template>
-  <b-container class="d-flex justify-content-center align-items-center min-vh-100">
-        <b-card class="w-100 w-md-50 mt-5">
-          <b-card-header class="text-center">
-            <h3>Profile</h3>
-          </b-card-header>
-          <b-card-body>
-            <!-- Profile Picture and Username -->
-            <div class="d-flex justify-content-start align-items-center mb-3">
-              <img :src="user.photo" alt="Profile Picture" class="profile-picture" />
-              <h4 class="ml-3">{{ user.username }}</h4>
-                <div class="mb-4"></div>
+  <b-container class="mx-auto min-vh-100 ">
+    <b-container class="w-100 w-md-50 mt-5 p-4 max-width-550 border border-light-subtle">
+
+      <!-- Profile Picture, Upload, and Username -->
+      <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
+        <!-- Profile Picture -->
+        <div class="d-flex flex-column">
+          <img :src="photo" alt="Profile Picture" class="profile-picture mb-2" />
+          <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
+            <small>Change Photo</small>
+          </b-button>
+        </div>
+
+        <!-- Username on the right of photo -->
+        <div class="ml-3">
+          <h4 class="usernamedisplay">{{ user.username }}</h4>
+          <span v-if="user.role === 'admin'" class="text-danger">(Admin)</span>
+        </div>
+      </div>
+
+      <!-- Upload Photo Form - Shown when Upload is clicked -->
+      <b-form @submit.prevent="uploadPhoto" v-if="showUpload" class="mt-2">
+        <b-form-group label="Upload Profile Picture" label-for="photo-input" class="label-font">
+          <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
+        </b-form-group>
+        <b-button size="sm" type="submit" variant="primary" class="mt-2">Upload Photo</b-button>
+      </b-form>
+
+      <hr />
+
+      <!-- BootstrapVue alert component to display message -->
+      <b-alert v-model="showMessage" :variant="messageVariant" dismissible fade class="mt-3">
+        {{ message }}
+      </b-alert>
+
+      <!-- Email Update -->
+      <b-form @submit.prevent="updateEmail">
+        <b-form-group label="Email Address" label-for="email-input" class="label-font">
+          <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
+        </b-form-group>
+        <b-button class="mt-2" type="submit" size="sm" variant="primary" block>Update Email</b-button>
+      </b-form>
+
+      <hr />
+
+      <!-- Interests Section -->
+      <div class="d-flex flex-column align-items-left gap-3">
+        <b-form-group label="Your Interests" class="label-font">
+          <div class="interest-bubbles">
+            <span v-for="interest in interests" :key="interest.id" class="interest-bubble">
+              {{ interest.name }}
+              <b-button variant="link" @click="removeInterest(interest.id)" size="sm">
+                <b-icon-x v-b-tooltip.hover title="Delete"></b-icon-x>
+              </b-button>
+            </span>
+          </div>
+        </b-form-group>
+
+        <!-- Add Interest -->
+        <b-form @submit.prevent="addInterest">
+          <b-form-group label="Add New Interest" label-for="select-interest" class="label-font mb-2">
+            <b-form-select id="select-interest" v-model="selectedInterestId" :options="availableInterests" class="mt-2"
+              placeholder="Select an interest" :value-field="'id'" :text-field="'name'"></b-form-select>
+          </b-form-group>
+          <b-button type="submit" variant="primary" size="sm">Add Interest</b-button>
+        </b-form>
+      </div>
+
+      <hr />
+
+      <!-- Password Update Section -->
+      <div>
+        <b-button v-if="!showPasswordFields" @click="showPasswordFields = true" size="sm" variant="primary">
+          Update Password
+        </b-button>
+
+        <div v-if="showPasswordFields">
+          <b-form @submit.prevent="updatePassword">
+            <b-form-group label="New Password" label-for="new-password-input" class="label-font mb-2">
+              <b-input-group size="sm">
+                <b-form-input id="new-password-input" v-model="password" :type="showPassword ? 'text' : 'password'"
+                  placeholder="Enter new password" required></b-form-input>
+                <b-input-group-append>
+                  <b-button @click="togglePasswordVisibility" size="sm" class="btn-light">
+                    <b-icon-eye-fill v-if="showPassword"></b-icon-eye-fill>
+                    <b-icon-eye-slash-fill v-if="!showPassword"></b-icon-eye-slash-fill>
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+
+            <b-form-group label="Confirm Password" label-for="confirm-password-input" class="label-font">
+              <b-input-group size="sm">
+                <b-form-input id="confirm-password-input" v-model="confirmPassword"
+                  :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm new password" required>
+                </b-form-input>
+                <b-input-group-append>
+                  <b-button @click="toggleConfirmPasswordVisibility" size="sm" class="btn-light">
+                    <b-icon-eye-fill v-if="showConfirmPassword"></b-icon-eye-fill>
+                    <b-icon-eye-slash-fill v-if="!showConfirmPassword"></b-icon-eye-slash-fill>
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+            <div class="d-flex gap-2 mt-2">
+              <b-button size="sm" type="submit" variant="primary">Submit New Password</b-button>
+              <b-button size="sm" @click="cancelPasswordUpdate">Cancel</b-button>
             </div>
+          </b-form>
+        </div>
+      </div>
 
-            <!-- Edit Email Form -->
-            <b-form @submit.prevent="updateEmail">
-              <b-form-group label="Email Address" label-for="email-input">
-                <b-form-input id="email-input" v-model="email" type="email" required></b-form-input>
-                <div class="mb-3"></div>
-              </b-form-group>
-              <b-button type="submit" variant="primary" block>Update Email</b-button>
-            </b-form>
+      <hr />
 
-            <hr>
-
-            <!-- Edit Password Form -->
-            <b-form @submit.prevent="updatePassword">
-              <b-form-group label="New Password" label-for="password-input">
-                <b-form-input id="password-input" v-model="password" type="password" required></b-form-input>
-                  <div class="mb-3"></div>
-              </b-form-group>
-              <b-button type="submit" variant="primary" block>Update Password</b-button>
-            </b-form>
-
-            <hr>
-
-            <!-- Upload Photo Form -->
-            <b-form @submit.prevent="uploadPhoto">
-              <b-form-group label="Profile Picture" label-for="photo-input">
-                <b-form-file id="photo-input" @change="handlePhotoUpload" required></b-form-file>
-                  <div class="mb-3"></div>
-              </b-form-group>
-              <b-button type="submit" variant="primary" block>Upload Photo</b-button>
-            </b-form>
-
-            <hr>
-
-            <!-- Add Interests Form -->
-            <b-form @submit.prevent="addInterests">
-              <b-form-group label="Interests (comma-separated)" label-for="interests-input">
-                <b-form-input id="interests-input" v-model="interests" type="text" required></b-form-input>
-                  <div class="mb-3"></div>
-              </b-form-group>
-              <b-button type="submit" variant="primary" block>Add Interests</b-button>
-                <div class="mb-3"></div>
-            </b-form>
-
-          <!-- Signout Button -->
-          <div class="mb-6"></div>
-          <b-button variant="danger" block @click="signout">Sign Out</b-button>
-
-          </b-card-body>
-        </b-card>
+      <!-- Signout Button -->
+      <b-button variant="danger" block @click="signout">Sign Out</b-button>
+    </b-container>
   </b-container>
 </template>
 
 <script>
 import { Api } from '@/Api'
 import { token } from '@/token'
+
 export default {
   data() {
     return {
-      user: {
-        username: '',
-        photo: ''
-      },
+      user: {},
       email: '',
       password: '',
-      interests: ''
+      confirmPassword: '',
+      photo: '',
+      uploadedPhoto: null,
+      showPasswordFields: false,
+      showPassword: false,
+      showConfirmPassword: false,
+      showUpload: false,
+      interests: [],
+      selectedInterest: '',
+      availableInterests: [],
+      selectedInterestId: '',
+      message: '',
+      showMessage: false,
+      messageVariant: 'info'
     }
   },
   async created() {
-    // Fetch user data when the component is created
     try {
-      const response = await Api.get('/users/profile') // Adjust this endpoint based on your backend
-      this.user = response.data
+      const response = await Api.get(`/users/${token.getUserId()}`)
+      this.user = { ...response.data }
       this.email = this.user.email
+      this.photo = this.user.photo
+
+      if (Array.isArray(this.user.interests)) {
+        this.interests = this.user.interests.map(interest => ({
+          id: interest._id,
+          name: interest.name
+        }))
+      } else {
+        this.interests = []
+      }
+
+      const topicsResponse = await Api.get('/topics')
+      if (Array.isArray(topicsResponse.data.topics)) {
+        this.availableInterests = topicsResponse.data.topics.map(topic => ({
+          id: topic._id,
+          name: topic.name
+        }))
+      }
     } catch (error) {
-      console.error('Failed to load user data', error)
+      console.error('Failed to load user data or topics:', error)
+      this.showAlert('Failed to load user data or topics: ' + error.message, 'danger')
     }
   },
   methods: {
+    showAlert(message, variant = 'info', timeout = 5000) {
+      this.message = message
+      this.messageVariant = variant
+      this.showMessage = true
+      // Auto-hide the alert after the timeout if its not a danger alert
+      if (timeout && this.messageVariant !== 'danger') {
+        setTimeout(() => {
+          this.showMessage = false
+        }, timeout)
+      }
+    },
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword
+    },
+    toggleConfirmPasswordVisibility() {
+      this.showConfirmPassword = !this.showConfirmPassword
+    },
+    cancelPasswordUpdate() {
+      this.showPasswordFields = false
+      this.password = ''
+      this.confirmPassword = ''
+    },
     async updateEmail() {
       try {
-        const response = await Api.patch(`/users/${this.user._id}/email`, { email: this.email })
-        alert('Email updated successfully')
+        await Api.patch(`/users/${token.getUserId()}`, { email: this.email })
+        this.showAlert('Email updated successfully', 'success')
       } catch (error) {
         console.error('Failed to update email', error)
-        alert('Failed to update email: ' + error.message)
+        if (error.response && error.response.status === 409) {
+          this.showAlert('Email already in use', 'danger')
+        } else {
+          this.showAlert('Failed to update email: ' + error.message, 'danger')
+        }
       }
     },
     async updatePassword() {
+      if (this.password !== this.confirmPassword) {
+        this.showAlert('Passwords do not match', 'danger')
+        return
+      }
+
       try {
-        await Api.patch(`/users/${this.user._id}/password`, { password: this.password })
-        alert('Password updated successfully')
+        await Api.patch(`/users/${token.getUserId()}`, { password: this.password })
+        this.showAlert('Password updated successfully', 'success')
+        this.cancelPasswordUpdate()
       } catch (error) {
-        console.error('Failed to update password', error)
-        alert('Failed to update password: ' + error.message)
+        this.showAlert('Failed to update password: ' + error.message, 'danger')
       }
     },
     handlePhotoUpload(event) {
@@ -117,33 +232,63 @@ export default {
         const formData = new FormData()
         formData.append('photo', this.uploadedPhoto)
 
-        const response = await Api.patch(`/users/${this.user._id}/photo`, formData, {
+        await Api.patch(`/users/${token.getUserId()}`, formData, {
           headers: {
+            Authorization: `Bearer ${token.getToken()}`,
             'Content-Type': 'multipart/form-data'
           }
         })
-        this.user.photo = response.data.photo
-        alert('Photo uploaded successfully')
+
+        const response = await Api.get(`/users/${token.getUserId()}`)
+        this.user = { ...response.data }
+        this.photo = this.user.photo
+        this.showUpload = false
+        this.showAlert('Photo uploaded successfully', 'success')
       } catch (error) {
         console.error('Failed to upload photo', error)
-        alert('Failed to upload photo: ' + error.message)
+        this.showAlert('Failed to upload photo: ' + error.message, 'danger')
       }
     },
-    async addInterests() {
-      try {
-        const interestsArray = this.interests.split(',').map(interest => interest.trim())
+    async addInterest() {
+      if (!this.selectedInterestId) {
+        this.showAlert('Please select an interest', 'danger')
+        return
+      }
 
-        await Api.patch(`/users/${this.user._id}/interests`, { interests: interestsArray })
-        alert('Interests added successfully')
+      if (this.interests.some(interest => interest.id === this.selectedInterestId)) {
+        this.showAlert('Interest already added', 'danger')
+        return
+      }
+
+      try {
+        await Api.patch(`/users/${token.getUserId()}`, {
+          interests: [...this.interests.map(i => i.id), this.selectedInterestId]
+        })
+
+        const newInterest = this.availableInterests.find(interest => interest.id === this.selectedInterestId)
+        this.interests.push(newInterest)
+        this.selectedInterestId = null
+        this.showAlert('Interest added successfully', 'success')
       } catch (error) {
-        console.error('Failed to add interests', error)
-        alert('Failed to add interests: ' + error.message)
+        console.error('Failed to add interest:', error)
+        this.showAlert('Failed to add interest: ' + error.message, 'danger')
       }
     },
-    // Signout method
+    async removeInterest(interestId) {
+      try {
+        await Api.patch(`/users/${token.getUserId()}`, {
+          removeInterestId: interestId
+        })
+
+        this.interests = this.interests.filter(interest => interest.id !== interestId)
+        this.showAlert('Interest removed successfully', 'success')
+      } catch (error) {
+        console.error('Failed to remove interest:', error)
+        this.showAlert('Failed to remove interest: ' + error.message, 'danger')
+      }
+    },
     signout() {
-      // Remove the JWT token
-      this.$router.push('/signin') // Redirect to login page
+      this.$router.push('/signin')
       token.unset()
     }
   }
@@ -151,20 +296,44 @@ export default {
 </script>
 
 <style scoped>
+/* General Styles */
 .profile-picture {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
 }
-@media screen{
-    .w-md-50 {
-        max-width: 450px;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-inline: 5%;
-        width: 100%;
-    }
+
+.interest-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-  </style>
+.interest-bubble {
+  background-color: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+}
+
+.max-width-550 {
+  max-width: 550px;
+}
+
+.label-font {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.usernamedisplay {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 300px;
+  display: inline-block;
+}
+</style>
