@@ -6,7 +6,8 @@ import Signin from './views/Signin.vue'
 import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
 import CreateCourse from './views/CreateCourse.vue'
-// import Coursepage from './views/Coursepage.vue'
+import CourseLists from './views/CourseLists.vue'
+import Coursepage from './views/Coursepage.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Homepage },
@@ -14,8 +15,9 @@ const routes = [
   { path: '/courses', name: 'courses', component: Courses },
   { path: '/register', name: 'register', component: Register },
   { path: '/profile', name: 'profile', component: Profile },
-  { path: '/courses/create', name: 'create-course', component: CreateCourse }
-  // { path: '/courses/:id', name: 'course-page', component: Coursepage }
+  { path: '/courses/create', name: 'create-course', component: CreateCourse },
+  { path: '/course-lists', name: 'courselists', component: CourseLists },
+  { path: '/courses/:id', name: 'course-page', component: Coursepage }
 ]
 
 const router = createRouter({

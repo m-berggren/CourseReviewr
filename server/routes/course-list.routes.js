@@ -6,6 +6,9 @@ const router = Router({ mergeParams: true });
 
 router.post('/', authenticateJWT, controller.createCourseList);
 
+
+router.get('/', authenticateJWT, controller.getAllCourseLists);
+
 router.get('/', authenticateJWT, requireAdmin, controller.getAllCourseLists);
 
 router.get('/:id', authenticateJWT, controller.getCourseList);
