@@ -147,7 +147,7 @@ export default {
     // Delete a course list by ID
     async deleteCourseList(courseListId) {
       try {
-        await Api.delete(`/users/${token.getUserId()}/course-lists/courselists/${courseListId}`)
+        await Api.delete(`/users/${token.getUserId()}/course-lists/${courseListId}`)
         this.courseLists = this.courseLists.filter((list) => list._id !== courseListId)
         this.showAlert('Course list deleted successfully', 'success')
       } catch (error) {
