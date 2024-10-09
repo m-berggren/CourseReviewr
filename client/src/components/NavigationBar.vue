@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="sm" type="dark" variant="dark">
+    <b-navbar toggleable="sm" type="dark" variant="dark" class="justify-content-between">
 
       <!-- Brand with link to homepage -->
       <b-navbar-brand href="#">
@@ -16,7 +16,7 @@
 
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="d-none d-sm-flex ">
+        <b-navbar-nav>
           <router-link to="/courses" class="nav-link">Courses</router-link>
           <router-link to="/reviews" class="nav-link">Reviews</router-link>
           <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
@@ -50,7 +50,7 @@ defineProps({
 </script>
 
 <style>
-/* Override ml-auto to enable login/signup to end up to the right */
+/* Enables login/signup to end up to the right */
 .ml-auto {
   margin-left: auto !important;
 }
