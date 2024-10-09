@@ -1,7 +1,7 @@
 <template>
   <b-container class="d-flex flex-column">
     <!-- Header with the title "Course Lists" and button to create a new course list -->
-    <div class="d-flex justify-content-between mb-4">
+    <div class="d-flex justify-content-between mt-4 mb-4">
       <h1>Course Lists</h1>
       <b-button @click="toggleNewCourseListForm" variant="primary">
         {{ showNewCourseListForm ? "Cancel" : "Create New Course List" }}
@@ -20,21 +20,14 @@
       </b-form-group>
 
       <b-form-group label="Description:" label-for="input-description">
-        <b-form-input id="input-description" v-model="description" required></b-form-input>
+        <b-form-input id="input-description" v-model="description" required />
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit Course List</b-button>
     </b-form>
 
-    <!-- Title row for the course lists -->
-    <b-row class="font-weight-bold">
-      <b-col>Name</b-col>
-      <b-col>Description</b-col>
-      <b-col>Creation Date</b-col>
-      <b-col>Actions</b-col>
-    </b-row>
-
     <!-- List of course lists fetched from the database -->
+    <!-- Safe check added: courseLists && courseLists.length > 0 -->
     <b-list-group v-if="courseLists && courseLists.length > 0" class="mt-3">
       <b-list-group-item v-for="courseList in courseLists" :key="courseList._id">
         <b-row>
@@ -45,27 +38,56 @@
 
             <!-- Courses within the course list -->
             <b-list-group v-if="courseList.showCourses">
-              <b-list-group-item v-for="course in courseList.courses" :key="course._id">
-                {{ course.name }}
+              <b-list-group-item v-for="course in courseList.courses" :key="course._id"
+                class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h5>{{ course.name }}</h5>
+                </div>
                 <b-button variant="danger" size="sm" @click="deleteCourse(courseList._id, course._id)">
                   <b-icon icon="trash" aria-hidden="true"></b-icon> Delete
                 </b-button>
               </b-list-group-item>
             </b-list-group>
           </b-col>
-          <b-col>{{ courseList.description }}</b-col>
           <b-col>{{ new Date(courseList.creationDate).toLocaleDateString() }}</b-col>
+          <b-col>
+            <b-form @submit.prevent="addCourseToCourseList(courseList)">
+              <b-form-group label="Add Course:" label-for="input-course">
+                <b-form-input id="input-course" v-model="courseList.newCourse" @input="fetchCourses(courseList)"
+                  placeholder="Type to search courses" required></b-form-input>
+                <b-list-group v-if="allCourses && allCourses.length">
+                  <b-list-group-item v-for="course in allCourses" :key="course._id"
+                    @click="selectCourse(courseList, course)" class="d-flex justify-content-between align-items-center">
+                    {{ course.name }}
+                  </b-list-group-item>
+                </b-list-group>
+              </b-form-group>
+              <b-button type="submit" variant="primary">Add Course</b-button>
+            </b-form>
+          </b-col>
           <b-col>
             <b-button variant="danger" size="sm" @click="deleteCourseList(courseList._id)">
               <b-icon icon="trash" aria-hidden="true"></b-icon> Delete
             </b-button>
           </b-col>
+
+        </b-row>
+        <!-- Description row for the course list -->
+        <b-row>
+          <b-col>Description:</b-col>
+          <b-col>{{ courseList.description }}</b-col>
         </b-row>
       </b-list-group-item>
     </b-list-group>
 
-    <b-alert v-else variant="info" show>
+    <!-- Safe check added: Show this alert only when courseLists is initialized as an array -->
+    <b-alert v-else-if="courseLists && courseLists.length === 0" variant="info" show>
       No course lists available. Create a new one.
+    </b-alert>
+
+    <!-- Prevent errors when courseLists is not yet defined -->
+    <b-alert v-else variant="info" show>
+      Loading course lists...
     </b-alert>
   </b-container>
 </template>
@@ -77,7 +99,7 @@ import { token } from '../token.js'
 export default {
   data() {
     return {
-      courseLists: [],
+      courseLists: [], // Ensure it's initialized as an array
       name: '',
       description: '',
       showNewCourseListForm: false,
@@ -167,6 +189,10 @@ export default {
       } catch (error) {
         this.showAlert('Failed to delete course: ' + error.message, 'danger')
       }
+    },
+    fetchCourses(courseList) {
+      // Fetch courses from the API
+
     },
 
     // Show an alert with a custom message
