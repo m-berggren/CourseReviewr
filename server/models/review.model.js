@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { roundToNearestHalf } from '../utils/mathUtil.js';
 
 const { Schema, model } = mongoose;
 
@@ -12,15 +11,14 @@ const reviewSchema = new Schema({
     difficultyLevel:        { type: Number, required: [true, 'Rating is required'], min: 1, max: 5 },
     comment:                { type: String, default: '' },
     hasCompleted:           { type: Boolean },
-    date:                   { type: Date, default: Date.now }
-}, {
-    toJSON: { virtuals: true },  // Enable virtuals in JSON output
-    toObject: { virtuals: true }  // Enable virtuals when converting to objects
+    date:                   { type: Date, default: Date.now },
+    averageRating:          { type: Number }
 });
 
-// Virtual field for calculating average rating
-reviewSchema.virtual('averageRating').get(function () {
-    return (roundToNearestHalf((this.engagementLevel + this.practicalValue + this.instructorQuality + this.difficultyLevel)/4));
+// Pre-save hook to compute averageRating before saving the review
+reviewSchema.pre('save', function (next) {
+    this.averageRating = (this.engagementLevel + this.practicalValue + this.instructorQuality + this.difficultyLevel) / 4;
+    next();
 });
 
 // Check so review does not already exist by this user for this course

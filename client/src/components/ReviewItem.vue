@@ -13,6 +13,7 @@
           :read-only="true"
           :star-size="30"
           :show-rating="false"
+          :increment="0.5"
           />
       </div>
     </b-card>
