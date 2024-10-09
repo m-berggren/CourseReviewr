@@ -91,10 +91,13 @@ const getAllCourses = async (req, res, next) => {
                     averageRating: 1,
                     reviewCount: 1,
                     name: 1,
+                    provider: 1,
+                    difficulty: 1,
                     description: 1,
                     instructor: 1,
                     topics: 1,
-                    photo: 1
+                    photo: 1,
+                    releaseYear: 1
                 }
             }
         ]);

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-container-fluid>
+      <b-container fluid>
 
         <!-- Row for welcome text, search bar and tags -->
         <b-row class="top-row justify-content-center text-center">
@@ -98,7 +98,7 @@
             ></PaginationItem>
           </b-col>
         </b-row>
-      </b-container-fluid>
+      </b-container>
   </div>
 
 </template>

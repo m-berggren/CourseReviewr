@@ -45,6 +45,12 @@
             </router-link>
           </template>
         </BTable>
+        <b-pagination class="justify-content-center"
+          v-model="currentPage"
+          :total-rows="totalPages * itemsPerPage"
+          :per-page="itemsPerPage"
+          @change="changePage"
+        ></b-pagination>
       </b-col>
     </b-row>
   </div>
@@ -81,15 +87,8 @@ const topicDropdownText = ref('Topics')
 
 const fetchTopics = async () => {
   try {
-    const response = await Api.get('/topics')
+    const response = await Api.get('/topics?sortBy=courseCount')
     const data = response.data.topics
-
-    // Sort A-Z in the hashmap
-    data.sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
-      return 0
-    })
 
     topics.value = data
   } catch (error) {
@@ -113,7 +112,7 @@ const fetchCourses = async () => {
       releaseYear: course.releaseYear,
       topics: course.topics
     }))
-    
+    console.log(response.data.courses)
     // Populate list of sorted, unique providers from the courses, disregarding uppercase letters
     providers.value = [...new Set(courses.map(course => course.provider))]
       .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
@@ -154,7 +153,7 @@ const filteredItems = computed(() => {
     const matchesProvider = !selectedProvider.value || course.provider === selectedProvider.value
 
     // Filter by selected topic (if a topic is selected)
-    const matchesTopic = !selectedTopic.value || course.topics.includes(selectedTopic.value)
+    const matchesTopic = !selectedTopic.value || course.topics.some(topic => topic._id === selectedTopic.value)
 
     // Return true if all conditions match
     return matchesSearch && matchesProvider && matchesTopic
