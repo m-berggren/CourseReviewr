@@ -1,4 +1,5 @@
 import Course from '../models/course.model.js';
+import Review from '../models/review.model.js';
 import { handleError } from '../utils/error.util.js';
 import mongoose from 'mongoose';
 import Review from '../models/review.model.js';
@@ -7,16 +8,16 @@ const createCourse = async (req, res, next) => {
     try {
         const course = new Course(req.body);
         await course.save();
-        
+
         //implement HATEOAS, include hypermedia links in the response
         res.status(201).json({
             course,
-            '_links':{
-                'self':{ href: `/courses/${course._id}`},
-                'update': { href:`/courses/${course._id}`, method: 'PUT' },
-                'delete': { href:`/courses/${course._id}`, method: 'DELETE' },
-                'listAll': { href:'/courses', method: 'GET' }
-            } 
+            '_links': {
+                'self': { href: `/courses/${course._id}` },
+                'update': { href: `/courses/${course._id}`, method: 'PUT' },
+                'delete': { href: `/courses/${course._id}`, method: 'DELETE' },
+                'listAll': { href: '/courses', method: 'GET' }
+            }
         });
     } catch (error) {
         return handleError(error, res) || next(error);
@@ -135,8 +136,8 @@ const getAllCourses = async (req, res, next) => {
             prevPage,
             nextPage,
             '_links': {
-                'self': { href: '/courses/'},
-                'create': {href: '/courses', method: 'POST'},
+                'self': { href: '/courses/' },
+                'create': { href: '/courses', method: 'POST' },
             }
         });
 
@@ -157,10 +158,10 @@ const getCourse = async (req, res, next) => {
         res.status(200).json({
             course,
             '_links': {
-                'self': { href: `/courses/${course._id}`},
-                'update': { href:`/courses/${course._id}`, method: 'PUT' },
-                'delete': { href:`/courses/${course._id}`, method: 'DELETE' },
-                'listAll': { href:'/courses', method: 'GET' }
+                'self': { href: `/courses/${course._id}` },
+                'update': { href: `/courses/${course._id}`, method: 'PUT' },
+                'delete': { href: `/courses/${course._id}`, method: 'DELETE' },
+                'listAll': { href: '/courses', method: 'GET' }
             }
         });
 
@@ -185,7 +186,7 @@ const getAggregatedRatings = async (req, res, next) => {
                 }
             }
         ]);
-  
+
         if (aggregatedRatings.length === 0) {
             return res.json({
                 averageEngagementLevel: 0,
@@ -194,7 +195,7 @@ const getAggregatedRatings = async (req, res, next) => {
                 averageDifficultyLevel: 0
             });
         }
-  
+
         res.status(200).json(aggregatedRatings[0]);
     } catch (error) {
         return handleError(error, res) || next(error);
@@ -218,9 +219,9 @@ const updateCourse = async (req, res, next) => {
         res.status(200).json({
             updatedCourse,
             '_links': {
-                'self': { href: `/courses/${id}`},
-                'delete': { href: `courses/${id}`, method: 'DELETE'},
-                'listAll': { href: '/courses/', method: 'GET'}
+                'self': { href: `/courses/${id}` },
+                'delete': { href: `courses/${id}`, method: 'DELETE' },
+                'listAll': { href: '/courses/', method: 'GET' }
             }
         });
 
@@ -246,10 +247,10 @@ const patchCourse = async (req, res, next) => {
 
         res.status(200).json({
             updatedCourse,
-            '_links':{
-                'self': {href: `/courses/${id}`},
-                'delete': {href:`/courses/${id}`, method: 'DELETE'},
-                'listAll': {href: '/courses/', method: 'GET'}
+            '_links': {
+                'self': { href: `/courses/${id}` },
+                'delete': { href: `/courses/${id}`, method: 'DELETE' },
+                'listAll': { href: '/courses/', method: 'GET' }
             }
         });
 
@@ -263,7 +264,7 @@ const deleteAllCourses = async (req, res, next) => {
         const courses = await Course.deleteMany();
 
         if (courses.deletedCount === 0) {
-            return res.status(404).json({ message: 'No courses found to delete.'});
+            return res.status(404).json({ message: 'No courses found to delete.' });
         }
 
         return res.status(200).json({ message: `${courses.deletedCount} courses deleted successfully.` });
@@ -283,9 +284,9 @@ const deleteCourse = async (req, res, next) => {
 
         res.status(200).json({
             deletedCourse,
-            '_links':{
-                'self': { href: '/courses'},
-                'create': { href: '/courses', method: 'POST'},
+            '_links': {
+                'self': { href: '/courses' },
+                'create': { href: '/courses', method: 'POST' },
             }
         });
 

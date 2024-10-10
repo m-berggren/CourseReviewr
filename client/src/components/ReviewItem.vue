@@ -5,7 +5,8 @@
         {{ review.comment }}
       </b-card-text>
       <b-card-text class="text-center">
-        {{ review.user.username }}
+        <p v-if="review.user">{{ review.user.username }}</p>
+        <p v-else>Anonymous</p>
       </b-card-text>
       <div class="rating-container">
         <star-rating
@@ -41,11 +42,13 @@ defineProps({
 
 /* Text should handle overflow with ellipsis */
 .review-text {
-  height: 125px;           /* Keep this aligned with line-clamp */
+  height: 125px;
+  /* Keep this aligned with line-clamp */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;  /* Limit to 5 lines */
+  -webkit-line-clamp: 5;
+  /* Limit to 5 lines */
   -webkit-box-orient: vertical;
 }
 
