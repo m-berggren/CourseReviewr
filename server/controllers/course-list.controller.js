@@ -48,7 +48,7 @@ const getCourseList = async (req, res, next) => {
 
         const courseList = await CourseList.findById(id).populate('user').populate('courses');
         if (!courseList) {
-            return res.status(404).json({message: 'CourseList not found.'});
+            return res.status(404).json({ message: 'CourseList not found.' });
         }
 
         // Check if the user is an admin or if they are the owner of the CourseList
@@ -88,7 +88,7 @@ const updateCourseList = async (req, res, next) => {
         );
 
         if (!updatedCourseList) {
-            return res.status(404).json({message: 'CourseList not found.'});
+            return res.status(404).json({ message: 'CourseList not found.' });
         }
         res.status(200).json(updatedCourseList);
     } catch (error) {
@@ -101,6 +101,7 @@ const patchCourseList = async (req, res, next) => {
         const userIdFromToken = req.user.id;
         const id = req.params.id;
         const updates = req.body;
+        const removeCourseId = req.body.removeCourseId;
 
         const isAdmin = req.user.role === 'admin';
 
@@ -115,12 +116,20 @@ const patchCourseList = async (req, res, next) => {
             return res.status(403).json({ message: 'Forbidden: You can only update your own course list.' });
         }
 
+        // Handle removing a course
+        if (removeCourseId) {
+            await CourseList.findByIdAndUpdate(
+                id,
+                { $pull: { courses: removeCourseId } },
+                { new: true }
+            );
+        }
         const updatedCourseList = await CourseList.findByIdAndUpdate(
             id,
             { $set: updates },
             { new: true, runValidators: true });
         if (!updatedCourseList) {
-            return res.status(404).json({message: 'CourseList not found.'});
+            return res.status(404).json({ message: 'CourseList not found.' });
         }
         res.status(200).json(updatedCourseList);
     } catch (error) {
@@ -134,10 +143,10 @@ const deleteAllCourseLists = async (req, res, next) => {
         const courseLists = await CourseList.find(); // Get all course lists
 
         if (courseLists.length === 0) {
-            res.status(404).json({ message: 'No course-lists found to delete.'});
+            res.status(404).json({ message: 'No course-lists found to delete.' });
         }
 
-        
+
         // Remove references from users' courseLists
         await User.updateMany(
             { courseLists: { $in: courseLists.map(list => list._id) } },
@@ -170,10 +179,10 @@ const deleteCourseList = async (req, res, next) => {
         if (!isAdmin && courseList.user._id.toString() !== userIdFromToken) {
             return res.status(403).json({ message: 'Forbidden: You can only update your own course list.' });
         }
-        
+
         const deletedCourseList = await CourseList.findByIdAndDelete(id);
         if (!deletedCourseList) {
-            return res.status(404).json({message: 'CourseList not found.'});
+            return res.status(404).json({ message: 'CourseList not found.' });
         }
 
         // Remove the course list reference from the user's courseLists

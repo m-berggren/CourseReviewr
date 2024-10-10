@@ -81,12 +81,12 @@
               <b-input-group size="sm">
                 <b-form-input id="new-password-input" v-model="password" :type="showPassword ? 'text' : 'password'"
                   placeholder="Enter new password" required></b-form-input>
-                <b-input-group-append>
+                <template #append>
                   <b-button @click="togglePasswordVisibility" size="sm" class="btn-light">
                     <b-icon-eye-fill v-if="showPassword"></b-icon-eye-fill>
                     <b-icon-eye-slash-fill v-if="!showPassword"></b-icon-eye-slash-fill>
                   </b-button>
-                </b-input-group-append>
+                </template>
               </b-input-group>
             </b-form-group>
 
@@ -95,12 +95,12 @@
                 <b-form-input id="confirm-password-input" v-model="confirmPassword"
                   :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm new password" required>
                 </b-form-input>
-                <b-input-group-append>
+                <template #append>
                   <b-button @click="toggleConfirmPasswordVisibility" size="sm" class="btn-light">
                     <b-icon-eye-fill v-if="showConfirmPassword"></b-icon-eye-fill>
                     <b-icon-eye-slash-fill v-if="!showConfirmPassword"></b-icon-eye-slash-fill>
                   </b-button>
-                </b-input-group-append>
+                </template>
               </b-input-group>
             </b-form-group>
             <div class="d-flex gap-2 mt-2">
