@@ -9,7 +9,13 @@
         <p v-else>Anonymous</p>
       </b-card-text>
       <div class="rating-container">
-        <star-rating :rating="review.averageRating" :read-only="true" :star-size="30" :show-rating="false" />
+        <star-rating
+          :rating="review.averageRating"
+          :read-only="true"
+          :star-size="30"
+          :show-rating="false"
+          :increment="0.5"
+          />
       </div>
     </b-card>
   </div>

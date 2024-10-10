@@ -1,8 +1,7 @@
 import Course from '../models/course.model.js';
 import Review from '../models/review.model.js';
 import { handleError } from '../utils/error.util.js';
-import { getCourseWithAverageRatingAndCount } from '../utils/courseUtil.js';
-
+import mongoose from 'mongoose';
 
 const createCourse = async (req, res, next) => {
     try {
@@ -26,14 +25,115 @@ const createCourse = async (req, res, next) => {
 
 const getAllCourses = async (req, res, next) => {
     try {
-        const courses = await Course.find().populate('topics');
-        const coursesWithAverageRating = await Promise.all(courses.map(async (course) => {
-            const courseWithRating = await getCourseWithAverageRatingAndCount(course._id);  // Reuse the function to calculate average rating
-            return courseWithRating;                                                        // Return the course with dynamic averageRating
-        }));
+        const { provider, topic, search, sortBy, order = 'desc' } = req.query;
+        const filter = {};
+
+        /*
+        * If a topic is provided and it's a valid ObjectId,
+        * use $in to filter courses that have the topic in their topics array
+        */
+        if (topic) filter.topics = { $in: [new mongoose.Types.ObjectId(topic)] };
+        if (provider) filter.provider = provider;
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            filter.$or = [
+                { name: searchRegex },
+                { description: searchRegex },
+                { provider: searchRegex }
+            ];
+        }
+            
+        // Validate sortFields in query, otherwise choose default
+        const validSortFields = ['reviewCount', 'averageRating', 'topicCount', 'name', 'provider', 'difficulty', 'releaseYear'];
+        const sortField = validSortFields.includes(sortBy) ? sortBy : 'reviewCount';
+        const sortOrder = order === 'asc' ? 1 : -1;
+
+        // Define the sort object for primary and secondary sorting
+        const sortOptions = {
+            [sortField]: sortOrder,
+            [sortField === 'reviewCount' ? 'averageRating' : 'reviewCount']: sortField === 'reviewCount' ? -1 : 1
+        };
+
+        // Add pagination
+        const limit = Math.min(parseInt(req.query.limit) || 12, 20);
+        const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+        if (limit <= 0 || page < 0) {
+            return res.status(400).json({ error: 'Limit and page must be positive integers' });
+        }
+        const skip = (page - 1) * limit;
+
+        // Use aggregation pipeline to calculate reviewCount and averageRating
+        const courses = await Course.aggregate([
+            { $match: filter },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'course',
+                    as: 'reviews'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'topics',
+                    localField: 'topics',
+                    foreignField: '_id',
+                    as: 'topics'
+                }
+            },
+            {
+                $addFields: {
+                    reviewCount: { $size: '$reviews' },
+                    averageRating: { 
+                        $cond: {
+                            if: { $eq: [{ $size: '$reviews' }, 0] },
+                            then: 0,
+                            else: { $divide: [{ $multiply: [{ $avg: '$reviews.averageRating' }, 2] }, 2]}
+                        }
+                    }
+                }
+            },
+            { $sort: sortOptions },
+            { $skip: skip },
+            { $limit: limit },
+            {
+                $project: {
+                    averageRating: 1,
+                    reviewCount: 1,
+                    name: 1,
+                    provider: 1,
+                    difficulty: 1,
+                    description: 1,
+                    instructor: 1,
+                    topics: 1,
+                    photo: 1,
+                    releaseYear: 1,
+                    certificate: 1,
+                    accessType: 1,
+                    url: 1
+                }
+            }
+        ]);
+
+        const totalCourses = await Course.countDocuments(filter);
+        const totalPages = Math.ceil(totalCourses / limit );
+
+        //calculate pagination data
+        const hasPrevPage = page > 1;
+        const hasNextPage = page < totalPages;
+        const prevPage = hasPrevPage ? page - 1 : null;
+        const nextPage = hasNextPage ? page + 1 : null;
 
         res.status(200).json({
-            courses: coursesWithAverageRating,
+            courses,
+            totalCourses,
+            totalPages,
+            currentPage: page,
+            limit,
+            hasPrevPage,
+            hasNextPage,
+            prevPage,
+            nextPage,
             '_links': {
                 'self': { href: '/courses/' },
                 'create': { href: '/courses', method: 'POST' },
@@ -70,11 +170,11 @@ const getCourse = async (req, res, next) => {
 };
 
 const getAggregatedRatings = async (req, res, next) => {
-    const { courseID } = req.params;
-
+    const { id } = req.params;
+  
     try {
         const aggregatedRatings = await Review.aggregate([
-            { $match: { course: courseID } },
+            { $match: { course: new mongoose.Types.ObjectId(id) } },
             {
                 $group: {
                     _id: '$course',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="sm" type="dark" variant="dark">
+    <b-navbar toggleable="md" type="dark" variant="dark" class="justify-content-between">
 
       <!-- Brand with link to homepage -->
       <b-navbar-brand href="#">
@@ -11,15 +11,15 @@
 
       <!-- Toggler for collapsing nav-collapse -->
       <b-navbar-toggle target="nav-collapse"
-        class="d-sm-none fs-6 d-flex align-items-center gap-1"><b-icon-list></b-icon-list>
+        class="align-items-center gap-1"><b-icon-list></b-icon-list>
         Menu</b-navbar-toggle>
 
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="d-none d-sm-flex ">
-          <router-link to="/courses" class="nav-link">Courses</router-link>
-          <router-link to="/reviews" class="nav-link">Reviews</router-link>
-          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
+        <b-navbar-nav>
+          <router-link to="/courses" class="nav-link mx-1">Courses</router-link>
+          <router-link to="/courses/create" class="nav-link mx-1">Create Review</router-link>
+          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link mx-1">Course Lists</router-link>
         </b-navbar-nav>
 
         <!-- Signin / Profile button to the right with ml-auto -->
@@ -50,7 +50,7 @@ defineProps({
 </script>
 
 <style>
-/* Override ml-auto to enable login/signup to end up to the right */
+/* Enables login/signup to end up to the right */
 .ml-auto {
   margin-left: auto !important;
 }
