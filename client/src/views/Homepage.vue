@@ -125,6 +125,7 @@ const currentCoursePage = ref(1)
 const allCourses = ref([])
 const windowWidth = ref(window.innerWidth)
 
+const courseLimit = 999
 const topicLimit = 10
 const topicSortBy = 'courseCount'
 
@@ -200,8 +201,7 @@ const handleCoursePageChange = (page) => {
 // Fetch courses
 const fetchCourses = async () => {
   try {
-    const pageLimit = coursesPerPage.value
-    let url = `/courses?limit=${pageLimit}&page=${currentCoursePage.value}`
+    let url = `/courses?limit=${courseLimit}&page=${currentCoursePage.value}`
 
     if (selectedTopic.value) {
       url += `&topic=${selectedTopic.value}`
