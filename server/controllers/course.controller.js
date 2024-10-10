@@ -25,7 +25,7 @@ const createCourse = async (req, res, next) => {
 
 const getAllCourses = async (req, res, next) => {
     try {
-        const { topic, sortBy, order = 'desc' } = req.query;
+        const { provider, topic, search, sortBy, order = 'desc' } = req.query;
         const filter = {};
 
         /*
@@ -33,20 +33,30 @@ const getAllCourses = async (req, res, next) => {
         * use $in to filter courses that have the topic in their topics array
         */
         if (topic) filter.topics = { $in: [new mongoose.Types.ObjectId(topic)] };
-
+        if (provider) filter.provider = provider;
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            filter.$or = [
+                { name: searchRegex },
+                { description: searchRegex },
+                { provider: searchRegex }
+            ];
+        }
+            
         // Validate sortFields in query, otherwise choose default
-        const validSortFields = ['reviewCount', 'averageRating', 'topicCount'];
+        const validSortFields = ['reviewCount', 'averageRating', 'topicCount', 'name', 'provider', 'difficulty', 'releaseYear'];
         const sortField = validSortFields.includes(sortBy) ? sortBy : 'reviewCount';
+        const sortOrder = order === 'asc' ? 1 : -1;
 
         // Define the sort object for primary and secondary sorting
         const sortOptions = {
-            [sortField]: order === 'asc' ? 1 : -1,
-            averageRating: -1
+            [sortField]: sortOrder,
+            [sortField === 'reviewCount' ? 'averageRating' : 'reviewCount']: sortField === 'reviewCount' ? -1 : 1
         };
 
         // Add pagination
         const limit = Math.min(parseInt(req.query.limit) || 12, 20);
-        const page = Math.max(parseInt(req.query.page) || 1, 1);
+        const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
         if (limit <= 0 || page < 0) {
             return res.status(400).json({ error: 'Limit and page must be positive integers' });
         }
