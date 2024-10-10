@@ -107,7 +107,10 @@ const getAllCourses = async (req, res, next) => {
                     instructor: 1,
                     topics: 1,
                     photo: 1,
-                    releaseYear: 1
+                    releaseYear: 1,
+                    certificate: 1,
+                    accessType: 1,
+                    url: 1
                 }
             }
         ]);
