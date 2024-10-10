@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="sm" type="dark" variant="dark" class="justify-content-between">
+    <b-navbar toggleable="md" type="dark" variant="dark" class="justify-content-between">
 
       <!-- Brand with link to homepage -->
       <b-navbar-brand href="#">
@@ -11,7 +11,7 @@
 
       <!-- Toggler for collapsing nav-collapse -->
       <b-navbar-toggle target="nav-collapse"
-        class="d-sm-none fs-6 d-flex align-items-center gap-1"><b-icon-list></b-icon-list>
+        class="align-items-center gap-1"><b-icon-list></b-icon-list>
         Menu</b-navbar-toggle>
 
       <!-- Collapsible content -->

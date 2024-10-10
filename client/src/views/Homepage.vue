@@ -114,7 +114,7 @@ import { useRouter } from 'vue-router'
 // Setup the router
 const router = useRouter()
 
-// Reactive cariables
+// Reactive variables
 const courses = ref([])
 const topics = ref([])
 const searchQuery = ref('')
@@ -124,7 +124,9 @@ const selectedTopic = ref('')
 const currentCoursePage = ref(1)
 const allCourses = ref([])
 const windowWidth = ref(window.innerWidth)
-// const paginationData = ref()
+
+const topicLimit = 10
+const topicSortBy = 'courseCount'
 
 const reviews = ref({
   totalReviews: 0,
@@ -183,7 +185,7 @@ const totalCourses = computed(() => allCourses.value.length)
 // Fetch topics
 const fetchTopics = async () => {
   try {
-    const response = await Api.get('/topics?sortBy=courseCount&limit=10')
+    const response = await Api.get(`/topics?sortBy=${topicSortBy}&limit=${topicLimit}`)
     topics.value = response.data.topics
   } catch (error) {
     topics.value = []
@@ -209,12 +211,10 @@ const fetchCourses = async () => {
 
     allCourses.value = response.data.courses
     courses.value = response.data.courses
-    totalCourses.value = response.data.totalCourses
     currentCoursePage.value = Math.min(currentCoursePage.value, totalCoursePages.value)
   } catch (error) {
     allCourses.value = []
     courses.value = []
-    totalCourses.value = 0
     console.error(error)
   }
 }
