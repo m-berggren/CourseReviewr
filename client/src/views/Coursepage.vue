@@ -15,28 +15,26 @@
             <!-- Row for course name, rating and tags -->
              <b-row>
                 <!-- Column for course name, rating and tags -->
-                <b-col md="3">
+                <b-col md="7">
+                  <div class="course-name-tags-rating-container">
                     <h1>{{ course.name }}</h1>
-                    <div class="rating-container">
                         <star-rating
                           :rating="course.averageRating"
                           :read-only="true"
                           star-size="40">
                         </star-rating>
                         <div class="tags-container mt-2">
-                            <b-badge v-for="topic in topics" :key="topic._id" variant="dark" class="tag-badge mx-1">
-                                {{ topic.name }}
-                            </b-badge>
+                          <b-badge v-for="topic in course.topics" :key="topic._id" variant="dark" class="tag-badge mx-1">
+                            {{ topic.name }}
+                          </b-badge>
                         </div>
-                    </div>
+                  </div>
                 </b-col>
-
-                <b-col></b-col>
 
                 <!-- Column for course photo and 'Write a review' button -->
                  <b-col md="4">
                     <div class="image-placeholder">
-                        <img :src="course.photo || 'client\src\assets\placeholder.png'" alt="Course Photo" class="img-fluid" />
+                        <img :src="course.photo || '@/assets/placeholder.png'" alt="Course Photo" class="img-fluid" />
                     </div>
                     <div class="review-button mt-3">
                         <b-button variant="secondary">Write a review</b-button>
@@ -119,6 +117,11 @@
                 <b-badge v-if="review.hasCompleted" variant="success">Completed the course</b-badge>
                 <b-badge v-else variant="secondary">Not completed</b-badge>
               </div>
+              <star-rating
+              :rating="review.averageRating"
+              :read-only="true"
+              star-size="20">
+            </star-rating>
             </b-col>
           </b-row>
 
@@ -165,6 +168,7 @@ export default {
       errorMessage: ''
     }
   },
+
   async mounted() {
     const courseID = this.$route.params.id
 
@@ -191,6 +195,14 @@ export default {
     try {
       const reviewResponse = await Api.get(`/courses/${courseID}/reviews`)
       this.reviews = reviewResponse.data.reviews
+
+      if (this.reviews.length > 0) {
+        const totalRating = this.reviews.reduce((sum, review) => sum + review.averageRating, 0)
+        this.course.averageRating = (totalRating / this.reviews.length).toFixed(1)
+      } else {
+        this.course.averageRating = 0
+      }
+
       this.loading = false
     } catch (error) {
       this.errorMessage = 'Failed to load course reviews. Please try again later.'
@@ -213,6 +225,13 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.course-name-tags-rating-container{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
 .tags-container {
   background-color: lightgrey;
   border-radius: 1vw;
@@ -224,8 +243,8 @@ h1 {
 }
 
 .tag-badge:hover {
-  background-color: #007bff !important; /* Change background on hover */
-  transform: scale(1.03); /* Slightly enlarge the badge */
+  background-color: #007bff !important;
+  transform: scale(1.03);
 }
 
 .image-placeholder img {
@@ -242,8 +261,8 @@ h1 {
 .review-button .btn {
   background-color: #f8f8f8;
   color: black;
-  font-size: 2rem;
-  padding: 0.7rem 1.5rem;
+  font-size: 1.2rem;
+  padding: 1.5rem 0.7rem;
   border-radius: 1vw;
 }
 
