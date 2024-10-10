@@ -139,22 +139,23 @@ const patchCourseList = async (req, res, next) => {
 
 const deleteAllCourseLists = async (req, res, next) => {
     try {
-        // First, find all course lists before deletion
-        const courseLists = await CourseList.find(); // Get all course lists
+        const userID = req.params.userID;
+
+        // Find all course lists belonging to the user
+        const courseLists = await CourseList.find({ user: userID });
 
         if (courseLists.length === 0) {
-            res.status(404).json({ message: 'No course-lists found to delete.' });
+            return res.status(404).json({ message: 'No course-lists found to delete for this user.' });
         }
 
-
-        // Remove references from users' courseLists
-        await User.updateMany(
-            { courseLists: { $in: courseLists.map(list => list._id) } },
+        // Remove references from the user's courseLists
+        await User.findByIdAndUpdate(
+            userID,
             { $pull: { courseLists: { $in: courseLists.map(list => list._id) } } }
         );
 
-        // Now delete all course lists
-        const deleteResult = await CourseList.deleteMany();
+        // Now delete all course lists belonging to the user
+        const deleteResult = await CourseList.deleteMany({ user: userID });
 
         res.status(200).json({ message: `${deleteResult.deletedCount} course-lists deleted successfully.` });
     } catch (error) {

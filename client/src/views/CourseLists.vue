@@ -38,7 +38,6 @@
             <h3 v-if="!courseList.isEditing" class="font-weight-bold mb-0">{{ courseList.name }}</h3>
             <b-form-input v-else v-model="courseList.newName" size="sm" />
 
-
             <!-- Edit Button -->
             <b-button v-if="!courseList.isEditing" variant="light" size="sm" class="ml-3"
               @click="toggleEdit(courseList)">
@@ -162,6 +161,20 @@
       <p class="my-4">Are you sure you want to delete the course "{{ courseToDeleteName }}"?</p>
       <b-button variant="danger" @click="confirmDeleteCourse">Yes, Delete</b-button>
       <b-button variant="secondary" @click="closeDeleteCourseModal">Cancel</b-button>
+    </b-modal>
+
+    <!-- Delete All Course Lists Button -->
+    <div class="mt-4">
+      <b-button variant="danger" size="sm" @click="showDeleteAllCourseListsModal">
+        <b-icon-trash aria-hidden="true"></b-icon-trash> Delete All Course Lists
+      </b-button>
+    </div>
+
+    <!-- Delete All Course Lists Confirmation Modal -->
+    <b-modal ref="deleteAllCourseListsModal" hide-footer title="Confirm Deletion">
+      <p class="my-4">Are you sure you want to delete all course lists? This action cannot be undone.</p>
+      <b-button variant="danger" @click="confirmDeleteAllCourseLists">Yes, Delete All</b-button>
+      <b-button variant="secondary" @click="closeDeleteAllCourseListsModal">Cancel</b-button>
     </b-modal>
 
   </b-container>
@@ -346,6 +359,29 @@ export default {
         this.$refs.deleteCourseListModal.hide() // Close the modal
       } catch (error) {
         this.showAlert('Failed to delete course list: ' + error.message, 'danger')
+      }
+    },
+    showDeleteAllCourseListsModal() {
+      this.$refs.deleteAllCourseListsModal.show()
+    },
+    // Closing the delete all course lists modal
+    closeDeleteAllCourseListsModal() {
+      this.$refs.deleteAllCourseListsModal.hide()
+    },
+    // Confirm deletion of all course lists
+    async confirmDeleteAllCourseLists() {
+      try {
+        // Call the API to delete all course lists
+        await Api.delete(`/users/${token.getUserId()}/course-lists`)
+
+        // Clear the course lists in the frontend after deletion
+        this.courseLists = []
+
+        // Close the modal and show success message
+        this.closeDeleteAllCourseListsModal()
+        this.showAlert('All course lists deleted successfully', 'success')
+      } catch (error) {
+        this.showAlert('Failed to delete all course lists: ' + error.message, 'danger')
       }
     },
 
