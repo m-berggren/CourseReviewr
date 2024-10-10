@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-row class="top-row text-center justify-content-center">
-      <h2 class="my-1">Create course</h2>
+      <h2 class="my-1">Create course - then review</h2>
     </b-row>
 
     <b-row class="justify-content-center">
-      <b-col xl="6" lg="8" md="10" sm="10" xs="10">
+      <b-col xl="6" lg="8" md="10" sm="8" xs="8">
         <!-- Form for creating course -->
         <b-form @submit="onSubmit" @reset="onReset">
 

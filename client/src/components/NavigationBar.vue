@@ -17,9 +17,9 @@
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <router-link to="/courses" class="nav-link">Courses</router-link>
-          <router-link to="/reviews" class="nav-link">Reviews</router-link>
-          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link">Course Lists</router-link>
+          <router-link to="/courses" class="nav-link mx-1">Courses</router-link>
+          <router-link to="/courses/create" class="nav-link mx-1">Create Review</router-link>
+          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link mx-1">Course Lists</router-link>
         </b-navbar-nav>
 
         <!-- Signin / Profile button to the right with ml-auto -->
