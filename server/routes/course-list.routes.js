@@ -6,7 +6,9 @@ const router = Router({ mergeParams: true });
 
 router.post('/', authenticateJWT, controller.createCourseList);
 
-router.get('/', authenticateJWT, requireAdmin, controller.getAllCourseLists);
+
+router.get('/', authenticateJWT, controller.getAllCourseLists);
+
 
 router.get('/:id', authenticateJWT, controller.getCourseList);
 
@@ -14,7 +16,9 @@ router.put('/:id', authenticateJWT, controller.updateCourseList);
 
 router.patch('/:id', authenticateJWT, controller.patchCourseList);
 
-router.delete('/', authenticateJWT, requireAdmin, controller.deleteAllCourseLists);
+router.delete('/', authenticateJWT, controller.deleteSingleUserCourseLists);
+
+router.delete('/admin', authenticateJWT, requireAdmin, controller.deleteAllCourseLists);
 
 router.delete('/:id', authenticateJWT, controller.deleteCourseList);
 
