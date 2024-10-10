@@ -37,9 +37,12 @@
           <b-col class="d-flex align-items-center">
             <h3 v-if="!courseList.isEditing" class="font-weight-bold mb-0">{{ courseList.name }}</h3>
             <b-form-input v-else v-model="courseList.newName" size="sm" />
-
+            <b-button v-b-tooltip.hover variant="light" title="Delete" size="sm" class="ml-3"
+              @click="showDeleteCourseListModal(courseList)">
+              <b-icon-trash></b-icon-trash>
+            </b-button>
             <!-- Edit Button -->
-            <b-button v-if="!courseList.isEditing" variant="light" size="sm" class="ml-3"
+            <b-button v-if="!courseList.isEditing" variant="light" size="sm" class="ml-3" v-b-tooltip.hover title="Edit"
               @click="toggleEdit(courseList)">
               <b-icon-pencil-square></b-icon-pencil-square>
             </b-button>
@@ -54,6 +57,7 @@
               Cancel
             </b-button>
             <b-col />
+
             <b-col /> <b-col /><b-col /><b-col />
             <b-col class=" text-right">
               <b-button variant="primary" size="sm"
@@ -62,7 +66,6 @@
               </b-button>
             </b-col>
           </b-col>
-
         </b-row>
 
         <!-- Description Field -->
@@ -75,18 +78,11 @@
           </b-col>
         </b-row>
 
-        <b-row class="mb-2">
-        </b-row>
-
         <!-- Course List Creation Date -->
         <b-row>
           <b-col class="d-flex align-items-center text-muted">Created on: {{ new
             Date(courseList.creationDate).toLocaleDateString()
             }}
-            <b-button v-b-tooltip.hover variant="light" title="Delete" size="sm" class="ml-3"
-              @click="showDeleteCourseListModal(courseList)">
-              <b-icon-trash></b-icon-trash>
-            </b-button>
           </b-col>
         </b-row>
         <!-- Search and Add Course Section -->
@@ -371,7 +367,7 @@ export default {
     // Confirm deletion of all course lists
     async confirmDeleteAllCourseLists() {
       try {
-        // Call the API to delete all course lists
+        // Call the API to delete all course lists for the user
         await Api.delete(`/users/${token.getUserId()}/course-lists`)
 
         // Clear the course lists in the frontend after deletion

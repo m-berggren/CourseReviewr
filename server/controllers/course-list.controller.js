@@ -137,7 +137,7 @@ const patchCourseList = async (req, res, next) => {
     }
 };
 
-const deleteAllCourseLists = async (req, res, next) => {
+const deleteSingleUserCourseLists = async (req, res, next) => {
     try {
         const userID = req.params.userID;
 
@@ -162,6 +162,32 @@ const deleteAllCourseLists = async (req, res, next) => {
         next(error);
     }
 };
+
+const deleteAllCourseLists = async (req, res, next) => {
+    try {
+        // First, find all course lists before deletion
+        const courseLists = await CourseList.find(); // Get all course lists
+
+        if (courseLists.length === 0) {
+            res.status(404).json({ message: 'No course-lists found to delete.' });
+        }
+
+
+        // Remove references from users' courseLists
+        await User.updateMany(
+            { courseLists: { $in: courseLists.map(list => list._id) } },
+            { $pull: { courseLists: { $in: courseLists.map(list => list._id) } } }
+        );
+
+        // Now delete all course lists
+        const deleteResult = await CourseList.deleteMany();
+
+        res.status(200).json({ message: `${deleteResult.deletedCount} course-lists deleted successfully.` });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const deleteCourseList = async (req, res, next) => {
     try {
@@ -204,6 +230,7 @@ const controller = {
     getCourseList,
     updateCourseList,
     patchCourseList,
+    deleteSingleUserCourseLists,
     deleteAllCourseLists,
     deleteCourseList
 };
