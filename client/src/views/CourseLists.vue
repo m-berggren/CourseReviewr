@@ -4,7 +4,7 @@
     <!-- Header with the title "Course Lists" and button to create a new course list -->
     <div class="d-flex justify-content-between mt-4 mb-4">
       <h1>Course Lists</h1>
-      <b-button @click="toggleNewCourseListForm" variant="primary" size="sm">
+      <b-button @click="toggleNewCourseListForm" :variant="showNewCourseListForm ? 'danger' : 'primary'" size="sm">
         {{ showNewCourseListForm ? "Cancel" : "Create New Course List" }}
       </b-button>
     </div>
@@ -29,16 +29,16 @@
     </b-form>
 
     <!-- List of course lists fetched from the database -->
-    <div v-if="courseLists && courseLists.length > 0" class="mt-3">
-      <div v-for="courseList in courseLists" :key="courseList._id" class="course-list-item mb-5 p-4">
+    <b-list-group v-if="courseLists && courseLists.length > 0" class="mt-3">
+      <b-list-group-item v-for="courseList in courseLists" :key="courseList._id" class="course-list-item mb-5 p-4">
 
         <!-- Course List Name and Delete Button Row -->
         <b-row class="align-items-center mb-2">
           <b-col class="d-flex align-items-center">
             <h3 class="font-weight-bold mb-0">{{ courseList.name }}</h3>
-            <b-button v-b-tooltip.hover title="Delete this course list" variant="danger" size="sm" class="ml-3"
-              @click="deleteCourseList(courseList._id)">
-              <b-icon-trash aria-hidden="true"></b-icon-trash>
+            <b-button v-b-tooltip.hover variant="light" title="Delete" size="sm" class="ml-3"
+              @click="showDeleteCourseListModal(courseList)">
+              <b-icon-trash></b-icon-trash>
             </b-button>
           </b-col>
           <!-- Add Course Button on the far right -->
@@ -62,26 +62,29 @@
         </b-row>
 
         <!-- Courses in the Course List -->
-        <b-row class="mt-3">
+        <b-row class="mt-3 mb-5">
           <b-col>
-            <div v-if="courseList.courses.length > 0">
-              <div v-for="course in courseList.courses" :key="course._id" class="course-item mb-2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h6 class="mb-0">{{ course.name }}</h6>
-                  </div>
-                  <b-button variant="danger" size="sm" v-b-tooltip.hover title="Delete this course" class="ml-3"
-                    @click="deleteCourse(courseList._id, course._id)">
-                    <b-icon-trash aria-hidden="true"></b-icon-trash>
-                  </b-button>
+            <b-list-group v-if="courseList.courses.length > 0">
+              <b-list-group-item v-for="course in courseList.courses" :key="course._id"
+                class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="mb-0">
+                    <router-link :to="'/courses/' + course._id">{{ course.name }}</router-link>
+                  </h6>
+                  <small class="text-muted">Provider: {{ course.provider }}</small>
                 </div>
-              </div>
+                <b-button variant="light" size="sm" v-b-tooltip.hover title="Delete" class="ml-3"
+                  @click="showDeleteCourseModal(courseList._id, course._id, course.name)">
+                  <b-icon-trash aria-hidden="true"></b-icon-trash>
+                </b-button>
+              </b-list-group-item>
+            </b-list-group>
+            <!-- Show message when no courses are present in the list -->
+            <div v-if="courseList.courses && courseList.courses.length === 0" class="d-flex align-items-center mt-3">
+              <b-icon-info class="text-info mr-3"></b-icon-info>
+              <span>No courses in this list. Click "Add Course" to add a course.</span>
             </div>
 
-            <!-- Show message when no courses are present in the list -->
-            <BAlert v-show="courseList.courses.length === 0" variant="info" show>
-              No courses in this list. Click "Add Course" to add a course.
-            </BAlert>
           </b-col>
         </b-row>
 
@@ -92,31 +95,48 @@
               <!-- Search bar for courses -->
               <b-form-input v-model="courseList.newCourse" placeholder="Type to search courses"
                 @input="filterCourses(courseList)" />
-
               <!-- Display filtered courses with scrollable list and "More" link -->
               <div v-if="courseList.filteredCourses && courseList.filteredCourses.length"
                 class="scrollable-course-list mt-2">
                 <b-list-group>
                   <b-list-group-item v-for="course in courseList.filteredCourses" :key="course._id"
-                    class="d-flex justify-content-between">
-                    <span @click="selectCourse(courseList, course)">{{ course.name }}</span>
+                    class="course-list-group-item d-flex justify-content-between" @mouseenter="highlightCourse"
+                    @mouseleave="unhighlightCourse" @click="selectCourse(courseList, course)">
+                    <span>{{ course.name }}</span>
                     <router-link :to="'/courses/' + course._id" class="ml-auto">More</router-link>
                   </b-list-group-item>
                 </b-list-group>
               </div>
+
 
               <!-- Always show the Add Course button -->
               <b-button type="submit" variant="primary" class="mt-2" size="sm">Add Course</b-button>
             </b-form>
           </b-col>
         </b-row>
-      </div>
-    </div>
+      </b-list-group-item>
+    </b-list-group>
 
     <!-- Safe check added: Show this alert only when courseLists is initialized as an array -->
-    <BAlert v-show="courseLists && courseLists.length === 0" variant="info" show>
-      No course lists available. Create a new one.
-    </BAlert>
+    <div v-if="courseLists && courseLists.length === 0" class="d-flex align-items-center mt-3">
+      <b-icon-info class="text-info mr-3" font-scale="5"></b-icon-info>
+      <span>No course lists available. Create a new one.</span>
+    </div>
+
+    <!-- Delete Course List Confirmation Modal -->
+    <b-modal ref="deleteCourseListModal" hide-footer title="Confirm Deletion">
+      <p class="my-4">Are you sure you want to delete the course list "{{ courseListToDelete?.name }}"?</p>
+      <b-button variant="danger" @click="confirmDeleteCourseList">Yes, Delete</b-button>
+      <b-button variant="secondary" @click="closeDeleteCourseListModal">Cancel</b-button>
+    </b-modal>
+
+    <!-- Delete Course Confirmation Modal -->
+    <b-modal ref="deleteCourseModal" hide-footer title="Confirm Deletion">
+      <p class="my-4">Are you sure you want to delete the course "{{ courseToDeleteName }}"?</p>
+      <b-button variant="danger" @click="confirmDeleteCourse">Yes, Delete</b-button>
+      <b-button variant="secondary" @click="closeDeleteCourseModal">Cancel</b-button>
+    </b-modal>
+
   </b-container>
 </template>
 
@@ -135,7 +155,11 @@ export default {
       showNewCourseListForm: false,
       showMessage: false,
       messageVariant: 'info',
-      message: ''
+      message: '',
+      courseListToDelete: null,
+      courseToDeleteId: null,
+      courseToDeleteName: '',
+      courseListIdForCourseDelete: null
     }
   },
   async created() {
@@ -153,6 +177,7 @@ export default {
         const response = await Api.get(`/users/${token.getUserId()}/course-lists`)
         this.courseLists = response.data.map((courseList) => ({
           ...courseList,
+          courses: courseList.courses || [],
           showCourses: false,
           newCourse: '',
           selectedCourseId: '',
@@ -182,7 +207,7 @@ export default {
       // Show the course name in the input field and store the course ID separately
       courseList.newCourse = course.name
       courseList.selectedCourseId = course._id
-      courseList.filteredCourses = [] // Clear the search results after selection
+      courseList.filteredCourses = []
     },
 
     goToCoursePage(courseId) {
@@ -209,11 +234,6 @@ export default {
       } catch (error) {
         this.showAlert('Failed to add course: ' + error.message, 'danger')
       }
-    },
-
-    // Toggle the display of courses within a course list
-    toggleCourses(courseList) {
-      courseList.showCourses = !courseList.showCourses
     },
 
     // Toggle the display of the course creation form
@@ -246,24 +266,54 @@ export default {
       }
     },
 
-    // Delete a course list by ID
-    async deleteCourseList(courseListId) {
+    // Show delete confirmation modal for course list
+    showDeleteCourseListModal(courseList) {
+      this.courseListToDelete = courseList
+      this.$refs.deleteCourseListModal.show()
+    },
+
+    // Close delete confirmation modal for course list
+    closeDeleteCourseListModal() {
+      this.$refs.deleteCourseListModal.hide()
+    },
+
+    // Confirm course list deletion
+    async confirmDeleteCourseList() {
+      if (!this.courseListToDelete) return
       try {
-        await Api.delete(`/users/${token.getUserId()}/course-lists/${courseListId}`)
-        this.courseLists = this.courseLists.filter((list) => list._id !== courseListId)
+        await Api.delete(`/users/${token.getUserId()}/course-lists/${this.courseListToDelete._id}`)
+        this.courseLists = this.courseLists.filter((list) => list._id !== this.courseListToDelete._id)
         this.showAlert('Course list deleted successfully', 'success')
+        this.$refs.deleteCourseListModal.hide() // Close the modal
       } catch (error) {
         this.showAlert('Failed to delete course list: ' + error.message, 'danger')
       }
     },
-    async deleteCourse(courseListId, courseId) {
+
+    // Show delete confirmation modal for course
+    showDeleteCourseModal(courseListId, courseId, courseName) {
+      this.courseListIdForCourseDelete = courseListId
+      this.courseToDeleteId = courseId
+      this.courseToDeleteName = courseName
+      this.$refs.deleteCourseModal.show()
+    },
+
+    // Close delete confirmation modal for course
+    closeDeleteCourseModal() {
+      this.$refs.deleteCourseModal.hide()
+    },
+
+    // Confirm course deletion
+    async confirmDeleteCourse() {
+      if (!this.courseListIdForCourseDelete || !this.courseToDeleteId) return
       try {
-        await Api.patch(`users/${token.getUserId()}/course-lists/${courseListId}`, {
-          removeCourseId: courseId
+        await Api.patch(`users/${token.getUserId()}/course-lists/${this.courseListIdForCourseDelete}`, {
+          removeCourseId: this.courseToDeleteId
         })
-        const courseList = this.courseLists.find((list) => list._id === courseListId)
-        courseList.courses = courseList.courses.filter((course) => course._id !== courseId)
+        const courseList = this.courseLists.find((list) => list._id === this.courseListIdForCourseDelete)
+        courseList.courses = courseList.courses.filter((course) => course._id !== this.courseToDeleteId)
         this.showAlert('Course deleted successfully', 'success')
+        this.$refs.deleteCourseModal.hide() // Close the modal
       } catch (error) {
         this.showAlert('Failed to delete course: ' + error.message, 'danger')
       }
@@ -294,9 +344,9 @@ export default {
   overflow-y: auto;
 }
 
-/* Additional styling for vertical gaps, borders, and text sizes */
+/* Additional styling */
 .course-list-item {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 h3.font-weight-bold {
@@ -305,5 +355,14 @@ h3.font-weight-bold {
 
 h6 {
   font-size: 1rem;
+}
+
+.course-list-group-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.course-list-group-item:hover {
+  background-color: #f0f0f0;
 }
 </style>
