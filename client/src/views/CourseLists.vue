@@ -29,8 +29,8 @@
     </b-form>
 
     <!-- List of course lists fetched from the database -->
-    <b-list-group v-if="courseLists && courseLists.length > 0" class="mt-3">
-      <b-list-group-item v-for="courseList in courseLists" :key="courseList._id" class="course-list-item mb-5 p-4">
+    <b-list-group v-if="courseLists && courseLists.length > 0" class="mt-1">
+      <b-list-group-item v-for="courseList in courseLists" :key="courseList._id" class="course-list-item mt-4 mb-3 p-4">
 
         <!-- Course List Name and Delete Button Row -->
         <b-row class="align-items-center mb-2">
@@ -41,6 +41,7 @@
               <b-icon-trash></b-icon-trash>
             </b-button>
           </b-col>
+
           <!-- Add Course Button on the far right -->
           <b-col /> <b-col />
           <b-col class="text-right">
@@ -50,11 +51,12 @@
             </b-button>
           </b-col>
         </b-row>
-        <hr>
+
 
         <!-- Course List Creation Date -->
         <b-row>
-          <b-col class="text-muted">Created on: {{ new Date(courseList.creationDate).toLocaleDateString() }}</b-col>
+          <b-col class="text-muted mb-3">Created on: {{ new Date(courseList.creationDate).toLocaleDateString()
+            }}</b-col>
         </b-row>
         <!-- Course List Description -->
         <b-row class="mb-2">
@@ -62,7 +64,7 @@
         </b-row>
 
         <!-- Courses in the Course List -->
-        <b-row class="mt-3 mb-5">
+        <b-row class="mt-4 mb-4">
           <b-col>
             <b-list-group v-if="courseList.courses.length > 0">
               <b-list-group-item v-for="course in courseList.courses" :key="course._id"
@@ -107,7 +109,6 @@
                   </b-list-group-item>
                 </b-list-group>
               </div>
-
 
               <!-- Always show the Add Course button -->
               <b-button type="submit" variant="primary" class="mt-2" size="sm">Add Course</b-button>
@@ -346,7 +347,11 @@ export default {
 
 /* Additional styling */
 .course-list-item {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  border-top: none !important;
+  border-bottom: 1px solid #dee2e6;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 h3.font-weight-bold {
@@ -360,8 +365,10 @@ h6 {
 .course-list-group-item {
   cursor: pointer;
   transition: background-color 0.3s ease;
+
 }
 
+/* Add hover effect */
 .course-list-group-item:hover {
   background-color: #f0f0f0;
 }
