@@ -33,34 +33,87 @@
       <b-list-group-item v-for="courseList in courseLists" :key="courseList._id" class="course-list-item mt-4 mb-3 p-4">
 
         <!-- Course List Name and Delete Button Row -->
-        <b-row class="align-items-center mb-2">
+        <b-row class="align-items-center mb-3">
           <b-col class="d-flex align-items-center">
-            <h3 class="font-weight-bold mb-0">{{ courseList.name }}</h3>
+            <h3 v-if="!courseList.isEditing" class="font-weight-bold mb-0">{{ courseList.name }}</h3>
+            <b-form-input v-else v-model="courseList.newName" size="sm" />
+
+
+            <!-- Edit Button -->
+            <b-button v-if="!courseList.isEditing" variant="light" size="sm" class="ml-3"
+              @click="toggleEdit(courseList)">
+              <b-icon-pencil-square></b-icon-pencil-square>
+            </b-button>
+
+            <!-- Save Button -->
+            <b-button v-else variant="success" size="sm" class="ml-3" @click="saveEdit(courseList)">
+              Save
+            </b-button>
+            <!-- Cancel Button -->
+            <b-button v-if="courseList.isEditing" variant="danger" size="sm" class="ml-2"
+              @click="cancelEdit(courseList)">
+              Cancel
+            </b-button>
+            <b-col />
+            <b-col /> <b-col /><b-col /><b-col />
+            <b-col class=" text-right">
+              <b-button variant="primary" size="sm"
+                @click="courseList.showAddCourseSection = !courseList.showAddCourseSection">
+                {{ courseList.showAddCourseSection ? "Cancel" : "Add Course" }}
+              </b-button>
+            </b-col>
+          </b-col>
+
+        </b-row>
+
+        <!-- Description Field -->
+        <b-row v-if="!courseList.isEditing" class="mb-2">
+          <b-col>Description: {{ courseList.description }}</b-col>
+        </b-row>
+        <b-row v-else class="mb-2">
+          <b-col>
+            <b-form-input v-model="courseList.newDescription" placeholder="Edit Description" size="sm" />
+          </b-col>
+        </b-row>
+
+        <b-row class="mb-2">
+        </b-row>
+
+        <!-- Course List Creation Date -->
+        <b-row>
+          <b-col class="d-flex align-items-center text-muted">Created on: {{ new
+            Date(courseList.creationDate).toLocaleDateString()
+            }}
             <b-button v-b-tooltip.hover variant="light" title="Delete" size="sm" class="ml-3"
               @click="showDeleteCourseListModal(courseList)">
               <b-icon-trash></b-icon-trash>
             </b-button>
           </b-col>
+        </b-row>
+        <!-- Search and Add Course Section -->
+        <b-row class="mt-3" v-if="courseList.showAddCourseSection">
+          <b-col>
+            <b-form @submit.prevent="addCourseToCourseList(courseList)">
+              <!-- Search bar for courses -->
+              <b-form-input v-model="courseList.newCourse" placeholder="Type to search courses"
+                @input="filterCourses(courseList)" />
+              <!-- Display filtered courses with scrollable list and "More" link -->
+              <div v-if="courseList.filteredCourses && courseList.filteredCourses.length"
+                class="scrollable-course-list mt-2">
+                <b-list-group>
+                  <b-list-group-item v-for="course in courseList.filteredCourses" :key="course._id"
+                    class="course-list-group-item d-flex justify-content-between" @mouseenter="highlightCourse"
+                    @mouseleave="unhighlightCourse" @click="selectCourse(courseList, course)">
+                    <span>{{ course.name }}</span>
+                    <router-link :to="'/courses/' + course._id" class="ml-auto">More</router-link>
+                  </b-list-group-item>
+                </b-list-group>
+              </div>
 
-          <!-- Add Course Button on the far right -->
-          <b-col /> <b-col />
-          <b-col class="text-right">
-            <b-button variant="primary" size="sm"
-              @click="courseList.showAddCourseSection = !courseList.showAddCourseSection">
-              {{ courseList.showAddCourseSection ? "Cancel" : "Add Course" }}
-            </b-button>
+              <!-- Always show the Add Course button -->
+              <b-button type="submit" variant="primary" class="mt-2" size="sm">Add Course</b-button>
+            </b-form>
           </b-col>
-        </b-row>
-
-
-        <!-- Course List Creation Date -->
-        <b-row>
-          <b-col class="text-muted mb-3">Created on: {{ new Date(courseList.creationDate).toLocaleDateString()
-            }}</b-col>
-        </b-row>
-        <!-- Course List Description -->
-        <b-row class="mb-2">
-          <b-col>Description: {{ courseList.description }}</b-col>
         </b-row>
 
         <!-- Courses in the Course List -->
@@ -86,33 +139,6 @@
               <b-icon-info class="text-info mr-3"></b-icon-info>
               <span>No courses in this list. Click "Add Course" to add a course.</span>
             </div>
-
-          </b-col>
-        </b-row>
-
-        <!-- Search and Add Course Section -->
-        <b-row class="mt-3" v-if="courseList.showAddCourseSection">
-          <b-col>
-            <b-form @submit.prevent="addCourseToCourseList(courseList)">
-              <!-- Search bar for courses -->
-              <b-form-input v-model="courseList.newCourse" placeholder="Type to search courses"
-                @input="filterCourses(courseList)" />
-              <!-- Display filtered courses with scrollable list and "More" link -->
-              <div v-if="courseList.filteredCourses && courseList.filteredCourses.length"
-                class="scrollable-course-list mt-2">
-                <b-list-group>
-                  <b-list-group-item v-for="course in courseList.filteredCourses" :key="course._id"
-                    class="course-list-group-item d-flex justify-content-between" @mouseenter="highlightCourse"
-                    @mouseleave="unhighlightCourse" @click="selectCourse(courseList, course)">
-                    <span>{{ course.name }}</span>
-                    <router-link :to="'/courses/' + course._id" class="ml-auto">More</router-link>
-                  </b-list-group-item>
-                </b-list-group>
-              </div>
-
-              <!-- Always show the Add Course button -->
-              <b-button type="submit" variant="primary" class="mt-2" size="sm">Add Course</b-button>
-            </b-form>
           </b-col>
         </b-row>
       </b-list-group-item>
@@ -183,7 +209,10 @@ export default {
           newCourse: '',
           selectedCourseId: '',
           filteredCourses: [],
-          showAddCourseSection: false // This flag controls the visibility of the add course section
+          showAddCourseSection: false,
+          isEditing: false,
+          newName: '',
+          newDescription: ''
         }))
       } catch (error) {
         this.showAlert('Failed to load course lists: ' + error.message, 'danger')
@@ -248,7 +277,36 @@ export default {
       this.name = ''
       this.description = ''
     },
+    toggleEdit(courseList) {
+      // Store the original values in case user cancels the edit
+      courseList.isEditing = true
+      courseList.newName = courseList.name
+      courseList.newDescription = courseList.description
+    },
+    async saveEdit(courseList) {
+      try {
+        const updatedData = {
+          name: courseList.newName,
+          description: courseList.newDescription
+        }
 
+        // Call your API to update the course list
+        await Api.patch(`/users/${token.getUserId()}/course-lists/${courseList._id}`, updatedData)
+
+        // Apply the changes to the courseList after saving
+        courseList.name = courseList.newName
+        courseList.description = courseList.newDescription
+        courseList.isEditing = false
+        this.showAlert('Course list updated successfully', 'success')
+      } catch (error) {
+        this.showAlert('Failed to update course list: ' + error.message, 'danger')
+      }
+    },
+    cancelEdit(courseList) {
+      courseList.isEditing = false
+      courseList.newName = ''
+      courseList.newDescription = ''
+    },
     // Handle form submission for creating a new course list
     async onSubmit() {
       try {
