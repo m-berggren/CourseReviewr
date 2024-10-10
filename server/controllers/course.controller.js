@@ -2,7 +2,6 @@ import Course from '../models/course.model.js';
 import Review from '../models/review.model.js';
 import { handleError } from '../utils/error.util.js';
 import mongoose from 'mongoose';
-import Review from '../models/review.model.js';
 
 const createCourse = async (req, res, next) => {
     try {
