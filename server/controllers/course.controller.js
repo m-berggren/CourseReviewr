@@ -55,8 +55,8 @@ const getAllCourses = async (req, res, next) => {
         };
 
         // Add pagination
-        const limit = Math.min(parseInt(req.query.limit) || 12, 20);
-        const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+        const limit = parseInt(req.query.limit, 10) || 1000;
+        const page = parseInt(req.query.page, 10) || 1;
         if (limit <= 0 || page < 0) {
             return res.status(400).json({ error: 'Limit and page must be positive integers' });
         }

@@ -250,8 +250,20 @@ const onSubmit = async (event) => {
     createdTopics = await Promise.all(topicPromises)
     form.topics = createdTopics
 
-    // Step 2: Adjust form data when needed
-    form.photo = form.photo.name
+    console.log(form.photo)
+
+    // Step 2: Upload photo to AWS S3 bucket
+    if (form.photo) {
+      try {
+        const uploadedPhotoName = await Api.handleImageUpload(form.photo)
+        console.log(form.photo, uploadedPhotoName)
+        form.photo = uploadedPhotoName
+      } catch (uploadError) {
+        console.error('Error uploading image:', uploadError)
+        throw new Error(`Failed to upload image: ${uploadError.message}`)
+      }
+    }
+
     if (form.releaseYear === null) form.releaseYear = 0
 
     // Step3: Create course and show message
@@ -261,7 +273,6 @@ const onSubmit = async (event) => {
     onReset()
   } catch (error) {
     console.error('Error creating course:', error)
-
     successMessage.value = ''
 
     // If course creation fails, remove created topic(s)
@@ -321,17 +332,18 @@ const onReset = () => {
   form.url = ''
   form.instructor = ''
   form.photo = null
+  form.imageName = ''
   form.accessType = null
   form.releaseYear = null
   form.certificate = null
 
-  nameValid.value = ref(true)
-  providerValid.value = ref(true)
-  topicsValid.value = ref(true)
-  photoValid.value = ref(true)
-  difficultyValid.value = ref(true)
-  accessValid.value = ref(true)
-  certificateValid.value = ref(true)
+  nameValid.value = true
+  providerValid.value = true
+  topicsValid.value = true
+  photoValid.value = true
+  difficultyValid.value = true
+  accessValid.value = true
+  certificateValid.value = true
   formSubmitted.value = false // Reset the touched state so validation messages are hidden
 }
 
@@ -366,6 +378,7 @@ const form = reactive({
   url: '',
   instructor: '',
   photo: null,
+  imageName: '',
   accessType: null,
   releaseYear: null,
   certificate: null

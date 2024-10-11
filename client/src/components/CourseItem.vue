@@ -1,27 +1,33 @@
 <template>
   <div>
     <router-link :to="{ name: 'course-page', params: { id:course._id } }" class="course-link">
-      <b-card :title="course.name" :img-src="course.photo" class="course-card">
-        <!-- Description -->
-        <b-card-text class="course-description">
-          {{ course.description }}
-        </b-card-text>
-        <!-- Rating at consistent distance from description -->
-        <div class="rating-container">
-          <star-rating
-            :rating="course.averageRating"
-            :read-only="true"
-            :star-size="30"
-            :show-rating="false"
-            :increment="0.5"
-          />
+      <b-card no-body class="course-card">
+        <div>
+          <s3-image-display :s3Key="course.photo"/>
         </div>
+        <b-card-body>
+          <h5 class="card-title">{{ course.name }}</h5>
+          <b-card-text class="course-description">
+            {{ course.description }}
+          </b-card-text>
+          <div class="rating-container">
+            <star-rating
+              :rating="course.averageRating"
+              :read-only="true"
+              :star-size="30"
+              :show-rating="false"
+              :increment="0.5"
+            />
+          </div>
+        </b-card-body>
       </b-card>
     </router-link>
   </div>
 </template>
 
 <script setup>
+import S3ImageDisplay from './S3ImageDisplay.vue'
+
 defineProps({
   course: Object
 })
