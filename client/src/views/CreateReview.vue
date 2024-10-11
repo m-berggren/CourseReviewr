@@ -3,49 +3,36 @@
     <div class="review-form-container">
       <h2>Your opinion matters!</h2>
       <form @submit.prevent="submitReview" @reset="onReset">
-
         <!-- Rating List-->
         <div class="rating-section">
           <ul class="rating-list">
             <li>
               <label for="engagementLevel">Engagement Level</label>
-              <star-rating
-                v-model="engagementLevel"
-                :star-size="40"
-                :show-rating="true"
-                :read-only="false">
-              </star-rating>
+              <star-rating :rating="engagementLevel" @update:rating="setEngagementLevel" :star-size="40"
+                :show-rating="true" :read-only="false"></star-rating>
             </li>
 
             <li>
               <label for="practicalValue">Practical Value</label>
-              <star-rating
-                v-model="practicalValue"
-                :star-size="40"
-                :show-rating="true"
-                :read-only="false">
+              <star-rating :rating="practicalValue" @update:rating="setPracticalValue" :star-size="40"
+                :show-rating="true" :read-only="false">
               </star-rating>
             </li>
 
             <li>
               <label for="instructorQuality">Instructor Quality</label>
-              <star-rating
-                v-model="instructorQuality"
-                :star-size="40"
-                :show-rating="true"
-                :read-only="false">
+              <star-rating :rating="instructorQuality" @update:rating="setInstructorQuality" :star-size="40"
+                :show-rating="true" :read-only="false">
               </star-rating>
             </li>
 
             <li>
               <label for="difficultyLevel">Difficulty Level</label>
-              <star-rating
-                v-model="difficultyLevel"
-                :star-size="40"
-                :show-rating="true"
-                :read-only="false">
+              <star-rating :rating="difficultyLevel" @update:rating="setDifficultyLevel" :star-size="40"
+                :show-rating="true" :read-only="false">
               </star-rating>
             </li>
+
           </ul>
         </div>
 
@@ -96,7 +83,20 @@ export default {
     }
   },
   methods: {
+    setEngagementLevel(newRating) {
+      this.engagementLevel = newRating
+    },
+    setPracticalValue(newRating) {
+      this.practicalValue = newRating
+    },
+    setInstructorQuality(newRating) {
+      this.instructorQuality = newRating
+    },
+    setDifficultyLevel(newRating) {
+      this.difficultyLevel = newRating
+    },
     async submitReview() {
+      console.log(this.difficultyLevel)
       const courseID = this.$route.params.id
 
       try {
@@ -128,7 +128,7 @@ export default {
           hasCompleted: this.hasCompleted == null ? false : this.hasCompleted
         }
 
-        await Api.post(`${userID}/courses/${courseID}/reviews/`, reviewData)
+        await Api.post(`/users/${userID}/courses/${courseID}/reviews/`, reviewData)
         alert('Your review has been submitted')
         this.$router.push(`/courses/${courseID}`)
       } catch (error) {
@@ -151,6 +151,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>
