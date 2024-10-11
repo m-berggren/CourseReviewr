@@ -133,7 +133,11 @@ export default {
         this.$router.push(`/courses/${courseID}`)
       } catch (error) {
         console.log(error)
-        alert('Submission Failed')
+        if (error.response.status === 400) {
+          alert('You have already posted a review for this course.')
+        } else {
+          alert('Submission Failed')
+        }
       }
     },
 
