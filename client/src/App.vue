@@ -23,9 +23,15 @@ export default {
     }
   },
   created() {
-    // Check the sign-in status when the component is created
-    this.isSignedIn = token.isSignedIn()
-    this.username = token.getUsername()
+    const usertoken = token.getToken()
+    if (usertoken) {
+      // Check the sign-in status when the component is created
+      this.isSignedIn = token.isSignedIn()
+      this.username = token.getUsername()
+    } else {
+      this.isSignedIn = false
+      this.username = ''
+    }
   },
   components: {
     Navbar

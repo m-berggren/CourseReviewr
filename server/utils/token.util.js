@@ -7,8 +7,8 @@ const jwtSecret = process.env.JWT_SECRET;
 
 export const generateToken = (user) => {
     return jwt.sign(
-        {id: user._id, username: user.username, role: user.role},
+        { id: user._id, username: user.username, role: user.role },
         jwtSecret,
-        {expiresIn: '8h'}
+        { expiresIn: '1h' }
     );
 };

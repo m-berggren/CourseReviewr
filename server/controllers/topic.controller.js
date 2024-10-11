@@ -30,7 +30,46 @@ const createTopic = async (req, res, next) => {
 
 const getAllTopics = async (req, res, next) => {
     try {
-        const topics = await Topic.find();
+        const { sortBy, order = 'desc' } = req.query;
+        
+        // Validate sortFields in query, otherwise choose default
+        const validSortFields = ['name', 'courseCount'];
+        const sortField = validSortFields.includes(sortBy) ? sortBy : 'name';
+        const sortOrder = order === 'asc' ? 1 : -1;
+
+        // Define sort object for primary and secondary sorting
+        const sortOptions = {
+            [sortField]: sortOrder,
+            // First determines secondary sorting, then asc or desc
+            [sortField === 'name' ? 'courseCount' : 'name']: sortField === 'name' ? -1 : 1
+        };
+        
+        // Add limit to topics shown
+        const limit = Math.min(parseInt(req.query.limit) || 100, 100);
+
+        const topics = await Topic.aggregate([
+            {
+                $lookup: {
+                    from: 'courses',
+                    localField: '_id',
+                    foreignField: 'topics',
+                    as: 'courses'
+                }
+            },
+            {
+                $addFields: {
+                    courseCount: { $size: '$courses' }
+                }
+            },
+            { $sort: sortOptions },
+            { $limit: limit },
+            {
+                $project: {
+                    name: 1,
+                    courseCount: 1
+                }
+            }
+        ]);
 
         res.status(200).json({ topics });
 

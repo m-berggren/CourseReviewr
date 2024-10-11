@@ -1,77 +1,133 @@
 <template>
   <div>
     <b-container fluid>
-      <b-row class="custom-background justify-content-center">
-
-        <!-- Top filters: Search bar, Provider, Topic -->
-        <b-col md="3" class="my-4">
-          <b-form-input v-model="searchInput" placeholder="Search Course" class="mx-3"></b-form-input >
-        </b-col>
-        <b-col md="2" class="my-4">
-          <b-dropdown :text="providerDropdownText" class="" variant="dark">
-            <b-dropdown-item v-for="provider in providers" :key="provider" @click="selectProvider(provider)">
-              {{ provider }}
-            </b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item @click="clearProvider">Clear Provider</b-dropdown-item>
-          </b-dropdown>
-        </b-col>
-        <b-col md="2" class="my-4">
-          <b-dropdown :text="topicDropdownText" class="" variant="dark">
-            <b-dropdown-item v-for="topic in topics" :key="topic._id" @click="selectTopic(topic)">
-              {{ topic.name }}
-            </b-dropdown-item>
-            <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item @click="clearTopic">Clear Topic</b-dropdown-item>
-          </b-dropdown>
-        </b-col>
-        <b-col md="2" class="my-4">
-          <router-link to="/courses/create" class="course-button">
-            <b-button v-if="isSignedIn" variant="dark" class="create-course-button">Create course & review</b-button>
-          </router-link>
+      <b-row class="custom-background justify-content-center align-items-center">
+        <!-- Search bar, Clear All button, and Menu toggle -->
+        <b-col xl="4" lg="6" md="8" sm="8" xs="8" class="my-2 position-relative">
+          <b-input-group>
+            <b-form-input v-model="searchInput" placeholder="Search Course" class="search-input"></b-form-input>
+            <b-input-group-append>
+              <b-button @click="clearButton" variant="dark" class="top-row-button">Clear All</b-button>
+            </b-input-group-append>
+          </b-input-group>
+          <!-- Menu toggle button, visible only on md screens and smaller -->
+          <b-button v-b-toggle.button-collapse class="d-inline-block d-lg-none position-absolute menu-toggle" variant="dark">
+            <b-icon-list />Menu
+          </b-button>
         </b-col>
 
+        <!-- Provider, Topic dropdowns, and Create course button -->
+        <b-col xl="8" lg="6" md="12" sm="12" xs="12" class="my-2">
+          <b-collapse id="button-collapse" class="d-lg-flex justify-content-lg-start">
+            <div class="d-flex flex-column flex-lg-row">
+              <b-dropdown :text="providerDropdownText" class="mb-2 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+                <b-dropdown-item v-for="provider in providers" :key="provider" @click="selectProvider(provider)">
+                  {{ provider }}
+                </b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
+                <b-dropdown-item @click="clearProvider">Clear Provider</b-dropdown-item>
+              </b-dropdown>
+              <b-dropdown :text="topicDropdownText" class="mb-2 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+                <b-dropdown-item v-for="topic in topics" :key="topic._id" @click="selectTopic(topic)">
+                  {{ topic.name }}
+                </b-dropdown-item>
+                <b-dropdown-divider></b-dropdown-divider>
+                <b-dropdown-item @click="clearTopic">Clear Topic</b-dropdown-item>
+              </b-dropdown>
+              <router-link to="/courses/create" class="course-button ms-2">
+                <b-button v-if="isSignedIn" variant="dark" class="top-row-button">Create course & review</b-button>
+              </router-link>
+            </div>
+          </b-collapse>
+        </b-col>
       </b-row>
     </b-container>
 
-    <!-- Table with sortable headers -->
-    <b-row class="mt-1 justify-content-center">
-      <b-col md="10">
-        <BTable :sort-by="[{key: 'reviewCount', order: 'desc',}]" :items="filteredItems" :fields="sortFields">
-          <template #cell(name)="data">
-            <!-- Link to course details page using router-link -->
-            <router-link :to="`/courses/${data.item.id}`" class="course-link">
-              {{ data.item.name }}
-            </router-link>
-          </template>
-        </BTable>
-      </b-col>
-    </b-row>
+    <!-- Table with sortable headers and responsive columns using Bootstrap -->
+  <b-row class="mt-1 justify-content-center mx-3">
+    <b-col md="12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th @click="sortTable('name')" class="col-11 col-md-6 col-sm-8">
+                <sortable-header column="name" :current-sort="sortBy" :current-order="sortOrder" text="Name" />
+              </th>
+              <th @click="sortTable('provider')" class="col-md-2 d-none d-md-table-cell">
+                <sortable-header column="provider" :current-sort="sortBy" :current-order="sortOrder" text="Provider" />
+              </th>
+              <th @click="sortTable('difficulty')" class="col-lg-2 d-none d-lg-table-cell">
+                <sortable-header column="difficulty" :current-sort="sortBy" :current-order="sortOrder" text="Difficulty" />
+              </th>
+              <th @click="sortTable('averageRating')" class="col-2 col-md-1">
+                <sortable-header column="averageRating" :current-sort="sortBy" :current-order="sortOrder" text="Rating" />
+              </th>
+              <th @click="sortTable('reviewCount')" class="col-xl-1 d-none d-sm-table-cell">
+                <sortable-header column="reviewCount" :current-sort="sortBy" :current-order="sortOrder" text="Review" />
+              </th>
+              <th @click="sortTable('releaseYear')" class="col-xl-1 d-none d-xl-table-cell">
+                <sortable-header column="releaseYear" :current-sort="sortBy" :current-order="sortOrder" text="Year" />
+              </th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr v-for="item in tableData" :key="item.id">
+                <td class="col-4 col-md-3">
+                  <router-link :to="`/courses/${item.id}`" class="course-link">
+                    {{ item.name }}
+                  </router-link>
+                </td>
+                <td class="col-md-2 d-none d-md-table-cell">{{ item.provider }}</td>
+                <td class="col-lg-2 d-none d-lg-table-cell">{{ item.difficulty }}</td>
+                <td class="col-1 col-md-1">{{ item.averageRating.toFixed(1) }}</td>
+                <td class="col-xl-1 d-none d-sm-table-cell">{{ item.reviewCount }}</td>
+                <td class="col-xl-1 d-none d-xl-table-cell">{{ item.releaseYear }}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+      <b-pagination
+        v-model="courses.currentPage"
+        :total-rows="courses.totalCourses"
+        :per-page="courses.limit"
+        @change="fetchCourses"
+        align="center"
+      ></b-pagination>
+    </b-col>
+  </b-row>
   </div>
 </template>
 
 <script setup>
 import { Api } from '@/Api'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { token } from '../token.js'
-
-// Define fields for the table (sortable columns)
-const sortFields = [
-  { key: 'name', label: 'Name', sortable: true },
-  { key: 'provider', label: 'Provider', sortable: true },
-  { key: 'difficulty', label: 'Difficulty', sortable: true },
-  { key: 'averageRating', label: 'Rating', sortable: true },
-  { key: 'reviewCount', label: 'Reviews', sortable: true },
-  { key: 'releaseYear', label: 'Year', sortable: true }
-]
+import { debounce } from 'lodash'
+import SortableHeader from '@/components/SortableHeader.vue'
 
 // Reactive data
-const sortItems = ref([])
+const tableData = ref([])
 const searchInput = ref('')
 const selectedProvider = ref('')
 const selectedTopic = ref('')
 const providers = ref([])
 const topics = ref([])
+
+const courses = ref({
+  totalCourses: 0,
+  totalPages: 0,
+  currentPage: 1,
+  limit: 12,
+  hasPrevPage: false,
+  hasNextPage: false,
+  prevPage: null,
+  nextPage: null,
+  courses: []
+})
+
+const itemsPerPage = ref(12)
+const sortBy = ref('reviewCount')
+const sortOrder = ref('desc')
 
 const isSignedIn = token.isSignedIn()
 
@@ -81,15 +137,8 @@ const topicDropdownText = ref('Topics')
 
 const fetchTopics = async () => {
   try {
-    const response = await Api.get('/topics')
+    const response = await Api.get('/topics?sortBy=courseCount')
     const data = response.data.topics
-
-    // Sort A-Z in the hashmap
-    data.sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
-      return 0
-    })
 
     topics.value = data
   } catch (error) {
@@ -100,72 +149,94 @@ const fetchTopics = async () => {
 // Fetch courses from the API
 const fetchCourses = async () => {
   try {
-    const response = await Api.get('/courses')
-    const courses = response.data.courses
+    const params = new URLSearchParams({
+      limit: itemsPerPage.value,
+      sortBy: sortBy.value,
+      order: sortOrder.value,
+      page: courses.value.currentPage
+    })
 
-    sortItems.value = courses.map(course => ({
-      id: course._id,
-      name: course.name,
-      provider: course.provider,
-      difficulty: course.difficulty,
-      averageRating: course.averageRating,
-      reviewCount: course.reviewCount,
-      releaseYear: course.releaseYear,
-      topics: course.topics
-    }))
-    
+    if (selectedProvider.value) params.append('provider', selectedProvider.value)
+    if (selectedTopic.value) params.append('topic', selectedTopic.value)
+    if (searchInput.value) params.append('search', searchInput.value)
+
+    const response = await Api.get(`/courses?${params.toString()}`)
+    courses.value = response.data
+    tableData.value = courses.value.courses
+
     // Populate list of sorted, unique providers from the courses, disregarding uppercase letters
-    providers.value = [...new Set(courses.map(course => course.provider))]
+    providers.value = [...new Set(courses.value.courses.map(course => course.provider))]
       .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
   } catch (error) {
     console.error('Error fetching courses:', error)
   }
 }
 
+const sortTable = (column) => {
+  if (sortBy.value === column) {
+    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortBy.value = column
+    sortOrder.value = 'desc' // Default to descending when changing columns
+  }
+  fetchCourses()
+}
+
 // Update selected provider and dropdown text
 const selectProvider = (provider) => {
   selectedProvider.value = provider
   providerDropdownText.value = provider
+  courses.value.currentPage = 1
+  fetchCourses()
 }
 
 // Update selected topic and dropdown text
 const selectTopic = (topic) => {
   selectedTopic.value = topic._id
   topicDropdownText.value = topic.name
+  courses.value.currentPage = 1
+  fetchCourses()
 }
 
 const clearProvider = () => {
   selectedProvider.value = ''
   providerDropdownText.value = 'Providers'
+  courses.value.currentPage = 1
+  fetchCourses()
 }
 
-const clearTopic = (topic) => {
+const clearTopic = () => {
   selectedTopic.value = ''
   topicDropdownText.value = 'Topics'
+  courses.value.currentPage = 1
+  fetchCourses()
 }
 
-// Computed property to filter the table data based on search input, selected provider, and selected topic
-const filteredItems = computed(() => {
-  return sortItems.value.filter(course => {
-    // Filter by search input (case-insensitive)
-    const matchesSearch = course.name.toLowerCase().includes(searchInput.value.toLowerCase())
+const clearButton = () => {
+  selectedProvider.value = ''
+  providerDropdownText.value = 'Providers'
+  selectedTopic.value = ''
+  topicDropdownText.value = 'Topics'
+  searchInput.value = ''
+  courses.value.currentPage = 1
+  fetchCourses()
+}
 
-    // Filter by selected provider (if a provider is selected)
-    const matchesProvider = !selectedProvider.value || course.provider === selectedProvider.value
+// Debounce delays execution of an event
+const debouncedFetchCourses = debounce(fetchCourses, 300)
 
-    // Filter by selected topic (if a topic is selected)
-    const matchesTopic = !selectedTopic.value || course.topics.includes(selectedTopic.value)
-
-    // Return true if all conditions match
-    return matchesSearch && matchesProvider && matchesTopic
-  })
+// Watch for changes in search input
+watch(searchInput, () => {
+  courses.value.currentPage = 1
+  debouncedFetchCourses()
 })
+
+watch(() => courses.value.currentPage, fetchCourses)
 
 onMounted(() => {
   fetchTopics()
   fetchCourses()
 })
-
 </script>
 
 <style scoped>
@@ -181,6 +252,73 @@ onMounted(() => {
 .course-link:hover {
   text-decoration: underline;
   color: #007bff;
+}
+
+.top-row-button:hover {
+  background-color: #007bff;
+  color: #383024;
+  border-color: #383024 !important;
+}
+
+.table th {
+  cursor: pointer;
+}
+
+.course-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.course-link:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+.menu-toggle {
+  right: -80px; /* Adjusted to move the button further right */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+/* Responsive styles: move buttons down during resizing */
+@media (max-width: 992px) {
+  #button-collapse:not(.show) {
+    display: none;
+  }
+
+  #button-collapse.show {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 992px) {
+  #button-collapse {
+    display: flex !important;
+  }
+
+  .menu-toggle {
+    display: none !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .top-row-button {
+    margin-right: 80px;
+    padding-left: -50px;
+    font-size: 0.9rem;
+  }
+
+  .search-input, .top-row-button {
+    font-size: 0.9rem;
+  }
+
+  .menu-toggle {
+    right: 10px;
+    font-size: 0.9rem;
+  }
 }
 
 </style>
