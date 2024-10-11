@@ -7,6 +7,7 @@ import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
 import CreateCourse from './views/CreateCourse.vue'
 import Coursepage from './views/Coursepage.vue'
+import CreateReview from './views/CreateReview.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Homepage },
@@ -15,7 +16,8 @@ const routes = [
   { path: '/register', name: 'register', component: Register },
   { path: '/profile', name: 'profile', component: Profile },
   { path: '/courses/create', name: 'create-course', component: CreateCourse },
-  { path: '/courses/:id', name: 'course-page', component: Coursepage }
+  { path: '/courses/:id', name: 'course-page', component: Coursepage },
+  { path: '/courses/:id/write', name: 'create-review', component: CreateReview }
 ]
 
 const router = createRouter({
