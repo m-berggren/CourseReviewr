@@ -39,7 +39,7 @@
                         <img :src="course.photo || 'client\src\assets\placeholder.png'" alt="Course Photo" class="img-fluid" />
                     </div>
                     <div class="review-button mt-3">
-                        <b-button variant="secondary">Write a review</b-button>
+                        <b-button variant="secondary" @click="goToWriteReview">Write a review</b-button>
                     </div>
                  </b-col>
              </b-row>
@@ -163,6 +163,12 @@ export default {
       },
       loading: true,
       errorMessage: ''
+    }
+  },
+  methods: {
+    goToWriteReview() {
+      const courseID = this.$route.params.id
+      this.$router.push(`/courses/${courseID}/write`)
     }
   },
   async mounted() {
