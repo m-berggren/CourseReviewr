@@ -146,6 +146,17 @@ const fetchTopics = async () => {
   }
 }
 
+const fetchProviders = async () => {
+  try {
+    const response = await Api.get('/courses/providers')
+    const data = response.data.providers
+
+    providers.value = data
+  } catch (error) {
+    console.error('Error fetching providers: ', error)
+  }
+}
+
 // Fetch courses from the API
 const fetchCourses = async () => {
   try {
@@ -163,10 +174,6 @@ const fetchCourses = async () => {
     const response = await Api.get(`/courses?${params.toString()}`)
     courses.value = response.data
     tableData.value = courses.value.courses
-
-    // Populate list of sorted, unique providers from the courses, disregarding uppercase letters
-    providers.value = [...new Set(courses.value.courses.map(course => course.provider))]
-      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
   } catch (error) {
     console.error('Error fetching courses:', error)
   }
@@ -236,6 +243,7 @@ watch(() => courses.value.currentPage, fetchCourses)
 onMounted(() => {
   fetchTopics()
   fetchCourses()
+  fetchProviders()
 })
 </script>
 

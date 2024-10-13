@@ -23,6 +23,15 @@ const createCourse = async (req, res, next) => {
     }
 };
 
+const getAllProviders = async (req, res, next) => {
+    try {
+        const providers = await Course.distinct('provider');
+        res.status(200).json({ providers });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getAllCourses = async (req, res, next) => {
     try {
         const { provider, topic, search, sortBy, order = 'desc' } = req.query;
@@ -302,7 +311,8 @@ const controller = {
     updateCourse,
     patchCourse,
     deleteAllCourses,
-    deleteCourse
+    deleteCourse,
+    getAllProviders
 };
 
 export default controller;
