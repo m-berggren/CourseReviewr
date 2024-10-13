@@ -1,0 +1,110 @@
+[
+  {
+    "username": "samwashere",
+    "email": "samuel.adams@gmail.com",
+    "password": "samwashere",
+    "photo": "08c53e656b2d124d1123632d42a9758c-profile-pic2.webp",
+    "interests": ["Programming", "Web Development", "JavaScript"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "janer3",
+    "email": "jane.r.smith@gmail.com",
+    "password": "janer3",
+    "photo": "ce0908f27a9df6a0ae071142cb5ef5f9-profile-pic7.avif",
+    "interests": ["Science", "Physics"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "mSmith",
+    "email": "michael.smith@example.com",
+    "password": "mSmith",
+    "photo": "625dd97d7ef8dd3db2efbc726b8463fa-profile-pic.jpeg",
+    "interests": ["Business", "Management", "Finance"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "jonEm",
+    "email": "emily.jones2@outlook.com",
+    "password": "jonEm",
+    "photo": "7222393575ca059c3d09f9276316e97f-profile-pic3.jpeg",
+    "interests": ["Psychology", "Personal Development"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "robertbrown",
+    "email": "robert.brown@coursereviewr.com",
+    "password": "robertbrown",
+    "photo": null,
+    "interests": [],
+    "recommendationList": [],
+    "role": "admin"
+  },
+  {
+    "username": "sarah_89",
+    "email": "sara.johnson89@yahoo.com",
+    "password": "sarah_89",
+    "photo": "e87ea48460a1767f11e7f512b8e4d527-profile-pic4.jpeg",
+    "interests": ["Art", "Culture", "History"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "martinD",
+    "email": "david.martin9@gmail.com",
+    "password": "martinD",
+    "photo": "5c1cf8fdd28fa5a5e2628796f7977565-profile-pic5.jpeg",
+    "interests": ["Technology", "Cloud Computing", "DevOps"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "Wilson",
+    "email": "lisa.e.wilson@gmail.com",
+    "password": "Wilson",
+    "photo": "6d3c5ed30c0c60dd9e52ec23e6f87e98-profile-pic2.jpeg",
+    "interests": ["Health", "Nutrition"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "millers",
+    "email": "james.millerjr@outlook.com",
+    "password": "millers",
+    "photo": "765cbf0938238c934a5442fbfe98a92f-profile-pic6.jpeg",
+    "interests": ["Math", "Applied Mathematics", "Computer Science"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "oHerz",
+    "email": "olivia.hernandezz@hotmail.com",
+    "password": "oHerz",
+    "photo": "11686dd0dbf7c0990a2c036af7e71c87-profile-pic8.webp",
+    "interests": ["Languages", "Culture"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "alexGreen",
+    "email": "alex.green@gmail.com",
+    "password": "alexGreen",
+    "photo": "dd46d63c7db3a081299fdd60ae5d6bed-profile-pic.jpg",
+    "interests": ["Technology", "Finance", "Cybersecurity"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "mantha",
+    "email": "samantha.lee@example.com",
+    "password": "mantha",
+    "photo": "ce0908f27a9df6a0ae071142cb5ef5f9-profile-pic7.avif",
+    "interests": ["Art", "Psychology"],
+    "recommendationList": [],
+    "role": "user"
+  }
+]
