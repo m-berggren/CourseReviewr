@@ -1,23 +1,25 @@
 <template>
   <div>
-    <b-card class="review-card my-3">
-      <b-card-text class="review-text">
-        {{ review.comment }}
-      </b-card-text>
-      <b-card-text class="text-center">
-        <p v-if="review.user">{{ review.user.username }}</p>
-        <p v-else>Anonymous</p>
-      </b-card-text>
-      <div class="rating-container">
-        <star-rating
-          :rating="review.averageRating"
-          :read-only="true"
-          :star-size="30"
-          :show-rating="false"
-          :increment="0.5"
-          />
-      </div>
-    </b-card>
+    <router-link :to="{ name: 'review-page', params: { id:review._id } }" class="course-link">
+      <b-card class="review-card my-3">
+        <b-card-text class="review-text">
+          {{ review.comment }}
+        </b-card-text>
+        <b-card-text class="text-center">
+          <p v-if="review.user">{{ review.user.username }}</p>
+          <p v-else>Anonymous</p>
+        </b-card-text>
+        <div class="rating-container">
+          <star-rating
+            :rating="review.averageRating"
+            :read-only="true"
+            :star-size="30"
+            :show-rating="false"
+            :increment="0.5"
+            />
+        </div>
+      </b-card>
+    </router-link>
   </div>
 
 </template>

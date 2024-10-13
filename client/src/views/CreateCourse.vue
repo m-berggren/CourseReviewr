@@ -352,8 +352,8 @@ const onReset = () => {
 const difficultyOptions = [
   { value: null, text: 'Please select an option' },
   { value: 'Beginner', text: 'Beginner' },
-  { value: 'Advanced', text: 'Advanced' },
-  { value: 'Expert', text: 'Expert' }
+  { value: 'Intermediate', text: 'Intermediate' },
+  { value: 'Advanced', text: 'Advanced' }
 ]
 
 const accessOptions = [

@@ -71,9 +71,9 @@
             </tr>
           </thead>
             <tbody>
-              <tr v-for="item in tableData" :key="item.id">
+              <tr v-for="item in tableData" :key="item._id">
                 <td class="col-4 col-md-3">
-                  <router-link :to="`/courses/${item.id}`" class="course-link">
+                  <router-link :to="`/courses/${item._id}`" class="course-link">
                     {{ item.name }}
                   </router-link>
                 </td>
