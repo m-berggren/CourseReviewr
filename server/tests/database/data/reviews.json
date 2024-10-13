@@ -1,6 +1,6 @@
 [
   {
-    "user": "johnDoe",
+    "user": "samwashere",
     "course": "Full-Stack Web Development Bootcamp",
     "engagementLevel": 5,
     "practicalValue": 5,
@@ -12,7 +12,7 @@
     "date": "2024-09-15"
   },
   {
-    "user": "johnDoe",
+    "user": "samwashere",
     "course": "Python for Beginners",
     "engagementLevel": 4,
     "practicalValue": 5,
@@ -24,7 +24,7 @@
     "date": "2024-10-01"
   },
   {
-    "user": "johnDoe",
+    "user": "samwashere",
     "course": "Artificial Intelligence Ethics",
     "engagementLevel": 5,
     "practicalValue": 4,
@@ -36,7 +36,7 @@
     "date": "2024-10-13"
   },
   {
-    "user": "johnDoe",
+    "user": "samwashere",
     "course": "Advanced Data Structures and Algorithms",
     "engagementLevel": 2,
     "practicalValue": 3,
@@ -48,7 +48,7 @@
     "date": "2024-08-25"
   },
   {
-    "user": "janeDoe",
+    "user": "janer3",
     "course": "Advanced Machine Learning with Python",
     "engagementLevel": 5,
     "practicalValue": 5,
@@ -60,7 +60,7 @@
     "date": "2024-09-20"
   },
   {
-    "user": "janeDoe",
+    "user": "janer3",
     "course": "Linear Algebra and Its Applications",
     "engagementLevel": 4,
     "practicalValue": 5,
@@ -72,7 +72,7 @@
     "date": "2024-10-05"
   },
   {
-    "user": "janeDoe",
+    "user": "janer3",
     "course": "Advanced Data Structures and Algorithms",
     "engagementLevel": 3,
     "practicalValue": 4,
@@ -84,7 +84,7 @@
     "date": "2024-10-15"
   },
   {
-    "user": "janeDoe",
+    "user": "janer3",
     "course": "Strategic Business Management",
     "engagementLevel": 1,
     "practicalValue": 2,
@@ -384,7 +384,7 @@
     "date": "2024-09-22"
   },
   {
-    "user": "johnDoe",
+    "user": "samwashere",
     "course": "Introduction to Biblical Hebrew",
     "engagementLevel": 4,
     "practicalValue": 3,
@@ -396,7 +396,7 @@
     "averageRating": 4.0
   },
   {
-    "user": "janeDoe",
+    "user": "samwashere",
     "course": "Mindfulness and Stress Reduction",
     "engagementLevel": 5,
     "practicalValue": 4,

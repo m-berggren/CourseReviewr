@@ -2,14 +2,14 @@
   {
     "name": "Web Development Essentials",
     "creationDate": "2024-10-12T00:00:00.000Z",
-    "user": "johnDoe",
+    "user": "samwashere",
     "description": "Essential courses for becoming a web developer",
     "courses": ["Full-Stack Web Development Bootcamp", "Python for Beginners", "Digital Marketing Mastery"]
   },
   {
     "name": "Data Science Fundamentals",
     "creationDate": "2024-10-13T00:00:00.000Z",
-    "user": "janeDoe",
+    "user": "janer3",
     "description": "Foundational courses for aspiring data scientists",
     "courses": ["Python for Beginners", "Advanced Machine Learning with Python", "Linear Algebra and Its Applications"]
   },
