@@ -17,15 +17,11 @@ const s3 = new AWS.S3();
 const generateUploadUrl = async (req, res) => {
     const { fileName, fileType } = req.query;
 
-    console.log('Received request to generate upload URL:', { fileName, fileType });
-
     try {
 
         // Create 32 hexadecimal character string
         const rawBytes = await crypto.randomBytes(16);
         const imageName = `${rawBytes.toString('hex')}-${fileName}`;
-
-        console.log('Generated image name:', imageName);
 
         const params = {
             Bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -33,8 +29,6 @@ const generateUploadUrl = async (req, res) => {
             Expires: 60, // 60 seconds to upload
             ContentType: fileType
         };
-
-        console.log('Creating PutObjectCommand with params:', params);
 
         s3.getSignedUrl('putObject', params, (err, url) => {
             if (err) {
@@ -46,8 +40,6 @@ const generateUploadUrl = async (req, res) => {
                 });
             }
         });
-
-        console.log('Signed URL generated successfully');
         
     } catch (error) {
         res.status(500).json({ message: 'Failed to generate signed URL', error: error.message, stack: error.stack });
@@ -66,7 +58,6 @@ const generateDownloadUrl = async (req, res) => {
         Key: fileName,
         Expires: 3600 // URL expires in 1 hour
     };
-    console.log(params);
 
     s3.getSignedUrl('getObject', params, (err, url) => {
         if (err) {
@@ -83,8 +74,3 @@ const awsController = {
 };
 
 export default awsController;
-
-
-
-
-

@@ -35,7 +35,7 @@ api.resizeImage = async (file) => {
       // Convert the canvas to a Blob
       canvas.toBlob((blob) => {
         resolve(blob)
-      }, 'image/jpeg', 0.9) // 0.9 is the image quality, adjust as needed
+      }, 'image/jpeg', 0.9) // Image quality, adjust for lower
     }
     img.onerror = (error) => reject(error)
     img.src = URL.createObjectURL(file)
@@ -80,18 +80,14 @@ api.uploadToS3 = async (file, uploadUrl) => {
 
 api.handleImageUpload = async (file) => {
   try {
-    console.log('Starting image upload process for file:', file.name)
     // Resize the image
     const resizedFile = await api.resizeImage(file)
-    console.log('Image resized successfully')
 
     // Get the signed URL for upload
-    const { signedUrl, fileUrl, imageName } = await api.getS3UploadUrl(file.name, 'image/jpeg')
-    console.log('Received signed URL for upload', signedUrl, fileUrl)
+    const { signedUrl, imageName } = await api.getS3UploadUrl(file.name, 'image/jpeg')
 
     // Upload the file to S3
     await api.uploadToS3(resizedFile, signedUrl)
-    console.log('File uploaded successfully to S3')
 
     return imageName
   } catch (error) {
