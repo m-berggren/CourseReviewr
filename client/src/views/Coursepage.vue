@@ -36,7 +36,7 @@
                 <!-- Column for course photo and 'Write a review' button -->
                  <b-col md="4">
                     <div class="image-placeholder">
-                        <img :src="course.photo || 'client\src\assets\placeholder.png'" alt="Course Photo" class="img-fluid" />
+                        <s3-image-display :s3Key="course.photo"/>
                     </div>
                     <div class="review-button mt-3">
                         <b-button variant="secondary" @click="goToWriteReview">Write a review</b-button>

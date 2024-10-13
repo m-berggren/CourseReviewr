@@ -1,18 +1,17 @@
 <template>
   <div class="image-container">
     <img
-      v-if="imageUrl"
-      :src="imageUrl"
-      alt="Uploaded image"
+      :src="imageUrl || placeholderImage"
+      :alt="placeholderImage"
       @error="handleImageError"
     />
-    <p v-else>{{ errorMessage || 'No image available' }}</p>
   </div>
 </template>
 
 <script setup>
 import { ref, watchEffect, onUnmounted } from 'vue'
 import { Api } from '@/Api'
+import placeholderImage from '@/assets/placeholder.png'
 
 const props = defineProps({
   s3Key: String
@@ -30,7 +29,7 @@ const fetchDownloadUrl = async () => {
       errorMessage.value = `Failed to load image: ${error.message}`
     }
   } else {
-    errorMessage.value = 'No image key provided'
+    errorMessage.value = placeholderImage
   }
 }
 
@@ -50,7 +49,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style>
 .image-container {
   width: 100%;
   max-width: 300px;

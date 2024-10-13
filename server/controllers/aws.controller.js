@@ -68,9 +68,30 @@ const generateDownloadUrl = async (req, res) => {
     });
 };
 
+const deleteOneObject = async (req, res) => {
+    const { fileName } = req.query;
+
+    if (!fileName) {
+        return res.status(400).json({ error: 'fileName is required'});
+    }
+
+    const params = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: fileName
+    };
+
+    try {
+        await s3.deleteObject(params).promise();
+        res.status(200).json({ message: 'File deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to felete file from S3: ' + error});
+    }
+};
+
 const awsController = {
     generateUploadUrl,
-    generateDownloadUrl
+    generateDownloadUrl,
+    deleteOneObject
 };
 
 export default awsController;

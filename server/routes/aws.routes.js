@@ -6,5 +6,6 @@ const router = Router();
 
 router.get('/generate-upload-url', authenticateJWT, awsController.generateUploadUrl);
 router.get('/generate-download-url', awsController.generateDownloadUrl);
+router.delete('/delete-object', awsController.deleteOneObject);
 
 export default router;

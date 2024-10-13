@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'review-page', params: { id:review._id } }" class="course-link">
+    <router-link :to="{ name: 'course-page', params: { id:review.course._id } }" class="course-link">
       <b-card class="review-card my-3">
         <b-card-text class="review-text">
           {{ review.comment }}
@@ -31,6 +31,12 @@ defineProps({
 </script>
 
 <style>
+.course-link {
+  text-decoration: none;
+  color: inherit;
+  height: 100%; /* Ensure the link takes full height */
+  display: block;
+}
 /* Max size for the card */
 .review-card {
   height: 200px;
