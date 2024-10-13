@@ -1,0 +1,110 @@
+[
+  {
+    "username": "johnDoe",
+    "email": "johndoe@gmail.com",
+    "password": "johnDoe",
+    "photo": null,
+    "interests": ["Programming", "Web Development", "JavaScript"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "janeDoe",
+    "email": "janedoe@gmail.com",
+    "password": "janeDoe",
+    "photo": null,
+    "interests": ["Science", "Physics"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "mSmith",
+    "email": "michael.smith@example.com",
+    "password": "mSmith",
+    "photo": null,
+    "interests": ["Business", "Management", "Finance"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "jonEm",
+    "email": "emily.jones2@outlook.com",
+    "password": "jonEm",
+    "photo": null,
+    "interests": ["Psychology", "Personal Development"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "robertbrown",
+    "email": "robert.brown@coursereviewr.com",
+    "password": "robertbrown",
+    "photo": null,
+    "interests": [],
+    "recommendationList": [],
+    "role": "admin"
+  },
+  {
+    "username": "sarah_89",
+    "email": "sara.johnson89@yahoo.com",
+    "password": "sarah_89",
+    "photo": null,
+    "interests": ["Art", "Culture", "History"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "martinD",
+    "email": "david.martin9@gmail.com",
+    "password": "martinD",
+    "photo": null,
+    "interests": ["Technology", "Cloud Computing", "DevOps"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "Wilson",
+    "email": "lisa.e.wilson@gmail.com",
+    "password": "Wilson",
+    "photo": null,
+    "interests": ["Health", "Nutrition"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "millers",
+    "email": "james.millerjr@outlook.com",
+    "password": "millers",
+    "photo": null,
+    "interests": ["Math", "Applied Mathematics", "Computer Science"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "oHerz",
+    "email": "olivia.hernandezz@hotmail.com",
+    "password": "oHerz",
+    "photo": null,
+    "interests": ["Languages", "Culture"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "alexGreen",
+    "email": "alex.green@gmail.com",
+    "password": "alexGreen",
+    "photo": null,
+    "interests": ["Technology", "Finance", "Cybersecurity"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "mantha",
+    "email": "samantha.lee@example.com",
+    "password": "mantha",
+    "photo": null,
+    "interests": ["Art", "Psychology"],
+    "recommendationList": [],
+    "role": "user"
+  }
+]
