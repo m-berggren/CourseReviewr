@@ -5,6 +5,7 @@ import Course from '../../models/course.model.js';
 import User from '../../models/user.model.js';
 import CourseList from '../../models/course-list.model.js';
 import Review from '../../models/review.model.js';
+import { hashPassword } from '../../utils/password.util.js';
 
 const { connect, connection, disconnect } = mongoose;
 const mongoURI = 'mongodb://localhost:27017/courseReviewrDB';
@@ -82,7 +83,13 @@ const importData = async () => {
         // Step 3: Create Users
         console.log('Step 3: Creating Users...');
         const usersData = parseJson(users);
-        const usersWithIds = replaceNameWithIds(usersData, topicMap, 'interests');
+        const usersWithHashedPasswords = await Promise.all(usersData.map(async user => {
+            if (user.password) {
+                user.password = await hashPassword(user.password); // Hash the password for each user
+            }
+            return user;
+        }));
+        const usersWithIds = replaceNameWithIds(usersWithHashedPasswords, topicMap, 'interests');
         const userDocs = await User.insertMany(usersWithIds);
         const userMap = mapIds(userDocs, 'username');
         console.log(`Successfully created ${userDocs.length} users`);
