@@ -18,7 +18,6 @@ const userSchema = new Schema({
         set: v => Array.from(new Set(v.map(interest => interest.toString())))
     },
     recommendationList: [{ type: Schema.Types.ObjectId, ref: 'Course', default: [] }],
-    courseLists: [{ type: Schema.Types.ObjectId, ref: 'CourseList', default: [] }],
     role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
 
