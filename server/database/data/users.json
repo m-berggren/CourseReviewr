@@ -19,7 +19,7 @@
   },
   {
     "username": "mSmith",
-    "email": "michael.smith@example.com",
+    "email": "michael.smith@outlook.com",
     "password": "mSmith",
     "photo": "625dd97d7ef8dd3db2efbc726b8463fa-profile-pic.jpeg",
     "interests": ["Business", "Management", "Finance"],
@@ -100,10 +100,64 @@
   },
   {
     "username": "mantha",
-    "email": "samantha.lee@example.com",
+    "email": "samantha.lee@hotmamil.com",
     "password": "mantha",
     "photo": "ce0908f27a9df6a0ae071142cb5ef5f9-profile-pic7.avif",
     "interests": ["Art", "Psychology"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "tech_enthusiast",
+    "email": "tech.enthusiast@hotmail.com",
+    "password": "tech_enthusiast",
+    "photo": "",
+    "interests": ["Technology", "Productivity", "Digital Skills"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "fastFingers",
+    "email": "fast.fingers@outlook.com",
+    "password": "fastFingers",
+    "photo": "",
+    "interests": ["Writing", "Productivity", "Technology"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "learningJunkie",
+    "email": "learning.junkie@outlook.com",
+    "password": "learningJunkie",
+    "photo": "",
+    "interests": ["Programming", "Machine Learning", "Data Science"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "healthNut",
+    "email": "health.nut@yahoo.com",
+    "password": "healthNut",
+    "photo": "",
+    "interests": ["Health", "Nutrition", "Fitness"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "codeWizard",
+    "email": "code.wizard@hotmail.com",
+    "password": "codeWizard",
+    "photo": "",
+    "interests": ["Programming", "Algorithms", "Computer Science"],
+    "recommendationList": [],
+    "role": "user"
+  },
+  {
+    "username": "ecoWarrior",
+    "email": "eco.warrior@gmail.com",
+    "password": "ecoWarrior",
+    "photo": "",
+    "interests": ["Environment", "Urban Studies"],
     "recommendationList": [],
     "role": "user"
   }
