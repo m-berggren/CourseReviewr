@@ -56,11 +56,14 @@ onUnmounted(() => {
   aspect-ratio: 3 / 2;
   overflow: hidden;
   position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 2%;
 }
 </style>
