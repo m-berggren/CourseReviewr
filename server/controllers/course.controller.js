@@ -157,7 +157,7 @@ const getAllCourses = async (req, res, next) => {
 const getCourse = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const course = await Course.findById(id);
+        const course = await Course.findById(id).populate('topics');
 
         if (!course) {
             return res.status(404).json({ message: 'Course not found.' });
@@ -190,7 +190,8 @@ const getAggregatedRatings = async (req, res, next) => {
                     averageEngagementLevel: { $avg: '$engagementLevel' },
                     averagePracticalValue: { $avg: '$practicalValue' },
                     averageInstructorQuality: { $avg: '$instructorQuality' },
-                    averageDifficultyLevel: { $avg: '$difficultyLevel' }
+                    averageDifficultyLevel: { $avg: '$difficultyLevel' },
+                    averageRating: { $avg: { $divide: [{ $sum: ['$engagementLevel', '$practicalValue', '$instructorQuality', '$difficultyLevel'] }, 4] } }
                 }
             }
         ]);
@@ -200,7 +201,8 @@ const getAggregatedRatings = async (req, res, next) => {
                 averageEngagementLevel: 0,
                 averagePracticalValue: 0,
                 averageInstructorQuality: 0,
-                averageDifficultyLevel: 0
+                averageDifficultyLevel: 0,
+                averageRating: 0
             });
         }
 

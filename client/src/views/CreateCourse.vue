@@ -155,9 +155,7 @@
             <b-row>
               <b-col md-2>
                 <b-button v-if="!formCreated" type="submit" variant="primary" class="left">Submit</b-button>
-                <router-link v-else to="/course/review/create">
-                  <b-button variant="success">Next: Create Review</b-button>
-                </router-link>
+                  <b-button v-else @click="goToReview" variant="success">Next: Create Review</b-button>
               </b-col>
               <b-col class="text-right">
                 <b-button v-if="!formCreated" type="reset" variant="danger" class="ml-auto">Reset</b-button>
@@ -187,14 +185,19 @@
 
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { Api } from '@/Api'
 import { token } from '../token.js'
 
 /* Constants */
 
+const router = useRouter()
+
 // Tracking submission state
 const formCreated = ref(false)
 const successMessage = ref('')
+
+const courseId = ref('')
 
 // Token
 const bearerToken = token.getOrThrow()
@@ -216,6 +219,13 @@ const getFieldState = (fieldState) => {
     return fieldState ? true : null
   }
   return !!fieldState
+}
+
+const goToReview = () => {
+  router.push({
+    name: 'create-review',
+    params: { id: courseId.value }
+  })
 }
 
 // Computed properties for validation states
@@ -267,7 +277,9 @@ const onSubmit = async (event) => {
     if (form.releaseYear === null) form.releaseYear = 0
 
     // Step3: Create course and show message
-    await createCourse()
+    courseId.value = await createCourse()
+    goToReview.value = `/courses/${courseId.value}/write`
+
     formCreated.value = true
     successMessage.value = 'Course created successfully!'
     onReset()
@@ -307,7 +319,7 @@ const createCourse = async () => {
         Authorization: `Bearer ${bearerToken}`
       }
     })
-    return response.data
+    return response.data.course._id
   } catch (error) {
     console.error(`Error creating course with name ${form.name}: `, error)
   }

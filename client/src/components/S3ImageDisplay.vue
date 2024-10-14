@@ -52,7 +52,7 @@ onUnmounted(() => {
 <style>
 .image-container {
   width: 100%;
-  max-width: 300px;
+  max-width: 450px;
   aspect-ratio: 3 / 2;
   overflow: hidden;
   position: relative;
