@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
         <!-- Profile Picture -->
         <div class="d-flex flex-column">
-          <img :src="photo" alt="Profile Picture" class="profile-picture mb-2" />
+          <s3-image-display :s3Key="user.photo" class="image-container"/>
           <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
             <small>Change Photo</small>
           </b-button>
@@ -81,12 +81,12 @@
               <b-input-group size="sm">
                 <b-form-input id="new-password-input" v-model="password" :type="showPassword ? 'text' : 'password'"
                   placeholder="Enter new password" required></b-form-input>
-                <b-input-group-append>
+                <template #append>
                   <b-button @click="togglePasswordVisibility" size="sm" class="btn-light">
                     <b-icon-eye-fill v-if="showPassword"></b-icon-eye-fill>
                     <b-icon-eye-slash-fill v-if="!showPassword"></b-icon-eye-slash-fill>
                   </b-button>
-                </b-input-group-append>
+                </template>
               </b-input-group>
             </b-form-group>
 
@@ -95,12 +95,12 @@
                 <b-form-input id="confirm-password-input" v-model="confirmPassword"
                   :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm new password" required>
                 </b-form-input>
-                <b-input-group-append>
+                <template #append>
                   <b-button @click="toggleConfirmPasswordVisibility" size="sm" class="btn-light">
                     <b-icon-eye-fill v-if="showConfirmPassword"></b-icon-eye-fill>
                     <b-icon-eye-slash-fill v-if="!showConfirmPassword"></b-icon-eye-slash-fill>
                   </b-button>
-                </b-input-group-append>
+                </template>
               </b-input-group>
             </b-form-group>
             <div class="d-flex gap-2 mt-2">
@@ -223,14 +223,20 @@ export default {
         this.showAlert('Failed to update password: ' + error.message, 'danger')
       }
     },
-    handlePhotoUpload(event) {
-      const file = event.target.files[0]
-      this.uploadedPhoto = file
+    async handlePhotoUpload(event) {
+      try {
+        const file = event.target.files[0]
+        this.uploadedPhoto = file
+      } catch (error) {
+        this.showAlert('Failed to upload image: ' + error.message, 'danger')
+      }
     },
     async uploadPhoto() {
       try {
+        const imageName = await Api.handleImageUpload(this.uploadedPhoto)
+
         const formData = new FormData()
-        formData.append('photo', this.uploadedPhoto)
+        formData.append('photo', imageName)
 
         await Api.patch(`/users/${token.getUserId()}`, formData, {
           headers: {
@@ -238,6 +244,10 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         })
+        const currentPhoto = this.photo // It's still the old photo
+        if (currentPhoto) {
+          await Api.deleteFromS3(currentPhoto) // Delete old photo
+        }
 
         const response = await Api.get(`/users/${token.getUserId()}`)
         this.user = { ...response.data }
@@ -297,7 +307,7 @@ export default {
 
 <style scoped>
 /* General Styles */
-.profile-picture {
+.image-container {
   width: 100px;
   height: 100px;
   border-radius: 50%;

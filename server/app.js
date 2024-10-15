@@ -16,6 +16,7 @@ import reviewRoutes from './routes/review.routes.js';
 import courseListRoutes from './routes/course-list.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import topicRoutes from './routes/topic.routes.js';
+import awsRoutes from './routes/aws.routes.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -71,6 +72,7 @@ app.use(`${api}/users`, userRoutes);
 app.use(`${api}/courses`, courseRoutes);
 app.use(`${api}/reviews`, reviewRoutes);
 app.use(`${api}/topics`, topicRoutes);
+app.use(`${api}/aws`, awsRoutes);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

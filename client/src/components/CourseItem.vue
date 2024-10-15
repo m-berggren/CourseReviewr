@@ -1,73 +1,105 @@
 <template>
   <div>
     <router-link :to="{ name: 'course-page', params: { id:course._id } }" class="course-link">
-      <b-card :title="course.name" :img-src="course.photo" class="course-card my-3">
-        <!-- Description -->
-        <b-card-text class="course-description">
-          {{ course.description }}
-        </b-card-text>
-        <!-- Rating at consistent distance from description -->
-        <div class="rating-container">
-          <star-rating
-            :rating="course.averageRating"
-            :read-only="true"
-            :star-size="30"
-            :show-rating="false"
-            />
+      <b-card no-body class="course-card">
+        <div>
+          <s3-image-display :s3Key="course.photo"/>
         </div>
+        <b-card-body>
+          <h5 class="card-title">{{ course.name }}</h5>
+          <b-card-text class="course-description">
+            {{ course.description }}
+          </b-card-text>
+          <div class="rating-container">
+            <star-rating
+              :rating="course.averageRating"
+              :read-only="true"
+              :star-size="30"
+              :show-rating="false"
+              :increment="0.5"
+            />
+          </div>
+        </b-card-body>
       </b-card>
     </router-link>
   </div>
 </template>
 
 <script setup>
+import S3ImageDisplay from './S3ImageDisplay.vue'
+
 defineProps({
   course: Object
 })
 </script>
 
 <style scoped>
-
 .course-link {
   text-decoration: none;
   color: inherit;
+  height: 100%; /* Ensure the link takes full height */
+  display: block;
 }
 
-/* Max size for the card */
 .course-card {
-  height: 475px;
-  overflow: hidden;
   display: flex;
-  position: relative;
   flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  text-align: center;
+  height: 100%; /* Make card take full height of parent */
+  padding: 0.5rem;
+  background-color: whitesmoke;
 }
 
 .course-card img {
-  max-height: 200px;
+  height: 150px; /* Fixed height for images */
   object-fit: cover;
   width: 100%;
 }
 
 /* Description should handle overflow with ellipsis */
 .course-description {
-  height: 75px;           /* Keep this aligned with line-clamp */
+  flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;  /* Limit to 3 lines */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .rating-container {
-  margin-top: 10px;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: auto; /* Push rating to bottom */
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* Responsive behavior using media queries */
+@media (min-width: 1024px) {
+  .course-card {
+    height: 450px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .course-card {
+    height: 400px;
+  }
+
+  .course-description {
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .course-card {
+    height: 475px;
+  }
+
+  .course-description {
+    -webkit-line-clamp: 2;
+  }
+}
+
 </style>

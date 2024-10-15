@@ -29,20 +29,19 @@ const getUser = async (req, res, next) => {
     try {
         const id = req.params.id;
         const user = await User.findById(id)
-            .populate('courseLists')
             .populate('recommendationList')
             .populate('interests');
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
         // If the user has a photo, convert it to base64
-        let photo;
+        /*let photo;
         if (user.photo && user.photo.data) {
             photo = `data:${user.photo.contentType};base64,${user.photo.data.toString('base64')}`;
         } else {
             photo = null;
-        }
-        res.status(200).json({ ...user.toObject(), photo });
+        }*/
+        res.status(200).json({ ...user.toObject()});
 
     } catch (error) {
         return handleError(error, res) || next(error);

@@ -1846,7 +1846,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_9}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Courera\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/260/300/200\",\n  \"url\": \"\"\n}",
+							"raw": "{\n  \"name\": \"Lorem ipsum...\",\n  \"topics\": [\"{{topic_9}}\"],\n  \"difficulty\": \"Beginner\",\n  \"description\": \"Lorem ipsum...\",\n  \"releaseYear\": 2022,\n  \"provider\": \"Coursera\",\n  \"instructor\": \"John Doe\",\n  \"certificate\": \"No\",\n  \"accessType\": \"Free\",\n  \"photo\": \"https://picsum.photos/id/260/300/200\",\n  \"url\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2304,7 +2304,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 2,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2349,7 +2349,7 @@
 									"}",
 									"",
 									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
-									"pm.environment.set(\"review_id3\", reviewData._id);",
+									"pm.environment.set(\"review_id4\", reviewData._id);",
 									"",
 									"// Test assertions for HTTP status code",
 									"pm.test(\"Status code 201 - created\", () => {",
@@ -2415,6 +2415,190 @@
 								"{{user_id2}}",
 								"courses",
 								"{{course_id3}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create fifth review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id5\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id5}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"courses",
+								"{{course_id5}}",
+								"reviews"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "201 - Create sixth review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json();",
+									"",
+									"if (jsonData.error) {",
+									"\tpm.test(\"Status code 400\", () => {",
+									"\t\tpm.response.to.have.status(400);",
+									"\t})",
+									"\treturn",
+									"}",
+									"",
+									"const reviewData = jsonData[\"savedReview\"]; // Review is needed",
+									"pm.environment.set(\"review_id6\", reviewData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(reviewData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"engagementLevel\": 5,\n    \"practicalValue\": 3,\n    \"instructorQuality\": 3,\n    \"difficultyLevel\": 4,\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    \"hasCompleted\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id2}}/courses/{{course_id6}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id2}}",
+								"courses",
+								"{{course_id6}}",
 								"reviews"
 							]
 						},
@@ -3079,7 +3263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3142,7 +3326,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3225,7 +3409,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": [],\n    \"courseLists\": []\n}",
+							"raw": "{\n    \"photo\": null,\n    \"interests\": [],\n    \"recommendationList\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3313,7 +3497,6 @@
 									"\t\tpm.expect(user).to.have.property(\"photo\");",
 									"\t\tpm.expect(user).to.have.property(\"interests\");",
 									"\t\tpm.expect(user).to.have.property(\"recommendationList\");",
-									"\t\tpm.expect(user).to.have.property(\"courseLists\");",
 									"\t});",
 									"});",
 									"}else {",
@@ -3377,7 +3560,6 @@
 									"\tpm.expect(jsonData).to.have.property(\"photo\");",
 									"\tpm.expect(jsonData).to.have.property(\"interests\");",
 									"\tpm.expect(jsonData).to.have.property(\"recommendationList\");",
-									"\tpm.expect(jsonData).to.have.property(\"courseLists\");",
 									"});"
 								],
 								"type": "text/javascript",
@@ -6366,8 +6548,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 403\", () => {",
-									"    pm.response.to.have.status(403);",
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript",
@@ -7175,7 +7357,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/admin",
 							"host": [
 								"{{host}}"
 							],
@@ -7184,7 +7366,8 @@
 								"{{api_version}}",
 								"users",
 								"{{user_id}}",
-								"course-lists"
+								"course-lists",
+								"admin"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."

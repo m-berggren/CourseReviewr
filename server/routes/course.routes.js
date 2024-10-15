@@ -8,6 +8,8 @@ router.post('/', authenticateJWT, controller.createCourse);
 
 router.get('/', controller.getAllCourses);
 
+router.get('/providers', controller.getAllProviders);
+
 router.get('/:id', controller.getCourse);
 
 router.get('/:id/ratings', controller.getAggregatedRatings);
