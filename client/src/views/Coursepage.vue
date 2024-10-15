@@ -31,7 +31,7 @@
       <b-row class="my-5 ms-2 justify-content-center">
         <b-col md="6">
           <h2>Rating</h2>
-          <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" star-size="40"/>
+          <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" :star-size="40"/>
         </b-col>
         <b-col md="4">
           <div class="tags-container mt-2">
@@ -102,7 +102,7 @@
             </div>
 
             <div v-else>
-              <b-card v-for="review in reviews" :key="review._id" class="reviews-cards mb-3">
+              <b-card v-for="review in reviews" :key="review._id" :id="'review-' + review._id" class="reviews-cards mb-3">
                 <b-row>
                   <b-col md="10">
                     <p><b>{{ review.user.username }}</b></p>
@@ -169,6 +169,7 @@ export default {
   },
   async mounted() {
     const courseID = this.$route.params.id
+    const reviewID = this.$route.query.reviewID
 
     try {
       const courseResponse = await Api.get(`/courses/${courseID}`)
@@ -198,6 +199,17 @@ export default {
       this.errorMessage = 'Failed to load course reviews. Please try again later.'
       this.loading = false
       console.log(error)
+    }
+
+    if (reviewID) {
+      this.$nextTick(() => {
+        const reviewElement = document.getElementById(`review-${reviewID}`)
+        if (reviewElement) {
+          reviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      })
+    } else {
+      window.scrollTo({ top: '0', behavior: 'smooth' })
     }
   }
 }

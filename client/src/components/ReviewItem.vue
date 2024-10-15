@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'course-page', params: { id:review.course._id } }" class="course-link">
+    <router-link :to="{ name: 'course-page', params: { id:review.course._id }, query: { reviewID: review._id} }" class="course-link">
       <b-card class="review-card my-3">
         <b-card-text class="review-text">
           {{ review.comment }}
