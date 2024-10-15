@@ -78,7 +78,7 @@ defineProps({
 /* Responsive behavior using media queries */
 @media (min-width: 1024px) {
   .course-card {
-    height: 400px;
+    height: 450px;
   }
 }
 
