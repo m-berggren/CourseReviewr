@@ -32,7 +32,7 @@ export const getS3DownloadUrl = async (fileName) => {
       const signedUrl = response.data.signedUrl
       urlCache.set(fileName, {
         url: signedUrl,
-        expiry: now + 3_600_000 // 1 hour in ms
+        expiry: now + 12 * 60 * 60 * 1000 // 12 hours in ms
       })
 
       saveCache(urlCache)
