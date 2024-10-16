@@ -81,7 +81,7 @@
             </b-form-group>
 
             <!-- Description -->
-            <b-form-group label-cols="3" label="Url:" label-for="input-6" class="label-font mt-3  ms-2">
+            <b-form-group label-cols="3" label="Url:" label-for="input-6" class="label-font mt-3">
               <b-form-input
               id="input-6"
               v-model="form.url"

@@ -22,7 +22,7 @@
               <s3-image-display :s3Key="course.photo" class="image-container"/>
           </div>
           <div class="review-button mt-4">
-              <b-button v-if="isSignedIn" variant="dark" @click="goToWriteReview">Write a review</b-button>
+              <b-button variant="dark" @click="goToWriteReview">Write a review</b-button>
           </div>
         </b-col>
       </b-row>

@@ -57,6 +57,9 @@
           <b-button variant="secondary" type="button" @click="goBack">Cancel</b-button>
         </div>
       </form>
+
+      <custom-alert :show="showAlert" :message="alertMessage" @close="showAlert = false" />
+
     </div>
   </div>
 </template>
@@ -65,10 +68,12 @@
 import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
+import CustomAlert from '@/components/CustomAlert.vue'
 
 export default {
   components: {
-    'star-rating': StarRating
+    'star-rating': StarRating,
+    CustomAlert
   },
   data() {
     return {
@@ -79,7 +84,9 @@ export default {
       difficultyLevel: 0,
       comment: '',
       hasCompleted: null,
-      formSubmitted: false
+      formSubmitted: false,
+      showAlert: false,
+      alertMessage: ''
     }
   },
   methods: {
@@ -105,7 +112,8 @@ export default {
         const userID = this.user._id
 
         if (!userID) {
-          alert('You must be logged in to submit a review')
+          this.alertMessage = 'You must be logged in to submit a review'
+          this.showAlert = true
           return
         }
 
@@ -115,7 +123,8 @@ export default {
           this.instructorQuality < 1 ||
           this.difficultyLevel < 1
         ) {
-          alert('Rating cannot be empty')
+          this.alertMessage = 'Rating cannot be empty'
+          this.showAlert = true
           return
         }
 
@@ -129,14 +138,17 @@ export default {
         }
 
         await Api.post(`/users/${userID}/courses/${courseID}/reviews/`, reviewData)
-        alert('Your review has been submitted')
+        this.alertMessage('Your review has been submitted')
+        this.showAlert = true
         this.$router.push(`/courses/${courseID}`)
       } catch (error) {
         console.log(error)
         if (error.response.status === 400) {
-          alert('You have already posted a review for this course.')
+          this.alertMessage = 'You have already posted a review for this course.'
+          this.showAlert = true
         } else {
-          alert('Submission Failed')
+          this.alertMessage = 'Submission failed.'
+          this.showAlert = true
         }
       }
     },
