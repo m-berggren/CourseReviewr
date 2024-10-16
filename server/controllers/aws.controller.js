@@ -56,7 +56,7 @@ const generateDownloadUrl = async (req, res) => {
     const params = {
         Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: fileName,
-        Expires: 3600 // URL expires in 1 hour
+        Expires: 3600 * 24 // URL expires in 1 day
     };
 
     s3.getSignedUrl('getObject', params, (err, url) => {
