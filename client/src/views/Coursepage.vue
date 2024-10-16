@@ -91,7 +91,7 @@
           </b-col>
       </b-row>
 
-      <!-- Row for course info -->
+      <!-- Row for course review -->
         <b-row>
         <b-col>
           <div class="reviews-container">
@@ -121,6 +121,7 @@
                   </b-col>
                   <b-col md="4">
                     <ul class="review-rating-list">
+                      <li><b style="font-weight: 900;">Overall Rating:</b> {{ review.averageRating }}/5</li>
                       <li><b>Engagement Level:</b> {{ review.engagementLevel }}/5</li>
                       <li><b>Practical Value:</b> {{ review.practicalValue }}/5</li>
                       <li><b>Instructor Quality:</b> {{ review.instructorQuality }}/5</li>
