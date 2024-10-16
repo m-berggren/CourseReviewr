@@ -80,18 +80,6 @@ api.getS3UploadUrl = async (fileName, fileType) => {
   }
 }
 
-api.getS3DownloadUrl = async (fileName) => {
-  try {
-    const response = await Api.get('/aws/generate-download-url', {
-      params: { fileName }
-    })
-    return response.data.signedUrl
-  } catch (error) {
-    console.error('Error getting S3 download URL:', error)
-    throw error
-  }
-}
-
 api.deleteFromS3 = async (fileName) => {
   try {
     const response = await api.delete('/aws/delete-object', {
