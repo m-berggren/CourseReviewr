@@ -1,185 +1,186 @@
 <template>
   <div>
-    <b-row class="top-row text-center justify-content-center">
-      <h2 class="my-1">Create course - then review</h2>
-    </b-row>
+    <b-container fluid>
+      <b-row class="top-row text-center justify-content-center">
+        <h2 class="my-1">Create course - then review</h2>
+      </b-row>
 
-    <b-row class="justify-content-center">
-      <b-col xl="6" lg="8" md="10" sm="8" xs="8">
-        <!-- Form for creating course -->
-        <b-form @submit="onSubmit" @reset="onReset">
+      <b-row class="justify-content-center">
+        <b-col xl="6" lg="8" md="10" sm="8" xs="8">
+          <!-- Form for creating course -->
+          <b-form @submit="onSubmit" @reset="onReset">
 
-          <!-- Course name -->
-          <b-form-group label-cols="3" label="Course name:*" label-for="input-1" class="label-font mt-1 ms-2">
-            <b-form-input
-            id="input-1"
-            v-model="form.name"
-            placeholder="Enter course name"
-            :state="getFieldState(nameState)"
-            class="ms-2"
-            ></b-form-input>
-            <b-form-invalid-feedback :state="getFieldState(nameState)">
-              Please type in a course name longer than 3 letters.
-            </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(nameState)"></b-form-valid-feedback>
-          </b-form-group>
-
-          <!-- Description -->
-          <b-form-group label-cols="3" label="Description:" label-for="input-2" class="label-font mt-3  ms-2">
-            <b-form-textarea
-              id="textarea"
-              v-model="form.description"
-              placeholder="Enter a description..."
-              rows="2"
-              max-rows="5"
+            <!-- Course name -->
+            <b-form-group label-cols="3" label="Course name:*" label-for="input-1" class="label-font mt-1">
+              <b-form-input
+              id="input-1"
+              v-model="form.name"
+              placeholder="Enter course name"
+              :state="getFieldState(nameState)"
               class="ms-2"
-            ></b-form-textarea>
-          </b-form-group>
+              ></b-form-input>
+              <b-form-invalid-feedback :state="getFieldState(nameState)">
+                Please type in a course name longer than 3 letters.
+              </b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(nameState)"></b-form-valid-feedback>
+            </b-form-group>
 
-          <!-- Topics -->
-          <b-form-group label-cols="3" label="Topics:*" label-for="input-3" class="label-font mt-3  ms-2">
-            <b-form-tags
-              input-id="topics-list"
-              v-model="form.topics"
-              :state="getFieldState(topicsState)"
-              remove-on-delete
-              separator=","
+            <!-- Description -->
+            <b-form-group label-cols="3" label="Description:" label-for="input-2" class="label-font mt-3">
+              <b-form-textarea
+                id="textarea"
+                v-model="form.description"
+                placeholder="Enter a description..."
+                rows="2"
+                max-rows="5"
+                class="ms-2"
+              ></b-form-textarea>
+            </b-form-group>
+
+            <!-- Topics -->
+            <b-form-group label-cols="3" label="Topics:*" label-for="input-3" class="label-font mt-3">
+              <b-form-tags
+                input-id="topics-list"
+                v-model="form.topics"
+                :state="getFieldState(topicsState)"
+                remove-on-delete
+                separator=","
+                class="ms-2"
+              ></b-form-tags>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(topicsState)">Please type in topic(s) suitable for this course.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(topicsState)"></b-form-valid-feedback>
+            </b-form-group>
+
+            <!-- Difficulty -->
+            <b-form-group label-cols="3" label="Difficulty:*" label-for="input-4" class="label-font mt-3">
+              <b-form-select
+                v-model="form.difficulty"
+                :options="difficultyOptions"
+                size="sm"
+                :state="getFieldState(difficultyState)"
+                class="ms-2"
+              ></b-form-select>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(difficultyState)">Please choose a difficulty.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(difficultyState)"></b-form-valid-feedback>
+            </b-form-group>
+
+            <!-- Provider -->
+            <b-form-group label-cols="3" label="Provider:*" label-for="input-5" class="label-font mt-3">
+              <b-form-input
+              id="input-5"
+              v-model="form.provider"
+              placeholder="Enter provider"
+              :state="getFieldState(providerState)"
               class="ms-2"
-            ></b-form-tags>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(topicsState)">Please type in topic(s) suitable for this course.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(topicsState)"></b-form-valid-feedback>
-          </b-form-group>
+              ></b-form-input>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(providerState)">Please type in a provider longer than 1 letter.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(providerState)"></b-form-valid-feedback>
+            </b-form-group>
 
-          <!-- Difficulty -->
-          <b-form-group label-cols="3" label="Difficulty:*" label-for="input-4" class="label-font mt-3  ms-2">
-            <b-form-select
-              v-model="form.difficulty"
-              :options="difficultyOptions"
+            <!-- Description -->
+            <b-form-group label-cols="3" label="Url:" label-for="input-6" class="label-font mt-3  ms-2">
+              <b-form-input
+              id="input-6"
+              v-model="form.url"
+              placeholder="Enter url..."
+              class="ms-2"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- Instructor -->
+            <b-form-group label-cols="3" label="Instructor:" label-for="input-7" class="label-font mt-3">
+              <b-form-input
+              id="input-7"
+              v-model="form.instructor"
+              placeholder="Enter instructor..."
+              class="ms-2"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- Photo -->
+            <b-form-group label-cols="3" label="Photo:*" label-for="input-8" class="label-font mt-3">
+              <b-form-file
+                v-model="form.photo"
+                :state="getFieldState(photoState)"
+                placeholder="Choose a file or drop it here..."
+                drop-placeholder="Drop file here..."
+                class="ms-2"
+              ></b-form-file>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(photoState)">Please select a photo file.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(photoState)"></b-form-valid-feedback>
+            </b-form-group>
+
+            <!-- Access Type -->
+            <b-form-group label-cols="3" label="Access type:*" label-for="input-8" class="label-font mt-3">
+              <b-form-select
+                v-model="form.accessType"
+                :options="accessOptions"
+                size="sm"
+                :state="getFieldState(accessState)"
+                class="ms-2"
+              ></b-form-select>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(accessState)">Please choose an access type.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(accessState)"></b-form-valid-feedback>
+            </b-form-group>
+
+            <!-- Release Year -->
+            <b-form-group label-cols="3" label="Release year:" label-for="input-9" class="label-font mt-3">
+              <b-form-select
+              v-model="form.releaseYear"
+              :options="releaseYearOptions"
               size="sm"
-              :state="getFieldState(difficultyState)"
               class="ms-2"
-            ></b-form-select>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(difficultyState)">Please choose a difficulty.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(difficultyState)"></b-form-valid-feedback>
-          </b-form-group>
+              ></b-form-select>
+            </b-form-group>
 
-          <!-- Provider -->
-          <b-form-group label-cols="3" label="Provider:*" label-for="input-5" class="label-font mt-3  ms-2">
-            <b-form-input
-            id="input-5"
-            v-model="form.provider"
-            placeholder="Enter provider"
-            :state="getFieldState(providerState)"
-            class="ms-2"
-            ></b-form-input>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(providerState)">Please type in a provider longer than 1 letter.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(providerState)"></b-form-valid-feedback>
-          </b-form-group>
+            <!-- Certificate -->
+            <b-form-group label-cols="3" label="Certificate:*" label-for="input-10" class="label-font mt-3">
+              <b-form-select
+                v-model="form.certificate"
+                :options="certificateOptions"
+                size="sm"
+                :state="getFieldState(certificateState)"
+                class="ms-2"
+              ></b-form-select>
+              <!-- Custom validation feedback -->
+              <b-form-invalid-feedback :state="getFieldState(certificateState)">Please choose a type of certificate.</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="getFieldState(certificateState)"></b-form-valid-feedback>
+            </b-form-group>
 
-          <!-- Description -->
-          <b-form-group label-cols="3" label="Url:" label-for="input-6" class="label-font mt-3  ms-2">
-            <b-form-input
-            id="input-6"
-            v-model="form.url"
-            placeholder="Enter url..."
-            class="ms-2"
-            ></b-form-input>
-          </b-form-group>
+            <b-form-group class="my-1 ms-5">
+              <b-row>
+                <b-col md-2>
+                  <b-button v-if="!formCreated" type="submit" variant="primary" class="left">Submit</b-button>
+                    <b-button v-else @click="goToReview" variant="success">Next: Create Review</b-button>
+                </b-col>
+                <b-col class="text-right">
+                  <b-button v-if="!formCreated" type="reset" variant="danger" class="ml-auto">Reset</b-button>
+                </b-col>
+              </b-row>
+            </b-form-group>
 
-          <!-- Instructor -->
-          <b-form-group label-cols="3" label="Instructor:" label-for="input-7" class="label-font mt-3  ms-2">
-            <b-form-input
-            id="input-7"
-            v-model="form.instructor"
-            placeholder="Enter instructor..."
-            class="ms-2"
-            ></b-form-input>
-          </b-form-group>
+          </b-form>
+        </b-col>
+      </b-row>
 
-          <!-- Photo -->
-          <b-form-group label-cols="3" label="Photo:*" label-for="input-8" class="label-font mt-3  ms-2">
-            <b-form-file
-              v-model="form.photo"
-              :state="getFieldState(photoState)"
-              placeholder="Choose a file or drop it here..."
-              drop-placeholder="Drop file here..."
-              class="ms-2"
-            ></b-form-file>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(photoState)">Please select a photo file.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(photoState)"></b-form-valid-feedback>
-          </b-form-group>
-
-          <!-- Access Type -->
-          <b-form-group label-cols="3" label="Access type:*" label-for="input-8" class="label-font mt-3 ms-2">
-            <b-form-select
-              v-model="form.accessType"
-              :options="accessOptions"
-              size="sm"
-              :state="getFieldState(accessState)"
-              class="ms-2"
-            ></b-form-select>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(accessState)">Please choose an access type.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(accessState)"></b-form-valid-feedback>
-          </b-form-group>
-
-          <!-- Release Year -->
-          <b-form-group label-cols="3" label="Release year:" label-for="input-9" class="label-font mt-3  ms-2">
-            <b-form-input
-            id="input-9"
-            v-model="form.releaseYear"
-            placeholder="Enter release year..."
-            class="ms-2"
-            ></b-form-input>
-          </b-form-group>
-
-          <!-- Certificate -->
-          <b-form-group label-cols="3" label="Certificate:*" label-for="input-10" class="label-font mt-3  ms-2">
-            <b-form-select
-              v-model="form.certificate"
-              :options="certificateOptions"
-              size="sm"
-              :state="getFieldState(certificateState)"
-              class="ms-2"
-            ></b-form-select>
-            <!-- Custom validation feedback -->
-            <b-form-invalid-feedback :state="getFieldState(certificateState)">Please choose a type of certificate.</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="getFieldState(certificateState)"></b-form-valid-feedback>
-          </b-form-group>
-
-          <b-form-group class="my-1">
-            <b-row>
-              <b-col md-2>
-                <b-button v-if="!formCreated" type="submit" variant="primary" class="left">Submit</b-button>
-                  <b-button v-else @click="goToReview" variant="success">Next: Create Review</b-button>
-              </b-col>
-              <b-col class="text-right">
-                <b-button v-if="!formCreated" type="reset" variant="danger" class="ml-auto">Reset</b-button>
-              </b-col>
-            </b-row>
-          </b-form-group>
-
-        </b-form>
+      <b-row class="justify-content-center">
+        <b-col md-6>
+        <!-- Success message -->
+        <BAlert
+          v-if="successMessage"
+          variant="success"
+          :model-value="true"
+        >
+          Course Created!
+        </BAlert>
       </b-col>
-    </b-row>
-
-    <b-row class="justify-content-center">
-      <b-col md-6>
-      <!-- Success message -->
-      <BAlert
-        v-if="successMessage"
-        variant="success"
-        :model-value="true"
-      >
-        Course Created!
-      </BAlert>
-    </b-col>
-    </b-row>
-
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -245,7 +246,13 @@ const onSubmit = async (event) => {
   formSubmitted.value = true
 
   // Check if form is valid
-  const isFormValid = topicsValid.value && form.difficulty !== null && photoValid.value && difficultyValid.value && accessValid.value && certificateValid.value
+  const isFormValid = nameState.value &&
+                      topicsState.value &&
+                      providerState.value &&
+                      photoState.value &&
+                      difficultyState.value &&
+                      accessState.value &&
+                      certificateState.value
 
   if (!isFormValid) {
     console.log('Form is invalid')
@@ -343,7 +350,7 @@ const onReset = () => {
   form.photo = null
   form.imageName = ''
   form.accessType = null
-  form.releaseYear = null
+  form.releaseYear = 2024
   form.certificate = null
 
   nameValid.value = true
@@ -376,6 +383,14 @@ const certificateOptions = [
   { value: null, text: 'Please select an option' },
   { value: 'Yes', text: 'Yes' },
   { value: 'No', text: 'No' }
+]
+
+const releaseYearOptions = [
+  { value: 2024, text: 2024 },
+  { value: 2023, text: 2023 },
+  { value: 2022, text: 2022 },
+  { value: 2021, text: 2021 },
+  { value: 2020, text: 2020 }
 ]
 
 const form = reactive({

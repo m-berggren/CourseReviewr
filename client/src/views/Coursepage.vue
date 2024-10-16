@@ -25,16 +25,15 @@
               <b-button v-if="isSignedIn" variant="dark" @click="goToWriteReview">Write a review</b-button>
           </div>
         </b-col>
-
       </b-row>
 
       <b-row class="my-5 ms-2 justify-content-center">
-        <b-col md="6">
+        <b-col xl="6" md="4" sm="8" class="my-2">
           <h2>Rating</h2>
           <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" :star-size="40"/>
         </b-col>
-        <b-col md="4">
-          <div class="tags-container mt-2">
+        <b-col xl="4" md="6" sm="8">
+          <div class="tags-container mt-">
               <b-badge v-for="topic in course.topics" :key="topic._id" variant="dark" class="tag-badge ms-2 my-2 p-2">
                   {{ topic.name }}
               </b-badge>
@@ -44,33 +43,33 @@
 
       <!-- Row for course detailed rating -->
         <b-row class="justify-content-center">
-          <b-col md="6">
+          <b-col md="4" class="my-3">
             <b-card class="card-box">
               <h3>Detailed Rating</h3>
               <ul class="detailed-rating-list">
 
-                  <li>Engagement Level:
+                  <li><b>Engagement Level:</b>
                       <star-rating
                       :rating="aggregatedRatings.averageEngagementLevel"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
-                  <li>Practical Value:
+                  <li><b>Practical Value:</b>
                       <star-rating
                       :rating="aggregatedRatings.averagePracticalValue"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
-                  <li>Instructor Quality:
+                  <li><b>Instructor Quality:</b>
                       <star-rating
                       :rating="aggregatedRatings.averageInstructorQuality"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
-                  <li>Difficulty Level:
+                  <li><b>Difficulty Level:</b>
                       <star-rating
                       :rating="aggregatedRatings.averageDifficultyLevel"
                       :read-only="true"
@@ -81,7 +80,7 @@
           </b-card>
           </b-col>
 
-          <b-col md="4">
+          <b-col md="4" class="my-3">
             <b-card class="card-box">
                   <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
                   <p><strong>Provider: </strong>{{ course.provider }}</p>
@@ -96,7 +95,7 @@
         <b-row>
         <b-col>
           <div class="reviews-container">
-            <h3>Reviews</h3>
+            <h3 class="review-header">Reviews</h3>
             <div v-if="!reviews.length" class="alert alert-info mt-3">
               No reviews yet
             </div>
@@ -115,16 +114,17 @@
                 </b-row>
 
                 <b-row class="mt-2">
-                  <b-col md="6">
-                    <p>{{ review.comment }}</p>
+                  <b-col md="8">
+                    <b-card class="review-description">
+                      <p>{{ review.comment }}</p>
+                    </b-card>
                   </b-col>
-                  <b-col></b-col>
                   <b-col md="4">
                     <ul class="review-rating-list">
-                      <li>Engagement Level: {{ review.engagementLevel }}/5</li>
-                      <li>Practical Value: {{ review.practicalValue }}/5</li>
-                      <li>Instructor Quality: {{ review.instructorQuality }}/5</li>
-                      <li>Difficulty Level: {{ review.difficultyLevel }}/5</li>
+                      <li><b>Engagement Level:</b> {{ review.engagementLevel }}/5</li>
+                      <li><b>Practical Value:</b> {{ review.practicalValue }}/5</li>
+                      <li><b>Instructor Quality:</b> {{ review.instructorQuality }}/5</li>
+                      <li><b>Difficulty Level:</b> {{ review.difficultyLevel }}/5</li>
                     </ul>
                   </b-col>
                 </b-row>
@@ -227,23 +227,13 @@ export default {
     background-color: white;
     border-radius: 1vw;
   }
-
-  h1 {
-    font-weight: bold;
-    margin-bottom: 1rem;
+  .review-description {
+    background-color: f8f8f8;
+    margin-bottom: 3vw;
   }
-
   .tags-container {
     background-color: lightgrey;
     border-radius: 1vw;
-  }
-  .tag-badge {
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  .tag-badge:hover {
-    background-color: #007bff !important; /* Change background on hover */
   }
 
   .image-placeholder img {
@@ -265,13 +255,7 @@ export default {
 
   .review-button .btn:hover {
     background-color: #007bff !important;
-  }
-
-  p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: black;
-    margin-bottom: 1.5rem;
+    border-color: #007bff !important;
   }
 
   .detailed-rating-list {
@@ -280,11 +264,11 @@ export default {
 
   .reviews-container {
     background-color: #f9f9f9;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 1rem;
   }
 
-  h3 {
+  .review-header {
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 1rem;
