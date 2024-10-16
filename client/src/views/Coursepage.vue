@@ -28,11 +28,11 @@
       </b-row>
 
       <b-row class="my-5 ms-2 justify-content-center">
-        <b-col xl="6" md="4" sm="8" class="my-2">
+        <b-col xl="4" md="5" sm="8" class="my-2">
           <h2>Rating</h2>
           <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" :star-size="40"/>
         </b-col>
-        <b-col xl="4" md="6" sm="8">
+        <b-col xl="4" md="4" sm="8">
           <div class="tags-container mt-">
               <b-badge v-for="topic in course.topics" :key="topic._id" variant="dark" class="tag-badge ms-2 my-2 p-2">
                   {{ topic.name }}
@@ -49,28 +49,28 @@
               <ul class="detailed-rating-list">
 
                   <li><b>Engagement Level:</b>
-                      <star-rating
+                      <star-rating class="mb-1"
                       :rating="aggregatedRatings.averageEngagementLevel"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
                   <li><b>Practical Value:</b>
-                      <star-rating
+                      <star-rating class="mb-1"
                       :rating="aggregatedRatings.averagePracticalValue"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
                   <li><b>Instructor Quality:</b>
-                      <star-rating
+                      <star-rating class="mb-1"
                       :rating="aggregatedRatings.averageInstructorQuality"
                       :read-only="true"
                       :star-size="30">
                   </star-rating>
                   </li>
                   <li><b>Difficulty Level:</b>
-                      <star-rating
+                      <star-rating class="mb-1"
                       :rating="aggregatedRatings.averageDifficultyLevel"
                       :read-only="true"
                       :star-size="30">
@@ -82,11 +82,12 @@
 
           <b-col md="4" class="my-3">
             <b-card class="card-box">
-                  <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
-                  <p><strong>Provider: </strong>{{ course.provider }}</p>
-                  <p><strong>Instructor: </strong>{{ course.instructor }}</p>
-                  <p><strong>Certificate: </strong>{{ course.certificate }}</p>
-                  <p><strong>Access Type: </strong>{{ course.accessType }}</p>
+              <p><strong>Provider: </strong>{{ course.provider }}</p>
+              <p><strong>Course page: </strong>{{ course.url }}</p>
+              <p><strong>Instructor: </strong>{{ course.instructor }}</p>
+              <p><strong>Access Type: </strong>{{ course.accessType }}</p>
+              <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
+              <p><strong>Certificate: </strong>{{ course.certificate }}</p>
             </b-card>
           </b-col>
       </b-row>
@@ -121,7 +122,7 @@
                   </b-col>
                   <b-col md="4">
                     <ul class="review-rating-list">
-                      <li><b style="font-weight: 900;">Overall Rating:</b> {{ review.averageRating }}/5</li>
+                      <li><b style="font-weight: 900;">Overall Rating:</b> {{ (Math.round(review.averageRating * 2) / 2).toFixed(1) }}/5</li>
                       <li><b>Engagement Level:</b> {{ review.engagementLevel }}/5</li>
                       <li><b>Practical Value:</b> {{ review.practicalValue }}/5</li>
                       <li><b>Instructor Quality:</b> {{ review.instructorQuality }}/5</li>
@@ -141,6 +142,7 @@
 import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
+import { round } from 'lodash'
 
 export default {
   name: 'CourseDetails',
