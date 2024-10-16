@@ -260,13 +260,10 @@ const onSubmit = async (event) => {
     createdTopics = await Promise.all(topicPromises)
     form.topics = createdTopics
 
-    console.log(form.photo)
-
     // Step 2: Upload photo to AWS S3 bucket
     if (form.photo) {
       try {
         const uploadedPhotoName = await Api.handleImageUpload(form.photo)
-        console.log(form.photo, uploadedPhotoName)
         form.photo = uploadedPhotoName
       } catch (uploadError) {
         console.error('Error uploading image:', uploadError)

@@ -18,25 +18,19 @@ const props = defineProps({
 })
 
 const imageUrl = ref('')
-const errorMessage = ref('')
 
 const fetchDownloadUrl = async () => {
   if (props.s3Key) {
     try {
       imageUrl.value = await Api.getS3DownloadUrl(props.s3Key)
     } catch (error) {
-      console.error('Failed to fetch download URL:', error)
-      errorMessage.value = `Failed to load image: ${error.message}`
+      console.error('Failed to fetch download URL')
     }
-  } else {
-    errorMessage.value = placeholderImage
   }
 }
 
-const handleImageError = (error) => {
-  console.error('Error loading image:', error)
-  console.error('Failed URL:', error.target.src)
-  errorMessage.value = `Failed to load image: ${error.target.src}`
+const handleImageError = () => {
+  imageUrl.value = ''
 }
 
 // Use watchEffect instead of onMounted and watch
