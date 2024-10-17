@@ -39,6 +39,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import ReviewForm from './ReviewForm.vue'
 import { token } from '@/token.js'
 
@@ -46,8 +47,10 @@ const props = defineProps({
   review: Object
 })
 
+const review = ref(props.review)
+
 const userToken = token.getUserId()
-const userReview = props.review.user._id
+const userReview = props.review.user._id || review.value.user
 
 </script>
 
