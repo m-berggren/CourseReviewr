@@ -254,21 +254,33 @@ export default {
     },
 
     async addCourseToCourseList(courseList) {
+      if (!courseList || !courseList._id) {
+        this.showAlert('Course list is not valid', 'danger')
+        return
+      }
+      // Get the HATEOAS patch link from the course list object
+      const courselistResponse = await Api.get(`/users/${token.getUserId()}/course-lists/${courseList._id}`)
+      const patchLink = courselistResponse.data._links.patch.href
+
+      if (!patchLink) {
+        this.showAlert('Patch link is missing', 'danger')
+        return
+      }
+
       // Check if the course is already in the course list
       const isCourseAlreadyInList = courseList.courses.some(c => c._id === courseList.selectedCourseId)
-
       if (isCourseAlreadyInList) {
         this.showAlert('Course is already in the list', 'danger')
         return
       }
-
+      // Add the selected course to the course list using the HATEOAS patch link
       try {
-        await Api.patch(`/users/${token.getUserId()}/course-lists/${courseList._id}`, {
+        await Api.patch(patchLink, {
           courses: [...courseList.courses.map(c => c._id), courseList.selectedCourseId]
         })
         this.showAlert('Course added successfully', 'success')
         courseList.newCourse = ''
-        courseList.selectedCourseId = '' // Reset after adding the course
+        courseList.selectedCourseId = ''
         await this.fetchCourseLists()
       } catch (error) {
         this.showAlert('Failed to add course: ' + error.message, 'danger')
@@ -293,14 +305,22 @@ export default {
       courseList.newDescription = courseList.description
     },
     async saveEdit(courseList) {
+      // Get the HATEOAS patch link from the course list object
+      const courselistResponse = await Api.get(`/users/${token.getUserId()}/course-lists/${courseList._id}`)
+      const patchLink = courselistResponse.data._links.patch.href
+
+      if (!patchLink) {
+        this.showAlert('Patch link is missing', 'danger')
+        return
+      }
       try {
         const updatedData = {
           name: courseList.newName,
           description: courseList.newDescription
         }
 
-        // Call your API to update the course list
-        await Api.patch(`/users/${token.getUserId()}/course-lists/${courseList._id}`, updatedData)
+        // Call API to update the course list using the HATEOAS patch link
+        await Api.patch(patchLink, updatedData)
 
         // Apply the changes to the courseList after saving
         courseList.name = courseList.newName
@@ -348,11 +368,20 @@ export default {
     // Confirm course list deletion
     async confirmDeleteCourseList() {
       if (!this.courseListToDelete) return
+
+      // Get the HATEOAS delete link from the course list object
+      const courselistResponse = await Api.get(`/users/${token.getUserId()}/course-lists/${this.courseListToDelete._id}`)
+      const deleteLink = courselistResponse.data._links.delete.href
+      if (typeof deleteLink !== 'string' || !deleteLink) {
+        this.showAlert('Delete link is missing or invalid', 'danger')
+        return
+      }
       try {
-        await Api.delete(`/users/${token.getUserId()}/course-lists/${this.courseListToDelete._id}`)
+        // Use HATEOAS link for deleting the course list
+        await Api.delete(deleteLink)
         this.courseLists = this.courseLists.filter((list) => list._id !== this.courseListToDelete._id)
         this.showAlert('Course list deleted successfully', 'success')
-        this.$refs.deleteCourseListModal.hide() // Close the modal
+        this.$refs.deleteCourseListModal.hide()
       } catch (error) {
         this.showAlert('Failed to delete course list: ' + error.message, 'danger')
       }
@@ -398,7 +427,7 @@ export default {
     async confirmDeleteCourse() {
       if (!this.courseListIdForCourseDelete || !this.courseToDeleteId) return
       try {
-        await Api.patch(`users/${token.getUserId()}/course-lists/${this.courseListIdForCourseDelete}`, {
+        await Api.patch(`users / ${token.getUserId()} / course - lists / ${this.courseListIdForCourseDelete}`, {
           removeCourseId: this.courseToDeleteId
         })
         const courseList = this.courseLists.find((list) => list._id === this.courseListIdForCourseDelete)
