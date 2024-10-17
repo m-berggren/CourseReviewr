@@ -14,13 +14,13 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-const generateUploadUrl = async (req, res) => {
+const generateUploadUrl = async (req, res, next) => {
     const { fileName, fileType } = req.query;
 
     try {
 
         // Create 32 hexadecimal character string
-        const rawBytes = await crypto.randomBytes(16);
+        const rawBytes = crypto.randomBytes(16);
         const imageName = `${rawBytes.toString('hex')}-${fileName}`;
 
         const params = {
@@ -42,7 +42,7 @@ const generateUploadUrl = async (req, res) => {
         });
         
     } catch (error) {
-        res.status(500).json({ message: 'Failed to generate signed URL', error: error.message, stack: error.stack });
+        next(error);
     }
 };
 
@@ -56,7 +56,7 @@ const generateDownloadUrl = async (req, res) => {
     const params = {
         Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: fileName,
-        Expires: 3600 // URL expires in 1 hour
+        Expires: 3600 * 24 // URL expires in 1 day
     };
 
     s3.getSignedUrl('getObject', params, (err, url) => {
@@ -68,7 +68,7 @@ const generateDownloadUrl = async (req, res) => {
     });
 };
 
-const deleteOneObject = async (req, res) => {
+const deleteOneObject = async (req, res, next) => {
     const { fileName } = req.query;
 
     if (!fileName) {
@@ -84,7 +84,7 @@ const deleteOneObject = async (req, res) => {
         await s3.deleteObject(params).promise();
         res.status(200).json({ message: 'File deleted successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to felete file from S3: ' + error});
+        next(error);
     }
 };
 

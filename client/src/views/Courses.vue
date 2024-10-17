@@ -7,27 +7,27 @@
           <b-input-group>
             <b-form-input v-model="searchInput" placeholder="Search Course" class="search-input"></b-form-input>
             <b-input-group-append>
-              <b-button @click="clearButton" variant="dark" class="top-row-button">Clear All</b-button>
+              <b-button @click="clearButton" variant="dark" class="clear-button">Clear All</b-button>
             </b-input-group-append>
           </b-input-group>
           <!-- Menu toggle button, visible only on md screens and smaller -->
-          <b-button v-b-toggle.button-collapse class="d-inline-block d-lg-none position-absolute menu-toggle" variant="dark">
-            <b-icon-list />Menu
+          <b-button v-b-toggle.button-collapse class="d-inline-block d-lg-none position-absolute options-toggle" variant="dark">
+            <b-icon-list />Options
           </b-button>
         </b-col>
 
         <!-- Provider, Topic dropdowns, and Create course button -->
-        <b-col xl="8" lg="6" md="12" sm="12" xs="12" class="my-2">
+        <b-col xl="8" lg="6" md="12" sm="12" xs="12">
           <b-collapse id="button-collapse" class="d-lg-flex justify-content-lg-start">
             <div class="d-flex flex-column flex-lg-row">
-              <b-dropdown :text="providerDropdownText" class="mb-2 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+              <b-dropdown :text="providerDropdownText" class="mb-1 mb-lg-0 mr-lg-2 ms-2" variant="dark">
                 <b-dropdown-item v-for="provider in providers" :key="provider" @click="selectProvider(provider)">
                   {{ provider }}
                 </b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="clearProvider">Clear Provider</b-dropdown-item>
               </b-dropdown>
-              <b-dropdown :text="topicDropdownText" class="mb-2 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+              <b-dropdown :text="topicDropdownText" class="mb-1 mb-lg-0 mr-lg-2 ms-2" variant="dark">
                 <b-dropdown-item v-for="topic in topics" :key="topic._id" @click="selectTopic(topic)">
                   {{ topic.name }}
                 </b-dropdown-item>
@@ -35,7 +35,7 @@
                 <b-dropdown-item @click="clearTopic">Clear Topic</b-dropdown-item>
               </b-dropdown>
               <router-link to="/courses/create" class="course-button ms-2">
-                <b-button v-if="isSignedIn" variant="dark" class="top-row-button">Create course & review</b-button>
+                <b-button v-if="isSignedIn" variant="dark" class="clear-button">Create course & review</b-button>
               </router-link>
             </div>
           </b-collapse>
@@ -262,7 +262,7 @@ onMounted(() => {
   color: #007bff;
 }
 
-.top-row-button:hover {
+.clear-button:hover {
   background-color: #007bff;
   color: #383024;
   border-color: #383024 !important;
@@ -282,7 +282,7 @@ onMounted(() => {
   color: #007bff;
 }
 
-.menu-toggle {
+.options-toggle {
   right: -80px; /* Adjusted to move the button further right */
   top: 50%;
   transform: translateY(-50%);
@@ -291,10 +291,6 @@ onMounted(() => {
 
 /* Responsive styles: move buttons down during resizing */
 @media (max-width: 992px) {
-  #button-collapse:not(.show) {
-    display: none;
-  }
-
   #button-collapse.show {
     display: flex;
     flex-direction: column;
@@ -307,25 +303,23 @@ onMounted(() => {
     display: flex !important;
   }
 
-  .menu-toggle {
+  .options-toggle {
     display: none !important;
   }
 }
 
 @media (max-width: 576px) {
-  .top-row-button {
+  .clear-button {
     margin-right: 80px;
     padding-left: -50px;
-    font-size: 0.9rem;
   }
 
-  .search-input, .top-row-button {
-    font-size: 0.9rem;
+  .search-input, .clear-button, .options-toggle, .dropdown-button {
+    font-size: 0.8rem;
   }
 
-  .menu-toggle {
-    right: 10px;
-    font-size: 0.9rem;
+  .options-toggle {
+    right: 5px;
   }
 }
 

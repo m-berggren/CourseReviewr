@@ -1,52 +1,39 @@
 <template>
   <div class="image-container">
     <img
-      :src="imageUrl || placeholderImage"
-      :alt="placeholderImage"
+      v-if="imageUrl"
+      :src="imageUrl"
+      :alt="props.s3Key"
       @error="handleImageError"
     />
+    <img v-else :src="placeholderImage" :alt="'Placeholder for ' + props.s3Key" />
   </div>
 </template>
 
 <script setup>
-import { ref, watchEffect, onUnmounted } from 'vue'
-import { Api } from '@/Api'
+import { ref, watchEffect } from 'vue'
 import placeholderImage from '@/assets/placeholder.png'
+import { getS3DownloadUrl } from '@/utils/url-manager.js'
 
 const props = defineProps({
   s3Key: String
 })
 
 const imageUrl = ref('')
-const errorMessage = ref('')
 
 const fetchDownloadUrl = async () => {
   if (props.s3Key) {
-    try {
-      imageUrl.value = await Api.getS3DownloadUrl(props.s3Key)
-    } catch (error) {
-      console.error('Failed to fetch download URL:', error)
-      errorMessage.value = `Failed to load image: ${error.message}`
-    }
-  } else {
-    errorMessage.value = placeholderImage
+    const signedUrl = await getS3DownloadUrl(props.s3Key)
+    imageUrl.value = signedUrl
   }
 }
 
-const handleImageError = (error) => {
-  console.error('Error loading image:', error)
-  console.error('Failed URL:', error.target.src)
-  errorMessage.value = `Failed to load image: ${error.target.src}`
+const handleImageError = () => {
+  imageUrl.value = ''
 }
-
 // Use watchEffect instead of onMounted and watch
 watchEffect(fetchDownloadUrl)
 
-const refreshInterval = setInterval(fetchDownloadUrl, 60 * 60 * 1000) // 1 hour
-
-onUnmounted(() => {
-  clearInterval(refreshInterval)
-})
 </script>
 
 <style>

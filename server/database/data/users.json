@@ -130,7 +130,7 @@
     "email": "learning.junkie@outlook.com",
     "password": "learningJunkie",
     "photo": "",
-    "interests": ["Programming", "Machine Learning", "Data Science"],
+    "interests": ["Programming", "Machine Learning"],
     "recommendationList": [],
     "role": "user"
   },
@@ -139,23 +139,23 @@
     "email": "health.nut@yahoo.com",
     "password": "healthNut",
     "photo": "",
-    "interests": ["Health", "Nutrition", "Fitness"],
+    "interests": ["Health", "Nutrition"],
     "recommendationList": [],
     "role": "user"
   },
   {
-    "username": "codeWizard",
+    "username": "codeWiz",
     "email": "code.wizard@hotmail.com",
-    "password": "codeWizard",
+    "password": "codeWiz",
     "photo": "",
     "interests": ["Programming", "Algorithms", "Computer Science"],
     "recommendationList": [],
     "role": "user"
   },
   {
-    "username": "ecoWarrior",
-    "email": "eco.warrior@gmail.com",
-    "password": "ecoWarrior",
+    "username": "ecoW4",
+    "email": "eco.w4life@gmail.com",
+    "password": "ecow4",
     "photo": "",
     "interests": ["Environment", "Urban Studies"],
     "recommendationList": [],

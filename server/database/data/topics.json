@@ -42,7 +42,5 @@
     {"name": "Networking"},
     {"name": "Databases"},
     {"name": "Big Data"},
-    {"name": "Cybersecurity"},
-    {"name": "Fitness"},
-    {"name": "Data Science"}
+    {"name": "Cybersecurity"}
 ]
