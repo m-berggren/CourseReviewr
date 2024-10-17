@@ -94,46 +94,22 @@
 
       <!-- Row for course review -->
         <b-row>
-        <b-col>
-          <div class="reviews-container">
-            <h3 class="review-header">Reviews</h3>
-            <div v-if="!reviews.length" class="alert alert-info mt-3">
-              No reviews yet
-            </div>
+          <b-col>
+            <div class="reviews-container">
+              <h3 class="review-header">Reviews</h3>
+              <div v-if="!reviews.length" class="alert alert-info mt-3">
+                No reviews yet
+              </div>
 
-            <div v-else>
-              <b-card v-for="review in reviews" :key="review._id" :id="'review-' + review._id" class="reviews-cards mb-3">
-                <b-row>
-                  <b-col md="10">
-                    <p><b>{{ review.user.username }}</b></p>
-                    <p>Reviewed on {{ new Date(review.date).toLocaleDateString() }}</p>
-                    <div>
-                      <b-badge v-if="review.hasCompleted" variant="success">Completed the course</b-badge>
-                      <b-badge v-else variant="secondary">Not completed</b-badge>
-                    </div>
-                  </b-col>
-                </b-row>
-
-                <b-row class="mt-2">
-                  <b-col md="8">
-                    <b-card class="review-description">
-                      <p>{{ review.comment }}</p>
-                    </b-card>
-                  </b-col>
-                  <b-col md="4">
-                    <ul class="review-rating-list">
-                      <li><b style="font-weight: 900;">Overall Rating:</b> {{ (Math.round(review.averageRating * 2) / 2).toFixed(1) }}/5</li>
-                      <li><b>Engagement Level:</b> {{ review.engagementLevel }}/5</li>
-                      <li><b>Practical Value:</b> {{ review.practicalValue }}/5</li>
-                      <li><b>Instructor Quality:</b> {{ review.instructorQuality }}/5</li>
-                      <li><b>Difficulty Level:</b> {{ review.difficultyLevel }}/5</li>
-                    </ul>
-                  </b-col>
-                </b-row>
-              </b-card>
+              <div v-else>
+                <b-col
+                v-for="review in reviews"
+                :key="review._id">
+                  <review-entry v-bind:review="review" :id="'review-' + review._id" class="mb-3"/>
+                </b-col>
+              </div>
             </div>
-          </div>
-        </b-col>
+          </b-col>
         </b-row>
   </b-container>
   </template>
@@ -142,12 +118,13 @@
 import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
-import { round } from 'lodash'
+import ReviewEntry from '@/components/ReviewEntry.vue'
 
 export default {
   name: 'CourseDetails',
   components: {
-    'star-rating': StarRating
+    'star-rating': StarRating,
+    'review-entry': ReviewEntry
   },
   data() {
     return {
@@ -266,7 +243,6 @@ export default {
   }
 
   .reviews-container {
-    background-color: #f9f9f9;
     padding: 1rem;
     border-radius: 1rem;
   }
@@ -276,26 +252,6 @@ export default {
     font-weight: bold;
     margin-bottom: 1rem;
     text-align: center;
-  }
-
-  .reviews-cards {
-    background-color: #f8f8f8;
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-  }
-
-  .reviews-cards p {
-    font-size: 1.1rem;
-    color: black;
-  }
-
-  .reviews-cards .review-rating-list {
-    list-style: none;
-  }
-
-  .reviews-cards .review-rating-list li {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
   }
 
   .card-box {

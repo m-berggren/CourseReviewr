@@ -19,7 +19,8 @@
         <b-navbar-nav>
           <router-link to="/courses" class="nav-link mx-1" @click.native="collapseNav">Courses</router-link>
           <router-link to="/courses/create" class="nav-link mx-1" @click.native="collapseNav">Create Review</router-link>
-          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link mx-1" @click.native="collapseNav">Course Lists</router-link>
+          <router-link :to="{ name: 'reviews', params: { id: 'userId' } }" class="nav-link mx-1" @click.native="collapseNav">Reviews</router-link>
+          <router-link to="/course-lists" class="nav-link mx-1" @click.native="collapseNav">Course Lists</router-link>
         </b-navbar-nav>
 
         <!-- Signin / Profile button to the right with ml-auto -->
@@ -47,7 +48,8 @@ import { ref } from 'vue'
 
 defineProps({
   isSignedIn: Boolean,
-  username: String
+  username: String,
+  userId: String
 })
 
 const isNavCollapsed = ref(false)

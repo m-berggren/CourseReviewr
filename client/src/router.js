@@ -9,6 +9,7 @@ import CreateCourse from './views/CreateCourse.vue'
 import CourseLists from './views/CourseLists.vue'
 import Coursepage from './views/Coursepage.vue'
 import CreateReview from './views/CreateReview.vue'
+import Reviews from './views/Reviews.vue'
 import { token } from './token'
 
 const routes = [
@@ -20,7 +21,8 @@ const routes = [
   { path: '/profile', name: 'profile', component: Profile, meta: { requiresAuth: true } },
   { path: '/courses/create', name: 'create-course', component: CreateCourse, meta: { requiresAuth: true } },
   { path: '/course-lists', name: 'courselists', component: CourseLists, meta: { requiresAuth: true } },
-  { path: '/courses/:id', name: 'course-page', component: Coursepage }
+  { path: '/courses/:id', name: 'course-page', component: Coursepage },
+  { path: '/users/:id/reviews', name: 'reviews', component: Reviews, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({

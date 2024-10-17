@@ -15,6 +15,8 @@ router.post('/', authenticateJWT, requireAdmin, controller.createUser);
 
 router.get('/', authenticateJWT, requireAdmin, controller.getAllUsers);
 
+router.get('/:id/reviews', authenticateJWT, controller.getUserReviews);
+
 router.get('/:id', authenticateJWT, controller.getUser);
 
 router.put('/:id', authenticateJWT, controller.updateUser);

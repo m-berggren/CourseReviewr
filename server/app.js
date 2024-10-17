@@ -66,7 +66,6 @@ const api = '/api/v1';
 app.use(`${api}/auth`, authRoutes);
 app.use(`${api}/courses/:courseID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/courses/:courseID/reviews`, reviewRoutes);
-app.use(`${api}/users/:userID/reviews`, reviewRoutes);
 app.use(`${api}/users/:userID/course-lists`, courseListRoutes);
 app.use(`${api}/users`, userRoutes);
 app.use(`${api}/courses`, courseRoutes);
