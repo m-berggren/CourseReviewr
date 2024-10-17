@@ -23,7 +23,15 @@ const createCourseList = async (req, res, next) => {
             { new: true }
         );
 
-        res.status(201).json(savedCourseList);
+        res.status(201).json({
+            ...savedCourseList.toObject(),
+            _links: {
+                self: { href: `/users/${userID}/course-lists/${savedCourseList._id}`, method: 'GET' },
+                update: { href: `/users/${userID}/course-lists/${savedCourseList._id}`, method: 'PUT' },
+                patch: { href: `/users/${userID}/course-lists/${savedCourseList._id}`, method: 'PATCH' },
+                delete: { href: `/users/${userID}/course-lists/${savedCourseList._id}`, method: 'DELETE' }
+            }
+        });
     } catch (error) {
         next(error);
     }
@@ -33,7 +41,17 @@ const getAllCourseLists = async (req, res, next) => {
     try {
         const user = req.params.userID;
         const courseLists = await CourseList.find({ user }).populate('courses');
-        res.status(200).json(courseLists);
+        // Add HATEOAS links to each course list
+        const courseListsWithLinks = courseLists.map((courseList) => ({
+            ...courseList.toObject(),
+            _links: {
+                self: { href: `/api/users/${user}/course-lists/${courseList._id}`, method: 'GET' },
+                update: { href: `/api/users/${user}/course-lists/${courseList._id}`, method: 'PUT' },
+                patch: { href: `/api/users/${user}/course-lists/${courseList._id}`, method: 'PATCH' },
+                delete: { href: `/api/users/${user}/course-lists/${courseList._id}`, method: 'DELETE' }
+            }
+        }));
+        res.status(200).json(courseListsWithLinks);
     } catch (error) {
         handleError(error, res) || next(error);
     }
@@ -56,7 +74,15 @@ const getCourseList = async (req, res, next) => {
             return res.status(403).json({ message: 'Forbidden: You can only get your own course list.' });
         }
 
-        res.status(200).json(courseList);
+        res.status(200).json({
+            ...courseList.toObject(),
+            _links: {
+                self: { href: `/users/${courseList.user._id}/course-lists/${courseList._id}`, method: 'GET' },
+                update: { href: `/users/${courseList.user._id}/course-lists/${courseList._id}`, method: 'PUT' },
+                patch: { href: `/users/${courseList.user._id}/course-lists/${courseList._id}`, method: 'PATCH' },
+                delete: { href: `/users/${courseList.user._id}/course-lists/${courseList._id}`, method: 'DELETE' }
+            }
+        });
     } catch (error) {
         handleError(error, res) || next(error);
     }
@@ -90,7 +116,15 @@ const updateCourseList = async (req, res, next) => {
         if (!updatedCourseList) {
             return res.status(404).json({ message: 'CourseList not found.' });
         }
-        res.status(200).json(updatedCourseList);
+        res.status(200).json({
+            ...updatedCourseList.toObject(),
+            _links: {
+                self: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'GET' },
+                update: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'PUT' },
+                patch: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'PATCH' },
+                delete: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'DELETE' }
+            }
+        });
     } catch (error) {
         return handleError(error, res) || next(error);
     }
@@ -131,7 +165,15 @@ const patchCourseList = async (req, res, next) => {
         if (!updatedCourseList) {
             return res.status(404).json({ message: 'CourseList not found.' });
         }
-        res.status(200).json(updatedCourseList);
+        res.status(200).json({
+            ...updatedCourseList.toObject(),
+            _links: {
+                self: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'GET' },
+                update: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'PUT' },
+                patch: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'PATCH' },
+                delete: { href: `/users/${courseList.user._id}/course-lists/${updatedCourseList._id}`, method: 'DELETE' }
+            }
+        });
     } catch (error) {
         return handleError(error, res) || next(error);
     }
