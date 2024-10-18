@@ -21,8 +21,8 @@
         <div class="image-placeholder mt-4">
           <s3-image-display :s3Key="course.photo" class="image-container" />
         </div>
-        <div class="review-button mt-4">
-          <b-button variant="dark" @click="goToWriteReview">Write a review</b-button>
+        <div class="review-button mt-2">
+          <b-button class="btn-sm" @click="goToWriteReview">Write a review</b-button>
         </div>
       </b-col>
     </b-row>
@@ -34,9 +34,9 @@
       </b-col>
       <b-col xl="4" md="4" sm="8">
         <div class="tags-container mt-">
-          <b-badge v-for="topic in course.topics" :key="topic._id" variant="dark" class="tag-badge ms-2 my-2 p-2">
+          <span v-for="topic in course.topics" :key="topic._id" class="tag-bubble">
             {{ topic.name }}
-          </b-badge>
+          </span>
         </div>
       </b-col>
     </b-row>
@@ -214,9 +214,26 @@ export default {
   margin-bottom: 3vw;
 }
 
+.tag-bubble {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin: 0.2rem;
+  font-weight: normal;
+  text-transform: none;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
 .tags-container {
-  background-color: lightgrey;
   border-radius: 1vw;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
 }
 
 .image-placeholder img {
@@ -231,7 +248,9 @@ export default {
 }
 
 .review-button .btn {
-  font-size: 2rem;
+  background-color: cornflowerblue;
+  color: black;
+  font-size: 1rem;
   padding: 0.7rem 1.5rem;
   border-radius: 1vw;
 }
@@ -239,6 +258,7 @@ export default {
 .review-button .btn:hover {
   background-color: #007bff !important;
   border-color: #007bff !important;
+  text-align: center;
 }
 
 .detailed-rating-list {
