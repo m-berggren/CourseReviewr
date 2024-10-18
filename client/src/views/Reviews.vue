@@ -5,20 +5,18 @@
         <h1 class="mt-3 ms-3">Reviews</h1>
       </b-col>
     </b-row>
-    <b-row >
+    <b-row>
       <b-col>
         <div v-if="!reviews">
           No reviews yet.
         </div>
         <div v-else>
-          <b-col
-          v-for="review in reviews"
-          :key="review._id"
-          >
-            <router-link :to="{ name: 'course-page', params: { id: review.course._id }}" class="course-link">
-            <h3 class="text-center mt-4"><u>{{ review.course.name }}</u></h3>
+          <b-col v-for="review in reviews" :key="review._id">
+            <router-link :to="{ name: 'course-page', params: { id: review.course._id } }" class="course-link">
+              <h3 class="text-center mt-4"><u>{{ review.course.name }}</u></h3>
             </router-link>
-            <review-entry :review="review" :id="'review-' + review._id" class="mt-3 mb-4"></review-entry>
+            <review-entry :review="review" :id="'review-' + review._id" class="mt-3 mb-4"
+              @review-updated="fetchReviews"></review-entry>
             <hr />
           </b-col>
         </div>
@@ -32,7 +30,7 @@
 import { ref, onMounted } from 'vue'
 import { Api } from '@/Api'
 import ReviewEntry from '@/components/ReviewEntry.vue'
-import { token } from '@/token.js'
+import { token } from '@/token'
 
 const reviews = ref([])
 
@@ -56,6 +54,7 @@ const fetchReviews = async () => {
   text-decoration: none;
   color: inherit;
 }
+
 .course-link:hover {
   color: #007bff;
 }
