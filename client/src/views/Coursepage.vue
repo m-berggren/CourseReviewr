@@ -75,11 +75,12 @@
           <b-col md="4" class="my-3">
             <b-card class="card-box">
               <p><strong>Provider: </strong>{{ course.provider }}</p>
-              <p><strong>Course page: </strong><a :href="course.url" target="_blank">{{ course.url }}</a></p>
+              <p><strong>Difficulty: </strong>{{ course.difficulty }}</p>
               <p><strong>Instructor: </strong>{{ course.instructor }}</p>
-              <p><strong>Access Type: </strong>{{ course.accessType }}</p>
               <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
+              <p><strong>Access Type: </strong>{{ course.accessType }}</p>
               <p><strong>Certificate: </strong>{{ course.certificate }}</p>
+              <p><strong>Course page: </strong><a :href="course.url" target="_blank">{{ course.url }}</a></p>
             </b-card>
           </b-col>
       </b-row>
@@ -131,7 +132,8 @@ export default {
       },
       loading: true,
       errorMessage: '',
-      isSignedIn: token.isSignedIn()
+      isSignedIn: token.isSignedIn(),
+      reviewEdit: false
     }
   },
   methods: {
@@ -140,6 +142,7 @@ export default {
       this.$router.push(`/courses/${courseID}/write`)
     },
     async handleReviewUpdated() {
+      this.reviewEdit = true
       await this.fetchData()
     },
     async fetchData() {
@@ -177,18 +180,19 @@ export default {
         console.log(error)
       }
 
-      if (reviewID) {
-        this.$nextTick(() => {
+      this.$nextTick(() => {
+        if (this.reviewEdit) return // Early return to not scroll to the top if editing a review
+
+        if (reviewID) {
           const reviewElement = document.getElementById(`review-${reviewID}`)
           if (reviewElement) {
             reviewElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
           }
-        })
-      } else {
-        window.scrollTo({ top: '0', behavior: 'smooth' })
-      }
+        } else {
+          window.scrollTo({ top: '0', behavior: 'smooth' })
+        }
+      })
     }
-
   },
   mounted() {
     this.fetchData()
