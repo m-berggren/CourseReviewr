@@ -62,7 +62,7 @@
             <PaginationItem
               v-model="currentCoursePage"
               :total-rows="totalCourses"
-              :per-page="coursesPerPage"
+              :per-page="courseLimit"
               @pageChange="handleCoursePageChange"
             ></PaginationItem>
           </b-col>
@@ -80,7 +80,7 @@
         <!-- Gutter size 'g-' to adjust the margin between objects -->
         <b-row class="justify-content-center g-2 mx-3">
           <b-col xl="3" lg="4" md="6" sm="6" xs="12"
-              v-for="review in (reviews.reviews || [])"
+              v-for="review in displayedReviews"
               :key="review._id">
             <review-item v-bind:review="review"></review-item>
           </b-col>
@@ -90,10 +90,10 @@
         <b-row class="justify-content-center">
           <b-col cols="auto">
             <PaginationItem
-              v-model="reviews.currentPage"
-              :total-rows="reviews.totalReviews"
-              :per-page="reviews.limit"
-              @pageChange="fetchReviews"
+              v-model="currentReviewPage"
+              :total-rows="totalReviews"
+              :per-page="reviewLimit"
+              @pageChange="handleReviewPageChange"
             ></PaginationItem>
           </b-col>
         </b-row>
@@ -118,25 +118,17 @@ export default {
   data() {
     return {
       courses: [],
+      reviews: [],
       topics: [],
       searchQuery: '',
       selectedCourse: null,
       selectedTopic: '',
       currentCoursePage: 1,
-      allCourses: [],
+      currentReviewPage: 1,
+      courseLimit: 12,
+      reviewLimit: 8,
       topicLimit: 10,
-      topicSortBy: 'courseCount',
-      reviews: {
-        totalReviews: 0,
-        totalPages: 0,
-        currentPage: 1,
-        limit: 8,
-        hasPrevPage: false,
-        hasNextPage: false,
-        prevPage: null,
-        nextPage: null,
-        reviews: []
-      }
+      topicSortBy: 'courseCount'
     }
   },
   computed: {
@@ -149,18 +141,26 @@ export default {
       return { course: 1, review: 1 } // xs
     },
     displayedCourses() {
-      const start = (this.currentCoursePage - 1) * this.coursesPerPage
-      const end = Math.min(start + this.coursesPerPage, this.allCourses.length)
-      return this.allCourses.slice(start, end)
+      const start = (this.currentCoursePage - 1) * this.courseLimit
+      const end = Math.min(start + this.courseLimit, this.courses.length)
+      return this.courses.slice(start, end)
     },
-    coursesPerPage() {
-      return this.itemsPerRow.course * 2
+    displayedReviews() {
+      const start = (this.currentReviewPage - 1) * this.reviewLimit
+      const end = Math.min(start + this.reviewLimit, this.reviews.length)
+      return this.reviews.slice(start, end)
     },
     totalCoursePages() {
-      return Math.ceil(this.allCourses.length / this.coursesPerPage)
+      return Math.ceil(this.courses.length / this.courseLimit)
+    },
+    totalReviewPages() {
+      return Math.ceil(this.reviews.length / this.reviewLimit)
     },
     totalCourses() {
-      return this.allCourses.length
+      return this.courses.length
+    },
+    totalReviews() {
+      return this.reviews.length
     }
   },
   methods: {
@@ -173,27 +173,30 @@ export default {
       }
     },
     handleCoursePageChange(page) {
-      this.currentCoursePage = Math.min(page, this.totalCoursePages)
+      this.currentCoursePage = page
+      this.fetchCourses()
+    },
+    handleReviewPageChange(page) {
+      this.currentReviewPage = page
+      this.fetchReviews()
     },
     async fetchCourses() {
       try {
         let url = `/courses?page=${this.currentCoursePage}`
         if (this.selectedTopic) {
-          url += `/courses?page=${this.currentCoursePage}&topic=${this.selectedTopic}` // Set page to 1 to properly show the topics if current page is another page
+          url += `&topic=${this.selectedTopic}` // Set page to 1 to properly show the topics if current page is another page
         }
         const response = await Api.get(url)
-        this.allCourses = response.data.courses
         this.courses = response.data.courses
-        this.currentCoursePage = Math.min(this.currentCoursePage, this.totalCoursePages)
       } catch (error) {
         console.error(error)
       }
     },
     async fetchReviews() {
       try {
-        const url = `/reviews?page=${this.reviews.currentPage}&limit=${this.reviews.limit}`
+        const url = `/reviews?page=${this.reviews.currentReviewPage}`
         const response = await Api.get(url)
-        this.reviews = response.data
+        this.reviews = response.data.reviews
       } catch (error) {
         console.error(error)
       }
@@ -219,6 +222,9 @@ export default {
     },
     coursesPerPage() {
       this.currentCoursePage = Math.min(this.currentCoursePage, this.totalCoursePages)
+    },
+    reviewsPerPage() {
+      this.currentReviewPage = Math.min(this.currentReviewPage, this.totalReviewPages)
     }
   },
   mounted() {

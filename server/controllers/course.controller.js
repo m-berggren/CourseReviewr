@@ -47,7 +47,6 @@ const getAllCourses = async (req, res, next) => {
             const searchRegex = new RegExp(search, 'i');
             filter.$or = [
                 { name: searchRegex },
-                { description: searchRegex },
                 { provider: searchRegex }
             ];
         }

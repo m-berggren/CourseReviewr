@@ -122,8 +122,12 @@
 <script>
 import { Api } from '@/Api'
 import { token } from '@/token'
+import S3ImageDisplay from '@/components/BaseS3ImageDisplay.vue'
 
 export default {
+  components: {
+    's3-image-display': S3ImageDisplay
+  },
   data() {
     return {
       user: {},
