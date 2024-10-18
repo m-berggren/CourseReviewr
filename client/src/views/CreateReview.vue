@@ -58,7 +58,7 @@
         </div>
       </form>
 
-      <custom-alert :show="showAlert" :message="alertMessage" @close="showAlert = false" />
+      <custom-alert :show="showAlert" :message="alertMessage" @close="handleAlertClose" />
 
     </div>
   </div>
@@ -86,7 +86,8 @@ export default {
       hasCompleted: null,
       formSubmitted: false,
       showAlert: false,
-      alertMessage: ''
+      alertMessage: '',
+      courseID: ''
     }
   },
   methods: {
@@ -104,18 +105,10 @@ export default {
     },
     async submitReview() {
       console.log(this.difficultyLevel)
-      const courseID = this.$route.params.id
+      this.courseID = this.$route.params.id
 
       try {
-        const response = await Api.get(`/users/${token.getUserId()}`)
-        this.user = { ...response.data }
-        const userID = this.user._id
-
-        if (!userID) {
-          this.alertMessage = 'You must be logged in to submit a review'
-          this.showAlert = true
-          return
-        }
+        const userID = token.getUserId()
 
         if (
           this.engagementLevel < 1 ||
@@ -137,22 +130,22 @@ export default {
           hasCompleted: this.hasCompleted == null ? false : this.hasCompleted
         }
 
-        await Api.post(`/users/${userID}/courses/${courseID}/reviews/`, reviewData)
-        this.alertMessage('Your review has been submitted')
+        await Api.post(`/users/${userID}/courses/${this.courseID}/reviews/`, reviewData)
+        this.alertMessage = 'Your review has been submitted'
         this.showAlert = true
-        this.$router.push(`/courses/${courseID}`)
       } catch (error) {
-        console.log(error)
-        if (error.response.status === 400) {
+        if (error.response && error.response.status === 400) {
           this.alertMessage = 'You have already posted a review for this course.'
-          this.showAlert = true
         } else {
-          this.alertMessage = 'Submission failed.'
-          this.showAlert = true
+          this.alertMessage = 'Submission failed, please try again.'
         }
+        this.showAlert = true
       }
     },
-
+    handleAlertClose() {
+      this.showAlert = false
+      this.$router.push(`/courses/${this.courseID}`)
+    },
     onReset() {
       this.engagementLevel = 0
       this.practicalValue = 0
