@@ -8,6 +8,7 @@ import { normalize, join } from 'path';
 import cors from 'cors';
 import { configurePassport } from './middleware/passport.middleware.js';
 import methodOverride from 'method-override';
+import { createDefaultAdmin } from './tests/setup-admin.js';
 
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
@@ -33,6 +34,7 @@ connect(mongoURI).catch(function(err) {
     process.exit(1);
 }).then(function() {
     console.log(`Connected to MongoDB with URI: ${mongoURI}`); // mistake when forward porting
+    createDefaultAdmin(); // If admin does not already exist, creates it - used for testing postman locally and in pipeline
 });
 
 // Create Express app
