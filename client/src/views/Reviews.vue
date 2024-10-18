@@ -38,6 +38,13 @@ onMounted(() => {
   fetchReviews()
 })
 
+const updateReview = (updatedReview) => {
+  const index = reviews.value.findIndex(r => r._id === updatedReview._id)
+  if (index !== -1) {
+    reviews.value[index] = updatedReview
+  }
+}
+
 const fetchReviews = async () => {
   try {
     const response = await Api.get(`/users/${token.getUserId()}/reviews`)

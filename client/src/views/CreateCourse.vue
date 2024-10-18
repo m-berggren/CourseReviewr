@@ -181,6 +181,9 @@
       </b-col>
       </b-row>
     </b-container>
+
+    <custom-alert :show="showAlert" :message="alertMessage" @close="showAlert = false" />
+
   </div>
 </template>
 
@@ -188,7 +191,8 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { Api } from '@/Api'
-import { token } from '../token.js'
+import CustomAlert from '@/components/BaseCustomAlert.vue'
+import { resizeImage, ImageResizeError } from '@/utils/resize-img'
 
 /* Constants */
 
@@ -199,9 +203,8 @@ const formCreated = ref(false)
 const successMessage = ref('')
 
 const courseId = ref('')
-
-// Token
-const bearerToken = token.getOrThrow()
+const showAlert = ref(false)
+const alertMessage = ref('')
 
 // Reactive variables to track changes of state
 const nameValid = ref(true)
@@ -262,21 +265,25 @@ const onSubmit = async (event) => {
   let createdTopics = [] // Keep track of successfully created topic IDs
 
   try {
-    // Step 1: Create topics and store their IDs
+    // Step 1: Upload photo to AWS S3 bucket
+    if (form.photo) {
+      try {
+        const resizedFile = await resizeImage(form.photo)
+        const uploadedPhotoName = await Api.handleImageUpload(resizedFile, form.photo)
+        form.photo = uploadedPhotoName
+      } catch (error) {
+        if (error instanceof ImageResizeError) {
+          showAlert.value = true
+          alertMessage.value = 'Image upload failed, please choose another file.'
+          return
+        }
+      }
+    }
+
+    // Step 2: Create topics and store their IDs
     const topicPromises = form.topics.map(topic => createTopic(topic))
     createdTopics = await Promise.all(topicPromises)
     form.topics = createdTopics
-
-    // Step 2: Upload photo to AWS S3 bucket
-    if (form.photo) {
-      try {
-        const uploadedPhotoName = await Api.handleImageUpload(form.photo)
-        form.photo = uploadedPhotoName
-      } catch (uploadError) {
-        console.error('Error uploading image:', uploadError)
-        throw new Error(`Failed to upload image: ${uploadError.message}`)
-      }
-    }
 
     if (form.releaseYear === null) form.releaseYear = 0
 
@@ -288,28 +295,29 @@ const onSubmit = async (event) => {
     successMessage.value = 'Course created successfully!'
     onReset()
   } catch (error) {
-    console.error('Error creating course:', error)
     successMessage.value = ''
+    showAlert.value = true
+    alertMessage.value = 'An error occurred while creating the course. Please try again.'
 
     // If course creation fails, remove created topic(s)
-    if (createdTopics.length > 0) {
-      const removePromises = createdTopics.map(id => removeTopic(id))
-      try {
-        await Promise.all(removePromises)
-      } catch (removeError) {
-        console.error('Error removing ropics after course creation failure:', removeError)
-      }
+    cleanUpTopics(createdTopics)
+  }
+}
+
+const cleanUpTopics = async (topicIds) => {
+  if (topicIds.length > 0) {
+    const removePromises = topicIds.map(id => removeTopic(id))
+    try {
+      await Promise.all(removePromises)
+    } catch (removeError) {
+      console.error('Error removing topics after course creation failure:', removeError)
     }
   }
 }
 
 const createTopic = async (topic) => {
   try {
-    const response = await Api.post('/topics', { name: topic }, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`
-      }
-    })
+    const response = await Api.post('/topics', { name: topic })
     return response.data.topic._id
   } catch (error) {
     console.error(`Error creating topic with name ${topic}: `, error)
@@ -318,11 +326,7 @@ const createTopic = async (topic) => {
 
 const createCourse = async () => {
   try {
-    const response = await Api.post('/courses', form, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`
-      }
-    })
+    const response = await Api.post('/courses', form)
     return response.data.course._id
   } catch (error) {
     console.error(`Error creating course with name ${form.name}: `, error)

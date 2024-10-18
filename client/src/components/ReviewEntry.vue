@@ -46,6 +46,7 @@
 import { ref, defineEmits } from 'vue'
 import ReviewForm from './ReviewForm.vue'
 import { token } from '@/token.js'
+import StarRating from 'vue-star-rating'
 
 const props = defineProps({
   review: Object

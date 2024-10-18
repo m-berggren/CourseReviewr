@@ -9,7 +9,7 @@
             <p class="ms-3">Find your perfect course or add your own course with review.</p>
 
             <div class="search-container mx-3">
-              <!-- Typeahead input with Bootstrap width control -->
+              <!-- Typeahead with third party library -->
               <vue3-simple-typeahead
                 v-model="searchQuery"
                 :items="courses"
@@ -19,7 +19,6 @@
                 @selectItem="selectCourse"
                 :itemProjection="(item) => item.name"
               ></vue3-simple-typeahead>
-                <b-button variant="dark" class="search-button" @click="handleSearch" :disabled="!selectedCourse">Search</b-button>
             </div>
 
           </b-col>
@@ -103,180 +102,131 @@
 
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
-import CourseItem from '@/components/CourseItem.vue'
-import ReviewItem from '@/components/ReviewItem.vue'
-import PaginationItem from '@/components/PaginationItem.vue'
+<script>
+import CourseItem from '@/components/HomepageCardCourse.vue'
+import ReviewItem from '@/components/HomepageCardReview.vue'
+import PaginationItem from '@/components/BasePaginationItem.vue'
 import { Api } from '@/Api'
-import { useRouter } from 'vue-router'
 
-// Setup the router
-const router = useRouter()
-
-// Reactive variables
-const courses = ref([])
-const topics = ref([])
-const searchQuery = ref('')
-const selectedCourse = ref(null)
-const selectedTopic = ref('')
-
-const currentCoursePage = ref(1)
-const allCourses = ref([])
-const windowWidth = ref(window.innerWidth)
-
-const topicLimit = 10
-const topicSortBy = 'courseCount'
-
-const reviews = ref({
-  totalReviews: 0,
-  totalPages: 0,
-  currentPage: 1,
-  limit: 8,
-  hasPrevPage: false,
-  hasNextPage: false,
-  prevPage: null,
-  nextPage: null,
-  reviews: []
-})
-
-/**
- * onMounted & unMounted
- */
-
-onMounted(() => {
-  window.addEventListener('resize', handleResize)
-  fetchTopics()
-  fetchCourses()
-  fetchReviews()
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
-})
-
-/* General methods */
-
-const itemsPerRow = computed(() => {
-  if (windowWidth.value >= 1200) return { course: 6, review: 4 } // xl
-  if (windowWidth.value >= 992) return { course: 4, review: 3 } // lg
-  if (windowWidth.value >= 768) return { course: 3, review: 2 } // md
-  if (windowWidth.value >= 576) return { course: 2, review: 2 } // sm
-  return { course: 1, review: 1 } // xs
-})
-
-const handleResize = () => {
-  windowWidth.value = window.innerWidth
-  currentCoursePage.value = 1
-}
-
-const displayedCourses = computed(() => {
-  const start = (currentCoursePage.value - 1) * coursesPerPage.value
-  const end = Math.min(start + coursesPerPage.value, allCourses.value.length)
-  return allCourses.value.slice(start, end)
-})
-
-const coursesPerPage = computed(() => itemsPerRow.value.course * 2)
-
-const totalCoursePages = computed(() => Math.ceil(allCourses.value.length / coursesPerPage.value))
-
-const totalCourses = computed(() => allCourses.value.length)
-
-// Fetch topics
-const fetchTopics = async () => {
-  try {
-    const response = await Api.get(`/topics?sortBy=${topicSortBy}&limit=${topicLimit}`)
-    topics.value = response.data.topics
-  } catch (error) {
-    topics.value = []
-    console.error(error)
-  }
-}
-
-const handleCoursePageChange = (page) => {
-  currentCoursePage.value = Math.min(page, totalCoursePages.value)
-}
-
-// Fetch courses
-const fetchCourses = async () => {
-  try {
-    let url = `/courses?page=${currentCoursePage.value}`
-
-    if (selectedTopic.value) {
-      url += `&topic=${selectedTopic.value}`
+export default {
+  name: 'HomeView',
+  components: {
+    CourseItem,
+    ReviewItem,
+    PaginationItem
+  },
+  data() {
+    return {
+      courses: [],
+      topics: [],
+      searchQuery: '',
+      selectedCourse: null,
+      selectedTopic: '',
+      currentCoursePage: 1,
+      allCourses: [],
+      topicLimit: 10,
+      topicSortBy: 'courseCount',
+      reviews: {
+        totalReviews: 0,
+        totalPages: 0,
+        currentPage: 1,
+        limit: 8,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: null,
+        nextPage: null,
+        reviews: []
+      }
     }
-
-    const response = await Api.get(url)
-
-    allCourses.value = response.data.courses
-    courses.value = response.data.courses
-    currentCoursePage.value = Math.min(currentCoursePage.value, totalCoursePages.value)
-  } catch (error) {
-    allCourses.value = []
-    courses.value = []
-    console.error(error)
-  }
-}
-
-// Fetch reviews
-const fetchReviews = async () => {
-  try {
-    const url = `/reviews?page=${reviews.value.currentPage}&limit=${reviews.value.limit}`
-    const response = await Api.get(url)
-    reviews.value = response.data
-  } catch (error) {
-    console.error(error)
-    reviews.value = {
-      totalReviews: 0,
-      totalPages: 0,
-      currentPage: 1,
-      limit: 8,
-      hasPrevPage: 0,
-      hasNextPage: 0,
-      prevPage: null,
-      nextPage: null,
-      reviews: []
+  },
+  computed: {
+    // Adjust how many course cards are being shown based on window size
+    itemsPerRow() {
+      if (window.innerWidth >= 1200) return { course: 6, review: 4 } // xl
+      if (window.innerWidth >= 992) return { course: 4, review: 3 } // lg
+      if (window.innerWidth >= 768) return { course: 3, review: 2 } // md
+      if (window.innerWidth >= 576) return { course: 2, review: 2 } // sm
+      return { course: 1, review: 1 } // xs
+    },
+    displayedCourses() {
+      const start = (this.currentCoursePage - 1) * this.coursesPerPage
+      const end = Math.min(start + this.coursesPerPage, this.allCourses.length)
+      return this.allCourses.slice(start, end)
+    },
+    coursesPerPage() {
+      return this.itemsPerRow.course * 2
+    },
+    totalCoursePages() {
+      return Math.ceil(this.allCourses.length / this.coursesPerPage)
+    },
+    totalCourses() {
+      return this.allCourses.length
     }
+  },
+  methods: {
+    async fetchTopics() {
+      try {
+        const response = await Api.get(`/topics?sortBy=${this.topicSortBy}&limit=${this.topicLimit}`)
+        this.topics = response.data.topics
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    handleCoursePageChange(page) {
+      this.currentCoursePage = Math.min(page, this.totalCoursePages)
+    },
+    async fetchCourses() {
+      try {
+        let url = `/courses?page=${this.currentCoursePage}`
+        if (this.selectedTopic) {
+          url += `/courses?page=${this.currentCoursePage}&topic=${this.selectedTopic}` // Set page to 1 to properly show the topics if current page is another page
+        }
+        const response = await Api.get(url)
+        this.allCourses = response.data.courses
+        this.courses = response.data.courses
+        this.currentCoursePage = Math.min(this.currentCoursePage, this.totalCoursePages)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async fetchReviews() {
+      try {
+        const url = `/reviews?page=${this.reviews.currentPage}&limit=${this.reviews.limit}`
+        const response = await Api.get(url)
+        this.reviews = response.data
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    selectCourse(course) {
+      this.selectedCourse = course
+      this.searchQuery = course.name
+      this.$router.push(`/courses/${this.selectedCourse._id}`)
+    },
+    handleTopicClick(topic) {
+      if (this.selectedTopic === topic._id.toString()) { // Enables deselecting topics to show all courses again
+        this.selectedTopic = ''
+      } else {
+        this.selectedTopic = topic._id.toString()
+      }
+      this.currentCoursePage = 1 // Reset to first page when topic changes
+      this.fetchCourses()
+    }
+  },
+  watch: {
+    selectedTopic() {
+      this.fetchCourses()
+    },
+    coursesPerPage() {
+      this.currentCoursePage = Math.min(this.currentCoursePage, this.totalCoursePages)
+    }
+  },
+  mounted() {
+    this.fetchTopics()
+    this.fetchCourses()
+    this.fetchReviews()
   }
 }
-
-// Select course from the typeahead dropdown
-const selectCourse = (course) => {
-  selectedCourse.value = course
-  searchQuery.value = course.name
-}
-
-// Handle search button click
-const handleSearch = () => {
-  if (selectedCourse.value) {
-    router.push(`/courses/${selectedCourse.value._id}`)
-  }
-}
-
-const handleTopicClick = (topic) => {
-  if (selectedTopic.value === topic._id.toString()) {
-    selectedTopic.value = ''
-  } else {
-    selectedTopic.value = topic._id.toString()
-  }
-
-  fetchCourses()
-}
-
-/**
- * Watch functions to observe and react to changes in reactive data
- */
-watch(selectedTopic, () => {
-  currentCoursePage.value = 1 // Reset to first page when topic changes
-  fetchCourses()
-})
-
-watch(coursesPerPage, () => {
-  currentCoursePage.value = Math.min(currentCoursePage.value, totalCoursePages.value)
-})
-
-watch(() => reviews.value.currentPage, fetchReviews)
-
 </script>
 
 <style>
@@ -321,21 +271,10 @@ watch(() => reviews.value.currentPage, fetchReviews)
   flex-grow: 1;
   width: 100%;
   height: 40px;
-  border-radius: 7px 0 0 7px !important;
+  border-radius: 7px !important;
   border-right: none !important;
   border-color: cornflowerblue;
 }
-
-.search-button {
-  height: 40px;
-  border-radius: 0 7px 7px 0 !important;
-}
-
-.search-button:hover {
-  height: 40px;
-  border-radius: 0 7px 7px 0 !important;
-}
-
 .mb-4 {
   margin-bottom: 1.5rem !important;
 }

@@ -68,7 +68,7 @@
 import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
-import CustomAlert from '@/components/CustomAlert.vue'
+import CustomAlert from '@/components/BaseCustomAlert.vue'
 
 export default {
   components: {

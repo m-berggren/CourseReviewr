@@ -13,7 +13,7 @@
 
 <script>
 import { token } from '@/token'
-import Navbar from './components/NavigationBar.vue'
+import Navbar from './components/TheNavBar.vue'
 
 export default {
   data() {

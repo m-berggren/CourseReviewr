@@ -5,7 +5,7 @@
         <!-- Search bar, Clear All button, and Menu toggle -->
         <b-col xl="4" lg="6" md="8" sm="8" xs="8" class="my-2 position-relative">
           <b-input-group>
-            <b-form-input v-model="searchInput" placeholder="Search Course" size="sm" class="search-input"></b-form-input>
+            <b-form-input v-model="searchInput" placeholder="Search course" size="sm" class="search-input"></b-form-input>
             <b-input-group-append>
               <b-button @click="clearButton" variant="dark" size="sm" class="clear-button">Clear All</b-button>
             </b-input-group-append>
@@ -103,7 +103,7 @@ import { Api } from '@/Api'
 import { ref, onMounted, watch } from 'vue'
 import { token } from '../token.js'
 import { debounce } from 'lodash'
-import SortableHeader from '@/components/SortableHeader.vue'
+import SortableHeader from '@/components/BaseSortableHeader.vue'
 
 // Reactive data
 const tableData = ref([])
@@ -295,6 +295,9 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+  }
+  .options-toggle {
+    font-size: 0.8rem;
   }
 }
 

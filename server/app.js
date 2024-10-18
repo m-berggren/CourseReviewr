@@ -7,7 +7,6 @@ import { dirname } from 'path';
 import { normalize, join } from 'path';
 import cors from 'cors';
 import { configurePassport } from './middleware/passport.middleware.js';
-import { createDefaultAdmin } from './utils/setup.util.js';
 import methodOverride from 'method-override';
 
 import userRoutes from './routes/user.routes.js';
@@ -34,7 +33,6 @@ connect(mongoURI).catch(function(err) {
     process.exit(1);
 }).then(function() {
     console.log(`Connected to MongoDB with URI: ${mongoURI}`); // mistake when forward porting
-    createDefaultAdmin(); // If admin does not already exist, creates it
 });
 
 // Create Express app

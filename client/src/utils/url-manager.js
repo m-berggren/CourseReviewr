@@ -19,12 +19,8 @@ export const getS3DownloadUrl = async (fileName) => {
   const now = Date.now()
   const cachedItem = urlCache.get(fileName)
 
-  const fileNameToFetch = () => {
-    return !cachedItem || cachedItem.expiry < now
-  }
-
   // If file does not exist in loadCache or it has expired it will call for a new API
-  if (fileNameToFetch()) {
+  if (!cachedItem || cachedItem.expiry < now) {
     try {
       const response = await Api.get('/aws/generate-download-url', {
         params: { fileName }

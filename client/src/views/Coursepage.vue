@@ -72,17 +72,17 @@
         </b-card>
       </b-col>
 
-      <b-col md="4" class="my-3">
-        <b-card class="card-box">
-          <p><strong>Provider: </strong>{{ course.provider }}</p>
-          <p><strong>Course page: </strong>{{ course.url }}</p>
-          <p><strong>Instructor: </strong>{{ course.instructor }}</p>
-          <p><strong>Access Type: </strong>{{ course.accessType }}</p>
-          <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
-          <p><strong>Certificate: </strong>{{ course.certificate }}</p>
-        </b-card>
-      </b-col>
-    </b-row>
+          <b-col md="4" class="my-3">
+            <b-card class="card-box">
+              <p><strong>Provider: </strong>{{ course.provider }}</p>
+              <p><strong>Course page: </strong><a :href="course.url" target="_blank">{{ course.url }}</a></p>
+              <p><strong>Instructor: </strong>{{ course.instructor }}</p>
+              <p><strong>Access Type: </strong>{{ course.accessType }}</p>
+              <p><strong>Release Year:</strong> {{ course.releaseYear }}</p>
+              <p><strong>Certificate: </strong>{{ course.certificate }}</p>
+            </b-card>
+          </b-col>
+      </b-row>
 
     <!-- Row for course review -->
     <b-row>
