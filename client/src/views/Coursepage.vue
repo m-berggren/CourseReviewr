@@ -110,12 +110,14 @@ import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
 import ReviewEntry from '@/components/ReviewEntry.vue'
+import S3ImageDisplay from '@/components/BaseS3ImageDisplay.vue'
 
 export default {
   name: 'CourseDetails',
   components: {
     'star-rating': StarRating,
-    'review-entry': ReviewEntry
+    'review-entry': ReviewEntry,
+    's3-image-display': S3ImageDisplay
   },
   data() {
     return {
