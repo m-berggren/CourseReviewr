@@ -90,7 +90,6 @@
         v-model="courses.currentPage"
         :total-rows="courses.totalCourses"
         :per-page="courses.limit"
-        @change="fetchCourses"
         align="center"
       ></b-pagination>
     </b-col>
@@ -238,7 +237,7 @@ watch(searchInput, () => {
   debouncedFetchCourses()
 })
 
-watch(() => courses.value.currentPage, fetchCourses)
+watch(() => courses.value.currentPage, fetchCourses) // @change does not work in b-pagination so tracking pagination changes here
 
 onMounted(() => {
   fetchTopics()

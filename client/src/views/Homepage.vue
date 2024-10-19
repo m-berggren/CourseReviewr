@@ -59,12 +59,11 @@
         <!-- Pagination controls -->
         <b-row class="justify-content-center">
           <b-col cols="auto">
-            <PaginationItem
+            <b-pagination
               v-model="currentCoursePage"
               :total-rows="totalCourses"
               :per-page="courseLimit"
-              @pageChange="handleCoursePageChange"
-            ></PaginationItem>
+            />
           </b-col>
         </b-row>
 
@@ -80,7 +79,7 @@
         <!-- Gutter size 'g-' to adjust the margin between objects -->
         <b-row class="justify-content-center g-2 mx-3">
           <b-col xl="3" lg="4" md="6" sm="6" xs="12"
-              v-for="review in displayedReviews"
+              v-for="review in reviews.items"
               :key="review._id">
             <review-item v-bind:review="review"></review-item>
           </b-col>
@@ -89,12 +88,11 @@
         <!-- Pagination controls for reviews -->
         <b-row class="justify-content-center">
           <b-col cols="auto">
-            <PaginationItem
-              v-model="currentReviewPage"
-              :total-rows="totalReviews"
-              :per-page="reviewLimit"
-              @pageChange="handleReviewPageChange"
-            ></PaginationItem>
+            <b-pagination
+            v-model="reviews.currentPage"
+            :total-rows="reviews.totalReviews"
+            :per-page="reviews.limit"
+            />
           </b-col>
         </b-row>
       </b-container>
@@ -105,28 +103,30 @@
 <script>
 import CourseItem from '@/components/HomepageCardCourse.vue'
 import ReviewItem from '@/components/HomepageCardReview.vue'
-import PaginationItem from '@/components/BasePaginationItem.vue'
 import { Api } from '@/Api'
 
 export default {
   name: 'HomeView',
   components: {
     CourseItem,
-    ReviewItem,
-    PaginationItem
+    ReviewItem
   },
   data() {
     return {
       courses: [],
-      reviews: [],
+      reviews: {
+        items: [],
+        currentPage: 1,
+        totalReviews: 0,
+        totalPages: 0,
+        limit: 8
+      },
       topics: [],
       searchQuery: '',
       selectedCourse: null,
       selectedTopic: '',
       currentCoursePage: 1,
-      currentReviewPage: 1,
       courseLimit: 12,
-      reviewLimit: 8,
       topicLimit: 10,
       topicSortBy: 'courseCount'
     }
@@ -145,22 +145,11 @@ export default {
       const end = Math.min(start + this.courseLimit, this.courses.length)
       return this.courses.slice(start, end)
     },
-    displayedReviews() {
-      const start = (this.currentReviewPage - 1) * this.reviewLimit
-      const end = Math.min(start + this.reviewLimit, this.reviews.length)
-      return this.reviews.slice(start, end)
-    },
     totalCoursePages() {
       return Math.ceil(this.courses.length / this.courseLimit)
     },
-    totalReviewPages() {
-      return Math.ceil(this.reviews.length / this.reviewLimit)
-    },
     totalCourses() {
       return this.courses.length
-    },
-    totalReviews() {
-      return this.reviews.length
     }
   },
   methods: {
@@ -171,14 +160,6 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
-    handleCoursePageChange(page) {
-      this.currentCoursePage = page
-      this.fetchCourses()
-    },
-    handleReviewPageChange(page) {
-      this.currentReviewPage = page
-      this.fetchReviews()
     },
     async fetchCourses() {
       try {
@@ -194,9 +175,15 @@ export default {
     },
     async fetchReviews() {
       try {
-        const url = `/reviews?page=${this.reviews.currentReviewPage}`
+        const url = `/reviews?page=${this.reviews.currentPage}&limit=${this.reviews.limit}`
         const response = await Api.get(url)
-        this.reviews = response.data.reviews
+        this.reviews = {
+          items: response.data.reviews,
+          currentPage: response.data.currentPage,
+          totalReviews: response.data.totalReviews,
+          totalPages: response.data.totalPages,
+          limit: response.data.limit
+        }
       } catch (error) {
         console.error(error)
       }
@@ -220,11 +207,8 @@ export default {
     selectedTopic() {
       this.fetchCourses()
     },
-    coursesPerPage() {
-      this.currentCoursePage = Math.min(this.currentCoursePage, this.totalCoursePages)
-    },
-    reviewsPerPage() {
-      this.currentReviewPage = Math.min(this.currentReviewPage, this.totalReviewPages)
+    'reviews.currentPage': function () { // @change in b-pagination does not properly track changes so watch has to
+      this.fetchReviews()
     }
   },
   mounted() {
