@@ -16,7 +16,7 @@ router.get('/:id/ratings', controller.getAggregatedRatings);
 
 router.put('/:id', authenticateJWT, controller.updateCourse);
 
-router.patch('/:id', authenticateJWT, controller.patchCourse);
+router.patch('/:id', controller.patchCourse);
 
 router.delete('/', authenticateJWT, requireAdmin, controller.deleteAllCourses);
 

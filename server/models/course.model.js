@@ -13,6 +13,8 @@ const courseSchema = new Schema({
     certificate:    { type: String, enum: ['Yes', 'No'], default: null },
     accessType:     { type: String, enum: ['Free', 'Paid', 'Enrollment'], default: '' },
     photo:          { type: String, default: '' },
+    signedUrl:      { type: String, default: null },
+    urlExpiration:  { type: Date, default: 0 },
     url:            { type: String, default: '' }
 });
 

@@ -11,8 +11,9 @@ const userSchema = new Schema({
         }
     },
     password: { type: String, required: [true, 'Password is required'] },
-    //photo:              { data: Buffer, contentType: String },
     photo: { type: String, default: null },
+    signedUrl: { type: String, default: null },
+    urlExpiration: { type: Date, default: 0 },
     interests: {
         type: [Schema.Types.ObjectId], ref: 'Topic', default: [],
         set: v => Array.from(new Set(v.map(interest => interest.toString())))

@@ -3,27 +3,27 @@
     <img
       v-if="imageUrl"
       :src="imageUrl"
-      :alt="props.s3Key"
       @error="handleImageError"
     />
-    <img v-else :src="placeholderImage" :alt="'Placeholder for ' + props.s3Key" />
+    <img v-else :src="placeholderImage"/>
   </div>
 </template>
 
 <script setup>
 import { ref, watchEffect } from 'vue'
 import placeholderImage from '@/assets/placeholder.png'
-import { getS3DownloadUrl } from '@/utils/url-manager.js'
+import { getS3DownloadUrl } from '@/Api'
 
 const props = defineProps({
-  s3Key: String
+  imageObject: Object,
+  type: String
 })
 
 const imageUrl = ref('')
 
 const fetchDownloadUrl = async () => {
-  if (props.s3Key) {
-    const signedUrl = await getS3DownloadUrl(props.s3Key)
+  if (props.imageObject.photo) {
+    const signedUrl = await getS3DownloadUrl(props.imageObject, props.type)
     imageUrl.value = signedUrl
   }
 }
@@ -33,7 +33,7 @@ const handleImageError = () => {
 }
 // Use watchEffect instead of onMounted and watch
 watchEffect(() => {
-  if (props.s3Key) {
+  if (props.imageObject.photo) {
     fetchDownloadUrl()
   }
 })

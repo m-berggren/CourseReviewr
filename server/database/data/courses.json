@@ -10,6 +10,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "8e7291ca7982af0356a5481905caecc5-python.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://codeacademy.com/python-for-beginners"
   },
   {
@@ -23,6 +25,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "01ebc3e78531166c8b7ff53ffe1e9572-machineLearning.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://coursera.org/advanced-ml-python"
   },
   {
@@ -36,6 +40,8 @@
     "certificate": "No",
     "accessType": "Enrollment",
     "photo": "3fb17cdca40285aece97482ec70ff8d8-hebrew.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://jerusalemu.edu/intro-biblical-hebrew"
   },
   {
@@ -49,6 +55,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "6007dfe48785bb3d5dd335c64da069ac-mentalHealth.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://psychcentral.com/cbt-fundamentals"
   },
   {
@@ -62,6 +70,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "bafcc731ae8321752d139ccb1d592aae-nutrition.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://hms.harvard.edu/advanced-nutrition"
   },
   {
@@ -75,6 +85,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "c7201994bdc2a54d1580aa53c91af943-mythology.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://edx.org/world-mythology-folklore"
   },
   {
@@ -88,6 +100,8 @@
     "certificate": "No",
     "accessType": "Free",
     "photo": "e0ab51b3800162d6719984dd18ea1972-math.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://ocw.mit.edu/linear-algebra"
   },
   {
@@ -101,6 +115,8 @@
     "certificate": "Yes",
     "accessType": "Enrollment",
     "photo": "47fab7f22054e1de7e800691c3fe6e5d-history.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://yale.edu/french-revolution"
   },
   {
@@ -114,6 +130,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "66744346e1e98eefff508e03c70e377c-mindfullness.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://udemy.com/mindfulness-stress-reduction"
   },
   {
@@ -127,6 +145,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "67955b46a145f9f4a4223464cb022467-businessManagement.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://insead.edu/strategic-business-management"
   },
   {
@@ -140,6 +160,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "788ce9a78bfab8a28b9a3642ae718c83-digitalMarketing.avif",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://learndigital.withgoogle.com/digital-marketing-mastery"
   },
   {
@@ -153,6 +175,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "c456a917ed114d3766a45152ce90fd35-quantumPhysics.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://futurelearn.com/quantum-physics-beginners"
   },
   {
@@ -166,6 +190,8 @@
     "certificate": "Yes",
     "accessType": "Enrollment",
     "photo": "1106a12770947c5748907ae7e2049866-artificialIntelligence.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://online.stanford.edu/ai-ethics"
   },
   {
@@ -179,6 +205,8 @@
     "certificate": "No",
     "accessType": "Paid",
     "photo": "8d17e5f4fc38e6ff6526e692b66ffba9-calligraphy.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://skillshare.com/arabic-calligraphy-intro"
   },
   {
@@ -192,6 +220,8 @@
     "certificate": "Yes",
     "accessType": "Enrollment",
     "photo": "131789483c5e72406ffe6987c3b409d3-urbanPlanning.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://tudelft.nl/sustainable-urban-planning"
   },
   {
@@ -205,6 +235,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "120f0357b4bfcf8f138dd1cfdd401706-stenography.png",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://typefastacademy.com/digital-stenography"
   },
   {
@@ -218,6 +250,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "5d3424e73292fa7ad0bf89041531f95f-blockchain.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://ibm.com/blockchain-fundamentals"
   },
   {
@@ -231,6 +265,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "04392b15f9365c1afabc7e4e48b909b5-chemistry.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://acs.org/advanced-organic-chemistry"
   },
   {
@@ -244,6 +280,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "cd91d0362fa058e79fa618f028033916-spanish.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://rosettastone.com/spanish-for-business"
   },
   {
@@ -257,6 +295,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "f0fca0c3fe57576f46f1e1bf6a634354-cybersecurity.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://netacad.com/intro-cybersecurity"
   },
   {
@@ -270,6 +310,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "3caef3202a2989cce473e0482c52a640-wellbeing.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://yale.edu/science-of-wellbeing"
   },
   {
@@ -283,6 +325,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "4ac35fea86a8fadb8907b3b830757ea8-webDevelopment.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://techbootcamps.online/fullstack-webdev"
   },
   {
@@ -296,6 +340,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "4e7b2c6a5d40676be208b8cf50b9ac31-dataStructures.png",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://algoexpert.io/advanced-dsa"
   },
   {
@@ -309,6 +355,8 @@
     "certificate": "Yes",
     "accessType": "Enrollment",
     "photo": "32f665c04fd63d0c174c4bba315e8d8c-mobileDevelopment.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://developer.apple.com/courses/ios-development"
   },
   {
@@ -322,6 +370,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "405093ef1ab0f0054074e502bd8c4c6d-cloudComputing.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://aws.amazon.com/training/architect"
   },
   {
@@ -335,6 +385,8 @@
     "certificate": "Yes",
     "accessType": "Free",
     "photo": "df393a1d99e600a49690762285edcfe1-computerNetworks.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://networkingacademy.com/fundamentals"
   },
   {
@@ -348,6 +400,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "6873a698156b89c3ff996858f673f014-databaseManagement.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://databasemastery.com/advanced-dbms"
   },
   {
@@ -361,6 +415,8 @@
     "certificate": "Yes",
     "accessType": "Paid",
     "photo": "408c61d6b63081302536ad23c11caf08-psychology.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://psychinsightsacademy.edu/cognitive-psychology"
   },
   {
@@ -374,6 +430,8 @@
     "certificate": "Yes",
     "accessType": "Enrollment",
     "photo": "4f7c548eda1af3417c21cead61784e40-artHistory.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "url": "https://globalartstudies.edu/renaissance-art-history"
   }
 ]

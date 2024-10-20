@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
         <!-- Profile Picture -->
         <div class="d-flex flex-column">
-          <s3-image-display :s3Key="user.photo" class="image-container"/>
+          <s3-image-display :imageObject="user" type="user" class="image-container"/>
           <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
             <small>Change Photo</small>
           </b-button>

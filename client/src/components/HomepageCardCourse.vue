@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'course-page', params: { id:course._id } }" class="course-link">
       <b-card no-body class="course-card">
         <div>
-          <s3-image-display :s3Key="course.photo"/>
+          <s3-image-display :imageObject="course" type="course"/>
         </div>
         <b-card-body>
           <h5 class="card-title">{{ course.name }}</h5>
