@@ -12,18 +12,49 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 import placeholderImage from '@/assets/placeholder.png'
-import { getS3DownloadUrl } from '@/Api'
+import { Api } from '@/Api'
 
 const props = defineProps({
-  imageObject: Object,
+  obj: Object,
   type: String
 })
 
 const imageUrl = ref('')
 
 const fetchDownloadUrl = async () => {
-  if (props.imageObject.photo) {
-    const signedUrl = await getS3DownloadUrl(props.imageObject, props.type)
+  if (props.obj.photo) {
+    const now = Date.now()
+    const defaultExpiration = new Date('1970-01-01T00:00:00.000+00:00').getTime()
+
+    // Check if urlExpiration is set and not the default value and not expired
+    if (props.obj.urlExpiration &&
+    new Date(props.obj.urlExpiration).getTime() !== defaultExpiration &&
+    new Date(props.obj.urlExpiration).getTime() > now &&
+    props.obj.signedUrl) {
+      imageUrl.value = props.obj.signedUrl
+      return
+    }
+
+    let url = ''
+
+    if (props.type === 'course') {
+      url = `/courses/${props.obj._id}`
+    } else if (props.type === 'user') {
+      url = `/users/${props.obj._id}`
+    } else {
+      console.error('Invalid object type')
+      return null
+    }
+
+    const newExpiration = now + 24 * 60 * 60 * 1000 // 24 hours in ms
+
+    const signedUrl = await Api.getS3DownloadUrl(props.obj.photo)
+
+    await Api.patch(url, {
+      signedUrl,
+      urlExpiration: new Date(newExpiration).toISOString()
+    })
+
     imageUrl.value = signedUrl
   }
 }
@@ -33,7 +64,7 @@ const handleImageError = () => {
 }
 // Use watchEffect instead of onMounted and watch
 watchEffect(() => {
-  if (props.imageObject.photo) {
+  if (props.obj.photo) {
     fetchDownloadUrl()
   }
 })

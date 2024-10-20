@@ -19,7 +19,7 @@
       <!-- Column for course photo and 'Write a review' button -->
       <b-col md="4" class="order-first order-md-last">
         <div class="image-placeholder mt-4">
-          <s3-image-display :imageObject="course" type="course" class="image-container" />
+          <s3-image-display :obj="course" type="course" class="image-container" />
         </div>
         <div class="review-button mt-2">
           <b-button class="btn-sm" @click="goToWriteReview">Write a review</b-button>
@@ -157,7 +157,7 @@ export default {
       } catch (error) {
         this.errorMessage = 'Failed to load course details. Please try again later.'
         this.loading = false
-        console.log(error)
+        console.error(error)
       }
 
       try {
@@ -167,7 +167,7 @@ export default {
       } catch (error) {
         this.errorMessage = 'Failed to load course ratings. Please try again later.'
         this.loading = false
-        console.log(error)
+        console.error(error)
       }
 
       try {
@@ -177,7 +177,7 @@ export default {
       } catch (error) {
         this.errorMessage = 'Failed to load course reviews. Please try again later.'
         this.loading = false
-        console.log(error)
+        console.error(error)
       }
 
       this.$nextTick(() => {

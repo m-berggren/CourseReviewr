@@ -30,59 +30,62 @@ const generateUploadUrl = async (req, res, next) => {
             ContentType: fileType
         };
 
-        s3.getSignedUrl('putObject', params, (err, url) => {
-            if (err) {
-                res.status(500).json({ error: 'Failed to generate upload URL' });
-            } else {
-                res.status(200).json({ 
-                    signedUrl: url,
-                    imageName
-                });
-            }
+        const url = await new Promise((resolve, reject) => {
+            s3.getSignedUrl('putObject', params, (err, url) => { // get signedUrl for putObject
+                if (err) reject(err);
+                else resolve(url);
+            });
         });
+        res.status(200).json({ signedUrl: url, imageName });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+const generateDownloadUrl = async (req, res, next) => {
+    try {
+        const { fileName } = req.query;
+
+        if (!fileName) {
+            return res.status(400).json({ message: 'File name is required' });
+        }
+
+        const params = {
+            Bucket: process.env.AWS_S3_BUCKET_NAME,
+            Key: fileName,
+            Expires: 3600 * 24 // URL expires in 1 day
+        };
+
+        const url = await new Promise((resolve, reject) => {
+            s3.getSignedUrl('getObject', params, (err, url) => { // Get signedUrl for getObject
+                if (err) reject(err);
+                else resolve(url);
+            });
+        });
+        res.status(200).json({ signedUrl: url });
         
     } catch (error) {
         next(error);
     }
 };
 
-const generateDownloadUrl = async (req, res) => {
-    const { fileName } = req.query;
-
-    if (!fileName) {
-        return res.status(400).json({ message: 'File name is required' });
-    }
-
-    const params = {
-        Bucket: process.env.AWS_S3_BUCKET_NAME,
-        Key: fileName,
-        Expires: 3600 * 24 // URL expires in 1 day
-    };
-
-    s3.getSignedUrl('getObject', params, (err, url) => {
-        if (err) {
-            res.status(500).json({ error: 'Failed to generate download URL' });
-        } else {
-            res.status(200).json({ signedUrl: url });
-        }
-    });
-};
-
 const deleteOneObject = async (req, res, next) => {
-    const { fileName } = req.query;
-
-    if (!fileName) {
-        return res.status(400).json({ error: 'fileName is required'});
-    }
-
-    const params = {
-        Bucket: process.env.AWS_S3_BUCKET_NAME,
-        Key: fileName
-    };
-
     try {
+        const { fileName } = req.query;
+
+        if (!fileName) {
+            return res.status(400).json({ error: 'fileName is required'});
+        }
+
+        const params = {
+            Bucket: process.env.AWS_S3_BUCKET_NAME,
+            Key: fileName
+        };
+
         await s3.deleteObject(params).promise();
         res.status(200).json({ message: 'File deleted successfully' });
+
     } catch (error) {
         next(error);
     }

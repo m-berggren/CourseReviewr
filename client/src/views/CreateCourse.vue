@@ -258,7 +258,7 @@ const onSubmit = async (event) => {
                       certificateState.value
 
   if (!isFormValid) {
-    console.log('Form is invalid')
+    console.error('Form is invalid')
     return
   }
 
@@ -268,15 +268,26 @@ const onSubmit = async (event) => {
     // Step 1: Upload photo to AWS S3 bucket
     if (form.photo) {
       try {
-        const resizedFile = await resizeImage(form.photo)
-        const uploadedPhotoName = await Api.handleImageUpload(resizedFile, form.photo)
-        form.photo = uploadedPhotoName
+        const resizedFile = await resizeImage(form.photo) // Resizes image to 300x200 pixels
+        const response = await Api.getS3UploadUrl(form.photo.name, 'image/jpeg') // Get valid url for uploading to S3
+
+        const newFileName = response.imageName
+        const uploadUrl = response.signedUrl
+
+        await Api.uploadToS3(resizedFile, uploadUrl) // Upload the resized file with the valid url
+
+        const signedUrl = await Api.getS3DownloadUrl(newFileName) // Get the signed URL for downloading the photo
+
+        form.photo = newFileName
+        form.signedUrl = signedUrl
+        form.urlExpiration = Date.now() + 24 * 60 * 60 * 1000 // 24 hours in ms
       } catch (error) {
         if (error instanceof ImageResizeError) {
           showAlert.value = true
           alertMessage.value = 'Image upload failed, please choose another file.'
           return
         }
+        console.error(error)
       }
     }
 
@@ -406,6 +417,8 @@ const form = reactive({
   url: '',
   instructor: '',
   photo: null,
+  signedUrl: null,
+  urlExpiration: 0,
   imageName: '',
   accessType: null,
   releaseYear: null,
