@@ -170,7 +170,7 @@ const fetchCourses = async () => {
     if (selectedTopic.value) params.append('topic', selectedTopic.value)
     if (searchInput.value) params.append('search', searchInput.value)
 
-    const response = await Api.get(`/courses?${params.toString()}`)
+    const response = await Api.get(`/courses/table?${params.toString()}`)
     courses.value = response.data
     tableData.value = courses.value.courses
   } catch (error) {

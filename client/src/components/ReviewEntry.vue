@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import ReviewForm from './ReviewForm.vue'
 import { token } from '@/token.js'
 

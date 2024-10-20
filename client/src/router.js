@@ -15,7 +15,7 @@ import { token } from './token'
 const routes = [
   { path: '/', name: 'home', component: Homepage },
   { path: '/signin', name: 'signin', component: Signin },
-  { path: '/courses', name: 'courses', component: Courses },
+  { path: '/courses/table', name: 'courses', component: Courses },
   { path: '/register', name: 'register', component: Register },
   { path: '/courses/:id/write', name: 'create-review', component: CreateReview, meta: { requiresAuth: true } },
   { path: '/profile', name: 'profile', component: Profile, meta: { requiresAuth: true } },

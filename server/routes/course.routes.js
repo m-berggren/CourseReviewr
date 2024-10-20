@@ -6,7 +6,9 @@ const router = Router();
 
 router.post('/', authenticateJWT, controller.createCourse);
 
-router.get('/', controller.getAllCourses);
+router.get('/table', controller.getAllCourses);
+
+router.get('/', controller.getAllCoursesHomepage);
 
 router.get('/providers', controller.getAllProviders);
 

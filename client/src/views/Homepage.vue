@@ -104,6 +104,7 @@
 import CourseItem from '@/components/HomepageCardCourse.vue'
 import ReviewItem from '@/components/HomepageCardReview.vue'
 import { Api } from '@/Api'
+import { token } from '@/token.js'
 
 export default {
   name: 'HomeView',
@@ -121,6 +122,7 @@ export default {
         totalPages: 0,
         limit: 8
       },
+      interests: [],
       topics: [],
       searchQuery: '',
       selectedCourse: null,
@@ -161,13 +163,28 @@ export default {
         console.error(error)
       }
     },
+    async fetchInterests() {
+      try {
+        const userID = token.getUserId()
+        if (!userID) return
+
+        const user = await Api.get(`/users/${userID}`)
+        this.interests = user.data.interests.map(interest => interest._id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async fetchCourses() {
       try {
-        let url = `/courses?page=${this.currentCoursePage}`
-        if (this.selectedTopic) {
-          url += `&topic=${this.selectedTopic}` // Set page to 1 to properly show the topics if current page is another page
-        }
-        const response = await Api.get(url)
+        await this.fetchInterests() // Trouble with fetching interests before all courses are shown, so calling it here
+        const params = new URLSearchParams({
+          page: this.currentCoursePage
+        })
+
+        if (this.selectedTopic) params.append('topic', this.selectedTopic) // Set page to 1 to properly show the topics if current page is another page
+        if (this.interests) params.append('interests', this.interests.join(','))
+
+        const response = await Api.get(`/courses?${params.toString()}`)
         this.courses = response.data.courses
       } catch (error) {
         console.error(error)

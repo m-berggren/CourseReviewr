@@ -3,7 +3,7 @@
     <b-navbar toggleable="md" type="dark" variant="dark" class="justify-content-between">
 
       <!-- Brand with link to homepage -->
-      <b-navbar-brand href="#" @click.prevent="refreshhomepage">
+      <b-navbar-brand href="#" @click.prevent="refreshHomepage">
           <img src="@/assets/logo/courseReviewr-48pt-i.webp" class="navbar-logo">
       </b-navbar-brand>
 
@@ -15,7 +15,7 @@
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav v-model="isNavCollapsed">
         <b-navbar-nav>
-          <router-link to="/courses" class="nav-link mx-1" @click.native="collapseNav">Courses</router-link>
+          <router-link to="/courses/table" class="nav-link mx-1" @click.native="collapseNav">Courses</router-link>
           <router-link to="/courses/create" class="nav-link mx-1" @click.native="collapseNav">Create Review</router-link>
           <router-link :to="{ name: 'reviews', params: { id: 'userId' } }" class="nav-link mx-1" @click.native="collapseNav">Reviews</router-link>
           <router-link to="/course-lists" class="nav-link mx-1" @click.native="collapseNav">Course Lists</router-link>
@@ -58,7 +58,7 @@ const collapseNav = () => {
   isNavCollapsed.value = false
 }
 
-const refreshhomepage = () => {
+const refreshHomepage = () => {
   router.push('/').then(() => {
     window.location.reload()
   })
