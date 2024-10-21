@@ -2,7 +2,7 @@
   <div>
     <b-container fluid>
       <b-row class="top-row text-center justify-content-center">
-        <h2 class="my-1">Create course - then review</h2>
+        <h2 class="my-1">Create course</h2>
       </b-row>
 
       <b-row class="justify-content-center">
@@ -156,7 +156,6 @@
               <b-row>
                 <b-col md-2>
                   <b-button v-if="!formCreated" type="submit" variant="primary" class="left">Submit</b-button>
-                    <b-button v-else @click="goToReview" variant="success">Next: Create Review</b-button>
                 </b-col>
                 <b-col class="text-right">
                   <b-button v-if="!formCreated" type="reset" variant="danger" class="ml-auto">Reset</b-button>
@@ -167,22 +166,9 @@
           </b-form>
         </b-col>
       </b-row>
-
-      <b-row class="justify-content-center">
-        <b-col md-6>
-        <!-- Success message -->
-        <BAlert
-          v-if="successMessage"
-          variant="success"
-          :model-value="true"
-        >
-          Course Created!
-        </BAlert>
-      </b-col>
-      </b-row>
     </b-container>
 
-    <custom-alert :show="showAlert" :message="alertMessage" @close="showAlert = false" />
+    <custom-alert :show="showAlert" :message="alertMessage" @close="goToCourse" />
 
   </div>
 </template>
@@ -225,9 +211,10 @@ const getFieldState = (fieldState) => {
   return !!fieldState
 }
 
-const goToReview = () => {
+const goToCourse = () => {
+  showAlert.value = false
   router.push({
-    name: 'create-review',
+    name: 'course-page',
     params: { id: courseId.value }
   })
 }
@@ -300,11 +287,10 @@ const onSubmit = async (event) => {
 
     // Step3: Create course and show message
     courseId.value = await createCourse()
-    goToReview.value = `/courses/${courseId.value}/write`
 
     formCreated.value = true
-    successMessage.value = 'Course created successfully!'
-    onReset()
+    showAlert.value = true
+    alertMessage.value = 'Course created! Press Ok to go to course and fill in a review.'
   } catch (error) {
     successMessage.value = ''
     showAlert.value = true

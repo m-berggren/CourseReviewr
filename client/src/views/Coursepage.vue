@@ -202,7 +202,9 @@ export default {
 
 <style scoped>
 .card-description {
-  height: 300px;
+  min-height: 100px;
+  height: auto;
+  overflow: hidden;
 }
 
 .top-row {

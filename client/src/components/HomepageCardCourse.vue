@@ -50,6 +50,10 @@ defineProps({
   background-color: whitesmoke;
 }
 
+.course-card:hover {
+  background-color: lightgray;
+}
+
 .course-card img {
   height: 150px; /* Fixed height for images */
   object-fit: cover;

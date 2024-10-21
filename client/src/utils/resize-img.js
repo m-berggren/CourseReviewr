@@ -5,7 +5,7 @@ export class ImageResizeError extends Error {
   }
 }
 
-export const resizeImage = async (file, maxWidth = 300, maxHeight = 200) => {
+export const resizeImage = async (file, maxWidth = 600, maxHeight = 400) => {
   if (!(file instanceof Blob || file instanceof File)) {
     throw new ImageResizeError('Invalid file type')
   }
@@ -34,7 +34,7 @@ export const resizeImage = async (file, maxWidth = 300, maxHeight = 200) => {
 
     // Convert the canvas to a Blob
     return await new Promise(resolve => {
-      canvas.toBlob(resolve, 'image/jpeg', 0.9) // Selected image quality
+      canvas.toBlob(resolve, 'image/jpeg', 1.0) // Selected image quality
     })
   } catch (error) {
     throw new ImageResizeError(`Failed to resize: ${error.message}`)

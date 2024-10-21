@@ -30,7 +30,7 @@ defineProps({
 })
 </script>
 
-<style>
+<style scoped>
 .course-link {
   text-decoration: none;
   color: inherit;
@@ -46,6 +46,10 @@ defineProps({
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 10px;
+  background-color: whitesmoke !important;
+}
+.review-card:hover {
+  background-color: lightgray !important;
 }
 
 /* Text should handle overflow with ellipsis */
