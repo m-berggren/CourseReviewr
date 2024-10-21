@@ -427,7 +427,7 @@ export default {
     async confirmDeleteCourse() {
       if (!this.courseListIdForCourseDelete || !this.courseToDeleteId) return
       try {
-        await Api.patch(`users / ${token.getUserId()} / course - lists / ${this.courseListIdForCourseDelete}`, {
+        await Api.patch(`/users/${token.getUserId()}/course-lists/${this.courseListIdForCourseDelete}`, {
           removeCourseId: this.courseToDeleteId
         })
         const courseList = this.courseLists.find((list) => list._id === this.courseListIdForCourseDelete)

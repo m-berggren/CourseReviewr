@@ -41,7 +41,7 @@
             <b-form-group label-cols="3" label="Topics:*" label-for="input-3" class="label-font mt-3">
               <b-form-tags
                 input-id="topics-list"
-                v-model="form.topics"
+                v-model="topicNames"
                 :state="getFieldState(topicsState)"
                 remove-on-delete
                 separator=","
@@ -178,15 +178,15 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { Api } from '@/Api'
 import CustomAlert from '@/components/BaseCustomAlert.vue'
-import { resizeImage, ImageResizeError } from '@/utils/resize-img'
+import { resizeImage } from '@/utils/resize-img'
+
+const topicNames = ref([])
 
 /* Constants */
-
 const router = useRouter()
 
 // Tracking submission state
 const formCreated = ref(false)
-const successMessage = ref('')
 
 const courseId = ref('')
 const showAlert = ref(false)
@@ -221,7 +221,7 @@ const goToCourse = () => {
 
 // Computed properties for validation states
 const nameState = computed(() => form.name.length > 3)
-const topicsState = computed(() => form.topics.length > 0)
+const topicsState = computed(() => topicNames.value.length > 0)
 const providerState = computed(() => form.provider.length > 1)
 const photoState = computed(() => form.photo !== null)
 const difficultyState = computed(() => form.difficulty !== null)
@@ -269,30 +269,34 @@ const onSubmit = async (event) => {
         form.signedUrl = signedUrl
         form.urlExpiration = Date.now() + 24 * 60 * 60 * 1000 // 24 hours in ms
       } catch (error) {
-        if (error instanceof ImageResizeError) {
-          showAlert.value = true
-          alertMessage.value = 'Image upload failed, please choose another file.'
-          return
-        }
-        console.error(error)
+        console.error('Error uploading to S3:', error)
+        showAlert.value = true
+        alertMessage.value = 'Failed to upload photo. Please check your network or try another file.'
+        return
       }
     }
 
     // Step 2: Create topics and store their IDs
-    const topicPromises = form.topics.map(topic => createTopic(topic))
+    const topicPromises = topicNames.value.map(topic => createTopic(topic))
     createdTopics = await Promise.all(topicPromises)
     form.topics = createdTopics
 
     if (form.releaseYear === null) form.releaseYear = 0
 
     // Step3: Create course and show message
-    courseId.value = await createCourse()
+    try {
+      courseId.value = await createCourse()
 
-    formCreated.value = true
-    showAlert.value = true
-    alertMessage.value = 'Course created! Press Ok to go to course and fill in a review.'
+      formCreated.value = true
+      showAlert.value = true
+      alertMessage.value = 'Course created! Press Ok to go to course and fill in a review.'
+    } catch (error) {
+      console.error('Error creating course:', error)
+      showAlert.value = true
+      alertMessage.value = 'An error occurred while creating the course. Please try again.'
+      cleanUpTopics(createdTopics)
+    }
   } catch (error) {
-    successMessage.value = ''
     showAlert.value = true
     alertMessage.value = 'An error occurred while creating the course. Please try again.'
 
