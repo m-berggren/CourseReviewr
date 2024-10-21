@@ -71,17 +71,17 @@ Users are able to create different lists with courses they want to enroll in or 
 
 ### Pages
 
-* Homepage: Displays various recommended courses depending on a user's interests (if any, or if logged in), the amount of reviews and the review rating of each course. Underneath the courses are the latest reviews made, these and the courses are clickable. There is a typeahead search bar for findind existing courses and possibility to select popular topics to filter on.
+* Homepage: Displays various recommended courses depending on a user's interests (if any, or if logged in), the amount of reviews and the review rating of each course. Underneath the courses are the latest reviews made. There is a typeahead search bar for findind existing courses and possibility to select popular topics to filter on.
 
 * Courses page: A page where all courses are listed, sorted on review account but possible other sorting options are on course provider, difficulty, average rating, amount of reviews and release year. There's a search bar and possibility to filter on providers and topics as well, depending on preference.
 
 * Single course page: All the detailed information about one course, including rating and all the reviews listed underneath.
 
-* Create course page: Here you will in all the necessary information to create a course. Editing a course after creation is not possible at release 1 so there are several mandatory fields to fill in.
+* Create course page: Here you fill in all the necessary information to create a course. Editing a course after creation is not possible at release 1 so there are several mandatory fields to fill in.
 
 * Create review page: A page for creating a review of a course. A created review is stored in each course page and in the users reviews page.
 
-* Reviews page: Is the page where a user has all their reviews listed. The reviews may be edited and you can visit a reviewed course from there.
+* Reviews page: This is the page where a user has all their reviews listed. The reviews may be edited and you can visit a reviewed course from there.
 
 * Course list page: A page where a user can store various different course lists with courses, following their interests or for future note.
 
