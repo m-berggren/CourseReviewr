@@ -41,7 +41,7 @@ const getAllTopics = async (req, res, next) => {
         const sortOptions = {
             [sortField]: sortOrder,
             // First determines secondary sorting, then asc or desc
-            [sortField === 'name' ? 'courseCount' : 'name']: sortField === 'name' ? -1 : 1
+            [sortField === 'name' ? 'courseCount' : 'name']: sortField === 'name' ? 1 : -1
         };
         
         // Add limit to topics shown

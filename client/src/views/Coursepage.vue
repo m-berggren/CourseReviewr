@@ -30,7 +30,7 @@
     <b-row class="my-5 ms-2 justify-content-center">
       <b-col xl="4" md="5" sm="8" class="my-2">
         <h2>Rating</h2>
-        <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" :star-size="40" />
+        <star-rating :rating="aggregatedRatings.averageRating" :read-only="true" :star-size="40" :increment="0.5"/>
       </b-col>
       <b-col xl="4" md="4" sm="8">
         <div class="tags-container mt-">
@@ -50,22 +50,22 @@
 
             <li><b>Engagement Level:</b>
               <star-rating class="mb-1" :rating="aggregatedRatings.averageEngagementLevel" :read-only="true"
-                :star-size="30">
+                :star-size="30" :increment="0.5">
               </star-rating>
             </li>
             <li><b>Practical Value:</b>
               <star-rating class="mb-1" :rating="aggregatedRatings.averagePracticalValue" :read-only="true"
-                :star-size="30">
+                :star-size="30" :increment="0.5">
               </star-rating>
             </li>
             <li><b>Instructor Quality:</b>
               <star-rating class="mb-1" :rating="aggregatedRatings.averageInstructorQuality" :read-only="true"
-                :star-size="30">
+                :star-size="30" :increment="0.5">
               </star-rating>
             </li>
             <li><b>Difficulty Level:</b>
               <star-rating class="mb-1" :rating="aggregatedRatings.averageDifficultyLevel" :read-only="true"
-                :star-size="30">
+                :star-size="30" :increment="0.5">
               </star-rating>
             </li>
           </ul>

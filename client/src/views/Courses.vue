@@ -136,7 +136,7 @@ const topicDropdownText = ref('Topics')
 
 const fetchTopics = async () => {
   try {
-    const response = await Api.get('/topics?sortBy=courseCount')
+    const response = await Api.get('/topics?sortBy=name&order=asc')
     const data = response.data.topics
 
     topics.value = data

@@ -346,7 +346,7 @@
   },
   {
     "name": "iOS App Development with Swift",
-    "topics": ["Programming", "Mobile Development", "iOS"],
+    "topics": ["Programming", "Mobile Development", "IOS"],
     "difficulty": "Intermediate",
     "description": "Learn to build iOS applications using Swift, covering UI design, app architecture, and integration with Apple's ecosystem.",
     "releaseYear": 2024,
