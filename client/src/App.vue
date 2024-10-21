@@ -13,13 +13,14 @@
 
 <script>
 import { token } from '@/token'
-import Navbar from './components/NavigationBar.vue'
+import Navbar from './components/TheNavBar.vue'
 
 export default {
   data() {
     return {
       isSignedIn: false,
-      username: ''
+      username: '',
+      userId: ''
     }
   },
   created() {
@@ -28,6 +29,7 @@ export default {
       // Check the sign-in status when the component is created
       this.isSignedIn = token.isSignedIn()
       this.username = token.getUsername()
+      this.userId = token.getUserId()
     } else {
       this.isSignedIn = false
       this.username = ''

@@ -5,9 +5,9 @@
         <!-- Search bar, Clear All button, and Menu toggle -->
         <b-col xl="4" lg="6" md="8" sm="8" xs="8" class="my-2 position-relative">
           <b-input-group>
-            <b-form-input v-model="searchInput" placeholder="Search Course" class="search-input"></b-form-input>
+            <b-form-input v-model="searchInput" placeholder="Search course or provider" size="sm" class="search-input"></b-form-input>
             <b-input-group-append>
-              <b-button @click="clearButton" variant="dark" class="clear-button">Clear All</b-button>
+              <b-button @click="clearButton" variant="dark" size="sm" class="clear-button">Clear All</b-button>
             </b-input-group-append>
           </b-input-group>
           <!-- Menu toggle button, visible only on md screens and smaller -->
@@ -20,22 +20,22 @@
         <b-col xl="8" lg="6" md="12" sm="12" xs="12">
           <b-collapse id="button-collapse" class="d-lg-flex justify-content-lg-start">
             <div class="d-flex flex-column flex-lg-row">
-              <b-dropdown :text="providerDropdownText" class="mb-1 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+              <b-dropdown :text="providerDropdownText" size="sm" class="ms-2 mt-1 collapsable-button" variant="dark">
                 <b-dropdown-item v-for="provider in providers" :key="provider" @click="selectProvider(provider)">
                   {{ provider }}
                 </b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="clearProvider">Clear Provider</b-dropdown-item>
               </b-dropdown>
-              <b-dropdown :text="topicDropdownText" class="mb-1 mb-lg-0 mr-lg-2 ms-2" variant="dark">
+              <b-dropdown :text="topicDropdownText" size="sm" class="ms-2 mt-1 collapsable-button" variant="dark">
                 <b-dropdown-item v-for="topic in topics" :key="topic._id" @click="selectTopic(topic)">
                   {{ topic.name }}
                 </b-dropdown-item>
                 <b-dropdown-divider></b-dropdown-divider>
                 <b-dropdown-item @click="clearTopic">Clear Topic</b-dropdown-item>
               </b-dropdown>
-              <router-link to="/courses/create" class="course-button ms-2">
-                <b-button v-if="isSignedIn" variant="dark" class="clear-button">Create course & review</b-button>
+              <router-link to="/courses/create" class="course-button ms-2 mb-2 mt-1">
+                <b-button v-if="isSignedIn" size="sm" variant="dark" class="collapsable-button">Create course & review</b-button>
               </router-link>
             </div>
           </b-collapse>
@@ -90,7 +90,6 @@
         v-model="courses.currentPage"
         :total-rows="courses.totalCourses"
         :per-page="courses.limit"
-        @change="fetchCourses"
         align="center"
       ></b-pagination>
     </b-col>
@@ -103,7 +102,7 @@ import { Api } from '@/Api'
 import { ref, onMounted, watch } from 'vue'
 import { token } from '../token.js'
 import { debounce } from 'lodash'
-import SortableHeader from '@/components/SortableHeader.vue'
+import SortableHeader from '@/components/BaseSortableHeader.vue'
 
 // Reactive data
 const tableData = ref([])
@@ -171,7 +170,7 @@ const fetchCourses = async () => {
     if (selectedTopic.value) params.append('topic', selectedTopic.value)
     if (searchInput.value) params.append('search', searchInput.value)
 
-    const response = await Api.get(`/courses?${params.toString()}`)
+    const response = await Api.get(`/courses/table?${params.toString()}`)
     courses.value = response.data
     tableData.value = courses.value.courses
   } catch (error) {
@@ -238,7 +237,7 @@ watch(searchInput, () => {
   debouncedFetchCourses()
 })
 
-watch(() => courses.value.currentPage, fetchCourses)
+watch(() => courses.value.currentPage, fetchCourses) // @change does not work in b-pagination so tracking pagination changes here
 
 onMounted(() => {
   fetchTopics()
@@ -296,6 +295,9 @@ onMounted(() => {
     flex-direction: column;
     align-items: stretch;
   }
+  .options-toggle {
+    font-size: 0.8rem;
+  }
 }
 
 @media (min-width: 992px) {
@@ -314,7 +316,7 @@ onMounted(() => {
     padding-left: -50px;
   }
 
-  .search-input, .clear-button, .options-toggle, .dropdown-button {
+  .search-input, clear-button, .options-toggle, .collapsable-button {
     font-size: 0.8rem;
   }
 

@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import Review from '../models/review.model.js';
 import { handleError } from '../utils/error.util.js';
 import { hashPassword } from '../utils/password.util.js';
 
@@ -25,6 +26,17 @@ const getAllUsers = async (req, res, next) => {
     }
 };
 
+const getUserReviews = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const reviews = await Review.find({ user: id }).populate('course');
+
+        res.status(200).json(reviews);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getUser = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -34,13 +46,6 @@ const getUser = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
-        // If the user has a photo, convert it to base64
-        /*let photo;
-        if (user.photo && user.photo.data) {
-            photo = `data:${user.photo.contentType};base64,${user.photo.data.toString('base64')}`;
-        } else {
-            photo = null;
-        }*/
         res.status(200).json({ ...user.toObject()});
 
     } catch (error) {
@@ -112,15 +117,6 @@ const patchUser = async (req, res, next) => {
             return res.status(200).json(updatedUser);
         }
 
-        // If a photo is uploaded, add it to the update object
-        /*if (req.file) {
-            updates.photo = {
-                data: req.file.buffer,         // Store the image as a Buffer
-                contentType: req.file.mimetype // Store the MIME type (e.g., image/jpeg)
-            };
-        }*/
-
-
         const updatedUser = await User.findByIdAndUpdate(
             userIdToUpdate,
             updates, { new: true, runValidators: true });
@@ -129,12 +125,8 @@ const patchUser = async (req, res, next) => {
             return res.status(404).json({ message: 'User not found.' });
         }
 
-        // If the user has an updated photo, include the base64 encoded version in the response
         const userResponse = {
             ...updatedUser._doc,
-            //photo: updatedUser.photo
-            //? `data:${updatedUser.photo.contentType};base64,${updatedUser.photo.data.toString('base64')}`
-            //: null
         };
         res.status(200).json(userResponse);
 
@@ -181,6 +173,7 @@ const deleteUser = async (req, res, next) => {
 const controller = {
     createUser,
     getAllUsers,
+    getUserReviews,
     getUser,
     updateUser,
     patchUser,

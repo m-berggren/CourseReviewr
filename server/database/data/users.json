@@ -1,9 +1,22 @@
 [
   {
+    "username": "admin",
+    "email": "admin@coursereviewr.com",
+    "password": "admin123",
+    "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
+    "interests": [],
+    "recommendationList": [],
+    "role": "admin"
+  },
+  {
     "username": "samwashere",
     "email": "samuel.adams@gmail.com",
-    "password": "samwashere",
-    "photo": "08c53e656b2d124d1123632d42a9758c-profile-pic2.webp",
+    "password": "samwashere1",
+    "photo": "c17bb0c6869367f01922750d6922e5ba-samwashere-profile.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Programming", "Web Development", "JavaScript"],
     "recommendationList": [],
     "role": "user"
@@ -11,8 +24,10 @@
   {
     "username": "janer3",
     "email": "jane.r.smith@gmail.com",
-    "password": "janer3",
+    "password": "janer31",
     "photo": "ce0908f27a9df6a0ae071142cb5ef5f9-profile-pic7.avif",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Science", "Physics"],
     "recommendationList": [],
     "role": "user"
@@ -20,8 +35,10 @@
   {
     "username": "mSmith",
     "email": "michael.smith@outlook.com",
-    "password": "mSmith",
+    "password": "mSmith1",
     "photo": "625dd97d7ef8dd3db2efbc726b8463fa-profile-pic.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Business", "Management", "Finance"],
     "recommendationList": [],
     "role": "user"
@@ -29,8 +46,10 @@
   {
     "username": "jonEm",
     "email": "emily.jones2@outlook.com",
-    "password": "jonEm",
+    "password": "jonEm1",
     "photo": "7222393575ca059c3d09f9276316e97f-profile-pic3.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Psychology", "Personal Development"],
     "recommendationList": [],
     "role": "user"
@@ -38,8 +57,10 @@
   {
     "username": "robertbrown",
     "email": "robert.brown@coursereviewr.com",
-    "password": "robertbrown",
+    "password": "robertbrown1",
     "photo": null,
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": [],
     "recommendationList": [],
     "role": "admin"
@@ -47,8 +68,10 @@
   {
     "username": "sarah_89",
     "email": "sara.johnson89@yahoo.com",
-    "password": "sarah_89",
+    "password": "sarah_891",
     "photo": "e87ea48460a1767f11e7f512b8e4d527-profile-pic4.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Art", "Culture", "History"],
     "recommendationList": [],
     "role": "user"
@@ -56,8 +79,10 @@
   {
     "username": "martinD",
     "email": "david.martin9@gmail.com",
-    "password": "martinD",
+    "password": "martinD1",
     "photo": "5c1cf8fdd28fa5a5e2628796f7977565-profile-pic5.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Technology", "Cloud Computing", "DevOps"],
     "recommendationList": [],
     "role": "user"
@@ -65,8 +90,10 @@
   {
     "username": "Wilson",
     "email": "lisa.e.wilson@gmail.com",
-    "password": "Wilson",
+    "password": "Wilson1",
     "photo": "6d3c5ed30c0c60dd9e52ec23e6f87e98-profile-pic2.jpeg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Health", "Nutrition"],
     "recommendationList": [],
     "role": "user"
@@ -74,17 +101,21 @@
   {
     "username": "millers",
     "email": "james.millerjr@outlook.com",
-    "password": "millers",
+    "password": "millers1",
     "photo": "765cbf0938238c934a5442fbfe98a92f-profile-pic6.jpeg",
     "interests": ["Math", "Applied Mathematics", "Computer Science"],
+    "signedUrl": "",
+    "urlExpiration": 0,
     "recommendationList": [],
     "role": "user"
   },
   {
     "username": "oHerz",
     "email": "olivia.hernandezz@hotmail.com",
-    "password": "oHerz",
+    "password": "oHerz1",
     "photo": "11686dd0dbf7c0990a2c036af7e71c87-profile-pic8.webp",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Languages", "Culture"],
     "recommendationList": [],
     "role": "user"
@@ -92,8 +123,10 @@
   {
     "username": "alexGreen",
     "email": "alex.green@gmail.com",
-    "password": "alexGreen",
+    "password": "alexGreen1",
     "photo": "dd46d63c7db3a081299fdd60ae5d6bed-profile-pic.jpg",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Technology", "Finance", "Cybersecurity"],
     "recommendationList": [],
     "role": "user"
@@ -101,8 +134,10 @@
   {
     "username": "mantha",
     "email": "samantha.lee@hotmamil.com",
-    "password": "mantha",
+    "password": "mantha1",
     "photo": "ce0908f27a9df6a0ae071142cb5ef5f9-profile-pic7.avif",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Art", "Psychology"],
     "recommendationList": [],
     "role": "user"
@@ -110,8 +145,10 @@
   {
     "username": "tech_enthusiast",
     "email": "tech.enthusiast@hotmail.com",
-    "password": "tech_enthusiast",
+    "password": "tech_enthusiast1",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Technology", "Productivity", "Digital Skills"],
     "recommendationList": [],
     "role": "user"
@@ -119,8 +156,10 @@
   {
     "username": "fastFingers",
     "email": "fast.fingers@outlook.com",
-    "password": "fastFingers",
+    "password": "fastFingers1",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Writing", "Productivity", "Technology"],
     "recommendationList": [],
     "role": "user"
@@ -128,8 +167,10 @@
   {
     "username": "learningJunkie",
     "email": "learning.junkie@outlook.com",
-    "password": "learningJunkie",
+    "password": "learningJunkie1",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Programming", "Machine Learning"],
     "recommendationList": [],
     "role": "user"
@@ -137,8 +178,10 @@
   {
     "username": "healthNut",
     "email": "health.nut@yahoo.com",
-    "password": "healthNut",
+    "password": "healthNut1",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Health", "Nutrition"],
     "recommendationList": [],
     "role": "user"
@@ -146,8 +189,10 @@
   {
     "username": "codeWiz",
     "email": "code.wizard@hotmail.com",
-    "password": "codeWiz",
+    "password": "codeWiz1",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Programming", "Algorithms", "Computer Science"],
     "recommendationList": [],
     "role": "user"
@@ -155,8 +200,10 @@
   {
     "username": "ecoW4",
     "email": "eco.w4life@gmail.com",
-    "password": "ecow4",
+    "password": "ecow41",
     "photo": "",
+    "signedUrl": "",
+    "urlExpiration": 0,
     "interests": ["Environment", "Urban Studies"],
     "recommendationList": [],
     "role": "user"

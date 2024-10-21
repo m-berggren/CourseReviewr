@@ -39,7 +39,7 @@ defineProps({
 }
 /* Max size for the card */
 .review-card {
-  height: 200px;
+  height: 230px;
   overflow: hidden;
   display: flex;
   position: relative;

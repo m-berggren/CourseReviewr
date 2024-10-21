@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
         <!-- Profile Picture -->
         <div class="d-flex flex-column">
-          <s3-image-display :s3Key="user.photo" class="image-container"/>
+          <s3-image-display :obj="user" type="user" class="image-container"/>
           <b-button @click="showUpload = !showUpload" variant="link" class="p-0">
             <small>Change Photo</small>
           </b-button>
@@ -122,8 +122,13 @@
 <script>
 import { Api } from '@/Api'
 import { token } from '@/token'
+import S3ImageDisplay from '@/components/BaseS3ImageDisplay.vue'
+import { resizeImage } from '@/utils/resize-img'
 
 export default {
+  components: {
+    's3-image-display': S3ImageDisplay
+  },
   data() {
     return {
       user: {},
@@ -233,10 +238,23 @@ export default {
     },
     async uploadPhoto() {
       try {
-        const imageName = await Api.handleImageUpload(this.uploadedPhoto)
+        const resizedFile = await resizeImage(this.uploadedPhoto)
+
+        const data = await Api.getS3UploadUrl(this.uploadedPhoto.name, 'image/jpeg') // Get valid url for uploading to S3
+
+        const newFileName = data.imageName
+        const uploadUrl = data.signedUrl
+
+        await Api.uploadToS3(resizedFile, uploadUrl) // Upload the resized file with the valid url
+
+        const signedUrl = await Api.getS3DownloadUrl(newFileName) // Get the signed URL for downloading the photo
+
+        const urlExpiration = Date.now() + 24 * 60 * 60 * 1000 // 24 hours in ms
 
         const formData = new FormData()
-        formData.append('photo', imageName)
+        formData.append('photo', newFileName)
+        formData.append('signedUrl', signedUrl)
+        formData.append('urlExpiration', urlExpiration)
 
         await Api.patch(`/users/${token.getUserId()}`, formData, {
           headers: {

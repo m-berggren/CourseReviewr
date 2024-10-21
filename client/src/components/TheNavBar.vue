@@ -3,10 +3,8 @@
     <b-navbar toggleable="md" type="dark" variant="dark" class="justify-content-between">
 
       <!-- Brand with link to homepage -->
-      <b-navbar-brand href="#">
-        <router-link to="/" class="navbar-logo-link">
+      <b-navbar-brand href="#" @click.prevent="refreshHomepage">
           <img src="@/assets/logo/courseReviewr-48pt-i.webp" class="navbar-logo">
-        </router-link>
       </b-navbar-brand>
 
       <!-- Toggler for collapsing nav-collapse -->
@@ -17,9 +15,10 @@
       <!-- Collapsible content -->
       <b-collapse id="nav-collapse" is-nav v-model="isNavCollapsed">
         <b-navbar-nav>
-          <router-link to="/courses" class="nav-link mx-1" @click.native="collapseNav">Courses</router-link>
+          <router-link to="/courses/table" class="nav-link mx-1" @click.native="collapseNav">Courses</router-link>
           <router-link to="/courses/create" class="nav-link mx-1" @click.native="collapseNav">Create Review</router-link>
-          <router-link v-if="isSignedIn" to="/course-lists" class="nav-link mx-1" @click.native="collapseNav">Course Lists</router-link>
+          <router-link :to="{ name: 'reviews', params: { id: 'userId' } }" class="nav-link mx-1" @click.native="collapseNav">Reviews</router-link>
+          <router-link to="/course-lists" class="nav-link mx-1" @click.native="collapseNav">Course Lists</router-link>
         </b-navbar-nav>
 
         <!-- Signin / Profile button to the right with ml-auto -->
@@ -44,16 +43,25 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 defineProps({
   isSignedIn: Boolean,
-  username: String
+  username: String,
+  userId: String
 })
 
+const router = useRouter()
 const isNavCollapsed = ref(false)
 
 const collapseNav = () => {
   isNavCollapsed.value = false
+}
+
+const refreshHomepage = () => {
+  router.push('/').then(() => {
+    window.location.reload()
+  })
 }
 
 </script>

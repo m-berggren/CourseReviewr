@@ -47,7 +47,6 @@ const getAllCourses = async (req, res, next) => {
             const searchRegex = new RegExp(search, 'i');
             filter.$or = [
                 { name: searchRegex },
-                { description: searchRegex },
                 { provider: searchRegex }
             ];
         }
@@ -116,6 +115,8 @@ const getAllCourses = async (req, res, next) => {
                     instructor: 1,
                     topics: 1,
                     photo: 1,
+                    signedUrl: 1,
+                    urlExpiration: 1,
                     releaseYear: 1,
                     certificate: 1,
                     accessType: 1,
@@ -153,6 +154,158 @@ const getAllCourses = async (req, res, next) => {
         next(error);
     }
 };
+
+const getAllCoursesHomepage = async (req, res, next) => {
+    try {
+        const { provider, topic, search, interests } = req.query;
+        const filter = {};
+
+        // Handle filters for topic, provider, and search
+        if (topic) filter.topics = { $in: [new mongoose.Types.ObjectId(topic)] };
+        if (provider) filter.provider = provider;
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            filter.$or = [
+                { name: searchRegex },
+                { provider: searchRegex }
+            ];
+        }
+
+        // Convert interests (comma-separated) into an array of valid ObjectIds
+        let interestArray = [];
+        if (interests) {
+            interestArray = Array.isArray(interests) ? interests : interests.split(',');
+        }
+
+        const interestIds = interestArray
+            .filter(id => mongoose.Types.ObjectId.isValid(id)) // Only convert valid ObjectIds
+            .map(id => new mongoose.Types.ObjectId(id));
+
+        // Add pagination
+        const limit = parseInt(req.query.limit, 10) || 1000;
+        const page = parseInt(req.query.page, 10) || 1;
+        const skip = (page - 1) * limit;
+
+        // Build the aggregation pipeline
+        const pipeline = [
+            { $match: filter },
+            {
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'course',
+                    as: 'reviews'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'topics',
+                    localField: 'topics',
+                    foreignField: '_id',
+                    as: 'topics'
+                }
+            },
+            {
+                $addFields: {
+                    reviewCount: { $size: '$reviews' },
+                    averageRating: { 
+                        $cond: {
+                            if: { $eq: [{ $size: '$reviews' }, 0] },
+                            then: 0,
+                            else: { $divide: [{ $multiply: [{ $avg: '$reviews.averageRating' }, 2] }, 2]}
+                        }
+                    }
+                }
+            }
+        ];
+
+        /**
+         * Add matchingInterestsCount only if valid interests are provided.
+         * setIntersection compares two arrays and returns elements that appear in both arrays.
+         * If size > 0 it means that this course will take priority in the sorting.
+         * It will not distinguish any interest topic from each other, secondary sorting is with review count and average rating
+         */
+        if (interestIds.length > 0) {
+            pipeline.push({
+                $addFields: {
+                    matchingInterestsCount: {
+                        $size: {
+                            $setIntersection: ['$topics._id', interestIds] // Need topics to be _id only
+                        }
+                    }
+                }
+            });
+
+            // Sort by matchingInterestsCount, reviewCount, and averageRating
+            pipeline.push({
+                $sort: { matchingInterestsCount: -1, reviewCount: -1, averageRating: -1 }
+            });
+        } else {
+            // If no interests, fallback to default sorting
+            pipeline.push({
+                $sort: { reviewCount: -1, averageRating: -1 }
+            });
+        }
+
+        // Add pagination stages
+        pipeline.push(
+            { $skip: skip },
+            { $limit: limit },
+            {
+                $project: {
+                    averageRating: 1,
+                    reviewCount: 1,
+                    name: 1,
+                    provider: 1,
+                    difficulty: 1,
+                    description: 1,
+                    instructor: 1,
+                    topics: 1,
+                    photo: 1,
+                    signedUrl: 1,
+                    urlExpiration: 1,
+                    releaseYear: 1,
+                    certificate: 1,
+                    accessType: 1,
+                    url: 1,
+                    matchingInterestsCount: 1 // Used for debugging
+                }
+            }
+        );
+
+        const totalCourses = await Course.countDocuments(filter);
+        const totalPages = Math.ceil(totalCourses / limit );
+
+        // Pagination response
+        const hasPrevPage = page > 1;
+        const hasNextPage = page < totalPages;
+        const prevPage = hasPrevPage ? page - 1 : null;
+        const nextPage = hasNextPage ? page + 1 : null;
+
+        // Execute the aggregation pipeline
+        const courses = await Course.aggregate(pipeline);
+
+        res.status(200).json({
+            courses,
+            totalCourses,
+            totalPages,
+            currentPage: page,
+            limit,
+            hasPrevPage,
+            hasNextPage,
+            prevPage,
+            nextPage,
+            '_links': {
+                'self': { href: '/courses/' },
+                'create': { href: '/courses', method: 'POST' },
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const getCourse = async (req, res, next) => {
     try {
@@ -308,13 +461,14 @@ const deleteCourse = async (req, res, next) => {
 const controller = {
     createCourse,
     getAllCourses,
+    getAllCoursesHomepage,
     getCourse,
     getAggregatedRatings,
     updateCourse,
     patchCourse,
     deleteAllCourses,
     deleteCourse,
-    getAllProviders
+    getAllProviders,
 };
 
 export default controller;

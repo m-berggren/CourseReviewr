@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'course-page', params: { id:course._id } }" class="course-link">
       <b-card no-body class="course-card">
         <div>
-          <s3-image-display :s3Key="course.photo"/>
+          <s3-image-display :obj="course" type="course"/>
         </div>
         <b-card-body>
           <h5 class="card-title">{{ course.name }}</h5>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import S3ImageDisplay from './S3ImageDisplay.vue'
+import S3ImageDisplay from './BaseS3ImageDisplay.vue'
 
 defineProps({
   course: Object

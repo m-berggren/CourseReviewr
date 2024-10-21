@@ -1,66 +1,66 @@
 <template>
   <div>
-    <div class="review-form-container">
-      <h2>Your opinion matters!</h2>
-      <form @submit.prevent="submitReview" @reset="onReset">
-        <!-- Rating List-->
-        <div class="rating-section">
-          <ul class="rating-list">
-            <li>
-              <label for="engagementLevel">Engagement Level</label>
-              <star-rating :rating="engagementLevel" @update:rating="setEngagementLevel" :star-size="40"
-                :show-rating="true" :read-only="false"></star-rating>
-            </li>
+      <div class="review-form-container">
+            <h2>Your opinion matters!</h2>
+            <form @submit.prevent="submitReview" @reset="onReset">
+              <!-- Rating List-->
+              <div class="rating-section">
+                <ul class="rating-list">
+                  <li>
+                    <label for="engagementLevel">Engagement Level</label>
+                    <star-rating :rating="engagementLevel" @update:rating="setEngagementLevel" :star-size="40"
+                      :show-rating="true" :read-only="false"></star-rating>
+                  </li>
 
-            <li>
-              <label for="practicalValue">Practical Value</label>
-              <star-rating :rating="practicalValue" @update:rating="setPracticalValue" :star-size="40"
-                :show-rating="true" :read-only="false">
-              </star-rating>
-            </li>
+                  <li>
+                    <label for="practicalValue">Practical Value</label>
+                    <star-rating :rating="practicalValue" @update:rating="setPracticalValue" :star-size="40"
+                      :show-rating="true" :read-only="false">
+                    </star-rating>
+                  </li>
 
-            <li>
-              <label for="instructorQuality">Instructor Quality</label>
-              <star-rating :rating="instructorQuality" @update:rating="setInstructorQuality" :star-size="40"
-                :show-rating="true" :read-only="false">
-              </star-rating>
-            </li>
+                  <li>
+                    <label for="instructorQuality">Instructor Quality</label>
+                    <star-rating :rating="instructorQuality" @update:rating="setInstructorQuality" :star-size="40"
+                      :show-rating="true" :read-only="false">
+                    </star-rating>
+                  </li>
 
-            <li>
-              <label for="difficultyLevel">Difficulty Level</label>
-              <star-rating :rating="difficultyLevel" @update:rating="setDifficultyLevel" :star-size="40"
-                :show-rating="true" :read-only="false">
-              </star-rating>
-            </li>
+                  <li>
+                    <label for="difficultyLevel">Difficulty Level</label>
+                    <star-rating :rating="difficultyLevel" @update:rating="setDifficultyLevel" :star-size="40"
+                      :show-rating="true" :read-only="false">
+                    </star-rating>
+                  </li>
 
-          </ul>
-        </div>
+                </ul>
+              </div>
 
-        <!-- Comment -->
-        <div class="comment-section mt-4">
-          <h3>Comment</h3>
-          <textarea v-model="comment" class="form-control" rows="4" placeholder="Write your comments"></textarea>
-        </div>
+              <!-- Comment -->
+              <div class="comment-section mt-4">
+                <h3>Comment</h3>
+                <textarea v-model="comment" class="form-control" rows="4" placeholder="Write your comments"></textarea>
+              </div>
 
-        <!-- Course Completion -->
-        <div class="completion-section mt-4">
-          <h3>Have you completed this course?</h3>
-          <select v-model="hasCompleted" class="form-control">
-            <option :value="true">Yes</option>
-            <option :value="false">No</option>
-          </select>
-        </div>
+              <!-- Course Completion -->
+              <div class="completion-section mt-4">
+                <h3>Have you completed this course?</h3>
+                <select v-model="hasCompleted" class="form-control">
+                  <option :value="true">Yes</option>
+                  <option :value="false">No</option>
+                </select>
+              </div>
 
-        <!-- Submit and Cancel Buttons -->
-        <div class="button-container">
-          <b-button variant="primary" type="submit">Submit</b-button>
-          <b-button variant="secondary" type="button" @click="goBack">Cancel</b-button>
-        </div>
-      </form>
+              <!-- Submit and Cancel Buttons -->
+              <div class="button-container">
+                <b-button variant="primary" type="submit">Submit</b-button>
+                <b-button variant="secondary" type="button" @click="goBack">Cancel</b-button>
+              </div>
+            </form>
 
-      <custom-alert :show="showAlert" :message="alertMessage" @close="showAlert = false" />
+        <custom-alert :show="showAlert" :message="alertMessage" @close="handleAlertClose" />
 
-    </div>
+      </div>
   </div>
 </template>
 
@@ -68,7 +68,7 @@
 import StarRating from 'vue-star-rating'
 import { Api } from '@/Api'
 import { token } from '@/token'
-import CustomAlert from '@/components/CustomAlert.vue'
+import CustomAlert from '@/components/BaseCustomAlert.vue'
 
 export default {
   components: {
@@ -86,7 +86,8 @@ export default {
       hasCompleted: null,
       formSubmitted: false,
       showAlert: false,
-      alertMessage: ''
+      alertMessage: '',
+      courseID: ''
     }
   },
   methods: {
@@ -102,27 +103,20 @@ export default {
     setDifficultyLevel(newRating) {
       this.difficultyLevel = newRating
     },
+    ratingsFilledIn() {
+      if (this.engagementLevel < 1 || this.practicalValue < 1 || this.instructorQuality < 1 || this.difficultyLevel < 1) {
+        return false
+      }
+      return true
+    },
     async submitReview() {
       console.log(this.difficultyLevel)
-      const courseID = this.$route.params.id
+      this.courseID = this.$route.params.id
 
       try {
-        const response = await Api.get(`/users/${token.getUserId()}`)
-        this.user = { ...response.data }
-        const userID = this.user._id
+        const userID = token.getUserId()
 
-        if (!userID) {
-          this.alertMessage = 'You must be logged in to submit a review'
-          this.showAlert = true
-          return
-        }
-
-        if (
-          this.engagementLevel < 1 ||
-          this.practicalValue < 1 ||
-          this.instructorQuality < 1 ||
-          this.difficultyLevel < 1
-        ) {
+        if (!this.ratingsFilledIn()) {
           this.alertMessage = 'Rating cannot be empty'
           this.showAlert = true
           return
@@ -137,22 +131,24 @@ export default {
           hasCompleted: this.hasCompleted == null ? false : this.hasCompleted
         }
 
-        await Api.post(`/users/${userID}/courses/${courseID}/reviews/`, reviewData)
-        this.alertMessage('Your review has been submitted')
+        await Api.post(`/users/${userID}/courses/${this.courseID}/reviews/`, reviewData)
+        this.alertMessage = 'Your review has been submitted'
         this.showAlert = true
-        this.$router.push(`/courses/${courseID}`)
       } catch (error) {
-        console.log(error)
-        if (error.response.status === 400) {
+        if (error.response && error.response.status === 400) {
           this.alertMessage = 'You have already posted a review for this course.'
-          this.showAlert = true
         } else {
-          this.alertMessage = 'Submission failed.'
-          this.showAlert = true
+          this.alertMessage = 'Submission failed, please try again.'
         }
+        this.showAlert = true
       }
     },
-
+    handleAlertClose() {
+      this.showAlert = false
+      if (this.ratingsFilledIn()) {
+        this.$router.push(`/courses/${this.courseID}`)
+      }
+    },
     onReset() {
       this.engagementLevel = 0
       this.practicalValue = 0
