@@ -117,7 +117,8 @@ const handleSubmit = async () => {
       instructorQuality: instructorQuality.value,
       practicalValue: practicalValue.value,
       comment: comment.value,
-      hasCompleted: hasCompleted.value
+      hasCompleted: hasCompleted.value,
+      edited: new Date().toISOString().split('T')[0]
     }
     await Api.put(`/reviews/${props.review._id}`, updatedReview)
     emit('review-updated')

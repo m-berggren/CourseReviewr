@@ -2,9 +2,17 @@
   <div>
     <b-card class="review-card">
       <b-row>
-        <b-col md="10">
+        <b-col md="8">
           <p><b>{{ review.user.username }}</b></p>
           <p>Reviewed on {{ new Date(review.date).toLocaleDateString() }}</p>
+        </b-col>
+        <b-col md="2">
+          <p v-if="review.edited">Edited: {{ new Date(review.edited).toLocaleDateString() }}</p>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
           <div>
             <b-badge v-if="review.hasCompleted" variant="success">Completed the course</b-badge>
             <b-badge v-else variant="secondary">Not completed</b-badge>

@@ -12,7 +12,8 @@ const reviewSchema = new Schema({
     comment:            { type: String, default: '' },
     hasCompleted:       { type: Boolean },
     date:               { type: Date, default: Date.now },
-    averageRating:      { type: Number }
+    averageRating:      { type: Number },
+    edited:             { type: Date, default: null }
 });
 
 // Pre-save hook to compute averageRating before saving the review
