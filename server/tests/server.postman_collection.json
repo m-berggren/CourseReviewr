@@ -2875,6 +2875,96 @@
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": []
+				},
+				{
+					"name": "201 - Create fourth courseList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare request- and response data, set environment variable",
+									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
+									"const jsonData = pm.response.json(); // User is needed",
+									"pm.environment.set(\"course_list_id4\", jsonData._id);",
+									"",
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 201 - created\", () => {",
+									"\tpm.response.to.have.status(201);",
+									"});",
+									"",
+									"// Document has all necessary properties",
+									"pm.test(\"Response contains all necessary properties\", () => {",
+									"\tpm.expect(jsonData).to.have.property(\"name\");",
+									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
+									"\tpm.expect(jsonData).to.have.property(\"user\");",
+									"\tpm.expect(jsonData).to.have.property(\"description\");",
+									"\tpm.expect(jsonData).to.have.property(\"courses\");",
+									"});",
+									"",
+									"// Loop through and compare request data to response data",
+									"pm.test(\"Response matches all input data\", () => {",
+									"\tObject.keys(requestData).forEach(key => {",
+									"\t\tpm.test(`Field matches for: ${key}`, () => {",
+									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
+									"\t\t});",
+									"\t});",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Math-stuff\",\n    \"description\": \"MAthematics\",\n    \"courses\": [\"{{course_id3}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
 				}
 			]
 		},
@@ -4423,7 +4513,93 @@
 					"response": []
 				},
 				{
-					"name": "200 - Show all courses",
+					"name": "200 - Show all courses for courses page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json()[\"courses\"]; // courses is needed",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData.forEach((course) => {",
+									"\tpm.test(`Check courseID: ${course._id}`, () => {",
+									"\t\tpm.expect(course).to.have.property(\"name\");",
+									"\t\tpm.expect(course).to.have.property(\"topics\");",
+									"\t\tpm.expect(course).to.have.property(\"difficulty\");",
+									"\t\tpm.expect(course).to.have.property(\"description\");",
+									"\t\tpm.expect(course).to.have.property(\"averageRating\");",
+									"\t\tpm.expect(course).to.have.property(\"releaseYear\");",
+									"\t\tpm.expect(course).to.have.property(\"provider\");",
+									"\t\tpm.expect(course).to.have.property(\"instructor\");",
+									"\t\tpm.expect(course).to.have.property(\"certificate\");",
+									"\t\tpm.expect(course).to.have.property(\"accessType\");",
+									"\t\tpm.expect(course).to.have.property(\"photo\");",
+									"\t\tpm.expect(course).to.have.property(\"url\");",
+									"\t});",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "http://localhost:3000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses/table",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses",
+								"table"
+							],
+							"query": [
+								{
+									"key": "host",
+									"value": "l",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Show all courses for homepage",
 					"event": [
 						{
 							"listen": "test",
@@ -4494,6 +4670,77 @@
 								"api",
 								"{{api_version}}",
 								"courses"
+							],
+							"query": [
+								{
+									"key": "host",
+									"value": "l",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Get aggregated ratings for a course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json(); // courses is needed",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "http://localhost:3000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/courses/{{course_id}}/ratings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"courses",
+								"{{course_id}}",
+								"ratings"
 							],
 							"query": [
 								{
@@ -5042,7 +5289,6 @@
 								"exec": [
 									"// Declare request- and response data",
 									"const jsonData = pm.response.json()['updatedReview'];",
-									"console.log(jsonData)",
 									"const requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};",
 									"",
 									"pm.test(\"Successful PATCH request - status 200\", () => {",
@@ -5052,7 +5298,6 @@
 									"// Loop through and compare request data to response data",
 									"pm.test(\"Response matches input data\", () => {",
 									"\tObject.keys(requestData).forEach(key => {",
-									"        console.log(requestData[key], jsonData[key]);",
 									"\t\tpm.test(`Field matches for: ${key}`, () => {",
 									"\t\t\tpm.expect(jsonData[key]).to.eql(requestData[key]);",
 									"\t\t});",
@@ -5354,9 +5599,7 @@
 							"script": {
 								"exec": [
 									"const currentDate = new Date().toISOString();",
-									"pm.environment.set(\"currentDate\", currentDate);",
-									"",
-									"console.log(currentDate);"
+									"pm.environment.set(\"currentDate\", currentDate);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -5468,9 +5711,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Declare response data",
-									"const jsonData = pm.response.json()[\"reviews\"]; // reviews is needed",
-									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
@@ -5484,6 +5724,9 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -5572,7 +5815,7 @@
 					"response": []
 				},
 				{
-					"name": "200 - Show all reviews of a user",
+					"name": "200 - Show all review of a user tied to course",
 					"event": [
 						{
 							"listen": "test",
@@ -5603,6 +5846,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -5617,6 +5870,54 @@
 								"{{user_id}}",
 								"courses",
 								"{{course_id}}",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Show all reviews of a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Declare response data",
+									"const jsonData = pm.response.json(); // reviews is needed",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
 								"reviews"
 							]
 						}
@@ -6477,136 +6778,7 @@
 					"response": []
 				},
 				{
-					"name": "403 - User attempts to show all courseLists",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"course-lists"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "200 - Admin shows all courseLists",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Declare response data",
-									"const jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"const user_id = pm.environment.get('user_id');",
-									"",
-									"jsonData.forEach((courseList) => {",
-									"\tpm.test(`Check all properties for courseListID: ${courseList._id} and connected to userID: ${user_id}`, () => {",
-									"\t\tpm.expect(courseList).to.have.property(\"name\");",
-									"\t\tpm.expect(courseList).to.have.property(\"creationDate\");",
-									"\t\tpm.expect(courseList).to.have.property(\"user\").and.eql(user_id);",
-									"\t\tpm.expect(courseList).to.have.property(\"description\");",
-									"\t\tpm.expect(courseList).to.have.property(\"courses\");",
-									"\t});",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{admin_jwt_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"{{user_id}}",
-								"course-lists"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "200 - User get specific courseList (they own)",
+					"name": "200 - User gets all courseList (they own)",
 					"event": [
 						{
 							"listen": "test",
@@ -6618,14 +6790,6 @@
 									"",
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.response.to.have.status(200);",
-									"});",
-									"// Document has all necessary properties",
-									"pm.test(\"Response contains all necessary properties\", () => {",
-									"\tpm.expect(jsonData).to.have.property(\"name\");",
-									"\tpm.expect(jsonData).to.have.property(\"creationDate\");",
-									"\tpm.expect(jsonData).to.have.property(\"user\");",
-									"\tpm.expect(jsonData).to.have.property(\"description\");",
-									"\tpm.expect(jsonData).to.have.property(\"courses\");",
 									"});"
 								],
 								"type": "text/javascript",
@@ -6671,7 +6835,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
 							"host": [
 								"{{host}}"
 							],
@@ -6680,8 +6844,7 @@
 								"{{api_version}}",
 								"users",
 								"{{user_id}}",
-								"course-lists",
-								"{{course_list_id}}"
+								"course-lists"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -6869,7 +7032,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id}}",
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists/{{course_list_id4}}",
 							"host": [
 								"{{host}}"
 							],
@@ -6879,7 +7042,7 @@
 								"users",
 								"{{user_id}}",
 								"course-lists",
-								"{{course_list_id}}"
+								"{{course_list_id4}}"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -7092,6 +7255,167 @@
 			]
 		},
 		{
+			"name": "AWS S3",
+			"item": [
+				{
+					"name": "200 - Generate signed URL for AWS upload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 200\", () => {",
+									"\tpm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/aws/generate-upload-url?fileName=mindfullness.jpeg&fileType=image/jpeg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"aws",
+								"generate-upload-url"
+							],
+							"query": [
+								{
+									"key": "fileName",
+									"value": "mindfullness.jpeg"
+								},
+								{
+									"key": "fileType",
+									"value": "image/jpeg"
+								}
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - Generate signed URL for AWS download",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test assertions for HTTP status code",
+									"pm.test(\"Status code 200\", () => {",
+									"\tpm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/aws/generate-download-url?fileName=c456a917ed114d3766a45152ce90fd35-quantumPhysics.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"aws",
+								"generate-download-url"
+							],
+							"query": [
+								{
+									"key": "fileName",
+									"value": "c456a917ed114d3766a45152ce90fd35-quantumPhysics.jpg"
+								}
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Deletes in end",
 			"item": [
 				{
@@ -7247,6 +7571,61 @@
 								"api",
 								"{{api_version}}",
 								"courses"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "200 - User deletes all its courseLists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DEL Status 200 - All courseLists deleted and also from all user's arrays\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/{{api_version}}/users/{{user_id}}/course-lists",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"{{api_version}}",
+								"users",
+								"{{user_id}}",
+								"course-lists"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
