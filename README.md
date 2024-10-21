@@ -138,4 +138,4 @@ Database Implementation
    * This ensures that the database maintains a reference to the correct image in S3, and the frontend can easily retrieve the associated image using these keys.
 
 ## Teaser (MS3)
-![CourseReviewrTeaser](./images/CourseReviewrTeaser.png)
+![CourseReviewrTeaser](./images/Teaser.png)
