@@ -63,7 +63,7 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-#### Online Course Review System
+#### CourseReviewr
 
 This system allows users to share and view reviews about online courses they have taken or are taking. Users can add courses from different course providers and rate them, optionally with leaving comments.
 
