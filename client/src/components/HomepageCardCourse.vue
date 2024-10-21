@@ -50,6 +50,16 @@ defineProps({
   background-color: whitesmoke;
 }
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.course-card:hover {
+  background-color: lightgray;
+}
+
 .course-card img {
   height: 150px; /* Fixed height for images */
   object-fit: cover;
@@ -62,10 +72,11 @@ defineProps({
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  text-align: center;
+  text-align: left; /* Better readability */
   margin-bottom: 1rem;
+  max-height: 6em; /* Text cut-off (1.5em per line) */
 }
 
 .rating-container {
@@ -88,7 +99,15 @@ defineProps({
   }
 
   .course-description {
+    -webkit-line-clamp: 3;
+    max-height: 4.5em;
+  }
+}
+
+@media (max-width: 776px) {
+  .course-description {
     -webkit-line-clamp: 2;
+    max-height: 3em;
   }
 }
 
@@ -98,7 +117,8 @@ defineProps({
   }
 
   .course-description {
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 5;
+    max-height: 7.5em;
   }
 }
 

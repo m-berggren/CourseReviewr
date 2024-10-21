@@ -16,5 +16,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  optimizeDeps: {
+    exclude: ['chunk-N4VKV6FC', 'chunk-GIDD3EMP']
   }
 })

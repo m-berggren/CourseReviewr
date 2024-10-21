@@ -63,19 +63,31 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-#### Online Course Review System
+#### CourseReviewr
 
-This system allows users to share and view reviews about online courses they have taken or are interested in taking. Users can add online courses from different course providers and rate them, optionally with leaving comments.
+This system allows users to share and view reviews about online courses they have taken or are taking. Users can add courses from different course providers and rate them, optionally with leaving comments.
 
-Users are able to create different lists with courses they want to enroll in or courses they have already taken.
+Users are able to create different lists with courses they want to enroll in or courses they have already taken, as well get recommendation of courses that are in their area of interest.
 
 ### Pages
 
-* Homepage: Displays username and fields of interests, with a recommendation list of online courses they might be interested in.
-* Course page: All the detailed information about one course, including rating and reviews.
-* Review page: A page where you create reviews for a course.
-* List of courses: A list of all courses where the user can search filter for different courses depending on preference.
-* Profile page: Here the user can change contact information such as e-mail, interests and study lists etc.
+* Homepage: Displays various recommended courses depending on a user's interests (if any, or if logged in), the amount of reviews and the review rating of each course. Underneath the courses are the latest reviews made. There is a typeahead search bar for findind existing courses and possibility to select popular topics to filter on.
+
+* Courses page: A page where all courses are listed, sorted on review account but possible other sorting options are on course provider, difficulty, average rating, amount of reviews and release year. There's a search bar and possibility to filter on providers and topics as well, depending on preference.
+
+* Single course page: All the detailed information about one course, including rating and all the reviews listed underneath.
+
+* Create course page: Here you fill in all the necessary information to create a course. Editing a course after creation is not possible at release 1 so there are several mandatory fields to fill in.
+
+* Create review page: A page for creating a review of a course. A created review is stored in each course page and in the users reviews page.
+
+* Reviews page: This is the page where a user has all their reviews listed. The reviews may be edited and you can visit a reviewed course from there.
+
+* Course list page: A page where a user can store various different course lists with courses, following their interests or for future note.
+
+* Profile page: Here the user can change contact information such as photo, e-mail, interests and update password.
+
+* Sign in & Register pages: Basic sign in and register pages. You need to be signed in order to be able to create a course, create a review, enter reviews page and course lists page.
 
 ### Entity-Relationship (ER) Diagram
 
@@ -124,3 +136,6 @@ Database Implementation
 2. Associations:
    * When a user or course photo is updated, the S3 key for the new image is saved in the database, replacing the old key.
    * This ensures that the database maintains a reference to the correct image in S3, and the frontend can easily retrieve the associated image using these keys.
+
+## Teaser (MS3)
+![CourseReviewrTeaser](./images/CourseReviewrTeaser.png)
