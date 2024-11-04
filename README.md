@@ -1,6 +1,8 @@
 # CourseReviewr
 
-## System Definition (MS0)
+![CourseReviewrTeaser](./images/Teaser.png)
+
+## System Definition
 
 ### Purpose
 
@@ -75,6 +77,3 @@ Using Amazon Simple Storage Service (S3) to store and retrieve images for our sy
 2. Associations:
    * When a user or course photo is updated, the S3 key for the new image is saved in the database, replacing the old key.
    * This ensures that the database maintains a reference to the correct image in S3, and the frontend can easily retrieve the associated image using these keys.
-
-## Teaser (MS3)
-![CourseReviewrTeaser](./images/Teaser.png)
